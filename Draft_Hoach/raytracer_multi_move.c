@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raytracer_multi.c                                  :+:      :+:    :+:   */
+/*   raytracer_multi_move.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:55:10 by honguyen          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/12/09 15:58:31 by marvin           ###   ########.fr       */
-=======
-/*   Updated: 2024/12/08 16:39:00 by honguyen         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/12/08 17:40:03 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx_macos/mlx.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+#define MOVE_SPEED 10.0f
+#define ROTATE_SPEED 5.0f
+
+#define KEY_W 13  // Move forward
+#define KEY_S 1   // Move backward
+#define KEY_A 0   // Move left
+#define KEY_D 2   // Move right
+#define KEY_ESC 53 // Escape key to exit
+
+
 
 // Vector 3 Dimension
 typedef struct s_vec3d
@@ -97,6 +105,9 @@ typedef struct s_scene
     t_cube cube;      // Add cube
     float ambient;        // Ambient light intensity
     t_vec3d ambient_light_color;
+
+    void *mlx_ptr;
+    void *win_ptr;
 } t_scene;
 
 
@@ -140,6 +151,34 @@ t_vec3d normalize_vec3d(t_vec3d v)
     float len = length_vec3d(v);
     return scale_vec3d(v, 1.0f / len);
 }
+
+
+
+// Key press handler to move the camera position
+int handle_key_press(int keycode, t_scene *scene)
+{
+    if (keycode == 123)  // Left arrow
+        scene->camera.origin.x -= MOVE_SPEED;  // Move camera left
+    else if (keycode == 124)  // Right arrow
+        scene->camera.origin.x += MOVE_SPEED;  // Move camera right
+    else if (keycode == 126)  // Up arrow
+        scene->camera.origin.y += MOVE_SPEED;  // Move camera up
+    else if (keycode == 125)  // Down arrow
+        scene->camera.origin.y -= MOVE_SPEED;  // Move camera down
+    else if (keycode == 13)  // W key
+        scene->camera.origin.z += MOVE_SPEED;  // Move camera forward (along negative Z-axis)
+    else if (keycode == 1)  // S key
+        scene->camera.origin.z -= MOVE_SPEED;  // Move camera backward (along negative Z-axis)
+    else if (keycode == 12)  // Q key
+        scene->camera.origin.y += MOVE_SPEED;  // Move camera up (Y-axis)
+    else if (keycode == 14)  // E key
+        scene->camera.origin.y -= MOVE_SPEED;  // Move camera down (Y-axis)
+    else if (keycode == 53)  // ESC key
+        exit(0);  // Exit the program
+    
+    return (0);
+}
+
 
 
 // All intersection with objects
@@ -427,15 +466,38 @@ void render_scene(t_scene scene, void *mlx_ptr, void *win_ptr)
             ray_dir = normalize_vec3d(ray_dir);
             t_ray ray = {scene.camera.origin, ray_dir};
             t_vec3d color = calculate_color(ray, scene);
-            int r = (int)(color.x);
-            int g = (int)(color.y);
-            int b = (int)(color.z);
+            int r = (int)(fminf(255.0f, fmaxf(0.0f, color.x)));
+            int g = (int)(fminf(255.0f, fmaxf(0.0f, color.y)));
+            int b = (int)(fminf(255.0f, fmaxf(0.0f, color.z)));
+
 
             // Put the pixel to the window using mlx_pixel_put
             mlx_pixel_put(mlx_ptr, win_ptr, x, y, (r << 16) | (g << 8) | b);
         }
     }
 }
+
+// Continuously render the scene on every frame
+int update_scene(t_scene *scene)
+{
+    // Clear the window by filling it with a black color
+    mlx_clear_window(scene->mlx_ptr, scene->win_ptr);
+
+    // Render the scene with updated camera position
+    render_scene(*scene, scene->mlx_ptr, scene->win_ptr);
+
+    return (0);
+}
+
+
+// Function to handle window close event
+int close_window(void *param)
+{
+    (void)param;  // Suppress unused variable warning
+    exit(0);  // Exit the program
+    return (0);
+}
+
 
 int main()
 {
@@ -457,27 +519,34 @@ int main()
     }
 
     t_scene scene = {
-        .camera = {{0, 1, 3}, {0, 0, -1}, 90},  // Camera moved closer and leveled at z = 3
-        .light = {{5, 5, 5}, 0.8f, {255, 255, 255}},  // Light position above and to the right
-        .sphere = {{0, 0, -5}, 1.0f, {255, 0, 0}},  // Red sphere closer to the camera
-        .cylinder = {{-2, -1, -5}, {0, 1, 0}, 1.0f, 3.0f, {0, 0, 255}},  // Blue cylinder closer and more centered
-        .plane = {{0, -2, 0}, {0, 1, 0}, {0, 255, 0}},  // Green ground plane, positioned lower
-        .cone = {{0, 0, -6}, {0, 1, -0.2}, M_PI / 4, {255, 255, 0}},  // Larger yellow cone, closer to the camera
-        .cube = {{-2, -1, -6}, {2, 2, -4}, {0, 255, 255}},  // Cyan cube, moved closer
+        .camera = {{0, 3, 10}, {0, 0, -1}, 90},  // Camera moved to Z=10 for a better view of the objects
+        .light = {{5, 5, 5}, 0.8f, {255, 255, 255}},  // Light positioned above and to the right of the camera
+        .sphere = {{0, 0, -5}, 1.0f, {255, 0, 0}},  // Red sphere at Z=-5
+        .cylinder = {{-4, 0, -10}, {0, 1, 0}, 1.0f, 3.0f, {0, 0, 255}},  // Blue cylinder at X=-4, Z=-10
+        .plane = {{0, -2, 0}, {0, 1, 0}, {0, 255, 0}},  // Green ground plane at Z=0, Y=-2
+        .cone = {{5, 0, -10}, {0, 1, -0.2}, M_PI / 4, {255, 255, 0}},  // Yellow cone at X=5, Z=-10
+        .cube = {{-6, -1, -15}, {2, 2, -12}, {0, 255, 255}},  // Cyan cube at X=-6, Z=-15
         .ambient = 0.25f,  // Ambient light intensity
-        .ambient_light_color = {255, 255, 255}  // White ambient light
+        .ambient_light_color = {255, 255, 255}, // White ambient light
+        .mlx_ptr = mlx_ptr,
+        .win_ptr = win_ptr
     };
 
+    // Set up key press handler
+    mlx_key_hook(win_ptr, handle_key_press, &scene);
+    // Continuously update the scene (render the scene)
+    mlx_loop_hook(mlx_ptr, update_scene, &scene);
+
+    // Handle window close event
+    mlx_hook(win_ptr, 17, 0, close_window, NULL);
+    
 
 
-    // Render the scene to the window
-    render_scene(scene, mlx_ptr, win_ptr);
-
-    // Wait for user to close the window
+    // Start the event loop
     mlx_loop(mlx_ptr);
 
     return 0;
 }
 
-// gcc -o raytracer raytracer.c -L./mlx_macos  -lmlx -framework OpenGL -framework AppKit; ./raytracer
-//  gcc -o raytracer raytracer_multi.c -L./mlx_linux -lmlx -lX11 -lXext -lm ; ./raytracer
+// gcc -o raytracer raytracer.c -L./mlx_macos  -lmlx -framework OpenGL -framework AppKit
+// ./raytracer
