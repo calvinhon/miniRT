@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracer_multi.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:55:10 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/08 16:14:11 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:58:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,5 +319,5 @@ int main()
     return 0;
 }
 
-// gcc -o raytracer raytracer.c -L./mlx_macos  -lmlx -framework OpenGL -framework AppKit
-// ./raytracer
+// gcc -o raytracer raytracer.c -L./mlx_macos  -lmlx -framework OpenGL -framework AppKit; ./raytracer
+//  gcc -o raytracer raytracer_multi.c -L./mlx_linux -lmlx -lX11 -lXext -lm ; ./raytracer
