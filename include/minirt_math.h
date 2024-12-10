@@ -10,6 +10,7 @@ typedef struct s_point
 	double	x;
 	double	y;
 	double	z;
+	double	p;
 }	t_point;
 
 typedef struct s_vector
@@ -17,6 +18,7 @@ typedef struct s_vector
 	double	x;
 	double	y;
 	double	z;
+	double	p;
 }	t_vector;
 
 t_point		create_point(double x, double y, double z);

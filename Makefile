@@ -28,9 +28,11 @@ LIBFT_DIR = libs/libft
 INCL_DIR = include
 SRC_FILES = main.c \
 		$(addprefix parsing/, parse.c) \
+		$(addprefix draw/, draw.c) \
 		$(addprefix colors/, colors.c) \
 		$(addprefix controls/, controls.c) \
-		$(addprefix math/, point.c vector_1.c vector_2.c)
+		$(addprefix math/, point.c vector_1.c vector_2.c) \
+		destroy/destroy.c
 SRCS = $(addprefix src/, $(SRC_FILES))
 OBJS = $(SRCS:.c=.o)
 

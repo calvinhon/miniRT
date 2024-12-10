@@ -7,17 +7,19 @@ double	magnitude(t_vector v)
 
 t_vector	normalize(t_vector v)
 {
-	t_vector	new_v;
 	double		mag_v;
 
 	mag_v = magnitude(v);
-	new_v.x = v.x / mag_v;
-	new_v.y = v.y / mag_v;
-	new_v.z = v.z / mag_v;
-	return (new_v);
+	return (create_vector(v.x / mag_v, v.y / mag_v, v.z / mag_v));
 }
 
 double	dot(t_vector v1, t_vector v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+}
+
+t_vector	cross(t_vector v1, t_vector v2)
+{
+	return (create_vector(v1.x * v2.y - v1.y * v2. x,
+		v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z));
 }
