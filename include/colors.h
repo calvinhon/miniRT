@@ -1,12 +1,7 @@
 #ifndef COLORS_H
 # define COLORS_H
 
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_color;
+# include "structs.h"
 
 t_color	create_color(int r, int g, int b);
 t_color	add_colors(t_color c1, t_color c2);

@@ -1,25 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt_math.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/11 16:54:07 by marvin            #+#    #+#             */
+/*   Updated: 2024/12/11 16:54:07 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_MATH_H
 # define MINIRT_MATH_H
 
 # include <math.h>
+# include "structs.h"
 
 # define EPISILON 0.00001
-
-typedef struct s_point
-{
-	double	x;
-	double	y;
-	double	z;
-	double	p;
-}	t_point;
-
-typedef struct s_vector
-{
-	double	x;
-	double	y;
-	double	z;
-	double	p;
-}	t_vector;
 
 t_point		create_point(double x, double y, double z);
 t_point		add_v_to_p(t_point p, t_vector v);
