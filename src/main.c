@@ -87,7 +87,7 @@ int main(int ac, char **av)
 	ini_all(minirt);
 	ray_trace(minirt);
     mlx_key_hook(minirt->win, handle_keypress, minirt);
-	mlx_hook(minirt->win, DestroyNotify, StructureNotifyMask, close_window, minirt); 
+	mlx_hook(minirt->win, 17, 0, close_window, minirt); //17, 0 = DestroyNotify, StructureNotifyMask,
     mlx_loop(minirt->mlx);
     free_minirt(minirt);
     return (OK);

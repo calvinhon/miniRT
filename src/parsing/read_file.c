@@ -40,5 +40,7 @@ char *read_file(t_minirt *minirt, char *file)
 			free(line);
 	}
 	close(fd);
+    if (!ft_strlen(data))
+        errors(ER_EMPTY_MAP, minirt);
 	return (data);
 }
