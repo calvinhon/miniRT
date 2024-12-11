@@ -16,6 +16,8 @@
 # include "../libs/libft/libft.h"
 # include "../libs/mlx_linux/mlx.h"
 # include "../libs/mlx_macos/mlx.h"
+# include "structs.h"
+# include "macros.h"
 
 # define WINDOW_W 1920
 # define WINDOW_L 1080
@@ -30,11 +32,6 @@ typedef struct s_mlx_vars
 	int		l_len;
 	int		end;
 }	t_mlx_vars;
-
-typedef struct s_world
-{
-	t_mlx_vars	mlx;
-}	t_world;
 
 void	set_controls(t_mlx_vars *env);
 

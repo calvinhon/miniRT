@@ -19,6 +19,8 @@
 # define LIME 0x32CD32
 # define PURPLE 0x800080
 
+# include "structs.h"
+
 typedef struct s_color
 {
 	int	r;

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 16:52:37 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/11 16:52:37 by marvin           ###   ########.fr       */
+/*   Created: 2024/12/11 17:47:33 by marvin            #+#    #+#             */
+/*   Updated: 2024/12/11 17:47:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-t_minirt *parse(char *file)
+void    check_file(char *file)
 {
-    t_minirt    *minirt;
-    char        *data;
+        size_t  len;
 
-    data = read_file(file);
-    check_data(data);
-    parse_data(minirt, data);
-    free(data);
-    return (minirt);
+        len = ft_strlen(file);
+        if (len < 3)
+            errors(ER_FILE, NULL);
+        else if (ft_strnstr(file + (len - 3), ".rt", len));
+            errors(ER_FILE, NULL);
+        return ;
 }

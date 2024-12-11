@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   new_minirt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 16:52:37 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/11 16:52:37 by marvin           ###   ########.fr       */
+/*   Created: 2024/12/11 18:00:25 by marvin            #+#    #+#             */
+/*   Updated: 2024/12/11 18:00:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-t_minirt *parse(char *file)
+t_minirt	*new_minirt(void)
 {
-    t_minirt    *minirt;
-    char        *data;
+	t_minirt	*minirt;
 
-    data = read_file(file);
-    check_data(data);
-    parse_data(minirt, data);
-    free(data);
-    return (minirt);
+	minirt = ft_calloc(1, sizeof(t_minirt));
+	if (!minirt)
+		return (NULL);
+	minirt->objs = new_obj((void *)&copy_obj, NULL, &free, (void *)&write_obj);
+	minirt->lights = new_light((void *)&copy_light, NULL, &free, (void *)&light_print);
+	return (minirt);
 }
