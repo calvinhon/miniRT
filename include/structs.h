@@ -25,13 +25,41 @@ typedef struct s_point
 	double	p;
 }	t_point;
 
-typedef struct s_vector
+typedef struct s_vec2d
+{
+	double	x;
+	double	y;
+}	t_vec2d;
+
+typedef struct s_vec3d
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_vec3d;
+
+typedef struct s_vec4d
 {
 	double	x;
 	double	y;
 	double	z;
 	double	p;
-}	t_vector;
+}	t_vec4d;
+
+typedef struct s_mat2d
+{
+	double 	matrix[4];
+}	t_mat2d;
+
+typedef struct s_mat3d
+{
+	double 	matrix[9];
+}	t_mat3d;
+
+typedef struct s_mat4d
+{
+	double	matrix[16];
+}	t_mat4d;
 
 typedef struct s_color
 {
@@ -43,7 +71,7 @@ typedef struct s_color
 typedef struct s_ray
 {
     t_point origin;
-    t_vector direction;
+    t_vec4d direction;
 } t_ray;
 
 // Light source
@@ -58,7 +86,7 @@ typedef struct s_light
 typedef struct s_plane
 {
     t_point point;   // A point on the plane
-    t_vector normal;  // Normal vector to the plane
+    t_vec4d normal;  // Normal vector to the plane
     t_color color;   // Color of the plane
 } t_plane;
 
@@ -72,7 +100,7 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
     t_point     base;     // base center of the cylinder
-    t_vector    axis;     // axis vector (direction of the cylinder)
+    t_vec4d    axis;     // axis vector (direction of the cylinder)
     float       radius;     // radius of the cylinder
     float       height;     // height of the cylinder
     t_color     color;    // color of the cylinder
@@ -81,7 +109,7 @@ typedef struct s_cylinder
 typedef struct s_cone
 {
     t_point     apex;     // Apex of the cone
-    t_vector    axis;     // Axis vector (direction of the cone)
+    t_vec4d    axis;     // Axis vector (direction of the cone)
     float       angle;      // Half-angle of the cone in radians
     t_color     color;    // Color of the cone
 }               t_cone;
@@ -96,7 +124,7 @@ typedef struct s_cube
 typedef struct s_camera
 {
     t_point     origin;
-    t_vector    direction;
+    t_vec4d    direction;
     float       fov;
 } t_camera;
 
@@ -113,7 +141,7 @@ typedef struct s_scene
     t_color     ambient_color;
 }   t_scene;
 
-typedef struct s_graphic
+typedef struct s_mlx_vars
 {
 	void	*mlx;
 	void	*win;
@@ -122,7 +150,7 @@ typedef struct s_graphic
 	int		bpp;
 	int		l_len;
 	int		end;
-}	t_graphic;
+}	t_mlx_vars;
 
 typedef struct s_threads
 {

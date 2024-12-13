@@ -50,9 +50,6 @@
 
 int	x_close(t_mlx_vars *env)
 {
-	int	i;
-
-	i = -1;
 	mlx_destroy_image(env->mlx, env->img);
 	mlx_destroy_window(env->mlx, env->win);
 	exit (0);
@@ -60,10 +57,11 @@ int	x_close(t_mlx_vars *env)
 
 int	key(int key, t_mlx_vars *env)
 {
-	if (key == 53)
+	printf("key: %d\n", key);
+	if (key == ESC)
 		return (x_close(env));
-	// else if ((key >= 123 && key <= 126) | (key >= 83 && key <= 87)
-	// 	| (key >= 0 && key <= 2) | (key == 13) | (key == 27) | (key == 24))
+	// else if ((key >= 123 && key <= 126) || (key >= 83 && key <= 87)
+	// 	|| (key >= 0 && key <= 2) || (key == 13) || (key == 27) || (key == 24))
 	// 	key_triggers(key, env);
 	// else if (key == 49)
 	// 	projection(env);
@@ -73,7 +71,7 @@ int	key(int key, t_mlx_vars *env)
 
 void	set_controls(t_mlx_vars *env)
 {
-	mlx_hook(env->win, 2, 0, key, env);
+	mlx_key_hook(env->win, key, env);
 	// mlx_hook(env->win, 4, 0, mouse, env);
 	mlx_hook(env->win, 17, 0, x_close, env);
 }

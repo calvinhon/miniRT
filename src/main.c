@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "minirt_math.h"
 
 void	draw(t_mlx_vars *env);
 
@@ -33,7 +34,7 @@ int	init_env(t_mlx_vars *env)
 
 int main(int ac, char **av)
 {
-	t_mlx_vars	env;
+	// t_mlx_vars	env;
 
 	if (ac != 1) // change to 2
 	{
@@ -41,90 +42,57 @@ int main(int ac, char **av)
 		return (1);
 	}
 	(void)av;
-	if (init_env(&env))
-		return (1);
-	draw(&env);
-	mlx_loop(env.mlx);
+	// if (init_env(&env))
+	// 	return (1);
+	// draw(&env);
+	// mlx_loop(env.mlx);
 
+	t_vec4d v1;
+	t_vec4d v2;
+	t_vec4d v3;
+	t_vec4d v4;
+	// t_vec4d v5;
+	// t_vec4d v6;
+	t_mat4d m1;
+	t_mat4d m2;
+	t_mat4d m3;
 
-#include "../include/minirt.h"
-
-void	errors(int err_code, t_minirt *minirt)
-{
-	close_minirt(minirt);
-	if (err_code == ER_AGC)
-		ft_putstr_fd(ER_USAGE, 2);
-	else if (err_code == ER_FILE)
-		ft_putstr_fd(ER_NOT_RT, 2);
-	else if (err_code == ER_MOR)
-		ft_putstr_fd(ER_NOT_RT, 2);
-	else
-		ft_putstr_fd("Other Errors \n", 2);
-	exit(err_code);
-}
-
-// can delete below as I have in controls directory
-int handle_keypress(int key, t_minirt *minirt)
-{
-	if (key == KEY_LEFT || key == KEY_A)
-		minirt->camera.origin.x -= 10;
-	else if (key == KEY_RIGHT || key == KEY_D)
-		minirt->camera.origin.x += 10;
-	else if (key == KEY_UP || key == KEY_W)
-		minirt->camera.origin.y += 10;
-	else if (key == KEY_DOWN || key == KEY_S)
-		minirt->camera.origin.y -= 10;
-    else if (key == KEY_C)
-		minirt->camera.origin.z -= 10;
-	else if (key == KEY_V)
-		minirt->camera.origin.z += 10;
-	else if (key == KEY_ESC || key == KEY_Q)
-		close_window(minirt, "Window Closed\n");
-    ray_trace(minirt);
-	return (0);
-}
-
-void	free_minirt(t_minirt *minirt)
-{
-	if (!minirt)
-		return ;
-	if (minirt->win)
-		mlx_destroy_window(minirt->mlx, minirt->win);
-	if (minirt->img)
-		mlx_destroy_iamge(minirt->mlx, minirt->img);	
-	free_mlx(minirt->mlx);
-	free(minirt);
-	minirt = NULL;
+	v1 = create_vector(1, 2, 3);
+	v1.p = 4;
+	v2 = create_vector(2, 4, 4);
+	v2.p = 2;
+	v3 = create_vector(8, 6, 4);
+	v3.p = 1;
+	v4 = create_vector(0, 0, 0);
+	v4.p = 1;
+	m1 = create_mat4d(v1, v2, v3, v4);
 	
-  
-}
-int	close_window(t_minirt *minirt, char *s)
-{
-	if (*s == 'c')
-		s = "Window Closed\n";
-	ft_printf("%s", s);
-	mlx_clear_window(minirt->mlx, minirt->win);
-	mlx_destroy_window(minirt->mlx, minirt->win);
-	free_minirt(minirt);
-	exit(OK);
-    return OK;
-}
+	// v5 = create_vector(1, 2, 3);
+	// v5.p = 1;
+	// v6 = mult_mat4d_vec4d(m1, v5);
+	// printf("%.0f, %.0f, %.0f, %.0f\n", v6.x, v6.y, v6.z, v6.p);
+
+	v1 = create_vector(1, 0, 0);
+	v1.p = 0;
+	v2 = create_vector(0, 1, 0);
+	v2.p = 0;
+	v3 = create_vector(0, 0, 1);
+	v3.p = 0;
+	v4 = create_vector(5, 0, 0);
+	v4.p = 1;
+	m2 = create_mat4d(v1, v2, v3, v4);
+
+	m3 = mult_2x_mat4d(m1, m2);
+	int i = -1;
+	while (++i < 16)
+		printf("%d: %.0f\n", i, m3.matrix[i]);
+
+	m2 = transpose_mat4d(m3);
+	i = -1;
+	while (++i < 16)
+		printf("%d: %.0f\n", i, m2.matrix[i]);
+	// printf("equal? %d\n", is_equal_mat4d(m1, m3));
 
 
-int main(int ac, char **av)
-{
-	t_minirt	*minirt;
-
-	if (ac != 2)
-		errors(ER_AGC, NULL);
-	check_file(av[1]);
-	minirt = new_minirt();
-	parse(minirt, av[1]);
-	ini_all(minirt);
-	ray_trace(minirt);
-    mlx_key_hook(minirt->win, handle_keypress, minirt);
-	mlx_hook(minirt->win, DestroyNotify, StructureNotifyMask, close_window, minirt); 
-    mlx_loop(minirt->mlx);
-    free_minirt(minirt);
-    return (OK);
+	return (0);
 }

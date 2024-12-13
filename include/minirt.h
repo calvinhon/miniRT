@@ -22,17 +22,6 @@
 # define WINDOW_W 1920
 # define WINDOW_L 1080
 
-typedef struct s_mlx_vars
-{
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		l_len;
-	int		end;
-}	t_mlx_vars;
-
 void	set_controls(t_mlx_vars *env);
 
 #endif

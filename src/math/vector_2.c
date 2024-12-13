@@ -27,7 +27,7 @@ t_vec4d normalize(t_vec4d v)
 
 double dot(t_vec4d v1, t_vec4d v2)
 {
-	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.p * v2.p);
 }
 
 t_vec4d cross(t_vec4d v1, t_vec4d v2)

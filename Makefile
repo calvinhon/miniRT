@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = miniRT
-CFLAGS = -Wall -Wextra -Werror -Iinclude 
+CFLAGS = -Wall -Wextra -Werror -Iinclude -g
 LDFLAGS =
 OS = $(shell uname)
 
@@ -25,10 +25,11 @@ else ifeq (${OS}, Linux)
 	LDFLAGS += -L/usr/lib -lXext -lX11 -Ofast -lm
 endif
 
+# $(addprefix parsing/, parse.c new_minirt.c parsa_data.c read_file.c) \
+
 LIBFT_DIR = libs/libft
 INCL_DIR = include
 SRC_FILES = main.c \
-		$(addprefix parsing/, parse.c) \
 		$(addprefix draw/, draw.c) \
 		$(addprefix colors/, colors.c) \
 		$(addprefix controls/, controls.c) \

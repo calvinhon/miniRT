@@ -18,37 +18,6 @@
 
 #define EPISILON 0.00001
 
-typedef struct s_point
-{
-	double x;
-	double y;
-	double z;
-	double p;
-}	t_point;
-
-typedef struct s_vec4d
-{
-	double x;
-	double y;
-	double z;
-	double p;
-}	t_vec4d;
-
-typedef struct s_mat2d
-{
-	double matrix[2][2];
-}	t_mat2d;
-
-typedef struct s_mat3d
-{
-	double matrix[3][3];
-}	t_mat3d;
-
-typedef struct s_mat4d
-{
-	double matrix[4][4];
-}	t_mat4d;
-
 t_point	create_point(double x, double y, double z);
 t_point	add_v_to_p(t_point p, t_vec4d v);
 t_point	minus_v_from_p(t_point p, t_vec4d v);
@@ -60,5 +29,14 @@ t_vec4d	negate_vector(t_vec4d v);
 double	magnitude(t_vec4d v);
 t_vec4d	normalize(t_vec4d v);
 double	dot(t_vec4d v1, t_vec4d v2);
+t_mat2d	create_mat2d(t_vec2d v1, t_vec2d v2);
+t_mat3d	create_mat3d(t_vec3d v1, t_vec3d v2, t_vec3d v3);
+t_mat4d	create_mat4d(t_vec4d v1, t_vec4d v2, t_vec4d v3, t_vec4d v4);
+t_vec4d	row(t_mat4d m, int i);
+t_vec4d	col(t_mat4d m, int i);
+bool	is_equal_mat4d(t_mat4d m1, t_mat4d m2);
+t_mat4d	mult_2x_mat4d(t_mat4d m1, t_mat4d m2);
+t_vec4d	mult_mat4d_vec4d(t_mat4d m, t_vec4d v);
+t_mat4d	transpose_mat4d(t_mat4d m);
 
 #endif
