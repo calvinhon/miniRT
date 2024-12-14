@@ -18,6 +18,7 @@
 # include "../libs/mlx_macos/mlx.h"
 # include "structs.h"
 # include "macros.h"
+# include "parsing.h"
 
 # define WINDOW_W 1920
 # define WINDOW_L 1080
@@ -33,6 +34,7 @@ typedef struct s_mlx_vars
 	int		end;
 }	t_mlx_vars;
 
+void	errors(int err_code, t_minirt *minirt);
 void	set_controls(t_mlx_vars *env);
 
 #endif

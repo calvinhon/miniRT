@@ -3,14 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chon <chon@student.42.fr>                  +#+  +:+       +#+         #
+#    By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 18:56:23 by chon              #+#    #+#              #
-#    Updated: 2024/12/11 17:19:52 by chon             ###   ########.fr        #
+#    Updated: 2024/12/14 18:05:36 by honguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iinclude 
 LDFLAGS =
 OS = $(shell uname)

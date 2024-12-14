@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_minirt.c                                       :+:      :+:    :+:   */
+/*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 18:00:25 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/11 18:00:25 by marvin           ###   ########.fr       */
+/*   Created: 2024/12/11 17:47:33 by marvin            #+#    #+#             */
+/*   Updated: 2024/12/11 17:47:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minirt.h"
+#include "../../include/minirt.h"
 
-t_minirt	*new_minirt(void)
+void	check_filename(char *file)
 {
-	t_minirt	*minirt;
+	size_t	len;
 
-	minirt = ft_calloc(1, sizeof(t_minirt));
-	if (!minirt)
-		return (NULL);
-	minirt->objs = new_obj((void *)&copy_obj, NULL, &free, (void *)&write_obj);
-	minirt->lights = new_light((void *)&copy_light, NULL, &free, (void *)&light_print);
-	return (minirt);
+	len = ft_strlen(file);
+	if (len < 3)
+		errors(ER_FILE, NULL);
+	else if (!ft_strnstr(file + (len - 3), ".rt", len))
+		errors(ER_FILE, NULL);
 }
