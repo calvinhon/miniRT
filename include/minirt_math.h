@@ -21,7 +21,9 @@
 t_point	create_point(double x, double y, double z);
 t_point	add_v_to_p(t_point p, t_vec4d v);
 t_point	minus_v_from_p(t_point p, t_vec4d v);
-t_vec4d	create_vector(double x, double y, double z);
+t_vec2d	create_vec2d(double x, double y);
+t_vec3d	create_vec3d(double x, double y, double z);
+t_vec4d	create_vec4d(double x, double y, double z);
 t_vec4d	add_vectors(t_vec4d v1, t_vec4d v2);
 t_vec4d	subtract_points(t_point p1, t_point p2);
 t_vec4d	scale_vector(t_vec4d v, double factor);
@@ -38,5 +40,12 @@ bool	is_equal_mat4d(t_mat4d m1, t_mat4d m2);
 t_mat4d	mult_2x_mat4d(t_mat4d m1, t_mat4d m2);
 t_vec4d	mult_mat4d_vec4d(t_mat4d m, t_vec4d v);
 t_mat4d	transpose_mat4d(t_mat4d m);
+double	determinant_mat2d(t_mat2d m);
+double	determinant_mat3d(t_mat3d m);
+double	determinant_mat4d(t_mat4d m);
+t_mat2d	submatrix_mat3d(t_mat3d m, int row, int col);
+t_mat3d	submatrix_mat4d(t_mat4d m, int row, int col);
+double	minor_mat3d(t_mat3d m, int row, int col);
+double	cofactor_mat3d(t_mat3d m, int row, int col);
 
 #endif

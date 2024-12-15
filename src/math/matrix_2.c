@@ -47,16 +47,15 @@ t_vec4d	mult_mat4d_vec4d(t_mat4d m, t_vec4d v)
 t_mat4d	transpose_mat4d(t_mat4d m)
 {
 	t_mat4d new_m;
-	int		i;
-	int		j;
+	t_vec4d	v1;
+	t_vec4d	v2;
+	t_vec4d	v3;
+	t_vec4d	v4;
 
-	i = -1;
-	j = -1;
-	while (++i < 4)
-	{
-		while (++j < 4)
-			new_m.matrix[i] = m.matrix[i];
-		j = -1;
-	}
+	v1 = col(m, 0);
+	v2 = col(m, 1);
+	v3 = col(m, 2);
+	v4 = col(m, 3);
+	new_m = create_mat4d(v1, v2, v3, v4);
 	return (new_m);
 }

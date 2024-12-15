@@ -12,7 +12,26 @@
 
 #include "minirt_math.h"
 
-t_vec4d create_vector(double x, double y, double z)
+t_vec2d create_vec2d(double x, double y)
+{
+	t_vec2d v;
+
+	v.x = x;
+	v.y = y;
+	return (v);
+}
+
+t_vec3d create_vec3d(double x, double y, double z)
+{
+	t_vec3d v;
+
+	v.x = x;
+	v.y = y;
+	v.z = z;
+	return (v);
+}
+
+t_vec4d create_vec4d(double x, double y, double z)
 {
 	t_vec4d v;
 
@@ -21,24 +40,4 @@ t_vec4d create_vector(double x, double y, double z)
 	v.z = z;
 	v.p = 0;
 	return (v);
-}
-
-t_vec4d add_vectors(t_vec4d v1, t_vec4d v2)
-{
-	return (create_vector(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z));
-}
-
-t_vec4d subtract_points(t_point p1, t_point p2)
-{
-	return (create_vector(p1.x - p2.x, p1.y - p2.y, p1.z - p2.z));
-}
-
-t_vec4d scale_vector(t_vec4d v, double factor)
-{
-	return (create_vector(v.x * factor, v.y * factor, v.z * factor));
-}
-
-t_vec4d negate_vector(t_vec4d v)
-{
-	return (scale_vector(v, -1));
 }
