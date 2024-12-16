@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"minirt_math.h": "c",
+		"structs.h": "c"
+	}
+}

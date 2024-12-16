@@ -21,6 +21,8 @@
 t_point	create_point(double x, double y, double z);
 t_point	add_v_to_p(t_point p, t_vec4d v);
 t_point	minus_v_from_p(t_point p, t_vec4d v);
+double	dot_v_p(t_vec4d v, t_point p);
+t_point	mult_mat4d_pt4d(t_mat4d m, t_point p);
 t_vec2d	create_vec2d(double x, double y);
 t_vec3d	create_vec3d(double x, double y, double z);
 t_vec4d	create_vec4d(double x, double y, double z);
@@ -47,5 +49,9 @@ t_mat2d	submatrix_mat3d(t_mat3d m, int row, int col);
 t_mat3d	submatrix_mat4d(t_mat4d m, int row, int col);
 double	minor_mat3d(t_mat3d m, int row, int col);
 double	cofactor_mat3d(t_mat3d m, int row, int col);
+t_mat4d	inverse_mat4d(t_mat4d m);
+t_mat4d	identity_mat(void);
+t_mat4d	translation_mat(double x, double y, double z);
+t_mat4d	scaling_mat(double x, double y, double z);
 
 #endif

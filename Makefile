@@ -6,12 +6,12 @@
 #    By: chon <chon@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 18:56:23 by chon              #+#    #+#              #
-#    Updated: 2024/12/11 17:19:52 by chon             ###   ########.fr        #
+#    Updated: 2024/12/16 14:59:59 by chon             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
-CFLAGS = -Wall -Wextra -Werror -Iinclude -g
+CFLAGS = -Wall -Wextra -Werror -Iinclude -g -fsanitize=address
 LDFLAGS =
 OS = $(shell uname)
 
@@ -34,7 +34,7 @@ SRC_FILES = main.c \
 		$(addprefix colors/, colors.c) \
 		$(addprefix controls/, controls.c) \
 		$(addprefix math/, point.c vector_1.c vector_2.c vector_3.c \
-			matrix_1.c matrix_2.c matrix_3.c matrix_4.c) \
+			matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c) \
 		destroy/destroy.c
 SRCS = $(addprefix src/, $(SRC_FILES))
 OBJS = $(SRCS:.c=.o)

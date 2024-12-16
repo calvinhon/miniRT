@@ -149,11 +149,126 @@ int main(int ac, char **av)
 	// printf("minor: %.0f\n", minor_mat3d(m1, 1, 0));
 	// printf("cofactor: %.0f\n", cofactor_mat3d(m1, 1, 0));
 
-	t_vec3d	v1 = create_vec3d(1, 2, 6);
-	t_vec3d	v2 = create_vec3d(-5, 8, -4);
-	t_vec3d	v3 = create_vec3d(2, 6, 4);
-	t_mat3d	m1 = create_mat3d(v1, v2, v3);
-	printf("det: %.0f\n", determinant_mat3d(m1));
+	// t_vec3d	v1 = create_vec3d(1, 2, 6);
+	// t_vec3d	v2 = create_vec3d(-5, 8, -4);
+	// t_vec3d	v3 = create_vec3d(2, 6, 4);
+	// t_mat3d	m1 = create_mat3d(v1, v2, v3);
+	// printf("det: %.0f\n", determinant_mat3d(m1));
+
+	// t_vec4d v1;
+	// t_vec4d v2;
+	// t_vec4d v3;
+	// t_vec4d v4;
+	// t_mat4d m1;
+
+	// v1 = create_vec4d(-2, -8, 3);
+	// v1.p = 5;
+	// v2 = create_vec4d(-3, 1, 7);
+	// v2.p = 3;
+	// v3 = create_vec4d(1, 2, -9);
+	// v3.p = 6;
+	// v4 = create_vec4d(-6, 7, 7);
+	// v4.p = -9;
+	// v1 = create_vec4d(5, 10, -5);
+	// v1.p = -4;
+	// v2 = create_vec4d(5, 11, 1);
+	// v2.p = 0;
+	// v3 = create_vec4d(0, 10, -2);
+	// v3.p = 3;
+	// v4 = create_vec4d(3, 1, 4);
+	// v4.p = 5;
+	// m1 = create_mat4d(v1, v2, v3, v4);
+	// // printf("det1: %.0f\n", determinant_mat3d(submatrix_mat4d(m1, 0, 3)));
+	// printf("det: %.0f\n", determinant_mat4d(m1));
+
+	// v1 = create_vec4d(-5, 2, 6);
+	// v1.p = -8;
+	// v2 = create_vec4d(1, -5, 1);
+	// v2.p = 8;
+	// v3 = create_vec4d(7, 7, -6);
+	// v3.p = -7;
+	// v4 = create_vec4d(1, -3, 7);
+	// v4.p = 4;
+	// m1 = create_mat4d(v1, v2, v3, v4);
+	
+	// v1 = create_vec4d(8, -5, 9);
+	// v1.p = 2;
+	// v2 = create_vec4d(7, 5, 6);
+	// v2.p = 1;
+	// v3 = create_vec4d(-6, 0, 9);
+	// v3.p = 6;
+	// v4 = create_vec4d(-3, 0, -9);
+	// v4.p = -4;
+	// m1 = create_mat4d(v1, v2, v3, v4);
+	
+	// v1 = create_vec4d(9, 3, 0);
+	// v1.p = 9;
+	// v2 = create_vec4d(-5, -2, -6);
+	// v2.p = -3;
+	// v3 = create_vec4d(-4, 9, 6);
+	// v3.p = 4;
+	// v4 = create_vec4d(-7, 6, 6);
+	// v4.p = 2;
+	// m1 = create_mat4d(v1, v2, v3, v4);
+
+	// t_mat4d a;
+	// t_mat4d b;
+
+	// v1 = create_vec4d(3, -9, 7);
+	// v1.p = 3;
+	// v2 = create_vec4d(3, -8, 2);
+	// v2.p = -9;
+	// v3 = create_vec4d(-4, 4, 4);
+	// v3.p = 1;
+	// v4 = create_vec4d(-6, 5, -1);
+	// v4.p = 1;
+	// a = create_mat4d(v1, v2, v3, v4);
+	
+	// v1 = create_vec4d(8, 2, 2);
+	// v1.p = 2;
+	// v2 = create_vec4d(3, -1, 7);
+	// v2.p = 0;
+	// v3 = create_vec4d(7, 0, 5);
+	// v3.p = 4;
+	// v4 = create_vec4d(6, -2, 0);
+	// v4.p = 5;
+	// b = create_mat4d(v1, v2, v3, v4);
+
+	// int i = -1;
+	// int j = -1;
+	// t_mat4d m2;
+	// m2 = mult_2x_mat4d(a, b);
+	// m2 = mult_2x_mat4d(m2, inverse_mat4d(b));
+	// while (i < 15)
+	// {
+	// 	while (++j < 4)
+	// 		printf("%.0f ", m2.matrix[++i]);
+	// 	printf("\n");
+	// 	j = -1;
+	// }
+
+	t_mat4d	m;
+	t_point p;
+	t_vec4d v;
+	p = create_point(-3, 4, 5);
+	v = create_vec4d(-3, 4, 5);
+	// m = identity_mat();
+	m = translation_mat(5, -3, 2);
+	m = inverse_mat4d(m);
+	p = mult_mat4d_pt4d(m, p);
+	v = mult_mat4d_vec4d(m, v);
+	printf("%.0f, %.0f, %.0f\n", p.x, p.y, p.z);
+	printf("%.0f, %.0f, %.0f\n", v.x, v.y, v.z);
+	// m = scaling_mat(3, 4, 5);
+	// int i = -1;
+	// int j = -1;
+	// while (i < 15)
+	// {
+	// 	while (++j < 4)
+	// 		printf("%.0f ", m.matrix[++i]);
+	// 	printf("\n");
+	// 	j = -1;
+	// }
 
 	return (0);
 }
