@@ -6,7 +6,7 @@
 /*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:53:43 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/14 15:54:45 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:18:16 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 
 // math define
 # define PI             3.1415926535f
+# define MAX_LIGHT		100
 
 //define error codes
 # define OK         0
@@ -48,10 +49,16 @@
 # define ER_MLX     3
 # define ER_FILE    4
 # define ER_NOT_RT  5
-# define ER_OPEN_FILE  5
-# define ER_MALLOC  6
-# define ER_OTHERS  7
-# define ER_EMPTY_MAP  7
+# define ER_OPEN_FILE  	5
+# define ER_MALLOC  	6
+# define ER_EMPTY_MAP 	7
+# define ER_ONE_CAMERA 	8
+# define ER_ONE_AMBIENT 9
+# define ER_NO_LIGHT  	10
+# define ER_MAX_LIGHT 	11
+# define ER_NO_OBJ		12
+# define ER_OTHERS  	100
+
 
 
 

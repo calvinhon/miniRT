@@ -36,7 +36,14 @@ t_minirt	*new_minirt(void)
 
 	minirt->scene.light = NULL;
 	minirt->scene.objects = NULL;
-
+	minirt->scene.a = 0;
+	minirt->scene.c = 0;
+	minirt->scene.l = 0;
+	minirt->scene.pl = 0;
+	minirt->scene.sp = 0;
+	minirt->scene.cy = 0;
+	minirt->scene.cu = 0;
+	minirt->scene.co = 0;
 	minirt->threads = NULL;
 	return (minirt);
 }

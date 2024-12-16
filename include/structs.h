@@ -71,22 +71,22 @@ typedef struct s_light
 }				t_light;
 
 // Object types
-typedef enum e_object_type
+typedef enum e_objtype
 {
 	SPHERE,
 	CYLINDER,
 	PLANE,
 	CUBE,
 	CONE
-}			t_object_type;
+}			t_objtype;
 
 // Generic object structure
 typedef struct s_object
 {
-	t_object_type		type;
-	void				*data;
-	float				reflection;
-	float				shininess;
+	t_objtype	type;
+	void		*data;
+	float		reflection;
+	float		shininess;
 
 }				t_object;
 
@@ -135,6 +135,15 @@ typedef struct s_scene
 	t_camera	camera;
 	t_light		*light;
 	t_object	*objects;
+	size_t		a;
+	size_t		c;
+	size_t		l;
+	size_t		pl;
+	size_t		sp;
+	size_t		cy;
+	size_t		cu;
+	size_t		co;
+	size_t		n_objs;
 }				t_scene;
 
 typedef struct s_graphic
