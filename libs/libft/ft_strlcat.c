@@ -3,32 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 13:41:12 by chon              #+#    #+#             */
-/*   Updated: 2024/01/25 13:41:59 by chon             ###   ########.fr       */
+/*   Created: 2023/10/30 14:21:48 by honguyen          #+#    #+#             */
+/*   Updated: 2023/10/30 14:24:10 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
+size_t	ft_strlcat(char	*dest, const char	*src, size_t size)
 {
-	size_t	dest_len;
-	size_t	src_len;
+	size_t	len_src;
+	size_t	len_dest;
+	size_t	i;
+	size_t	space;
 
-	dest_len = ft_strlen(dest);
-	src_len = ft_strlen(src);
-	if (size == 0)
-		return (src_len);
-	if (size - 1 < dest_len)
-		return (size + src_len);
-	dest += dest_len;
-	while (size - 1 > dest_len && *src)
+	len_src = ft_strlen(src);
+	len_dest = ft_strlen(dest);
+	if (size <= len_dest)
+		return (size + len_src);
+	space = size - len_dest - 1;
+	i = 0;
+	while (i < space && src[i])
 	{
-		*dest++ = *src++;
-		size--;
+		dest[len_dest + i] = src[i];
+		i++;
 	}
-	*dest = '\0';
-	return (dest_len + src_len);
+	dest[len_dest + i] = '\0';
+	return (len_dest + len_src);
 }
+
+// int	main()
+// {
+// 	char destination[5] = "Hello, ";
+// 	const char *source = "World!";
+
+// 	size_t buffer_size = sizeof(destination);
+
+// 	size_t result = ft_strlcat(destination, source, buffer_size);
+
+// 	printf("Concatenated String: %s\n", destination);
+// 	printf("Resulting Length: %zu\n", result);
+
+// 	return 0;
+// }

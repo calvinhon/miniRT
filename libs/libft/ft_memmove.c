@@ -3,39 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 13:40:43 by chon              #+#    #+#             */
-/*   Updated: 2023/12/08 10:58:17 by chon             ###   ########.fr       */
+/*   Created: 2023/11/03 17:57:36 by nthoach           #+#    #+#             */
+/*   Updated: 2023/11/03 17:57:36 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+void	*ft_memmove(void *d, const void *s, size_t len)
 {
-	unsigned char		*dest_p;
-	const unsigned char	*src_p;
+	const unsigned char	*src;
+	unsigned char		*dst;
 
-	dest_p = dest;
-	src_p = src;
-	if (dest_p == src_p)
-		return (dest);
-	if (dest_p < src_p)
+	src = (const unsigned char *) s;
+	dst = (unsigned char *) d;
+	if ((dst > src) && (dst < src + len))
 	{
-		while (n > 0)
-		{
-			*dest_p++ = *src_p++;
-			n--;
-		}
-		return (dest);
+		src += len - 1;
+		dst += len - 1;
+		while (len--)
+			*dst-- = *src--;
+		return (d);
 	}
-	dest_p += n - 1;
-	src_p += n - 1;
-	while (n > 0)
-	{
-		*dest_p-- = *src_p--;
-		n--;
-	}
-	return (dest);
+	else
+		return (ft_memcpy(d, s, len));
 }

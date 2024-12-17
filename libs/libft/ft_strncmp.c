@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 13:41:22 by chon              #+#    #+#             */
-/*   Updated: 2024/09/03 14:08:50 by chon             ###   ########.fr       */
+/*   Created: 2023/05/10 14:07:54 by honguyen          #+#    #+#             */
+/*   Updated: 2023/05/21 16:19:41 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,29 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	while (n > 0)
+	while ((n > 0) && (*s1 || *s2))
 	{
-		if (*s1 != *s2 || *s1 == '\0' || *s2 == '\0')
-			return ((unsigned char)*s1 - (unsigned char)*s2);
+		if ((unsigned char)(*s1) != (unsigned char)(*s2))
+			return ((unsigned char)(*s1) - (unsigned char)(*s2));
 		s1++;
 		s2++;
 		n--;
 	}
 	return (0);
 }
+
+// int	ft_strncmp(const char *s1, const char *s2, size_t n)
+// {
+// 	while (n > 0 && *s1 && *s2)
+// 	{
+// 		if ((*s1 > *s2) || (*s1 < *s2))
+// 			return (*s1 - *s2);
+// 		else
+// 		{
+// 			s1++;
+// 			s2++;
+// 			n--;
+// 		}
+// 	}
+// 	return (0);
+// }

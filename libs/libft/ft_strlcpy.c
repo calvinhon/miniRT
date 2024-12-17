@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 13:41:15 by chon              #+#    #+#             */
-/*   Updated: 2024/01/25 13:43:01 by chon             ###   ########.fr       */
+/*   Created: 2023/10/31 16:53:57 by marvin            #+#    #+#             */
+/*   Updated: 2023/10/31 16:53:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t	src_len;
+	size_t	i;
 
-	src_len = ft_strlen(src);
-	if (size > 0)
+	i = 0;
+	if (dstsize == 0)
 	{
-		while (size - 1 > 0 && *src)
-		{
-			*dest++ = *src++;
-			size--;
-		}
-		*dest = '\0';
+		while (src[i])
+			i++;
+		return (i);
 	}
-	return (src_len);
+	while (i < dstsize - 1 && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (i < dstsize)
+		dst[i] = '\0';
+	while (src[i] != 0)
+		i++;
+	return (i);
 }

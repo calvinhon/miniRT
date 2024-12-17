@@ -3,34 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 13:33:30 by chon              #+#    #+#             */
-/*   Updated: 2024/04/30 15:41:51 by chon             ###   ########.fr       */
+/*   Created: 2023/11/03 15:45:34 by nthoach           #+#    #+#             */
+/*   Updated: 2023/11/03 15:45:34 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-long long	ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	long long	num;
-	long long	neg;
+	int			sign;	
+	long long	value;
+	long long	value_next;
 
-	num = 0;
-	neg = 1;
-	while ((*str > 8 && *str < 14) || *str == 32)
+	value = 0;
+	sign = 1;
+	while (*str == 32 || (*str >= 9 && *str <= 13))
 		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			neg = -1;
+	if (*str == '-')
+		sign = -1;
+	if (*str == '-' || *str == '+')
 		str++;
-	}
 	while (*str >= '0' && *str <= '9')
 	{
-		num = num * 10 + *str - 48;
+		value_next = value * 10 + sign * (*str - '0');
+		if (value_next > value && sign == -1)
+			return (0);
+		if (value_next < value && sign == 1)
+			return (-1);
+		value = value_next;
 		str++;
 	}
-	return (num * neg);
+	return (value);
 }
+
+// int main()
+// {
+// 	char a[] = "	  +++--+-76543ffssf654";
+//     printf("%d\n", ft_atoi(a));
+//     printf("%d\n", atoi(a));
+//      char b[] = "+++--+-76543ffssf654";
+//     printf("%d\n", ft_atoi(b));
+//     printf("%d\n", atoi(b));
+//      char c[] = "     +76543ffssf654";
+//     printf("%d\n", ft_atoi(c));
+//     printf("%d\n", atoi(c));
+//      char d[] = "2147483649";
+//     printf("%d\n", ft_atoi(d));
+//     printf("%d\n", atoi(d));
+//          char e[] = "2147483649";
+//     printf("%d\n", ft_atoi(e));
+//     printf("%d\n", atoi(e));
+// }

@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 10:17:10 by chon              #+#    #+#             */
-/*   Updated: 2023/12/21 10:17:10 by chon             ###   ########.fr       */
+/*   Created: 2023/10/31 16:53:57 by marvin            #+#    #+#             */
+/*   Updated: 2023/10/31 16:53:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f) (void *), void (*del)(void *))
 {
-	t_list	*orig_lst;
-	t_list	*new_lst;
-	t_list	*node;
+	t_list	*list_new;
+	t_list	*node_new;
 
-	if (!lst || !f || !del)
+	if (!lst)
 		return (NULL);
-	orig_lst = lst;
-	new_lst = NULL;
-	while (orig_lst)
+	list_new = NULL;
+	while (lst)
 	{
-		node = ft_lstnew(f(orig_lst->content));
-		if (!node)
+		node_new = ft_lstnew(f(lst->content));
+		if (!node_new)
 		{
-			ft_lstclear(&new_lst, del);
+			ft_lstclear(&list_new, del);
 			return (NULL);
 		}
-		ft_lstadd_back(&new_lst, node);
-		orig_lst = orig_lst->next;
+		ft_lstadd_back(&list_new, node_new);
+		lst = lst->next;
 	}
-	return (new_lst);
+	return (list_new);
 }

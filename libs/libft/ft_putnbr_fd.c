@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 13:40:52 by chon              #+#    #+#             */
-/*   Updated: 2023/12/08 10:16:47 by chon             ###   ########.fr       */
+/*   Created: 2023/11/03 18:41:07 by nthoach           #+#    #+#             */
+/*   Updated: 2023/11/03 18:41:07 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,60 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
+	long	pos_n;
 	char	c;
 
-	if (n == -2147483648)
-	{
-		write(fd, "-2147483648", 11);
-		return ;
-	}
-	if (n < 0)
+	pos_n = n;
+	if (pos_n < 0)
 	{
 		write(fd, "-", 1);
-		n *= -1;
+		pos_n = -pos_n;
 	}
-	if (n > 9)
+	if (pos_n < 10)
 	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
-	}
-	if (n < 10)
-	{
-		c = 48 + n;
+		c = pos_n + '0';
 		write(fd, &c, 1);
 	}
-	if (n / 10 == 0)
-		return ;
+	else
+	{
+		ft_putnbr_fd(pos_n / 10, fd);
+		c = pos_n % 10 + '0';
+		write(fd, &c, 1);
+	}
 }
+
+// int	main()
+// {
+// 	ft_putnbr_fd(INT64_MAX, 1);
+// }
+// Prototype of the putnbr function (you need to provide this function)
+// void ft_putnbr(int n);
+// int main()
+// {
+//     // Test cases
+//     int testCases[] = {0, 123, -456, 9999, -10000};
+
+//     for (int i = 0; i < sizeof(testCases) / sizeof(testCases[0]); i++) {
+//         int input = testCases[i];
+
+//         // Redirect stdout to capture the function's output
+//         freopen("output.txt", "w", stdout);
+
+//         ft_putnbr_fd(input, 1);
+
+//         // Restore the standard output
+//         fclose(stdout);
+
+//         // Read the output from the file
+//         FILE *outputFile = fopen("output.txt", "r");
+//         int result;
+//         fscanf(outputFile, "%d", &result);
+//         fclose(outputFile);
+
+//         // Check if the result matches the expected output
+//         assert(result == input);
+
+//         printf("Test case %d passed.\n", i);
+//     }
+//     return 0;
+// }

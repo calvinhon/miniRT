@@ -1,26 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 12:09:27 by chon              #+#    #+#             */
-/*   Updated: 2023/12/13 14:20:45 by chon             ###   ########.fr       */
+/*   Created: 2023/10/31 16:53:57 by marvin            #+#    #+#             */
+/*   Updated: 2023/10/31 16:53:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+//#include <stdio.h>
 
 int	ft_lstsize(t_list *lst)
 {
-	int		size;
+	int	n;
 
-	size = 0;
+	if (!lst)
+		return (0);
+	n = 0;
 	while (lst)
 	{
 		lst = lst->next;
-		size++;
+		n++;
 	}
-	return (size);
+	return (n);
 }
+
+// int	main()
+// {
+// 	t_list *lst[1] = {ft_lstnew("akakaka")};
+// 	t_list *new;
+// 	new = ft_lstnew("sdds");
+// 	ft_lstadd_front(lst, new);
+// 	new = ft_lstnew("sddsh");
+// 	ft_lstadd_front(lst, new);
+// 	printf("\n\n > lst %d\n",ft_lstsize(new));
+// 	return (0);
+// }

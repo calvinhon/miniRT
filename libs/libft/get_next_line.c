@@ -3,113 +3,130 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 14:24:56 by chon              #+#    #+#             */
-/*   Updated: 2024/01/25 13:38:59 by chon             ###   ########.fr       */
+/*   Created: 2023/11/25 10:46:38 by nthoach           #+#    #+#             */
+/*   Updated: 2024/01/11 16:26:01 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*free_and_return_null(char *str)
+char	*add_text(char *store_in, char *buffer)
 {
-	free(str);
-	return (NULL);
-}
+	char	*store_out;
+	size_t	i;
+	size_t	j;
 
-char	*move_buffer_pos(char *buffer)
-{
-	char	*new_buffer_pos;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	if (!buffer[i])
-		return (free_and_return_null(buffer));
-	new_buffer_pos = malloc(ft_strlen(buffer) - i++ + 1);
-	if (!new_buffer_pos)
+	if (!store_in || !buffer)
 		return (NULL);
+	store_out = malloc((gnl_len(store_in) + gnl_len(buffer) + 1));
+	if (!store_out)
+		return (NULL);
+	i = 0;
 	j = 0;
-	if (!buffer[i])
-	{
-		free(new_buffer_pos);
-		return (free_and_return_null(buffer));
-	}
-	while (buffer[i])
-		new_buffer_pos[j++] = buffer[i++];
-	new_buffer_pos[j] = '\0';
-	free(buffer);
-	return (new_buffer_pos);
+	while (store_in[j] != '\0')
+		store_out[i++] = store_in[j++];
+	free(store_in);
+	j = 0;
+	while (buffer[j] != '\0')
+		store_out[i++] = buffer[j++];
+	store_out[i] = '\0';
+	return (store_out);
 }
 
-char	*get_line(char *buffer)
+char	*extract_line(char *store_text)
 {
-	char	*line;
-	int		i;
+	char	*line_out;
+	size_t	len;
+	size_t	i;
 
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	line = malloc(i + 2);
-	if (!line)
+	len = 0;
+	if (!store_text[0])
+		return (NULL);
+	while (store_text[len] && store_text[len] != '\n')
+		len++;
+	line_out = malloc((len + 2) * sizeof(char));
+	if (!line_out)
 		return (NULL);
 	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
+	while (i < len)
 	{
-		line[i] = buffer[i];
+		line_out[i] = store_text[i];
 		i++;
 	}
-	if (buffer[i] == '\n')
-	{
-		line[i] = buffer[i];
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
+	if (store_text[len] == '\n')
+		line_out[len++] = '\n';
+	line_out[len] = '\0';
+	return (line_out);
 }
 
-char	*pull_text(char *buffer, int fd)
+char	*take_remain(char	*store_in)
 {
-	char	*text;
-	int		bytes_read;
+	char	*store_out;
+	size_t	i;
+	size_t	j;
 
-	text = malloc(BUFFER_SIZE + 1);
-	if (!text)
-		return (NULL);
-	bytes_read = 1;
-	while (!ft_strchr(buffer, '\n') && bytes_read > 0)
+	i = 0;
+	j = 0;
+	while (store_in[i] && store_in[i] != '\n')
+		i++;
+	if (!store_in[i])
 	{
-		bytes_read = read(fd, text, BUFFER_SIZE);
-		if (bytes_read == -1)
+		free(store_in);
+		return (NULL);
+	}
+	store_out = malloc(sizeof(char) * (gnl_len(store_in) - i + 1));
+	if (!store_out)
+		return (NULL);
+	i++;
+	while (store_in[i])
+		store_out[j++] = store_in[i++];
+	store_out[j] = '\0';
+	free(store_in);
+	return (store_out);
+}
+
+char	*read_line(char	*store_in, int fd)
+{
+	char	*buffer;
+	int		n_byte;
+
+	n_byte = 1;
+	if (store_in == NULL)
+		store_in = gnl_calloc(1, 1);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (buffer == NULL)
+		return (NULL);
+	while (n_byte > 0)
+	{
+		n_byte = read(fd, buffer, BUFFER_SIZE);
+		if (n_byte == -1)
 		{
-			if (buffer)
-				free(buffer);
-			return (free_and_return_null(text));
+			free(buffer);
+			free(store_in);
+			return (NULL);
 		}
-		text[bytes_read] = '\0';
-		buffer = ft_strjoin(buffer, text, 0, 0);
+		buffer[n_byte] = 0;
+		store_in = add_text(store_in, buffer);
+		if (gnl_strchr(buffer, '\n'))
+			break ;
 	}
-	free(text);
-	return (buffer);
+	free(buffer);
+	return (store_in);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer[10240];
-	char		*line;
+	static char	*store_text;
+	char		*line_out;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX - 1)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	buffer[fd] = pull_text(buffer[fd], fd);
-	if (ft_strlen(buffer[fd]) == 0)
-	{
-		free(buffer[fd]);
+	store_text = read_line(store_text, fd);
+	if (!store_text)
 		return (NULL);
-	}
-	line = get_line(buffer[fd]);
-	buffer[fd] = move_buffer_pos(buffer[fd]);
-	return (line);
+	line_out = extract_line(store_text);
+	store_text = take_remain(store_text);
+	return (line_out);
 }
