@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   31read_file.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 17:22:13 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/14 17:22:13 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:45:53 by nthoach          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../include/minirt.h"
 
@@ -52,7 +52,6 @@ void	check_elements(t_minirt *minirt)
 		errors(ER_NO_OBJ, minirt);
 }
 
-
 // Helper function: Calculate the memory required
 size_t	calculate_required_size(char *file, t_minirt *minirt)
 {
@@ -78,7 +77,7 @@ size_t	calculate_required_size(char *file, t_minirt *minirt)
 	}
 	close(fd);
 	check_elements(minirt);
-	return (total_size + 1);
+	return (total_size);
 }
 
 
@@ -89,7 +88,7 @@ char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 	char	*data;
 	size_t	line_len;
 
-	data = ft_calloc(calculate_required_size(file, minirt), sizeof(char));
+	data = ft_calloc(calculate_required_size(file, minirt) + 1, sizeof(char));
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		errors(ER_OPEN_FILE, minirt);

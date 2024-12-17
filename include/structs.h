@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:54:38 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/11 16:54:38 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/17 19:17:59 by nthoach          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
@@ -134,16 +134,18 @@ typedef struct s_scene
 	t_ambient	ambient;
 	t_camera	camera;
 	t_light		*light;
-	t_object	*objects;
+	size_t		l;
+	t_object	*objs;
+	size_t		n_objs;
+	size_t		idx_obj;
 	size_t		a;
 	size_t		c;
-	size_t		l;
 	size_t		pl;
 	size_t		sp;
 	size_t		cy;
 	size_t		cu;
 	size_t		co;
-	size_t		n_objs;
+
 }				t_scene;
 
 typedef struct s_graphic
