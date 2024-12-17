@@ -25,5 +25,7 @@ int	main(int ac, char **av)
 	// ini_all(minirt);
 	// ray_trace(minirt);
 	// free_minirt(minirt);
+	if (minirt) //test
+		free(minirt); //test
 	return (OK);
 }

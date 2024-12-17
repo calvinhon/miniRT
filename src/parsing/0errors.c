@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   0errors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 15:39:11 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/14 18:32:34 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/12/17 11:53:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	errors(int err_code, t_minirt *minirt)
 {
 	//close_minirt(minirt);
-	(void) minirt; //
+	if (minirt)
+		free(minirt); //
 	if (err_code == ER_AGC)
 		ft_putstr_fd(MS_USAGE, 2);
 	else if (err_code == ER_FILE)

@@ -38,7 +38,7 @@ void	parse(t_minirt *minirt, char *file)
 	ft_printf("cubic = %d\n", minirt->scene.cu);	
 	ft_printf("cone = %d\n", minirt->scene.co);		
 	//
-	allocate_scene(minirt);
-	parse_data(minirt, data);
+	// allocate_scene(minirt);
+	// parse_data(minirt, data);
 	free(data);
 }
