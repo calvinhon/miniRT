@@ -78,7 +78,7 @@ size_t	calculate_required_size(char *file, t_minirt *minirt)
 	}
 	close(fd);
 	check_elements(minirt);
-	return (total_size);
+	return (total_size + 1);
 }
 
 
@@ -101,13 +101,14 @@ char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 		if (!ft_strchr("\n#", line[0]))
 		{
 			line_len = ft_strlen(line);
-			if (line[line_len - 1] == '\n')
-				line[line_len - 1] = ' ';
+			// if (line[line_len - 1] == '\n')
+			// 	line[line_len - 1] = ' ';
 			ft_memcpy(data + *total_size, line, line_len);
 			*total_size += line_len;
 		}
 		free(line);
 	}
+	data[*total_size]= '\0';
 	close(fd);
 	return (data);
 }

@@ -17,8 +17,8 @@ void	parse(t_minirt *minirt, char *file)
 	char	*data;
 	size_t	total_size;
 
-	data = NULL;
 	total_size = 0;
+	data = NULL;
 	data = file_data(minirt, &total_size, file);
 	if (!data || total_size == 0)
 	{
@@ -38,7 +38,7 @@ void	parse(t_minirt *minirt, char *file)
 	ft_printf("cubic = %d\n", minirt->scene.cu);	
 	ft_printf("cone = %d\n", minirt->scene.co);		
 	//
-	// allocate_scene(minirt);
+	//allocate_light_obj(minirt);
 	// parse_data(minirt, data);
 	free(data);
 }

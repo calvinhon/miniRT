@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   32parse_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:43:24 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/16 19:51:04 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:33:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,21 @@
 
 void	parse_ambient(t_minirt *minirt, char *data, size_t *i)
 {
-	float	intensity;
-	t_color	color;
-
 	(*i) += 1;
-	intensity = parse_float(data, i);
-	color = parse_color(data, i);
-	minirt->scene.ambient.intensity = intensity;
-	minirt->scene.ambient.color = color;
+	minirt->scene.ambient.intensity = parse_float(data, i);
+	minirt->scene.ambient.color = parse_color(data, i);
 }
 
 void	parse_camera(t_minirt *minirt, char *data, size_t *i)
 {
-	t_point		origin;
-	t_vector	direction;
-	float		fov;
-
-
 	(*i) += 1;
-	origin = parse_point(data, i);
-	direction = parse_vector(data, i);
-	fov = parse_float(data, i);
-	minirt->scene.camera.origin = origin;
-	minirt->scene.camera.direction = direction;
-	minirt->scene.camera.fov = fov;
+	minirt->scene.camera.origin = parse_point(data, i);
+	minirt->scene.camera.direction = parse_vector(data, i);
+	minirt->scene.camera.fov = parse_float(data, i);
 }
 
 void	parse_light(t_minirt *minirt, char *data, size_t *i)
 {
-	t_point	position;
-	float	brightness;
-	t_color	color;
 	size_t	idx;
 
 	(*i) += 1;
@@ -53,7 +37,6 @@ void	parse_light(t_minirt *minirt, char *data, size_t *i)
 	minirt->scene.light[idx].position = parse_point(data, i);
 	minirt->scene.light[idx].brightness = parse_float(data, i);
 	minirt->scene.light[idx].color = parse_color(data, i);
-
 }
 
 void	parse_data(t_minirt *minirt, char *data)
