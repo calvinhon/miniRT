@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_minirt.c                                       :+:      :+:    :+:   */
+/*   2new_minirt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 18:00:25 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/11 18:00:25 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/18 23:50:39 by nthoach          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../include/minirt.h"
 
@@ -35,10 +35,13 @@ t_minirt	*new_minirt(void)
 	minirt->scene.camera.fov = 90.0f;
 
 	minirt->scene.light = NULL;
-	minirt->scene.objects = NULL;
+	minirt->scene.objs = NULL;
+	minirt->scene.n_objs =0;
+	minirt->scene.idx_obj =0;
 	minirt->scene.a = 0;
 	minirt->scene.c = 0;
 	minirt->scene.l = 0;
+	minirt->scene.idx_l = 0;
 	minirt->scene.pl = 0;
 	minirt->scene.sp = 0;
 	minirt->scene.cy = 0;

@@ -11,7 +11,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minirt.h"
+#include "minirt.h"
 
 int	handle_keypress(int key, t_minirt *minirt)
 {

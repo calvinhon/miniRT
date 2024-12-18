@@ -6,7 +6,7 @@
 /*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 17:22:13 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/17 17:45:53 by nthoach          ###   ########.fr       */
+/*   Updated: 2024/12/19 01:02:22 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,7 +22,8 @@ void	count_elements(t_minirt *minirt, char *line)
 		minirt->scene.a++;
 	if (ft_strnstr(line, "C ", len))
 		minirt->scene.c++;
-	if (ft_strnstr(line, "l ", len) && !ft_strnstr(line, "pl ", len))
+	if ((ft_strnstr(line, "l ", len) || \
+		 ft_strnstr(line, "L", len)) && !ft_strnstr(line, "pl ", len))
 		minirt->scene.l++;
 	if (ft_strnstr(line, "pl ", len))
 		minirt->scene.pl++;
@@ -77,6 +78,7 @@ size_t	calculate_required_size(char *file, t_minirt *minirt)
 	}
 	close(fd);
 	check_elements(minirt);
+	
 	return (total_size);
 }
 
@@ -108,6 +110,7 @@ char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 		free(line);
 	}
 	data[*total_size]= '\0';
+
 	close(fd);
 	return (data);
 }

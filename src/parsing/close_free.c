@@ -12,7 +12,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "minirt.h"
 
 void	free_minirt(t_minirt *minirt)
 {

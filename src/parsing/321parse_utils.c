@@ -6,11 +6,11 @@
 /*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:43:24 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/17 18:47:54 by nthoach          ###   ########.fr       */
+/*   Updated: 2024/12/18 23:37:23 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "minirt.h"
+#include "../../include/minirt.h"
 
 int	parse_int(char *data, size_t *i)
 {
@@ -27,7 +27,7 @@ int	parse_int(char *data, size_t *i)
 
 float	parse_float(char *data, size_t *i)
 {
-	int	value;
+	float	value;
 
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
@@ -35,6 +35,7 @@ float	parse_float(char *data, size_t *i)
 	while (data[*i] && data[*i] != '\t' && data[*i] != ' ' \
 			&& data[*i] != '\n' && data[*i] != ',')
 		(*i)++;
+	
 	return (value);
 }
 
