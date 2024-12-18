@@ -6,7 +6,7 @@
 /*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:54:38 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/17 19:17:59 by nthoach          ###   ########.fr       */
+/*   Updated: 2024/12/19 00:05:12 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -87,7 +87,6 @@ typedef struct s_object
 	void		*data;
 	float		reflection;
 	float		shininess;
-
 }				t_object;
 
 // Scene objects
@@ -124,8 +123,9 @@ typedef struct s_cone
 
 typedef struct s_cube
 {
-	t_point		min;
-	t_point		max;
+	t_point		center;
+	float		size;
+	t_vector	rotation;
 	t_color		color;
 }				t_cube;
 
@@ -135,6 +135,7 @@ typedef struct s_scene
 	t_camera	camera;
 	t_light		*light;
 	size_t		l;
+	size_t		idx_l;
 	t_object	*objs;
 	size_t		n_objs;
 	size_t		idx_obj;

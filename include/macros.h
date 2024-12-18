@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:53:43 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/16 17:18:16 by honguyen         ###   ########.fr       */
+/*   Updated: 2024/12/18 22:13:43 by nthoach          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef MACROS_H
 # define MACROS_H
@@ -24,6 +24,12 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <math.h>
+
+// bonus
+# ifndef BONUS
+#  define BONUS 0 // Default to normal mode
+# endif
+
 
 // define assets
 # define S      "data/xpm/S100.xpm"
@@ -57,6 +63,7 @@
 # define ER_NO_LIGHT  	10
 # define ER_MAX_LIGHT 	11
 # define ER_NO_OBJ		12
+# define ER_OBJ_TYPE		12
 # define ER_OTHERS  	100
 
 
@@ -72,6 +79,7 @@
 # define MS_TOO_MANY	"Found more than 1 A, C or L entities"
 # define MS_USAGE 		 "Usage: ./miniRT <scene>.rt \n"
 # define MS_MALLOC 		 "Can not allocate dynami memory \n"
+# define MS_OBJ_TYPE	 "Undefied object type \n"
 # define MS_OTHERS 		 "Other errors. \n"
 
 //Window sizes
