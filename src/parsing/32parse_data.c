@@ -6,7 +6,7 @@
 /*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:43:24 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/19 00:51:58 by nthoach          ###   ########.fr       */
+/*   Updated: 2024/12/19 01:10:02 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -18,11 +18,6 @@ void	parse_ambient(t_minirt *minirt, char *data, size_t *i)
 	minirt->scene.ambient.intensity = parse_float(data, i);
 
 	minirt->scene.ambient.color = parse_color(data, i);
-	//
-	printf("A.intensity = %f\n", minirt->scene.ambient.intensity);// test
-	printf("A.color = %d, %d, %d\n", minirt->scene.ambient.color.r, \
-		minirt->scene.ambient.color.g, minirt->scene.ambient.color.b);// test
-	//
 }
 
 void	parse_camera(t_minirt *minirt, char *data, size_t *i)
@@ -31,9 +26,6 @@ void	parse_camera(t_minirt *minirt, char *data, size_t *i)
 	minirt->scene.camera.origin = parse_point(data, i);
 	minirt->scene.camera.direction = parse_vector(data, i);
 	minirt->scene.camera.fov = parse_float(data, i);
-	//
-	printf("C.fov = %f\n", minirt->scene.camera.fov);// test
-	//
 }
 
 void	parse_light(t_minirt *minirt, char *data, size_t *i)

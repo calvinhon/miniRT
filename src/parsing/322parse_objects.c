@@ -6,7 +6,7 @@
 /*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:32:20 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/19 00:35:50 by nthoach          ###   ########.fr       */
+/*   Updated: 2024/12/19 01:06:25 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -149,10 +149,5 @@ void	parse_object(t_minirt *minirt, char *data, size_t *i)
 		parse_cone(minirt, data, i, idx);
 	else
 		errors(ER_OBJ_TYPE, minirt);
-	//
-	printf("BONUS = %d\n", BONUS);
-	printf("objects[%ld].type = %i\n", idx, minirt->scene.objs[idx].type);// test
-	printf("objects[%ld].brightness = %f\n", idx, minirt->scene.objs[idx].reflection);// test
-	//
 }
 

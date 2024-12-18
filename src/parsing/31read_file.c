@@ -6,7 +6,7 @@
 /*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 17:22:13 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/19 01:02:22 by nthoach          ###   ########.fr       */
+/*   Updated: 2024/12/19 01:03:27 by nthoach          ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -36,7 +36,6 @@ void	count_elements(t_minirt *minirt, char *line)
 	if (ft_strnstr(line, "co ", len))
 		minirt->scene.co++;
 }
-
 void	check_elements(t_minirt *minirt)
 {
 	if (minirt->scene.c != 1)
