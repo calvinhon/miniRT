@@ -1,18 +1,18 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 18:56:23 by chon              #+#    #+#              #
-#    Updated: 2024/12/19 00:51:20 by nthoach          ###   ########.fr        #
+#    Updated: 2024/12/19 10:30:58 by marvin           ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 NAME = test_parse
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iinclude 
+CFLAGS = -Wall -Wextra -Werror -I ../include 
 
 BONUS ?= 0
 
@@ -68,12 +68,17 @@ run: $(NAME)
 	rm -rf $(OBJS)
 	@./$(NAME) ../scenes/mandatory/temple.rt
 
-run_bonus:
+brun:
 	$(MAKE) BONUS=1
 	rm -rf $(OBJS)
 	@./$(NAME) ../scenes/bonus/temple.rt
 
 leaks: $(NAME)
+	@$(RM) $(OBJS)
+	valgrind --leak-check=full ./$(NAME) ../scenes/bonus/temple.rt
+
+bleaks: $(NAME)
+	$(MAKE) BONUS=1
 	@$(RM) $(OBJS)
 	valgrind --leak-check=full ./$(NAME) ../scenes/bonus/temple.rt
 
