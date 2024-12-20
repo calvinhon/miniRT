@@ -247,19 +247,24 @@ int main(int ac, char **av)
 	// 	j = -1;
 	// }
 
-	t_mat4d	m;
-	t_point p;
-	t_vec4d v;
-	p = create_point(-3, 4, 5);
-	v = create_vec4d(-3, 4, 5);
-	// m = identity_mat();
-	m = translation_mat(5, -3, 2);
-	m = inverse_mat4d(m);
-	p = mult_mat4d_pt4d(m, p);
-	v = mult_mat4d_vec4d(m, v);
-	printf("%.0f, %.0f, %.0f\n", p.x, p.y, p.z);
-	printf("%.0f, %.0f, %.0f\n", v.x, v.y, v.z);
-	// m = scaling_mat(3, 4, 5);
+	// t_mat4d	m;
+	// t_point p;
+	// t_vec4d v;
+	// // p = create_point(-3, 4, 5);
+	// // v = create_vec4d(-3, 4, 5);
+	// // m = identity_mat();
+	// // m = translation_mat(5, -3, 2);
+	// // m = inverse_mat4d(m);
+	// // p = mult_mat4d_pt4d(m, p);
+	// // v = mult_mat4d_vec4d(m, v);
+	// m = scaling_mat(2, 3, 4);
+	// m = inverse_mat4d(m);
+	// p = create_point(-4, 6, 8);
+	// v = create_vec4d(-4, 6, 8);
+	// p = mult_mat4d_pt4d(m, p);
+	// v = mult_mat4d_vec4d(m, v);
+	// printf("%.0f, %.0f, %.0f\n", p.x, p.y, p.z);
+	// printf("%.0f, %.0f, %.0f\n", v.x, v.y, v.z);
 	// int i = -1;
 	// int j = -1;
 	// while (i < 15)
@@ -269,6 +274,26 @@ int main(int ac, char **av)
 	// 	printf("\n");
 	// 	j = -1;
 	// }
+
+	// t_point p = create_point(0, 1, 0);
+	// t_mat4d m = rotate_z(M_PI / 4);
+	// p = mult_mat4d_pt4d(m, p);
+	// printf("%.3f, %.3f, %.3f\n", p.x, p.y, p.z);
+
+	// t_point p = create_point(2, 3, 4);
+	// t_shear s;
+	// ft_memset(&s, 0, sizeof(t_shear));
+	// s.z_y = 1;
+	// t_mat4d m = shear(s);
+	// p = mult_mat4d_pt4d(m, p);
+	// printf("%.3f, %.3f, %.3f\n", p.x, p.y, p.z);
+
+	t_point p = create_point(1, 0, 1);
+	t_mat4d a = rotate_mat_x(M_PI / 2);
+	t_mat4d b = scaling_mat(5, 5, 5);
+	t_mat4d c = translation_mat(10, 5, 7);
+	p = mult_mat4d_pt4d(c, mult_mat4d_pt4d(b, mult_mat4d_pt4d(a, p)));
+	printf("%.3f, %.3f, %.3f\n", p.x, p.y, p.z);
 
 	return (0);
 }

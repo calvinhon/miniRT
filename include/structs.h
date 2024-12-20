@@ -46,6 +46,17 @@ typedef struct s_vec4d
 	double	p;
 }	t_vec4d;
 
+typedef struct s_shear
+{
+	double	x_y;
+	double	x_z;
+	double	y_x;
+	double	y_z;
+	double	z_x;
+	double	z_y;
+}	t_shear;
+
+
 typedef struct s_mat2d
 {
 	double 	matrix[4];

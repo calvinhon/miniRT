@@ -53,5 +53,9 @@ t_mat4d	inverse_mat4d(t_mat4d m);
 t_mat4d	identity_mat(void);
 t_mat4d	translation_mat(double x, double y, double z);
 t_mat4d	scaling_mat(double x, double y, double z);
+t_mat4d	rotate_mat_x(double rad);
+t_mat4d	rotate_mat_y(double rad);
+t_mat4d	rotate_mat_z(double rad);
+t_mat4d	shear_mat(t_shear s);
 
 #endif
