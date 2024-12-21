@@ -23,7 +23,7 @@ void	count_elements(t_minirt *minirt, char *line)
 	if (ft_strnstr(line, "C ", len))
 		minirt->scene.c++;
 	if ((ft_strnstr(line, "l ", len) || \
-		 ft_strnstr(line, "L", len)) && !ft_strnstr(line, "pl ", len))
+		ft_strnstr(line, "L", len)) && !ft_strnstr(line, "pl ", len))
 		minirt->scene.l++;
 	if (ft_strnstr(line, "pl ", len))
 		minirt->scene.pl++;
@@ -36,6 +36,7 @@ void	count_elements(t_minirt *minirt, char *line)
 	if (ft_strnstr(line, "co ", len))
 		minirt->scene.co++;
 }
+
 void	check_elements(t_minirt *minirt)
 {
 	if (minirt->scene.c != 1)
@@ -77,10 +78,8 @@ size_t	calculate_required_size(char *file, t_minirt *minirt)
 	}
 	close(fd);
 	check_elements(minirt);
-	
 	return (total_size);
 }
-
 
 char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 {
@@ -101,15 +100,12 @@ char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 		if (!ft_strchr("\n#", line[0]))
 		{
 			line_len = ft_strlen(line);
-			// if (line[line_len - 1] == '\n')
-			// 	line[line_len - 1] = ' ';
 			ft_memcpy(data + *total_size, line, line_len);
 			*total_size += line_len;
 		}
 		free(line);
 	}
-	data[*total_size]= '\0';
-
+	data[*(total_size)] = '\0';
 	close(fd);
 	return (data);
 }

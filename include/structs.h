@@ -16,6 +16,7 @@
 # include "../libs/libft/libft.h"
 # include "../libs/mlx_linux/mlx.h"
 # include "../libs/mlx_macos/mlx.h"
+# include <pthread.h>
 
 typedef struct s_point
 {
@@ -159,6 +160,8 @@ typedef struct s_graphic
 	int		l_len;
 	int		end;
 }				t_graphic;
+
+typedef struct s_minirt t_minirt;
 
 typedef struct s_thread
 {

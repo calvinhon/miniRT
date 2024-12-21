@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   32parse_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:43:24 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/19 01:10:02 by nthoach          ###   ########.fr       */
+/*   Updated: 2024/12/21 14:16:33 by honguyen         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
@@ -37,9 +37,6 @@ void	parse_light(t_minirt *minirt, char *data, size_t *i)
 	minirt->scene.light[idx].position = parse_point(data, i);
 	minirt->scene.light[idx].brightness = parse_float(data, i);
 	minirt->scene.light[idx].color = parse_color(data, i);
-	//
-	printf("light[%ld].brightness = %f\n", idx, minirt->scene.light[idx].brightness);// test
-	//
 }
 
 void	parse_data(t_minirt *minirt, char *data)
