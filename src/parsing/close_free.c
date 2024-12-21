@@ -24,7 +24,7 @@ void	free_minirt(t_minirt *minirt)
 		mlx_destroy_image(minirt->graphic.mlx, minirt->graphic.img);
 	free_mlx(minirt->graphic.mlx);
 	free_scene(minirt->scene);
-	free_threads(minirt->threads);
+	free_threads(minirt->comp_units);
 	free(minirt);
 	minirt = NULL;
 }

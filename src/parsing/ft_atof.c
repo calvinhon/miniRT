@@ -1,18 +1,18 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 18:52:25 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/18 23:33:45 by nthoach          ###   ########.fr       */
+/*   Updated: 2024/12/21 14:39:18 by honguyen         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 
 #include <stdbool.h>
-#include <stdio.h> //
+#include <stdio.h>
 
 static void	skip_whitespace(const char **str)
 {
@@ -36,7 +36,9 @@ static int	parse_sign(const char **str)
 
 static float	parse_integer_part(const char **str)
 {
-	float	result = 0.0;
+	float	result;
+
+	result = 0.0;
 
 	while (**str >= '0' && **str <= '9')
 	{
@@ -75,6 +77,5 @@ float	ft_atof(const char *str)
 	sign = parse_sign(&str);
 	result = parse_integer_part(&str);
 	result += parse_fractional_part(&str);
-	//printf("= %f", result * sign); //
 	return (result * sign);
 }
