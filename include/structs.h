@@ -160,18 +160,23 @@ typedef struct s_graphic
 	int		end;
 }				t_graphic;
 
-typedef struct s_threads
+typedef struct s_thread
 {
-	int		thread_id;
-	int		thread_count;
-	int		width;
-	int		height;
-}				t_threads;
+	int				id;
+	pthread_t		thread;
+	t_minirt		*minirt;
+	int				y;
+	int				y_f;
+	int				x;
+	int				x_f;
+	pthread_mutex_t	mutex;
+	pthread_cond_t	cond;
+}	t_thread;
 
 typedef struct s_minirt
 {
 	t_graphic	graphic;
 	t_scene		scene;
-	t_threads	*threads;
+	t_thread	*comp_units;
 }				t_minirt;
 #endif

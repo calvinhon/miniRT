@@ -19,34 +19,6 @@ t_minirt	*new_minirt(void)
 	minirt = ft_calloc(1, sizeof(t_minirt));
 	if (!minirt)
 		errors(ER_MALLOC, NULL);
-	minirt->graphic.mlx = NULL;
-	minirt->graphic.win = NULL;
-	minirt->graphic.img = NULL;
-	minirt->graphic.addr = NULL;
-	minirt->graphic.bpp = 0;
-	minirt->graphic.l_len = 0;
-	minirt->graphic.end = 0;
-
-	minirt->scene.ambient.intensity = 0.0f;
-	minirt->scene.ambient.color = (t_color){0, 0, 0, 0};
-
-	minirt->scene.camera.origin = (t_point){0.0f, 0.0f, 0.0f, 1.0f};
-	minirt->scene.camera.direction = (t_vector){0.0f, 0.0f, -1.0f, 0.0f};
-	minirt->scene.camera.fov = 90.0f;
-
-	minirt->scene.light = NULL;
-	minirt->scene.objs = NULL;
-	minirt->scene.n_objs =0;
-	minirt->scene.idx_obj =0;
-	minirt->scene.a = 0;
-	minirt->scene.c = 0;
-	minirt->scene.l = 0;
-	minirt->scene.idx_l = 0;
-	minirt->scene.pl = 0;
-	minirt->scene.sp = 0;
-	minirt->scene.cy = 0;
-	minirt->scene.cu = 0;
-	minirt->scene.co = 0;
-	minirt->threads = NULL;
+	*minirt = (t_minirt){0};
 	return (minirt);
 }

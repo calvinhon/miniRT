@@ -20,6 +20,8 @@
 # include "macros.h"
 # include "parsing.h"
 # include <stdio.h> //
+# include <pthread.h>
+
 
 # define WINDOW_W 1920
 # define WINDOW_L 1080
