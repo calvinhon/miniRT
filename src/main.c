@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "minirt_math.h"
 
 void	draw(t_mlx_vars *env);
 
@@ -33,7 +34,7 @@ int	init_env(t_mlx_vars *env)
 
 int main(int ac, char **av)
 {
-	t_mlx_vars	env;
+	// t_mlx_vars	env;
 
 	if (ac != 2) // change to 2
 	{
@@ -41,8 +42,10 @@ int main(int ac, char **av)
 		return (1);
 	}
 	(void)av;
-	if (init_env(&env))
-		return (1);
-	draw(&env);
-	mlx_loop(env.mlx);
+	// if (init_env(&env))
+	// 	return (1);
+	// draw(&env);
+	// mlx_loop(env.mlx);
+
+	return (0);
 }

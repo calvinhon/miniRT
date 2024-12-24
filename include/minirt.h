@@ -26,6 +26,7 @@
 # define WINDOW_W 1920
 # define WINDOW_L 1080
 
+<<<<<<< HEAD
 typedef struct s_mlx_vars
 {
 	void	*mlx;
@@ -38,6 +39,8 @@ typedef struct s_mlx_vars
 }	t_mlx_vars;
 
 void	errors(int err_code, t_minirt *minirt);
+=======
+>>>>>>> math
 void	set_controls(t_mlx_vars *env);
 
 #endif

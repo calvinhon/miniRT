@@ -22,16 +22,16 @@ t_vec4d normalize(t_vec4d v)
 	double mag_v;
 
 	mag_v = magnitude(v);
-	return (create_vector(v.x / mag_v, v.y / mag_v, v.z / mag_v));
+	return (create_vec4d(v.x / mag_v, v.y / mag_v, v.z / mag_v));
 }
 
 double dot(t_vec4d v1, t_vec4d v2)
 {
-	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.p * v2.p);
 }
 
 t_vec4d cross(t_vec4d v1, t_vec4d v2)
 {
-	return (create_vector(v1.x * v2.y - v1.y * v2.x,
+	return (create_vec4d(v1.x * v2.y - v1.y * v2.x,
 						  v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z));
 }
