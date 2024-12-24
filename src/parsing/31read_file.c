@@ -103,11 +103,7 @@ char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 		}
 		free(line);
 	}
-<<<<<<< HEAD
-	data[*total_size]= '\0';
-=======
 	data[*(total_size)] = '\0';
->>>>>>> fac9762a1543c7c015675c63cef213e9d71331ec
 	close(fd);
 	return (data);
 }
