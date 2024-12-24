@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:07:24 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/18 23:13:53 by nthoach          ###   ########.fr       */
+/*   Updated: 2024/12/20 13:57:33 by marvin           ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
@@ -28,11 +28,7 @@ void		count_elements(t_minirt *minirt, char *line);
 void		check_elements(t_minirt *minirt);
 size_t		calculate_required_size(char *file, t_minirt *minirt);
 
-
-
-
 char		*file_data(t_minirt *minirt, size_t *total_size, char *file);
-
 void		parse_data(t_minirt *minirt, char *data);
 void		parse_light(t_minirt *minirt, char *data, size_t *i);
 void		parse_camera(t_minirt *minirt, char *data, size_t *i);

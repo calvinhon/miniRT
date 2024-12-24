@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   322parse_objects.c                                 :+:      :+:    :+:   */
+/*   321parse_objects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:32:20 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/19 01:06:25 by nthoach          ###   ########.fr       */
+/*   Updated: 2024/12/20 13:56:01 by marvin           ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
@@ -50,7 +50,6 @@ void	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	plane->normal = parse_vector(data, i);
 	plane->color = parse_color(data, i);
 	#if BONUS
-		// Bonus mode: Enable extra properties
 		minirt->scene.objs[idx].reflection = parse_float(data, i);
 		minirt->scene.objs[idx].shininess = parse_float(data, i);
 	#endif
@@ -66,7 +65,6 @@ void	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	sphere->radius = parse_float(data, i);
 	sphere->color = parse_color(data, i);
 	#if BONUS
-		// Bonus mode: Enable extra properties
 		minirt->scene.objs[idx].reflection = parse_float(data, i);
 		minirt->scene.objs[idx].shininess = parse_float(data, i);
 	#endif
@@ -79,21 +77,14 @@ void	parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cylinder = (t_cylinder*) allocate_obj(minirt, CYLINDER, idx);
 	(*i) += 2;
 	cylinder->base = parse_point(data, i);
-	//
-	printf("base = %f, %f, %f\n", cylinder->base.x, cylinder->base.y, cylinder->base.z);
-	//
 	cylinder->axis = parse_vector(data, i);
 	cylinder->radius = parse_float(data, i);
 	cylinder->height = parse_float(data, i);
 	cylinder->color = parse_color(data, i);
 	#if BONUS
-		// Bonus mode: Enable extra properties
 		minirt->scene.objs[idx].reflection = parse_float(data, i);
 		minirt->scene.objs[idx].shininess = parse_float(data, i);
 	#endif
-	//
-	
-	//
 }
 
 void	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
@@ -107,7 +98,6 @@ void	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cone->angle = parse_float(data, i);
 	cone->color = parse_color(data, i);
 	#if BONUS
-		// Bonus mode: Enable extra properties
 		minirt->scene.objs[idx].reflection = parse_float(data, i);
 		minirt->scene.objs[idx].shininess = parse_float(data, i);
 	#endif
@@ -124,7 +114,6 @@ void	parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cube->rotation = parse_vector(data, i);	
 	cube->color = parse_color(data, i);
 	#if BONUS
-		// Bonus mode: Enable extra properties
 		minirt->scene.objs[idx].reflection = parse_float(data, i);
 		minirt->scene.objs[idx].shininess = parse_float(data, i);
 	#endif
@@ -150,4 +139,3 @@ void	parse_object(t_minirt *minirt, char *data, size_t *i)
 	else
 		errors(ER_OBJ_TYPE, minirt);
 }
-

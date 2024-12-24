@@ -12,7 +12,6 @@
 
 #include "../../include/minirt.h"
 
-
 void	count_elements(t_minirt *minirt, char *line)
 {
 	size_t	len;
@@ -36,6 +35,7 @@ void	count_elements(t_minirt *minirt, char *line)
 	if (ft_strnstr(line, "co ", len))
 		minirt->scene.co++;
 }
+
 void	check_elements(t_minirt *minirt)
 {
 	if (minirt->scene.c != 1)
@@ -52,7 +52,6 @@ void	check_elements(t_minirt *minirt)
 		errors(ER_NO_OBJ, minirt);
 }
 
-// Helper function: Calculate the memory required
 size_t	calculate_required_size(char *file, t_minirt *minirt)
 {
 	char	*line;
@@ -81,7 +80,6 @@ size_t	calculate_required_size(char *file, t_minirt *minirt)
 	return (total_size);
 }
 
-
 char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 {
 	int		fd;
@@ -101,15 +99,12 @@ char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 		if (!ft_strchr("\n#", line[0]))
 		{
 			line_len = ft_strlen(line);
-			// if (line[line_len - 1] == '\n')
-			// 	line[line_len - 1] = ' ';
 			ft_memcpy(data + *total_size, line, line_len);
 			*total_size += line_len;
 		}
 		free(line);
 	}
 	data[*total_size]= '\0';
-
 	close(fd);
 	return (data);
 }

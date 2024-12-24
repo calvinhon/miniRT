@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/12 17:16:25 by pabertha          #+#    #+#              #
-#    Updated: 2024/03/06 11:58:22 by honguyen         ###   ########.fr        #
+#    Updated: 2024/12/19 11:51:05 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ) $(OBJ_BONUS)
 		ar rcs $(NAME) $(OBJ) $(OBJ_BONUS)
+		ranlib libft.a
 
 %.o : %.c libft.h
 	$(CC) $(CFLAGS) -c $< -o $@

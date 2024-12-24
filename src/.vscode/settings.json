@@ -1,13 +1,4 @@
 {
-  "files.associations": {
-    "stdio.h": "c",
-    "array": "cpp",
-    "iterator": "cpp",
-    "string": "cpp",
-    "string_view": "cpp",
-    "vector": "cpp",
-    "__node_handle": "c"
-  },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",

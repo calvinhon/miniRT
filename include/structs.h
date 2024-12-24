@@ -16,6 +16,7 @@
 # include "../libs/libft/libft.h"
 # include "../libs/mlx_linux/mlx.h"
 # include "../libs/mlx_macos/mlx.h"
+# include <threads.h>
 
 typedef struct s_point
 {
@@ -47,20 +48,12 @@ typedef struct s_ray
 	t_vector	direction;
 }				t_ray;
 
-// Scene structures
+// Ambient
 typedef struct s_ambient
 {
 	float	intensity;
 	t_color	color;
 }				t_ambient;
-
-// Camera
-typedef struct s_camera
-{
-	t_point		origin;
-	t_vector	direction;
-	float		fov;
-}				t_camera;
 
 // Light source
 typedef struct s_light
@@ -69,6 +62,14 @@ typedef struct s_light
 	float		brightness;
 	t_color		color;
 }				t_light;
+
+// Camera
+typedef struct s_camera
+{
+	t_point		origin;
+	t_vector	direction;
+	float		fov;
+}				t_camera;
 
 // Object types
 typedef enum e_objtype
@@ -162,16 +163,18 @@ typedef struct s_graphic
 
 typedef struct s_threads
 {
-	int		thread_id;
-	int		thread_count;
-	int		width;
-	int		height;
+	int			id;
+	int			count;
+	int			width;
+	int			height;
+	pthread_t	*th;
 }				t_threads;
 
 typedef struct s_minirt
 {
 	t_graphic	graphic;
 	t_scene		scene;
-	t_threads	*threads;
+	pthread_t	*threads;
 }				t_minirt;
+
 #endif

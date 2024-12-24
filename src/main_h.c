@@ -11,7 +11,6 @@
 /******************************************************************************/
 
 #include "../include/minirt.h"
-#include "../include/parsing.h"
 
 int	main(int ac, char **av)
 {
@@ -22,42 +21,18 @@ int	main(int ac, char **av)
 	check_filename(av[1]);
 	minirt = new_minirt();
 	parse(minirt, av[1]);
-	// ini_all(minirt);
-	// ray_trace(minirt);
-	// free_minirt(minirt);
+	//ini_graphic(minirt);
+	//ini_threads(minirt);
+    // Initialize minirt, mlx, window, and image
+	
+    minirt.mlx = mlx_init();
+    minirt.win = mlx_new_window(minirt.mlx, minirt.width, minirt.height, "MiniRT");
+    minirt.img = mlx_new_image(minirt.mlx, minirt.width, minirt.height);
 
-	// test
-		// test 1
-	ft_printf("objs = %d\n", minirt->scene.n_objs);
-	ft_printf("ambient = %d\n", minirt->scene.a);
-	ft_printf("camera = %d\n", minirt->scene.c);
-	ft_printf("light = %d\n", minirt->scene.l);
-	ft_printf("n_objs = %d\n", minirt->scene.n_objs);	
-	
-		// test 2
-	printf("BONUS = %d\n", BONUS);
-		//test
-	printf("A.intensity = %f\n", minirt->scene.ambient.intensity);
-	printf("A.color = %d, %d, %d\n", minirt->scene.ambient.color.r, \
-		minirt->scene.ambient.color.g, minirt->scene.ambient.color.b);
-	printf("C.position = %f, %f, %f\n", minirt->scene.camera.origin.x, \
-		minirt->scene.camera.origin.y, minirt->scene.camera.origin.z);
-	printf("C.fov = %f\n", minirt->scene.camera.fov);// test
-	
-	size_t idx = -1;
-	while ( ++idx < minirt->scene.l)
-	{
-		printf("light[%ld]. = %f\n", idx, minirt->scene.light[idx].brightness);// test
-	}
-	
-	idx = -1;
-	while ( ++idx < minirt->scene.n_objs)
-	{
-		printf("objects[%ld].type = %i\n", idx, minirt->scene.objs[idx].type);// test
-		printf("objects[%ld].brightness = %f\n", idx, minirt->scene.objs[idx].reflection);// test
-	}
+    mlx_key_hook(minirt.win, key_press, &minirt);
+    mlx_hook(minirt.win, 6, 0, mouse_move, &minirt); // 6 is the event code for mouse move
 
-	if (minirt) //test
-		free(minirt); //test
+    ray_trac_loop(&minirt);
+	free_minirt(minirt);
 	return (OK);
 }

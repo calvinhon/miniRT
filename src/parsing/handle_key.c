@@ -27,6 +27,18 @@ int	handle_keypress(int key, t_minirt *minirt)
 		minirt->scene.camera.origin.z -= 10;
 	else if (key == KEY_V)
 		minirt->scene.camera.origin.z += 10;
+	else if (key == KEY_I)
+		minirt->scene.camera.orientation.x += 10;
+	else if (key == KEY_K)
+		minirt->scene.camera.orientation.x -= 10;
+	else if (key == KEY_J)
+		minirt->scene.camera.orientation.y += 10;
+	else if (key == KEY_L)
+		minirt->scene.camera.orientation.y -= 10;
+	else if (key == KEY_U)
+		minirt->scene.camera.orientation.z += 10;
+	else if (key == KEY_O)
+		minirt->scene.camera.orientation.z -= 10;
 	else if (key == KEY_ESC || key == KEY_Q)
 		close_window(minirt, "Window Closed\n");
 	ray_trace(minirt);
