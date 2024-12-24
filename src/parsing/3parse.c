@@ -57,7 +57,8 @@ void	allocate_light_obj(t_minirt *minirt)
 	minirt->scene.light = (t_light *)malloc(minirt->scene.l * sizeof(t_light));
 	if (!minirt->scene.light)
 		errors(ER_MALLOC, minirt);
-	minirt->scene.objs = (t_object *)malloc(minirt->scene.n_objs * sizeof(t_object));
+	minirt->scene.objs = (t_object *)malloc(minirt->scene.n_objs * \
+			sizeof(t_object));
 	if (!minirt->scene.objs)
 		errors(ER_MALLOC, minirt);
 }

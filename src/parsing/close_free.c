@@ -99,10 +99,15 @@ void	free_minirt(t_minirt *minirt)
 	if (minirt->graphic.img)
 		mlx_destroy_image(minirt->graphic.mlx, minirt->graphic.img);
 	free_mlx(minirt->graphic.mlx);
+<<<<<<< HEAD
 	//free_scene(minirt->scene);
 	free_threads(minirt->threads);
 	free_objs(minirt->scene.objs);
 	free_lights(minirt->scene.light);
+=======
+	free_scene(minirt->scene);
+	free_threads(minirt->comp_units);
+>>>>>>> fac9762a1543c7c015675c63cef213e9d71331ec
 	free(minirt);
 	minirt = NULL;
 }

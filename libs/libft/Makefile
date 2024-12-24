@@ -6,7 +6,11 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/12 17:16:25 by pabertha          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/12/19 11:51:05 by marvin           ###   ########.fr        #
+=======
+#    Updated: 2024/12/21 12:37:10 by honguyen         ###   ########.fr        #
+>>>>>>> fac9762a1543c7c015675c63cef213e9d71331ec
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +90,11 @@ all : $(NAME)
 
 $(NAME) : $(OBJ) $(OBJ_BONUS)
 		ar rcs $(NAME) $(OBJ) $(OBJ_BONUS)
+<<<<<<< HEAD
 		ranlib libft.a
+=======
+		
+>>>>>>> fac9762a1543c7c015675c63cef213e9d71331ec
 
 %.o : %.c libft.h
 	$(CC) $(CFLAGS) -c $< -o $@

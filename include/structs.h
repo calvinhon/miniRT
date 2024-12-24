@@ -16,7 +16,11 @@
 # include "../libs/libft/libft.h"
 # include "../libs/mlx_linux/mlx.h"
 # include "../libs/mlx_macos/mlx.h"
+<<<<<<< HEAD
 # include <threads.h>
+=======
+# include <pthread.h>
+>>>>>>> fac9762a1543c7c015675c63cef213e9d71331ec
 
 typedef struct s_point
 {
@@ -161,20 +165,39 @@ typedef struct s_graphic
 	int		end;
 }				t_graphic;
 
-typedef struct s_threads
+typedef struct s_minirt t_minirt;
+
+typedef struct s_thread
 {
+<<<<<<< HEAD
 	int			id;
 	int			count;
 	int			width;
 	int			height;
 	pthread_t	*th;
 }				t_threads;
+=======
+	int				id;
+	pthread_t		thread;
+	t_minirt		*minirt;
+	int				y;
+	int				y_f;
+	int				x;
+	int				x_f;
+	pthread_mutex_t	mutex;
+	pthread_cond_t	cond;
+}	t_thread;
+>>>>>>> fac9762a1543c7c015675c63cef213e9d71331ec
 
 typedef struct s_minirt
 {
 	t_graphic	graphic;
 	t_scene		scene;
+<<<<<<< HEAD
 	pthread_t	*threads;
+=======
+	t_thread	*comp_units;
+>>>>>>> fac9762a1543c7c015675c63cef213e9d71331ec
 }				t_minirt;
 
 #endif
