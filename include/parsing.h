@@ -47,7 +47,7 @@ void	*allocate_obj(t_minirt *minirt, t_objtype type, size_t idx);
 int			parse_int(char *data, size_t *i);
 float		parse_float(char *data, size_t *i);
 t_point		parse_point(char *data, size_t *i);
-t_vector	parse_vector(char *data, size_t *i);
+t_vec4d		parse_vector(char *data, size_t *i);
 t_color		parse_color(char *data, size_t *i);
 
 float		ft_atof(const char *str);

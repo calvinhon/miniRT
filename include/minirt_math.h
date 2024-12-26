@@ -14,6 +14,7 @@
 #define MINIRT_MATH_H
 
 # include <math.h>
+# include <stdbool.h>
 # include "structs.h"
 
 #define EPISILON 0.00001

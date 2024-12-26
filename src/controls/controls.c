@@ -58,7 +58,7 @@ int	x_close(t_mlx_vars *env)
 int	key(int key, t_mlx_vars *env)
 {
 	printf("key: %d\n", key);
-	if (key == ESC)
+	if (key == KEY_ESC)
 		return (x_close(env));
 	// else if ((key >= 123 && key <= 126) || (key >= 83 && key <= 87)
 	// 	|| (key >= 0 && key <= 2) || (key == 13) || (key == 27) || (key == 24))

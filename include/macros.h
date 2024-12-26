@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -91,28 +90,29 @@
 #define MS_OTHERS       "Other errors\n"
 
 // Create an array of error messages
-const char *MS_ER[] = 
-{
-    [OK] = "Operation completed successfully\n",
-    [NOK] = "General error\n",
-    [ER_AGC] = MS_AGC,
-    [ER_MLX] = MS_MLX,
-    [ER_FILE] = MS_FILE,
-    [ER_NOT_RT] = MS_NOT_RT,
-    [ER_OPEN_FILE] = MS_OPEN_FILE,
-    [ER_MALLOC] = MS_MALLOC,
-    [ER_EMPTY_MAP] = MS_EMPTY_MAP,
-    [ER_ONE_CAMERA] = MS_ONE_CAMERA,
-    [ER_ONE_AMBIENT] = MS_ONE_AMBIENT,
-    [ER_NO_LIGHT] = MS_NO_LIGHT,
-    [ER_MAX_LIGHT] = MS_MAX_LIGHT,
-    [ER_NO_OBJ] = MS_NO_OBJ,
-    [ER_OBJ_TYPE] = MS_OBJ_TYPE,
-    [ER_COLOR_A] = MS_COLOR_A,
-    [ER_COLOR_L] = MS_COLOR_L,
-    [ER_SYNTAX] = MS_SYNTAX,
-    [ER_OTHERS] = MS_OTHERS
-};
+// const char *MS_ER[] = 
+// {
+//     [OK] = "Operation completed successfully\n",
+//     [NOK] = "General error\n",
+//     [ER_AGC] = MS_AGC,
+//     [ER_MLX] = MS_MLX,
+//     [ER_FILE] = MS_FILE,
+//     [ER_NOT_RT] = MS_NOT_RT,
+//     [ER_OPEN_FILE] = MS_OPEN_FILE,
+//     [ER_MALLOC] = MS_MALLOC,
+//     [ER_EMPTY_MAP] = MS_EMPTY_MAP,
+//     [ER_ONE_CAMERA] = MS_ONE_CAMERA,
+//     [ER_ONE_AMBIENT] = MS_ONE_AMBIENT,
+//     [ER_NO_LIGHT] = MS_NO_LIGHT,
+//     [ER_MAX_LIGHT] = MS_MAX_LIGHT,
+//     [ER_NO_OBJ] = MS_NO_OBJ,
+//     [ER_OBJ_TYPE] = MS_OBJ_TYPE,
+//     [ER_COLOR_A] = MS_COLOR_A,
+//     [ER_COLOR_L] = MS_COLOR_L,
+//     [ER_SYNTAX] = MS_SYNTAX,
+//     [ER_OTHERS] = MS_OTHERS
+// };
+
 //Window sizes
 # ifdef __APPLE__
 #  define WIDTH 1440
@@ -157,23 +157,3 @@ const char *MS_ER[] =
 # endif
 
 #endif
-=======
-#ifndef MACROS_H
-# define MACROS_H
-
-#ifdef __APPLE__
-	# define ESC 53
-#else
-	# define ESC 65307
-	# define LEFT 65361
-	# define UP 65362
-	# define RIGHT 65363
-	# define DOWN 65364
-	# define W 119
-	# define A 97
-	# define S 115
-	# define D 100
-#endif
-
-#endif
->>>>>>> math
