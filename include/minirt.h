@@ -16,9 +16,12 @@
 # include "../libs/libft/libft.h"
 # include "../libs/mlx_linux/mlx.h"
 # include "../libs/mlx_macos/mlx.h"
+# include "colors.h"
 # include "structs.h"
 # include "macros.h"
 # include "parsing.h"
+# include "minirt_math.h"
+# include "lighting_and_shading.h"
 # include <stdio.h> //
 # include <pthread.h>
 

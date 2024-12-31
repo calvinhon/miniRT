@@ -75,10 +75,10 @@ typedef struct s_mat4d
 
 typedef struct s_color
 {
-	int	t;
-	int	r;
-	int	g;
-	int	b;
+	int		t;
+	float	r;
+	float	g;
+	float	b;
 }				t_color;
 
 typedef struct s_ray
@@ -93,6 +93,15 @@ typedef struct s_ambient
 	float	intensity;
 	t_color	color;
 }				t_ambient;
+
+typedef struct s_material
+{
+	t_color		color;
+	t_ambient	ambient;
+	t_color		diffuse;
+	t_color		specular;
+	float		shininess;
+}	t_material;
 
 // Light source
 typedef struct s_light
@@ -126,7 +135,7 @@ typedef struct s_object
 	t_objtype	type;
 	void		*data;
 	float		reflection;
-	float		shininess;
+	t_material	material;
 }				t_object;
 
 // Scene objects
@@ -140,8 +149,10 @@ typedef struct s_plane
 typedef struct s_sphere
 {
 	t_point		center;
-	float		radius;
+	double		radius;
 	t_color		color;
+	t_mat4d		transform;
+	t_material	material;
 }				t_sphere;
 
 typedef struct s_cylinder

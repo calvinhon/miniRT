@@ -29,6 +29,7 @@ t_vec3d	create_vec3d(double x, double y, double z);
 t_vec4d	create_vec4d(double x, double y, double z);
 t_vec4d	add_vectors(t_vec4d v1, t_vec4d v2);
 t_vec4d	subtract_points(t_point p1, t_point p2);
+t_vec4d	subtract_vectors(t_vec4d v1, t_vec4d v2);
 t_vec4d	scale_vector(t_vec4d v, double factor);
 t_vec4d	negate_vector(t_vec4d v);
 double	magnitude(t_vec4d v);
