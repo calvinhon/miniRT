@@ -52,3 +52,4 @@ t_color	lighting(t_sphere s, t_light l, t_point p, t_vec4d eye_v)
 	printf("specular: %f, %f, %f\n", new.specular.r, new.specular.g, new.specular.b);
 	return (add_colors(3, new.ambient.color, new.diffuse, new.specular));
 }
+
