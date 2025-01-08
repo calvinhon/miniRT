@@ -73,7 +73,10 @@ void	free_minirt(t_minirt *minirt)
 	//free_scene(minirt->scene);
 	free_objs(minirt->scene.objs);
 	free_lights(minirt->scene.light);
+<<<<<<< Updated upstream:src/parsing_h/close_free.c
 	free_scene(minirt->scene);
+=======
+>>>>>>> Stashed changes:src/parsing/close_free.c
 	free(minirt);
 	minirt = NULL;
 }

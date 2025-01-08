@@ -29,7 +29,23 @@
 # define WINDOW_W 1920
 # define WINDOW_L 1080
 
+<<<<<<< Updated upstream
 void	errors(int err_code, t_minirt *minirt);
+=======
+typedef struct s_mlx_vars
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		l_len;
+	int		end;
+}	t_mlx_vars;
+
+void	errors(int err_code, t_minirt *minirt);
+
+>>>>>>> Stashed changes
 void	set_controls(t_mlx_vars *env);
 
 #endif

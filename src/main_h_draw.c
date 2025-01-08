@@ -25,9 +25,6 @@ int	main(int ac, char **av)
 	minirt = new_minirt();
 	parse(minirt, av[1]);
 	ini_all(minirt);
-	// ini_graphic
-	// ini_threads
-	// ini_viewport
 	mlx_ptr = mlx_init();
 	if (!mlx_ptr)
 		errors(ER_MLX, minirt);

@@ -13,6 +13,7 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+<<<<<<< Updated upstream
 // # include "../libs/libft/libft.h"
 // # include "../libs/mlx_linux/mlx.h"
 // # include "../libs/mlx_macos/mlx.h"
@@ -20,6 +21,12 @@
 # include <immintrin.h> //__m256d, __m128)
 # include <stdint.h> // bit-wise & integer types
 # include <stdbool.h> // boolean types
+=======
+# include "../libs/libft/libft.h"
+# include "../libs/mlx_linux/mlx.h"
+# include "../libs/mlx_macos/mlx.h"
+# include <pthread.h>
+>>>>>>> Stashed changes
 
 typedef struct s_point
 {
@@ -76,11 +83,19 @@ typedef struct s_vec3d
 
 typedef struct s_vec4d
 {
+<<<<<<< Updated upstream
 	double	x;
 	double	y;
 	double	z;
 	double	p;
 }	t_vector;
+=======
+	float	x;
+	float	y;
+	float	z;
+	float	p;
+}	t_vec4d;
+>>>>>>> Stashed changes
 
 typedef struct s_shear
 {
@@ -91,7 +106,6 @@ typedef struct s_shear
 	double	z_x;
 	double	z_y;
 }	t_shear;
-
 
 typedef struct s_mat2d
 {
@@ -112,7 +126,7 @@ typedef struct s_mat4d
 typedef struct s_ray
 {
 	t_point		origin;
-	t_vector	direction;
+	t_vec4d		direction;
 }				t_ray;
 //
 typedef struct s_itx
@@ -136,6 +150,7 @@ typedef struct s_ambient
 	float	intensity;
 	t_color	color;
 }				t_ambient;
+<<<<<<< Updated upstream
 
 typedef struct s_material
 {
@@ -145,6 +160,8 @@ typedef struct s_material
 	t_color		specular;
 	float		shininess;
 }	t_material;
+=======
+>>>>>>> Stashed changes
 
 // Light source
 typedef struct s_light
@@ -159,7 +176,7 @@ typedef struct s_camera
 {
 	bool		ini;
 	t_point		origin;
-	t_vector	direction;
+	t_vec4d		direction;
 	float		fov;
 	int			hsize;
 	int			vsize;
@@ -208,10 +225,17 @@ typedef struct s_object
 // Scene objects
 typedef struct s_plane
 {
+<<<<<<< Updated upstream
 	t_point		point;
 	t_vector	normal;
 	t_color		color;
 }				t_plane;
+=======
+    t_point point;   // A point on the plane
+    t_vec4d normal;  // Normal vector to the plane
+    t_color color;   // Color of the plane
+} t_plane;
+>>>>>>> Stashed changes
 
 typedef struct s_sphere
 {
@@ -224,6 +248,7 @@ typedef struct s_sphere
 
 typedef struct s_cylinder
 {
+<<<<<<< Updated upstream
 	t_point		base;
 	t_vector	axis;
 	float		radius;
@@ -246,6 +271,36 @@ typedef struct s_cube
 	t_vector	rotation;
 	t_color		color;
 }				t_cube;
+=======
+    t_point     base;     // base center of the cylinder
+    t_vec4d    	axis;     // axis vector (direction of the cylinder)
+    float       radius;     // radius of the cylinder
+    float       height;     // height of the cylinder
+    t_color     color;    // color of the cylinder
+} t_cylinder;
+
+typedef struct s_cone
+{
+    t_point     apex;     // Apex of the cone
+    t_vec4d    	axis;     // Axis vector (direction of the cone)
+    float       angle;      // Half-angle of the cone in radians
+    t_color     color;    // Color of the cone
+}               t_cone;
+
+typedef struct s_cube
+{
+    t_point min;      // Minimum corner of the cube
+    t_point max;      // Maximum corner of the cube
+    t_color color;    // Color of the cube
+} t_cube;
+
+typedef struct s_camera
+{
+    t_point     origin;
+    t_vec4d    	direction;
+    float       fov;
+} t_camera;
+>>>>>>> Stashed changes
 
 typedef struct s_scene
 {
@@ -265,7 +320,6 @@ typedef struct s_scene
 	size_t		cy;
 	size_t		cu;
 	size_t		co;
-
 }				t_scene;
 
 typedef struct s_mlx_vars
@@ -291,6 +345,7 @@ typedef struct s_unit
 	bool			ready;
 	pthread_mutex_t	mutex;
 	pthread_cond_t	cond;
+<<<<<<< Updated upstream
 }				t_unit;
 
 typedef struct s_texture
@@ -338,6 +393,15 @@ typedef struct s_minirt
 		bool		left_click;
 	}	mouse;
 
+=======
+}	t_thread;
+
+typedef struct s_minirt
+{
+	t_mlx_vars	graphic;
+	t_scene		scene;
+	t_thread	*comp_units;
+>>>>>>> Stashed changes
 }				t_minirt;
 
 #endif
