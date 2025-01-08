@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:53:43 by honguyen          #+#    #+#             */
-/*   Updated: 2025/01/06 18:33:33 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/08 07:59:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@
 // math define
 # define PI             3.1415926535f
 # define MAX_LIGHT		100
+
+//
+# define STEP 3
 
 // Define error codes
 #define OK              0
@@ -127,6 +130,9 @@ const char *MS_ER[] =
 
 // Keyboard define
 # ifdef __APPLE__
+#  define MOUSE_LB      1
+#  define MSCROLL_UP    4
+#  define MSCROLL_DOWN  5
 #  define KEY_A         0
 #  define KEY_D		    2
 #  define KEY_W		    13
@@ -137,15 +143,27 @@ const char *MS_ER[] =
 #  define KEY_DOWN	    125
 #  define KEY_ESC       53
 #  define KEY_Q		    12
+#  define KEY_R         15
 #  define KEY_C         8
 #  define KEY_V         9
 #  define KEYPRESS    	2
 #  define DESTROYNOTIFY 17
+#  define KEY_SPACE     49
+#  define KEY_LCTRL     256
+#  define KEY_LSHIFT    257
+#  define AKEY_L        123
+#  define AKEY_R        124
+#  define AKEY_D        125
+#  define AKEY_U        126
 # else
+#  define MOUSE_LB     1
+#  define MSCROLL_UP   4
+#  define MSCROLL_DOWN 5
 #  define KEY_A        97      
 #  define KEY_D        100
 #  define KEY_W        119
 #  define KEY_S        115
+#  define KEY_R        114
 #  define KEY_LEFT     65361
 #  define KEY_RIGHT    65363
 #  define KEY_UP       65362
@@ -153,7 +171,15 @@ const char *MS_ER[] =
 #  define KEY_ESC      65307
 #  define KEY_Q        113
 #  define KEY_C        99
-#  define KEY_V        118
+#  define   KEY_V      118
+#  define   KEY_LCTRL  65507
+#  define   KEY_LSHIFT 65505
+#  define	KEY_SPACE  32
+#  define	AKEY_L     65361
+#  define	AKEY_U     65362
+#  define	AKEY_R     65363
+#  define	AKEY_D     65364
+#  define	KEY_ESC    65307
 # endif
 
 // Define the number of threads

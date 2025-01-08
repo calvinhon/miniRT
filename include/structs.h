@@ -114,6 +114,21 @@ typedef struct s_ray
 	t_point		origin;
 	t_vector	direction;
 }				t_ray;
+//
+typedef struct s_itx
+{
+	float		t;
+	t_object	*object;
+	float		n1;
+	float		n2;
+}	t_itx;
+//
+typedef struct s_itx_set
+{
+	t_itx	arr[200];
+	int		count;
+}	t_itx_set;
+
 
 // Ambient
 typedef struct s_ambient
@@ -234,6 +249,7 @@ typedef struct s_cube
 
 typedef struct s_scene
 {
+	bool		refract_reflect;
 	t_ambient	ambient;
 	t_camera	camera;
 	size_t		l;
@@ -254,16 +270,12 @@ typedef struct s_scene
 
 typedef struct s_mlx_vars
 {
-	void	*mlx;
-	void	*win;
 	void	*img;
 	char	*addr;
 	int		bpp;
 	int		l_len;
 	int		end;
 }	t_mlx_vars;
-
-
 
 typedef struct s_minirt t_minirt;
 
@@ -281,20 +293,22 @@ typedef struct s_unit
 	pthread_cond_t	cond;
 }				t_unit;
 
+typedef struct s_texture
+{
+	char		*name;
+	t_mlx_vars	*tex;
+}	t_texture;
+
 typedef struct s_minirt
 {
 	//t_mlx_vars	graphic;
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		l_len;
-	int		endian;
+	void		*mlx;
+	void		*win;
+	t_mlx_vars	frame;
+	// t_camera	cam;
 	t_scene		scene;
-
 	t_unit		*units;
-	t_list		*texture;
+	t_list		*textures;
 	int			error;
 	bool		stop;
 	float 		time;
@@ -304,7 +318,7 @@ typedef struct s_minirt
 	t_object	*obj;
 	t_vector	ray_dir;
 
-	struct s_keys
+	struct s_move
 	{
 		bool		w;
 		bool		a;
@@ -317,7 +331,7 @@ typedef struct s_minirt
 		bool		space;
 		bool		lctrl;
 		bool		lshift;
-	}	keys;
+	}	move;
 
 	struct s_mouse
 	{
