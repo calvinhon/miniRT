@@ -20,7 +20,8 @@
 # define PURPLE 0x800080
 
 # include "structs.h"
-# include "math.h"
+# include <stdarg.h>
+# include <math.h>
 
 t_color	create_color(float r, float g, float b);
 // t_color	add_colors(t_color c1, t_color c2);

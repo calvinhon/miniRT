@@ -18,11 +18,6 @@ t_vec4d	reflect(t_vec4d in, t_vec4d normal)
 	return (subtract_vectors(in, scale_vector(normal, 2 * dot(in, normal))));
 }
 
-// int	lighting_2()
-// {
-	
-// }
-
 t_color	lighting(t_sphere s, t_light l, t_point p, t_vec4d eye_v)
 {
 	t_color		effective_c;
@@ -47,9 +42,6 @@ t_color	lighting(t_sphere s, t_light l, t_point p, t_vec4d eye_v)
 			new.specular = scale_color(mult_colors(s.material.specular, l.color),
 				pow(reflect_dot_eye, s.material.shininess));
 	}
-	printf("ambient: %f, %f, %f\n", new.ambient.color.r,new.ambient.color.g, new.ambient.color.b);
-	printf("diffuse: %f, %f, %f\n", new.diffuse.r, new.diffuse.g, new.diffuse.b);
-	printf("specular: %f, %f, %f\n", new.specular.r, new.specular.g, new.specular.b);
 	return (add_colors(3, new.ambient.color, new.diffuse, new.specular));
 }
 

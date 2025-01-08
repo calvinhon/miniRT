@@ -57,7 +57,7 @@ int	x_close(t_mlx_vars *env)
 
 int	key(int key, t_mlx_vars *env)
 {
-	printf("key: %d\n", key);
+	// printf("key: %d\n", key);
 	if (key == KEY_ESC)
 		return (x_close(env));
 	// else if ((key >= 123 && key <= 126) || (key >= 83 && key <= 87)
@@ -73,5 +73,6 @@ void	set_controls(t_mlx_vars *env)
 {
 	mlx_key_hook(env->win, key, env);
 	// mlx_hook(env->win, 4, 0, mouse, env);
-	mlx_hook(env->win, 17, 0, x_close, env);
+	mlx_key_hook(env->win, x_close, env);
+	// mlx_hook(env->win, 17, 0, x_close, env);
 }

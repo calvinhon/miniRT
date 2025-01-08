@@ -30,89 +30,89 @@ typedef struct s_point
 		float	z;
 		float	p;
 	};
-	float		p[4];
+	float		arr[4];
 	uint32_t	pint[4];
 	__m128		psimd;
 }__attribute((aligned(16))) t_point;
 
-typedef struct s_vector
+typedef struct s_vec4d
 {
 	struct
 	{
-		float	a;
-		float	b;
-		float	c;
-		float	v;
+		float	x;
+		float	y;
+		float	z;
+		float	p;
 	};
-	float		v[4];
+	float		arr[4];
 	uint32_t	vint[4];
 	__m128		vsimd;
-}__attribute((aligned(16))) t_vector;
+}__attribute((aligned(16))) t_vec4d;
 
 typedef struct s_color
 {
 	struct
 	{
-		float	t;
+		float	r;
 		float	g;
 		float	b;
 		float	t;
 	};
-	t_vector	v;
+	t_vec4d	v;
 }		t_color;
 
 typedef struct s_vec2d
 {
-	double	x;
-	double	y;
+	float	x;
+	float	y;
 }	t_vec2d;
 
 typedef struct s_vec3d
 {
-	double	x;
-	double	y;
-	double	z;
+	float	x;
+	float	y;
+	float	z;
 }	t_vec3d;
 
-typedef struct s_vec4d
-{
-	double	x;
-	double	y;
-	double	z;
-	double	p;
-}	t_vector;
+// typedef struct s_vec4d
+// {
+// 	float	x;
+// 	float	y;
+// 	float	z;
+// 	float	p;
+// }	t_vec4d;
 
 typedef struct s_shear
 {
-	double	x_y;
-	double	x_z;
-	double	y_x;
-	double	y_z;
-	double	z_x;
-	double	z_y;
+	float	x_y;
+	float	x_z;
+	float	y_x;
+	float	y_z;
+	float	z_x;
+	float	z_y;
 }	t_shear;
 
 
 typedef struct s_mat2d
 {
-	double 	matrix[4];
+	float 	matrix[4];
 }	t_mat2d;
 
 typedef struct s_mat3d
 {
-	double 	matrix[9];
+	float 	matrix[9];
 }	t_mat3d;
 
 typedef struct s_mat4d
 {
-	double	matrix[16];
+	float	matrix[16];
 }	t_mat4d;
 
 
 typedef struct s_ray
 {
 	t_point		origin;
-	t_vector	direction;
+	t_vec4d	direction;
 }				t_ray;
 
 // Ambient
@@ -144,7 +144,7 @@ typedef struct s_camera
 {
 	bool		ini;
 	t_point		origin;
-	t_vector	direction;
+	t_vec4d	direction;
 	float		fov;
 	int			hsize;
 	int			vsize;
@@ -164,20 +164,20 @@ typedef enum e_objtype
 // data for objects
 
 // Material = data for object
-typedef struct s_material
-{
-	t_color		color;
-	t_color		xordc;
-	float		ambient;
-	float		diffuse;
-	float		specular;
-	float		sheen;
-	float		reflective;
-	float		transparency;
-	float		refractive_index;
-	bool		checkered;
-	t_mlx_vars	*graphic;
-}	t_material;
+// typedef struct s_material
+// {
+// 	t_color		color;
+// 	t_color		xordc;
+// 	float		ambient;
+// 	float		diffuse;
+// 	float		specular;
+// 	float		sheen;
+// 	float		reflective;
+// 	float		transparency;
+// 	float		refractive_index;
+// 	bool		checkered;
+// 	t_mlx_vars	*graphic;
+// }	t_material;
 
 
 
@@ -194,14 +194,14 @@ typedef struct s_object
 typedef struct s_plane
 {
 	t_point		point;
-	t_vector	normal;
+	t_vec4d	normal;
 	t_color		color;
 }				t_plane;
 
 typedef struct s_sphere
 {
 	t_point		center;
-	double		radius;
+	float		radius;
 	t_color		color;
 	t_mat4d		transform;
 	t_material	material;
@@ -210,7 +210,7 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	t_point		base;
-	t_vector	axis;
+	t_vec4d	axis;
 	float		radius;
 	float		height;
 	t_color		color;
@@ -219,7 +219,7 @@ typedef struct s_cylinder
 typedef struct s_cone
 {
 	t_point		apex;
-	t_vector	axis;
+	t_vec4d	axis;
 	float		angle;
 	t_color		color;
 }				t_cone;
@@ -228,7 +228,7 @@ typedef struct s_cube
 {
 	t_point		center;
 	float		size;
-	t_vector	rotation;
+	t_vec4d	rotation;
 	t_color		color;
 }				t_cube;
 
@@ -261,9 +261,8 @@ typedef struct s_mlx_vars
 	int		bpp;
 	int		l_len;
 	int		end;
+	
 }	t_mlx_vars;
-
-
 
 typedef struct s_minirt t_minirt;
 
@@ -294,7 +293,7 @@ typedef struct s_minirt
 	t_scene		scene;
 
 	t_unit		*units;
-	t_list		*texture;
+	// t_list		*texture;
 	int			error;
 	bool		stop;
 	float 		time;
@@ -302,7 +301,7 @@ typedef struct s_minirt
 	// moving object
 	bool		is_cam;
 	t_object	*obj;
-	t_vector	ray_dir;
+	t_vec4d	ray_dir;
 
 	struct s_keys
 	{
