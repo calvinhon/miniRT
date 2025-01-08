@@ -19,10 +19,10 @@ void	ini_graphic(t_minirt *minirt)
 	if (!minirt->mlx)
 		errors(ER_MLX, minirt);
     minirt->win = mlx_new_window(minirt->mlx, WIDTH, HEIGHT, "MiniRT");
-    minirt->img = mlx_new_image(minirt->mlx, WIDTH, HEIGHT);
-	if (!minirt->img)
+    minirt->frame.img = mlx_new_image(minirt->mlx, WIDTH, HEIGHT);
+	if (!minirt->frame.img)
 		errors(ER_MLX, minirt);
-	minirt->addr = mlx_get_data_addr(minirt->img, &minirt->bpp, &minirt->l_len, &minirt->endian);
+	minirt->frame.addr = mlx_get_data_addr(minirt->img, &minirt->bpp, &minirt->l_len, &minirt->endian);
 	if (!minirt->addr)
 		errors(ER_MLX, minirt);
 }
@@ -90,15 +90,17 @@ void	*render(void *arg)
 		x = 0;
 		while (x < cam->hsize)
 		{
-			rt_render_pixel(data->minirt, x, y);
-			x += _RT_SKIP_STEP;
+			rt_render_pixel(unit->minirt, x, y);
+			x += STEP;
 		}
-		y += _RT_SKIP_STEP;
+		y += STEP;
 	}
 	interpolate_horizontal(unit);
 	interpolate_vertical(unit);
 	return (NULL);
 }
+
+
 
 int	main(int ac, char **av)
 {
