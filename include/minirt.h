@@ -31,5 +31,8 @@
 
 void	errors(int err_code, t_minirt *minirt);
 void	set_controls(t_mlx_vars *env);
+t_color	render_pixel(t_minirt *vars, int x, int y);
+t_ray	cam_ray_to_pixel(t_camera *cam, int x, int y);
+t_ray	create_ray(t_point origin, t_vec4d);
 
 #endif

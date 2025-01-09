@@ -35,6 +35,7 @@ t_vec4d	negate_vector(t_vec4d v);
 double	magnitude(t_vec4d v);
 t_vec4d	normalize(t_vec4d v);
 double	dot(t_vec4d v1, t_vec4d v2);
+t_vec4d cross(t_vec4d v1, t_vec4d v2);
 t_mat2d	create_mat2d(t_vec2d v1, t_vec2d v2);
 t_mat3d	create_mat3d(t_vec3d v1, t_vec3d v2, t_vec3d v3);
 t_mat4d	create_mat4d(t_vec4d v1, t_vec4d v2, t_vec4d v3, t_vec4d v4);

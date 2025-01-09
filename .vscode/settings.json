@@ -59,5 +59,6 @@
   "files.associations": {
     "exception": "cpp",
     "limits": "cpp"
-  }
+},
+"C_Cpp.default.compilerPath": ""
 }

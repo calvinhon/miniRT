@@ -111,9 +111,9 @@ typedef struct s_mat4d
 
 typedef struct s_ray
 {
-	t_point		origin;
+	t_point	origin;
 	t_vec4d	direction;
-}				t_ray;
+}	t_ray;
 //
 typedef struct s_itx
 {
@@ -163,7 +163,18 @@ typedef struct s_camera
 	float		fov;
 	int			hsize;
 	int			vsize;
-
+	t_mat4d		inv_transform;
+	t_vec4d		forward;
+	t_vec4d		up;
+	t_vec4d		left;
+	t_mat4d		rot;
+	t_vec4d		trans;
+	t_vec4d		scale;
+	float		half_width;
+	float		half_height;
+	float		half_view;
+	float		aspect_ratio;
+	float		pixel_size;
 }				t_camera;
 
 // Object types
@@ -306,7 +317,7 @@ typedef struct s_minirt
 	void		*mlx;
 	void		*win;
 	t_mlx_vars	frame;
-	// t_camera	cam;
+	t_camera	cam;
 	t_scene		scene;
 	t_unit		*units;
 	t_list		*textures;
