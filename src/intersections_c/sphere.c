@@ -10,7 +10,7 @@ bool	intersect_sphere(t_ray *r, t_object *sphere, t_itx_set *xs)
 	if (xs->count + 2 >= _RT_MAX_ITX)
 		return (false);
 	trans_r = *r;
-	ray_transform(&trans_r, &sphere->inv_transform);
+	transform_ray(&trans_r, &sphere->inv_transform);
 	sphere_to_ray = subtract_points(trans_r.origin, sphere->center);
 	abc.x = dot(trans_r.direction, trans_r.direction);
 	abc.y = 2.f * dot(trans_r.direction, sphere_to_ray);

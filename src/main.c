@@ -44,16 +44,37 @@ int main(int ac, char **av)
 	if (init_env(&env))
 		return (1);
 	
-// Test intersect
-	t_ray		r = create_ray(create_point(0, 0, 5), create_vec4d(0, 0, 1));
-	t_object	s;
-	t_itx_set	xs;
+// Intersect test
+	// t_ray		r = create_ray(create_point(0, 0, 5), create_vec4d(0, 0, 1));
+	// t_object	s;
+	// t_itx_set	xs;
 
-	s.type = SPHERE;
-	s.inv_transform = identity_mat();
-	s.center = create_point(0, 0, 0);
-	intersect_sphere(&r, &s, &xs);
-	printf("count: %d\n xs[0]: %.1f\n xs[1]: %.1f\n", xs.count, xs.arr[0].t, xs.arr[1].t);
+	// s.type = SPHERE;
+	// s.inv_transform = identity_mat();
+	// s.center = create_point(0, 0, 0);
+	// intersect_sphere(&r, &s, &xs);
+	// printf("count: %d\n xs[0]: %.1f\n xs[1]: %.1f\n", xs.count, xs.arr[0].t, xs.arr[1].t);
+
+// Transform ray test
+	// t_ray	r = create_ray(create_point(1, 2, 3), create_vec4d(0, 1, 0));
+	// t_mat4d	m = scaling_mat(2, 3, 4);
+	// t_ray	r2 = r;
+
+	// transform_ray(&r2, &m);
+	// printf("%.0f, %.0f, %.0f\n", r2.origin.x, r2.origin.y, r2.origin.z);
+	// printf("%.0f, %.0f, %.0f\n", r2.direction.x, r2.direction.y, r2.direction.z);
+
+// Intersect with transform test
+	// t_ray		r = create_ray(create_point(0, 0, -5), create_vec4d(0, 0, 1));
+	// t_object	s;
+	// t_itx_set	xs;
+
+	// s.type = SPHERE;
+	// s.transform = translation_mat(5, 0, 0);
+	// s.inv_transform = inverse_mat4d(s.transform);
+	// s.center = create_point(5, 0, 0);
+	// intersect_sphere(&r, &s, &xs);
+	// printf("count: %d\n xs[0]: %.1f\n xs[1]: %.1f\n", xs.count, xs.arr[0].t, xs.arr[1].t);
 
 	draw(&env);
 	mlx_loop(env.mlx);

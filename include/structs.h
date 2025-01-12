@@ -202,9 +202,12 @@ typedef struct s_object
 	t_objtype	type;
 	t_point		center;
 	void		*data;
-	t_mat4d		inv_transform;
 	float		reflection;
-	t_vec4d		trans;
+	t_mat4d		rotate;
+	t_mat4d		scale;
+	t_mat4d		translate;
+	t_mat4d		transform;
+	t_mat4d		inv_transform;
 	t_material	material;
 }				t_object;
 
