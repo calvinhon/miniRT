@@ -35,6 +35,8 @@ typedef struct s_point
 	__m128		psimd;
 }__attribute((aligned(16))) t_point;
 
+typedef t_point t_point; // To silence faulty(?) VS Code warning:
+
 typedef struct s_vec4d
 {
 	struct
@@ -48,6 +50,8 @@ typedef struct s_vec4d
 	uint32_t	vint[4];
 	__m128		vsimd;
 }__attribute((aligned(16))) t_vec4d;
+
+typedef t_vec4d	t_vec4d; // To silence faulty(?) VS Code warning:
 
 typedef struct s_color
 {
@@ -114,21 +118,6 @@ typedef struct s_ray
 	t_point	origin;
 	t_vec4d	direction;
 }	t_ray;
-//
-typedef struct s_itx
-{
-	float		t;
-	t_object	*object;
-	float		n1;
-	float		n2;
-}	t_itx;
-//
-typedef struct s_itx_set
-{
-	t_itx	arr[200];
-	int		count;
-}	t_itx_set;
-
 
 // Ambient
 typedef struct s_ambient
@@ -211,8 +200,11 @@ typedef enum e_objtype
 typedef struct s_object
 {
 	t_objtype	type;
+	t_point		center;
 	void		*data;
+	t_mat4d		inv_transform;
 	float		reflection;
+	t_vec4d		trans;
 	t_material	material;
 }				t_object;
 
@@ -258,10 +250,25 @@ typedef struct s_cube
 	t_color		color;
 }				t_cube;
 
+typedef struct s_itx
+{
+	float		t;
+	t_object	*obj;
+	float		n1;
+	float		n2;
+}	t_itx;
+
+typedef struct s_itx_set
+{
+	t_itx	arr[200];
+	int		count;
+}	t_itx_set;
+
 typedef struct s_scene
 {
 	bool		refract_reflect;
 	t_ambient	ambient;
+	int			num_shapes;
 	t_camera	camera;
 	size_t		l;
 	size_t		idx_l;
@@ -276,17 +283,17 @@ typedef struct s_scene
 	size_t		cy;
 	size_t		cu;
 	size_t		co;
-
-}				t_scene;
+}	t_scene;
 
 typedef struct s_mlx_vars
 {
+	void	*mlx;
+	void	*win;
 	void	*img;
 	char	*addr;
 	int		bpp;
 	int		l_len;
 	int		end;
-	
 }	t_mlx_vars;
 
 typedef struct s_minirt t_minirt;
@@ -320,7 +327,7 @@ typedef struct s_minirt
 	t_camera	cam;
 	t_scene		scene;
 	t_unit		*units;
-	t_list		*textures;
+	// t_list		*textures;
 	int			error;
 	bool		stop;
 	float 		time;

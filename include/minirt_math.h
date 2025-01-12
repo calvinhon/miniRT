@@ -17,7 +17,9 @@
 # include <stdbool.h>
 # include "structs.h"
 
-#define EPISILON 0.00001
+# define EPISILON 	0.00001
+# define PI         3.1415926535f
+# define MAX_LIGHT	100
 
 t_point	create_point(double x, double y, double z);
 t_point	add_v_to_p(t_point p, t_vec4d v);

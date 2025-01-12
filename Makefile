@@ -33,9 +33,11 @@ SRC_FILES = main.c \
 		$(addprefix draw/, draw.c) \
 		$(addprefix colors/, colors.c) \
 		$(addprefix controls/, controls.c) \
-		$(addprefix math/, point.c vector_1.c vector_2.c vector_3.c \
+		$(addprefix math_c/, point.c vector_1.c vector_2.c vector_3.c \
 			matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c matrix_6.c) \
 		$(addprefix lighting_and_shading/, lighting.c) \
+		$(addprefix intersections_c/, world.c sphere.c) \
+		$(addprefix raytracing_c/, rays.c render.c) \
 		destroy/destroy.c
 SRCS = $(addprefix src/, $(SRC_FILES))
 OBJS = $(SRCS:.c=.o)

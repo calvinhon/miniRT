@@ -43,8 +43,19 @@ int main(int ac, char **av)
 	(void)av;
 	if (init_env(&env))
 		return (1);
+	
+// Test intersect
+	t_ray		r = create_ray(create_point(0, 0, 5), create_vec4d(0, 0, 1));
+	t_object	s;
+	t_itx_set	xs;
+
+	s.type = SPHERE;
+	s.inv_transform = identity_mat();
+	s.center = create_point(0, 0, 0);
+	intersect_sphere(&r, &s, &xs);
+	printf("count: %d\n xs[0]: %.1f\n xs[1]: %.1f\n", xs.count, xs.arr[0].t, xs.arr[1].t);
+
 	draw(&env);
 	mlx_loop(env.mlx);
-
 	return (0);
 }
