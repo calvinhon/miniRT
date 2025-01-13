@@ -1,5 +1,26 @@
 #include "minirt.h"
 
+t_itx	*hit(t_itx_set *xs, t_objtype objtype)
+{
+	int		i;
+	t_itx	*itx;
+	float	t0;
+
+	i = -1;
+	itx = NULL;
+	t0 = FLT_MAX;
+	while (++i < xs->count)
+	{
+		if (xs->arr[i].obj->type == objtype && xs->arr[i].t < t0
+			&& xs->arr[i].t > 0)
+		{
+			itx = &xs->arr[i];
+			t0 = xs->arr[i].t;
+		}
+	}
+	return (itx);
+}
+
 t_ray	cam_ray_to_pixel(t_camera *cam, int px, int py)
 {
 	t_point	pixel_cam;

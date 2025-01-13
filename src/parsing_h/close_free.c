@@ -44,7 +44,7 @@ void free_lights(t_light **lights, int count)
 	int i;
 
 	if (!lights)
-		return ;
+		return;
 	i = 0;
 	while (i < count)
 	{
@@ -54,23 +54,22 @@ void free_lights(t_light **lights, int count)
 	}
 	free(lights);
 }
-//minirt->graphic.mlx = mlx_init();
-//minirt->graphic.win = mlx_new_window(minirt->graphic.mlx, WINDOW_W, WINDOW_L, "miniRT");
-//minirt->graphic.img = mlx_new_image(minirt->graphic.mlx, WINDOW_W, WINDOW_L);
-//minirt->graphic.addr = mlx_get_data_addr(minirt->graphic.img, &minirt->graphic.bpp, &minirt->graphic.l_len, &minirt->graphic.end);
-//minirt->scene.light = (t_light *)malloc(minirt->scene.l * sizeof(t_light));
-//minirt->scene.objs = (t_object *)malloc(minirt->scene.n_objs * sizeof(t_object));
-//minirt->scene.objs[idx].data = malloc(sizeof(t_sphere));
+// minirt->graphic.mlx = mlx_init();
+// minirt->graphic.win = mlx_new_window(minirt->graphic.mlx, WINDOW_W, WINDOW_H, "miniRT");
+// minirt->graphic.img = mlx_new_image(minirt->graphic.mlx, WINDOW_W, WINDOW_H);
+// minirt->graphic.addr = mlx_get_data_addr(minirt->graphic.img, &minirt->graphic.bpp, &minirt->graphic.l_len, &minirt->graphic.end);
+// minirt->scene.light = (t_light *)malloc(minirt->scene.l * sizeof(t_light));
+// minirt->scene.objs = (t_object *)malloc(minirt->scene.n_objs * sizeof(t_object));
+// minirt->scene.objs[idx].data = malloc(sizeof(t_sphere));
 
-
-void	free_minirt(t_minirt *minirt)
+void free_minirt(t_minirt *minirt)
 {
 	if (minirt->graphic.win)
 		mlx_destroy_window(minirt->graphic.mlx, minirt->graphic.win);
 	if (minirt->graphic.img)
 		mlx_destroy_image(minirt->graphic.mlx, minirt->graphic.img);
 	free_mlx(minirt->graphic.mlx);
-	//free_scene(minirt->scene);
+	// free_scene(minirt->scene);
 	free_objs(minirt->scene.objs);
 	free_lights(minirt->scene.light);
 	free_scene(minirt->scene);

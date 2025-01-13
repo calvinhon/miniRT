@@ -18,6 +18,7 @@
 # define OLIVE 0x808000
 # define LIME 0x32CD32
 # define PURPLE 0x800080
+# define BLACK 0x000000
 
 # include "structs.h"
 # include <stdarg.h>

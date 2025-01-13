@@ -24,10 +24,12 @@
 # include "lighting_and_shading.h"
 # include <stdio.h> //
 # include <pthread.h>
-
+# include <float.h>
 
 # define WINDOW_W 1920
-# define WINDOW_L 1080
+# define WINDOW_H 1080
+# define W_HALF WINDOW_W / 2
+# define H_HALF WINDOW_H / 2
 
 void		errors(int err_code, t_minirt *minirt);
 void		set_controls(t_mlx_vars *env);
@@ -37,5 +39,6 @@ t_ray		create_ray(t_point origin, t_vec4d);
 void		transform_ray(t_ray *r, t_mat4d *m);
 bool		intersect_sphere(t_ray *r, t_object *sphere, t_itx_set *xs);
 t_itx_set	intersect_world(t_scene *w, t_ray *r);
+t_itx		*hit(t_itx_set *xs, t_objtype objtype);
 
 #endif
