@@ -36,6 +36,6 @@ t_ray		create_ray(t_point origin, t_vec4d);
 void		transform_ray(t_ray *r, t_mat4d *m);
 bool		intersect_sphere(t_ray *r, t_object *sphere, t_itx_set *xs);
 t_itx_set	intersect_world(t_scene *w, t_ray *r);
-t_itx		*hit(t_itx_set *xs, t_objtype objtype);
+t_itx		*hit(t_itx_set *xs);
 
 #endif

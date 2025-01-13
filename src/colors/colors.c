@@ -60,5 +60,11 @@ t_color	mult_colors(t_color c1, t_color c2)
 
 unsigned int	plot_color(t_color c)
 {
+	if (c.r > 255)
+		c.r = 255;
+	if (c.g > 255)
+		c.g = 255;
+	if (c.b > 255)
+		c.b = 255;
 	return ((unsigned int)c.r << 16 | (unsigned int)c.g << 8 | (unsigned int)c.b);
 }

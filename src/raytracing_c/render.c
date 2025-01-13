@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-t_itx	*hit(t_itx_set *xs, t_objtype objtype)
+t_itx	*hit(t_itx_set *xs)
 {
 	int		i;
 	t_itx	*itx;
@@ -23,8 +23,7 @@ t_itx	*hit(t_itx_set *xs, t_objtype objtype)
 	t0 = FLT_MAX;
 	while (++i < xs->count)
 	{
-		if (xs->arr[i].obj->type == objtype && xs->arr[i].t < t0
-			&& xs->arr[i].t > 0)
+		if (xs->arr[i].t < t0 && xs->arr[i].t > EPISILON)
 		{
 			itx = &xs->arr[i];
 			t0 = xs->arr[i].t;

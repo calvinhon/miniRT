@@ -150,7 +150,7 @@ int main(int ac, char **av)
 	t_object	s;
 	t_itx_set	xs;
 	t_point		pixel_pos;
-	t_shear		shear = {0};
+	// t_shear		shear = {0};
 	t_material	m;
 	t_light		light;
 	t_color		black;
@@ -164,7 +164,7 @@ int main(int ac, char **av)
 	float		world_x;
 
 	s.type = SPHERE;
-	shear.x_y = 1;
+	// shear.x_y = 1;
 	s.transform = scaling_mat(1, 1, 1);
 	s.inv_transform = inverse_mat4d(s.transform);
 	// s.inv_transform = identity_mat();
@@ -172,11 +172,16 @@ int main(int ac, char **av)
 	xs.count = 0;
 	x = -1;
 	y = -1;
+	m.ambient.color = create_color(.1, .1, .1);
+	// m.ambient.color = create_color(0, 0, 0);
+	m.diffuse = create_color(.9, .9, .9);
+	// m.diffuse = create_color(0, 0, 0);
+	m.specular = create_color(.9, .9, .9);
+	m.shininess = 200;
 	m.color = create_color(255, 0.2 * 255, 255);
-	printf("%u\n", plot_color(m.color));
 	s.material = m;
 	light.position = create_point(-10, 10, -10);
-	light.color = create_color(255, 255, 255);
+	light.color = create_color(1, 1, 1);
 	black = create_color(0, 0, 0);
 	while (++y < WINDOW_H - 1)
 	{
@@ -184,14 +189,16 @@ int main(int ac, char **av)
 		while (++x < WINDOW_W - 1)
 		{
 			world_x = -HALF_W + x;
-			pixel_pos = create_point(world_x, world_y, 150);
+			pixel_pos = create_point(world_x, world_y, 1000);
 			r = create_ray(r_origin, normalize(subtract_points(pixel_pos, r_origin)));
 			if (intersect_sphere(&r, &s, &xs))
 			{
-				point = position(&r, hit(&xs, SPHERE)->t);
-				eye_v = negate_vector(r.direction);
+				point = position(&r, hit(&xs)->t);
 				normal = normal_at(&s, &point);
+				// printf("normal: %f, %f, %f\n", normal.x, normal.y, normal.z);
+				eye_v = negate_vector(r.direction);
 				pixel_color = lighting(&s, &light, &point, &eye_v, &normal);
+				// printf("%u\n", plot_color(pixel_color));
 				draw(&env, x, y, pixel_color);
 			}
 			else
