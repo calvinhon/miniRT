@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:02:13 by chon              #+#    #+#             */
-/*   Updated: 2025/01/13 12:00:01 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/13 15:35:18 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define DRAW_H
 
 # include "structs.h"
+# include "colors.h"
 
-void	draw(t_mlx_vars *env, int x, int y, int color);
+void	draw(t_mlx_vars *env, int x, int y, t_color c);
 
 #endif

@@ -20,7 +20,7 @@
 # include <immintrin.h> //__m256d, __m128)
 # include <stdint.h> // bit-wise & integer types
 # include <stdbool.h> // boolean types
-# include "macros.h"
+# include <macros.h>
 
 typedef struct s_point
 {
