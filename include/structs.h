@@ -21,6 +21,7 @@
 # include <stdint.h> // bit-wise & integer types
 # include <stdbool.h> // boolean types
 # include "macros.h"
+# include "../libs/libft/libft.h"
 
 typedef struct s_point
 {
@@ -127,14 +128,6 @@ typedef struct s_ambient
 	t_color	color;
 }				t_ambient;
 
-typedef struct s_material
-{
-	t_color		color;
-	t_ambient	ambient;
-	t_color		diffuse;
-	t_color		specular;
-	float		shininess;
-}	t_material;
 
 // Light source
 typedef struct s_light
@@ -179,21 +172,22 @@ typedef enum e_objtype
 
 // data for objects
 
-// Material = data for object
-// typedef struct s_material
-// {
-// 	t_color		color;
-// 	t_color		xordc;
-// 	float		ambient;
-// 	float		diffuse;
-// 	float		specular;
-// 	float		sheen;
-// 	float		reflective;
-// 	float		transparency;
-// 	float		refractive_index;
-// 	bool		checkered;
-// 	t_mlx_vars	*graphic;
-// }	t_material;
+typedef struct s_mlx_vars t_mlx_vars;
+//Material = data for object
+typedef struct s_material
+{
+	t_color		color;
+	t_color		xordc;
+	float		ambient;
+	float		diffuse;
+	float		specular;
+	float		sheen;
+	float		reflective;
+	float		transparency;
+	float		refractive_index;
+	bool		checkered;
+	t_mlx_vars	*graphic;
+}	t_material;
 
 
 
@@ -291,8 +285,6 @@ typedef struct s_scene
 
 typedef struct s_mlx_vars
 {
-	void	*mlx;
-	void	*win;
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -332,7 +324,7 @@ typedef struct s_minirt
 	t_camera	cam;
 	t_scene		scene;
 	t_unit		*units;
-	// t_list		*textures;
+	t_list		*textures;
 	int			error;
 	bool		stop;
 	float 		time;

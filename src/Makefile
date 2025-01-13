@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 18:56:23 by chon              #+#    #+#              #
-#    Updated: 2024/12/21 14:37:51 by honguyen         ###   ########.fr        #
+#    Updated: 2025/01/13 16:40:14 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,9 @@ endif
 
 LIBFT_DIR = ../libs/libft
 INCL_DIR = ../include
-SRC_FILES = main_h.c \
-		$(addprefix parsing/, 0errors.c 1check_filename.c 2new_minirt.c 3parse.c \
-		31read_file.c 32parse_data.c 321parse_utils.c 322parse_objects.c 322parse_objects2.c ft_atof.c)
+SRC_FILES = main_parse.c \
+		$(addprefix parsing/, 0errors.c 2new_minirt.c 3parse.c \
+		31read_file.c 32parse_data.c 321parse_objects.c 321parse_objects2.c 322parse_utils.c  323ft_atof.c)
 SRCS = $(addprefix ./, $(SRC_FILES))
 OBJS = $(SRCS:.c=.o)
 

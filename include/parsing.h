@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:07:24 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/20 13:57:33 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/13 17:01:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include "../libs/mlx_linux/mlx.h"
 # include "../libs/mlx_macos/mlx.h"
 # include "structs.h"
-# include "structs.h"
 
 void		errors(int err_code, t_minirt *minirt);
+int			close_minirt(t_minirt *minirt);
 void		check_filename(char *file);
 t_minirt	*new_minirt(void);
 void		parse(t_minirt *minirt, char *file);

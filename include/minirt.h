@@ -13,13 +13,8 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "../libs/libft/libft.h"
-# include "../libs/mlx_linux/mlx.h"
-# include "../libs/mlx_macos/mlx.h"
 # include "colors.h"
 # include "draw.h"
-# include "structs.h"
-# include "macros.h"
 # include "parsing.h"
 # include "minirt_math.h"
 # include "lighting_and_shading.h"
@@ -27,7 +22,6 @@
 # include <pthread.h>
 # include <float.h>
 
-void		errors(int err_code, t_minirt *minirt);
 void		set_controls(t_mlx_vars *env);
 t_color		render_pixel(t_minirt *vars, int x, int y);
 t_ray		cam_ray_to_pixel(t_camera *cam, int x, int y);

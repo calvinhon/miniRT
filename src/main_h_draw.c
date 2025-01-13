@@ -28,17 +28,17 @@ int	main(int ac, char **av)
 	// ini_graphic
 	// ini_threads
 	// ini_viewport
-	mlx_ptr = mlx_init();
-	if (!mlx_ptr)
-		errors(ER_MLX, minirt);
-	minirt->graphic.mlx = mlx_ptr;
-	win_ptr = mlx_new_window(mlx_ptr, WIDTH, HEIGHT, "MiniRT");
-	if (!win_ptr)
-		errors(ER_MLX, minirt);
-	minirt->graphic.win = win_ptr;
-	mlx_key_hook(win_ptr, handle_keypress , minirt);
-	mlx_loop_hook(win_ptr, update_draw, minirt);
-	mlx_hook(win_ptr, 17, 0, close_window, minirt);
-	mlx_loop(mlx_ptr);
+	// mlx_ptr = mlx_init();
+	// if (!mlx_ptr)
+	// 	errors(ER_MLX, minirt);
+	// minirt->graphic.mlx = mlx_ptr;
+	// win_ptr = mlx_new_window(mlx_ptr, WIDTH, HEIGHT, "MiniRT");
+	// if (!win_ptr)
+	// 	errors(ER_MLX, minirt);
+	// minirt->graphic.win = win_ptr;
+	// mlx_key_hook(win_ptr, handle_keypress , minirt);
+	// mlx_loop_hook(win_ptr, update_draw, minirt);
+	// mlx_hook(win_ptr, 17, 0, close_window, minirt);
+	// mlx_loop(mlx_ptr);
 	return (OK);
 }
