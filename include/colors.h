@@ -13,13 +13,6 @@
 #ifndef COLORS_H
 # define COLORS_H
 
-# define WHITE 0xFFFFFF
-# define GOLD 0xFFD700
-# define OLIVE 0x808000
-# define LIME 0x32CD32
-# define PURPLE 0x800080
-# define BLACK 0x000000
-
 # include "structs.h"
 # include <stdarg.h>
 # include <math.h>

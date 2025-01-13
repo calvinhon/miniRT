@@ -18,7 +18,6 @@ bool	intersect_sphere(t_ray *r, t_object *sphere, t_itx_set *xs)
 	d = abc.y * abc.y - 4.f * abc.x * abc.z;
 	if (d < 0)
 		return (false);
-	printf("%.1f\n", d);
 	d = sqrtf(d);
 	xs->arr[xs->count].obj = sphere;
 	xs->arr[xs->count++].t = (-abc.y - d) / (2.f * abc.x);

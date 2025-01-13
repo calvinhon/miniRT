@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:53:43 by honguyen          #+#    #+#             */
-/*   Updated: 2025/01/08 07:59:56 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/13 14:20:20 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <math.h>
+# include <limits.h>
 
 // bonus
 # ifndef BONUS
@@ -43,9 +44,6 @@
 # define C      "data/xpm/C100.xpm"
 # define E      "data/xpm/E100.xpm"
 # define G      "data/xpm/G.xpm"
-
-// Define raytracing parameters 
-# define _RT_MAX_ITX 200
 
 //
 # define STEP 3
@@ -117,14 +115,26 @@
 
 //Window sizes
 # ifdef __APPLE__
-#  define WIDTH 1440
-#  define HEIGHT 810
+#  define WINDOW_W 1440
+#  define WINDOW_H 810
 # else
-#  define WIDTH 1920
-#  define HEIGHT 1080
+#  define WINDOW_W 1920
+#  define WINDOW_H 1080
 # endif
 
+# define HALF_W WINDOW_W / 2
+# define HALF_H WINDOW_H / 2
+
+// Define raytracing parameters 
+# define _RT_MAX_ITX 200
+
 // color define
+# define WHITE 0xFFFFFF
+# define GOLD 0xFFD700
+# define OLIVE 0x808000
+# define LIME 0x32CD32
+# define PURPLE 0x800080
+# define BLACK 0x000000
 
 
 // Keyboard define

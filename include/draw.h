@@ -6,15 +6,15 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:02:13 by chon              #+#    #+#             */
-/*   Updated: 2024/12/11 17:03:36 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/13 12:00:01 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DRAW_H
 # define DRAW_H
 
-# include "minirt.h"
+# include "structs.h"
 
-void	draw(t_mlx_vars *env);
+void	draw(t_mlx_vars *env, int x, int y, int color);
 
 #endif

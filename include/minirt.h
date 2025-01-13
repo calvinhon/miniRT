@@ -17,6 +17,7 @@
 # include "../libs/mlx_linux/mlx.h"
 # include "../libs/mlx_macos/mlx.h"
 # include "colors.h"
+# include "draw.h"
 # include "structs.h"
 # include "macros.h"
 # include "parsing.h"
@@ -25,11 +26,6 @@
 # include <stdio.h> //
 # include <pthread.h>
 # include <float.h>
-
-# define WINDOW_W 1920
-# define WINDOW_H 1080
-# define W_HALF WINDOW_W / 2
-# define H_HALF WINDOW_H / 2
 
 void		errors(int err_code, t_minirt *minirt);
 void		set_controls(t_mlx_vars *env);

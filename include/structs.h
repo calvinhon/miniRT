@@ -20,6 +20,7 @@
 # include <immintrin.h> //__m256d, __m128)
 # include <stdint.h> // bit-wise & integer types
 # include <stdbool.h> // boolean types
+# include "macros.h"
 
 typedef struct s_point
 {
@@ -263,7 +264,7 @@ typedef struct s_itx
 
 typedef struct s_itx_set
 {
-	t_itx	arr[200];
+	t_itx	arr[_RT_MAX_ITX];
 	int		count;
 }	t_itx_set;
 
@@ -295,6 +296,7 @@ typedef struct s_mlx_vars
 	void	*img;
 	char	*addr;
 	int		bpp;
+	int		bpp_8;
 	int		l_len;
 	int		end;
 }	t_mlx_vars;
