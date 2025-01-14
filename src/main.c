@@ -12,6 +12,8 @@
 
 #include "minirt.h"
 
+// Scaling matrix can't have 0 as an input
+
 int init_env(t_mlx_vars *env)
 {
 	env->mlx = mlx_init();
@@ -33,7 +35,8 @@ int init_env(t_mlx_vars *env)
 
 int main(int ac, char **av)
 {
-	t_mlx_vars env;
+	t_minirt	program;
+	t_mlx_vars	env;
 
 	if (ac != 1) // change to 2
 	{
@@ -41,84 +44,30 @@ int main(int ac, char **av)
 		return (1);
 	}
 	(void)av;
-	if (init_env(&env))
+	if (init_env(&program.env))
 		return (1);
 
-	// Intersect test
-	// t_ray		r = create_ray(create_point(0, 2, -5), create_vec4d(0, 0, 1));
-	// t_object	s;
-	// t_itx_set	xs;
-
-	// s.type = SPHERE;
-	// s.inv_transform = identity_mat();
-	// s.center = create_point(0, 0, 0);
-	// xs.count = 0;
-	// intersect_sphere(&r, &s, &xs);
-	// printf("count: %d\n xs[0]: %.1f\n xs[1]: %.1f\n", xs.count, xs.arr[0].t, xs.arr[1].t);
-
-	// Transform ray test
-	// t_ray	r = create_ray(create_point(1, 2, 3), create_vec4d(0, 1, 0));
-	// t_mat4d	m = scaling_mat(2, 3, 4);
-	// t_ray	r2 = r;
-
-	// transform_ray(&r2, &m);
-	// printf("%.0f, %.0f, %.0f\n", r2.origin.x, r2.origin.y, r2.origin.z);
-	// printf("%.0f, %.0f, %.0f\n", r2.direction.x, r2.direction.y, r2.direction.z);
-
-	// Intersect with transform test
-	// t_ray		r = create_ray(create_point(0, 0, -5), create_vec4d(0, 0, 1));
-	// t_object	s;
-	// t_itx_set	xs;
-
-	// s.type = SPHERE;
-	// s.transform = translation_mat(5, 0, 0);
-	// s.inv_transform = inverse_mat4d(s.transform);
-	// s.center = create_point(5, 0, 0);
-	// intersect_sphere(&r, &s, &xs);
-	// printf("count: %d\n xs[0]: %.1f\n xs[1]: %.1f\n", xs.count, xs.arr[0].t, xs.arr[1].t);
-
-// Hit test
-	// t_object	s;
-	// t_itx		i1;
-	// t_itx		i2;
-	// t_itx		i3;
-	// t_itx		i4;
-	// t_itx_set	xs;
-	// t_itx		*hit_itx;
-
-	// s.type = SPHERE;
-	// i1.t = 5;
-	// i1.obj = &s;
-	// i2.t = 7;
-	// i2.obj = &s;
-	// i3.t = -3;
-	// i3.obj = &s;
-	// i4.t = 2;
-	// i4.obj = &s;
-	// xs.arr[0] = i1;
-	// xs.arr[1] = i2;
-	// xs.arr[2] = i3;
-	// xs.arr[3] = i4;
-	// xs.count = 4;
-
-	// hit_itx	= hit(&xs, SPHERE);
-	// printf("t: %f\n", hit_itx->t);
-
-// Draw circle test
+// Draw circle with lighting and shading
 	// t_ray		r;
 	// t_point		r_origin = create_point(0, 0, -5);
 	// t_object	s;
 	// t_itx_set	xs;
-	// t_point		position;
-	// t_shear		shear = {0};
+	// t_point		pixel_pos;
+	// // t_shear		shear = {0};
+	// t_material	m;
+	// t_light		light;
+	// t_color		black;
+	// t_color		pixel_color;
+	// t_point		point;
+	// t_vec4d		eye_v;
+	// t_vec4d		normal;
 	// int			y;
 	// int			x;
 	// float		world_y;
 	// float		world_x;
-	// float		pixel_size;
 
 	// s.type = SPHERE;
-	// shear.x_y = 1;
+	// // shear.x_y = 1;
 	// s.transform = scaling_mat(1, 1, 1);
 	// s.inv_transform = inverse_mat4d(s.transform);
 	// // s.inv_transform = identity_mat();
@@ -126,88 +75,129 @@ int main(int ac, char **av)
 	// xs.count = 0;
 	// x = -1;
 	// y = -1;
-	// pixel_size = 1;
+	// m.ambient.color = create_color(.1, .1, .1);
+	// m.diffuse = create_color(.9, .9, .9);
+	// m.specular = create_color(.9, .9, .9);
+	// m.shininess = 200;
+	// m.color = create_color(255, 0.2 * 255, 255);
+	// s.material = m;
+	// light.position = create_point(10, -10, -10);
+	// light.color = create_color(1, 1, 1);
+	// black = create_color(0, 0, 0);
 	// while (++y < WINDOW_H - 1)
 	// {
-	// 	world_y = HALF_H - y * pixel_size;
+	// 	world_y = HALF_H - y;
 	// 	while (++x < WINDOW_W - 1)
 	// 	{
-	// 		world_x = -HALF_W + x * pixel_size;
-	// 		position = create_point(world_x, world_y, 100);
-	// 		r = create_ray(r_origin, normalize(subtract_points(position, r_origin)));
+	// 		world_x = -HALF_W + x;
+	// 		pixel_pos = create_point(world_x, world_y, 1000);
+	// 		r = create_ray(r_origin, normalize(subtract_points(pixel_pos, r_origin)));
 	// 		if (intersect_sphere(&r, &s, &xs))
-	// 			draw(&env, x, y, OLIVE);
+	// 		{
+	// 			point = position(&r, hit(&xs)->t);
+	// 			normal = sphere_normal_at(&s, &point);
+	// 			eye_v = negate_vector(r.direction);
+	// 			pixel_color = lighting(&s, &light, &point, &eye_v, &normal);
+	// 			draw(&env, x, y, pixel_color);
+	// 		}
 	// 		else
-	// 			draw(&env, x, y, BLACK);
+	// 			draw(&env, x, y, black);
 	// 		xs.count = 0;
 	// 	}
 	// 	x = -1;
 	// }
 
-// Draw circle with lighting and shading
-	t_ray		r;
-	t_point		r_origin = create_point(0, 0, -5);
-	t_object	s;
-	t_itx_set	xs;
-	t_point		pixel_pos;
-	// t_shear		shear = {0};
-	t_material	m;
-	t_light		light;
-	t_color		black;
-	t_color		pixel_color;
-	t_point		point;
-	t_vec4d		eye_v;
-	t_vec4d		normal;
+// Color_at test
+	// t_scene		scene;
+	// t_light		l;
+	// t_object	o[2];
+	// t_object	s1;
+	// t_object	s2;
+	// t_material	m;
+	// t_ray		r;
+	// t_color		color;
+
+	// l.position = create_point(-10, 10, -10);
+	// l.color = create_color(1, 1, 1);
+	// scene.lights = &l;
+	// m.shininess = 200;
+	// m.color = scale_color(create_color(0.8, 1, 0.6), 255);
+	// m.ambient.color = create_color(0.1, 0.1, 0.1);
+	// // m.ambient.color = create_color(0.8, 1, 0.6);
+	// m.diffuse = create_color(0.7, 0.7, 0.7);
+	// m.specular = create_color(0.2, 0.2, 0.2);
+	// s1.material = m;
+	// s1.center = create_point(0, 0, 0);
+	// s1.inv_transform = identity_mat();
+	// s1.type = SPHERE;
+	// o[0] = s1;
+	// s2.center = create_point(0, 0, 0);
+	// s2.transform = scaling_mat(0.5, 0.5, 0.5);
+	// s2.inv_transform = inverse_mat4d(s2.transform);
+	// s2.type = SPHERE;
+	// o[1] = s2;
+	// scene.objs = o;
+	// scene.num_lights = 1;
+	// scene.num_shapes = 2;
+	// r = create_ray(create_point(0, 0, 0.75), create_vec4d(0, 0, -1));
+	// color = scale_color(color_at(&scene, &r, 2), (float)1 / 255);
+	// printf("%f, %f, %f\n", color.r, color.g, color.b);
+
+// Making a scene test
 	int			y;
 	int			x;
-	float		world_y;
-	float		world_x;
-
-	s.type = SPHERE;
-	// shear.x_y = 1;
-	s.transform = scaling_mat(1, 1, 1);
-	s.inv_transform = inverse_mat4d(s.transform);
-	// s.inv_transform = identity_mat();
-	s.center = create_point(0, 0, 0);
-	xs.count = 0;
-	x = -1;
-	y = -1;
+	t_scene		s;
+	t_light		l[1];
+	t_light		l1;
+	l1.position = create_point(-10, 10, -10);
+	l1.color = create_color(1, 1, 1);
+	l[0] = l1;
+	s.lights = l;
+	t_material	m;
 	m.ambient.color = create_color(.1, .1, .1);
-	// m.ambient.color = create_color(0, 0, 0);
 	m.diffuse = create_color(.9, .9, .9);
-	// m.diffuse = create_color(0, 0, 0);
-	m.specular = create_color(.9, .9, .9);
+	m.specular = create_color(0, 0, 0);
 	m.shininess = 200;
-	m.color = create_color(255, 0.2 * 255, 255);
-	s.material = m;
-	light.position = create_point(-10, 10, -10);
-	light.color = create_color(1, 1, 1);
-	black = create_color(0, 0, 0);
+	t_camera	cam;
+	cam.half_width = HALF_W;
+	cam.half_height = HALF_H;
+	cam.pixel_size = 1;
+	cam.inv_transform = identity_mat();
+	program.cam = cam;
+	t_object	o[6];
+	t_object	floor;
+	floor.type = SPHERE;
+	floor.transform = scaling_mat(10, 0.01, 10);
+	floor.inv_transform = inverse_mat4d(floor.transform);
+	floor.material = m;
+	floor.material.color = scale_color(create_color(1, 0.9, 0.9), 255);
+	o[0] = floor;
+	t_object	left_wall;
+	left_wall.type = SPHERE;
+	left_wall.transform = mult_n_mat4d(4, scaling_mat(10, 0.01, 10), rotate_mat_x(PI/2), rotate_mat_y(-PI/4), translation_mat(0, 0, 5));
+	left_wall.inv_transform = inverse_mat4d(left_wall.transform);
+	left_wall.material = floor.material;
+	o[1] = left_wall;
+	t_object	right_wall;
+	right_wall.type = SPHERE;
+	right_wall.transform = mult_n_mat4d(4, scaling_mat(10, 0.01, 10), rotate_mat_x(PI/2), rotate_mat_y(PI/4), translation_mat(0, 0, 5));
+	right_wall.inv_transform = inverse_mat4d(right_wall.transform);
+	right_wall.material = floor.material;
+	o[2] = right_wall;
+	s.objs = o;
+	s.num_shapes = 3;
+	s.num_lights = 1;
+	program.scene = s;
+
 	while (++y < WINDOW_H - 1)
 	{
-		world_y = HALF_H - y;
 		while (++x < WINDOW_W - 1)
 		{
-			world_x = -HALF_W + x;
-			pixel_pos = create_point(world_x, world_y, 1000);
-			r = create_ray(r_origin, normalize(subtract_points(pixel_pos, r_origin)));
-			if (intersect_sphere(&r, &s, &xs))
-			{
-				point = position(&r, hit(&xs)->t);
-				normal = normal_at(&s, &point);
-				// printf("normal: %f, %f, %f\n", normal.x, normal.y, normal.z);
-				eye_v = negate_vector(r.direction);
-				pixel_color = lighting(&s, &light, &point, &eye_v, &normal);
-				// printf("%u\n", plot_color(pixel_color));
-				draw(&env, x, y, pixel_color);
-			}
-			else
-				draw(&env, x, y, black);
-			xs.count = 0;
+			render_pixel(&program, x, y);
 		}
 		x = -1;
 	}
-
+	env = program.env;
 	mlx_put_image_to_window(env.mlx, env.win, env.img, 0, 0);
 	mlx_loop(env.mlx);
 	return (0);

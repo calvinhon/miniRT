@@ -12,10 +12,10 @@
 
 #include "draw.h"
 
-void draw(t_mlx_vars *env, int x, int y, t_color c)
+void draw(t_mlx_vars *env, int x, int y, t_color *c)
 {
 	unsigned int	color_32b;
 
-	color_32b = plot_color(c);
+	color_32b = plot_color(*c);
 	*(unsigned int *)(env->addr + y * env->l_len + x * env->bpp_8) = color_32b;
 }

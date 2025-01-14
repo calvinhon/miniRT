@@ -14,8 +14,6 @@
 # define COLORS_H
 
 # include "structs.h"
-# include <stdarg.h>
-# include <math.h>
 
 t_color			create_color(float r, float g, float b);
 t_color			add_colors(int num_of_colors, ...);

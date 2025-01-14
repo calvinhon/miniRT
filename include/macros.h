@@ -127,6 +127,7 @@
 
 // Define raytracing parameters 
 # define _RT_MAX_ITX 200
+# define _RT_REFLECTION_DEPTH 4
 
 // Define the number of threads
 # define _RT_NUM_THREADS 4

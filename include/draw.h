@@ -16,6 +16,6 @@
 # include "structs.h"
 # include "colors.h"
 
-void	draw(t_mlx_vars *env, int x, int y, t_color c);
+void	draw(t_mlx_vars *env, int x, int y, t_color *c);
 
 #endif
