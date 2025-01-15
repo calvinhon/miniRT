@@ -160,7 +160,7 @@ int main(int ac, char **av)
 	m.shininess = 200;
 	t_camera	cam;
 	cam = set_camera(PI/3);
-	cam.transform = view_transform(create_point(0, 1.5, -5), create_point(0, 1, 0), create_vec4d(0, 1, 0));
+	cam.transform = view_transform(create_point(-5, 1.5, -5), create_point(0, 1, 0), create_vec4d(0, 1, 0));
 	cam.inv_transform = inverse_mat4d(cam.transform);
 	program.cam = cam;
 	t_object	o[6];
@@ -195,7 +195,7 @@ int main(int ac, char **av)
 	middle.type = SPHERE;
 	middle.center = create_point(0, 0, 0);
 	middle.material = sphere_m;
-	middle.material.color = scale_color(create_color(0.1, 1, 0.5), 255);
+	middle.material.color = scale_color(create_color(1, 0.5, 0.5), 255);
 	middle.transform = translation_mat(-0.5, 1, 0.5);
 	middle.inv_transform = inverse_mat4d(middle.transform);
 	o[3] = middle;
@@ -204,7 +204,7 @@ int main(int ac, char **av)
 	right.center = create_point(0, 0, 0);
 	right.material = sphere_m;
 	right.material.color = scale_color(create_color(0.5, 1, 0.1), 255);
-	right.transform = mult_n_mat4d(2, scaling_mat(0.5, 0.5, 0.5), translation_mat(1.5, 0.5, -0.5));
+	right.transform = mult_n_mat4d(2, scaling_mat(0.1, 0.5, 0.5), translation_mat(1.5, 0.5, -0.5));
 	right.inv_transform = inverse_mat4d(right.transform);
 	o[4] = right;
 	t_object	left;

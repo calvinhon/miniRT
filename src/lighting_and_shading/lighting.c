@@ -30,15 +30,13 @@ t_color	lighting(t_material *material, t_light *l, t_comps *c, bool in_shadow)
 	double		light_dot_normal;
 	double		reflect_dot_eye;
 
-	if (in_shadow)
-		return (create_color(0.1, 0.1, 0.1));
 	effective_color = mult_colors(material->color, l->color);
 	new.ambient.color = mult_colors(effective_color, material->ambient.color);
 	light_v = normalize(subtract_points(l->position, c->p));
 	light_dot_normal = dot(light_v, c->normal_v);
 	new.diffuse = create_color(0, 0, 0);
 	new.specular = create_color(0, 0, 0);
-	if (light_dot_normal >= 0)
+	if (light_dot_normal >= 0 && !in_shadow)
 	{
 		new.diffuse = mult_colors(effective_color, material->diffuse);
 		new.diffuse = scale_color(new.diffuse, light_dot_normal);
