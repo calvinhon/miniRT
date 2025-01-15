@@ -143,7 +143,7 @@ int main(int ac, char **av)
 	// color = scale_color(color_at(&scene, &r, 2), (float)1 / 255);
 	// printf("%f, %f, %f\n", color.r, color.g, color.b);
 
-// Making a scene test
+// Making a scene with shadows test
 	int			y;
 	int			x;
 	t_scene		s;

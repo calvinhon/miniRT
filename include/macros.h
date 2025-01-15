@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:53:43 by honguyen          #+#    #+#             */
-/*   Updated: 2025/01/15 12:04:04 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/15 15:13:21 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,12 @@
 // Define raytracing parameters 
 # define _RT_MAX_ITX 200
 # define _RT_REFLECTION_DEPTH 4
+
+// Define math constants
+# define EPSILON 	0.0001f
+# define PI         3.1415926535f
+# define MAX_LIGHT	100
+
 
 // Define the number of threads
 # define _RT_NUM_THREADS 4

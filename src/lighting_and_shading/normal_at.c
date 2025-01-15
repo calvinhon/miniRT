@@ -1,4 +1,4 @@
-#include "lighting_and_shading.h"
+#include "minirt.h"
 
 t_vec4d	sphere_normal_at(t_object *o, t_point *wrld_p)
 {

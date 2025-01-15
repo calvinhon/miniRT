@@ -279,11 +279,11 @@ typedef struct s_itx_set
 
 typedef struct s_comps_for_xs
 {
-	bool		shadowed;
+	// bool		shadowed;
 	double		t;
 	t_object	*obj;
 	t_point		p;
-	t_vec4d		over_point;
+	t_point		over_point;
 	t_vec4d		under_point;
 	t_vec4d		eye_v;
 	t_vec4d		normal_v;
