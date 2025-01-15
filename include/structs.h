@@ -159,8 +159,9 @@ typedef struct s_camera
 	t_point	origin;
 	t_vec4d	direction;
 	float	fov;
-	int		hsize;
-	int		vsize;
+	float	hsize;
+	float	vsize;
+	t_mat4d transform;
 	t_mat4d	inv_transform;
 	t_vec4d	forward;
 	t_vec4d	up;

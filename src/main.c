@@ -159,14 +159,14 @@ int main(int ac, char **av)
 	m.specular = create_color(0, 0, 0);
 	m.shininess = 200;
 	t_camera	cam;
-	cam.half_width = HALF_W;
-	cam.half_height = HALF_H;
-	cam.pixel_size = 1;
-	cam.inv_transform = identity_mat();
+	cam = set_camera(PI/3);
+	cam.transform = view_transform(create_point(0, 1.5, -5), create_point(0, 1, 0), create_vec4d(0, 1, 0));
+	cam.inv_transform = inverse_mat4d(cam.transform);
 	program.cam = cam;
 	t_object	o[6];
 	t_object	floor;
 	floor.type = SPHERE;
+	floor.center = create_point(0, 0, 0);
 	floor.transform = scaling_mat(10, 0.01, 10);
 	floor.inv_transform = inverse_mat4d(floor.transform);
 	floor.material = m;
@@ -174,24 +174,56 @@ int main(int ac, char **av)
 	o[0] = floor;
 	t_object	left_wall;
 	left_wall.type = SPHERE;
+	left_wall.center = create_point(0, 0, 0);
 	left_wall.transform = mult_n_mat4d(4, scaling_mat(10, 0.01, 10), rotate_mat_x(PI/2), rotate_mat_y(-PI/4), translation_mat(0, 0, 5));
 	left_wall.inv_transform = inverse_mat4d(left_wall.transform);
 	left_wall.material = floor.material;
 	o[1] = left_wall;
 	t_object	right_wall;
 	right_wall.type = SPHERE;
+	right_wall.center = create_point(0, 0, 0);
 	right_wall.transform = mult_n_mat4d(4, scaling_mat(10, 0.01, 10), rotate_mat_x(PI/2), rotate_mat_y(PI/4), translation_mat(0, 0, 5));
 	right_wall.inv_transform = inverse_mat4d(right_wall.transform);
 	right_wall.material = floor.material;
 	o[2] = right_wall;
+	t_material	sphere_m;
+	sphere_m.ambient.color = create_color(.1, .1, .1);
+	sphere_m.diffuse = create_color(0.7, 0.7, 0.7);
+	sphere_m.specular = create_color(0.3, 0.3, 0.3);
+	sphere_m.shininess = 200;
+	t_object	middle;
+	middle.type = SPHERE;
+	middle.center = create_point(0, 0, 0);
+	middle.material = sphere_m;
+	middle.material.color = scale_color(create_color(0.1, 1, 0.5), 255);
+	middle.transform = translation_mat(-0.5, 1, 0.5);
+	middle.inv_transform = inverse_mat4d(middle.transform);
+	o[3] = middle;
+	t_object	right;
+	right.type = SPHERE;
+	right.center = create_point(0, 0, 0);
+	right.material = sphere_m;
+	right.material.color = scale_color(create_color(0.5, 1, 0.1), 255);
+	right.transform = mult_n_mat4d(2, scaling_mat(0.5, 0.5, 0.5), translation_mat(1.5, 0.5, -0.5));
+	right.inv_transform = inverse_mat4d(right.transform);
+	o[4] = right;
+	t_object	left;
+	left.type = SPHERE;
+	left.center = create_point(0, 0, 0);
+	left.material = sphere_m;
+	left.material.color = scale_color(create_color(1, 0.8, 0.1), 255);
+	left.transform = mult_n_mat4d(2, scaling_mat(0.33, 0.33, 0.33), translation_mat(-1.5, 0.33, -0.75));
+	left.inv_transform = inverse_mat4d(left.transform);
+	o[5] = left;
 	s.objs = o;
-	s.num_shapes = 3;
+	s.num_shapes = 6;
 	s.num_lights = 1;
 	program.scene = s;
-
-	while (++y < WINDOW_H - 1)
+	y = -1;
+	x = -1;
+	while (++y < cam.vsize - 1)
 	{
-		while (++x < WINDOW_W - 1)
+		while (++x < cam.hsize - 1)
 		{
 			render_pixel(&program, x, y);
 		}

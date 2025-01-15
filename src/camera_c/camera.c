@@ -12,12 +12,27 @@
 
 #include "minirt.h"
 
-t_camera	set_camera()
+t_camera	set_camera(float fov)
 {
-	t_camera	cam;
+	t_camera	c;
 
-	cam.hsize = WINDOW_W;
-	cam.vsize = WINDOW_H;
+	c.hsize = WINDOW_W;
+	c.vsize = WINDOW_H;
+	c.fov = fov;
+	c.half_view = tan(fov / 2);
+	c.aspect_ratio = c.hsize / c.vsize;
+	if (c.aspect_ratio >= 1)
+	{
+		c.half_width = c.half_view;
+		c.half_height = c.half_view / c.aspect_ratio;
+	}
+	else
+	{
+		c.half_width = c.half_view * c.aspect_ratio;
+		c.half_height = c.half_view;
+	}
+	c.pixel_size = c.half_width * 2 / c.hsize;
+	return (c);
 }
 
 t_mat4d	view_transform(t_point from, t_point to, t_vec4d up)
