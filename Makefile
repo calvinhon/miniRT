@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+         #
+#    By: chon <chon@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 18:56:23 by chon              #+#    #+#              #
-#    Updated: 2024/12/16 14:59:59 by chon             ###   ########.fr        #
+#    Updated: 2025/01/16 13:58:01 by chon             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ SRC_FILES = main.c \
 		$(addprefix controls/, controls.c) \
 		$(addprefix math_c/, point.c vector_1.c vector_2.c vector_3.c \
 			matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c matrix_6.c) \
-		$(addprefix lighting_and_shading/, lighting.c normal_at.c) \
-		$(addprefix intersections_c/, world.c sphere.c) \
+		$(addprefix lighting_and_shading/, lighting.c) \
+		$(addprefix intersections_c/, world.c sphere.c plane.c) \
 		$(addprefix raytracing_c/, rays.c render.c) \
 		camera_c/camera.c \
 		destroy/destroy.c

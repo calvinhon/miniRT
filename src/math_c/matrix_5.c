@@ -6,18 +6,18 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 15:00:03 by chon              #+#    #+#             */
-/*   Updated: 2024/12/16 15:17:02 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/16 16:09:54 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_math.h"
 
-t_mat4d	identity_mat(void)
+t_mat4d identity_mat(void)
 {
-	t_mat4d	m;
-	int		i;
-	int		row;
-	int		col;
+	t_mat4d m;
+	int i;
+	int row;
+	int col;
 
 	i = -1;
 	while (++i < 16)
@@ -32,9 +32,9 @@ t_mat4d	identity_mat(void)
 	return (m);
 }
 
-t_mat4d	translation_mat(double x, double y, double z)
+t_mat4d translation_mat(float x, float y, float z)
 {
-	t_mat4d	m;
+	t_mat4d m;
 
 	m = identity_mat();
 	m.matrix[3] = x;
@@ -43,12 +43,12 @@ t_mat4d	translation_mat(double x, double y, double z)
 	return (m);
 }
 
-t_mat4d	scaling_mat(double x, double y, double z)
+t_mat4d scaling_mat(float x, float y, float z)
 {
-	t_mat4d	m;
-	int		i;
-	int		row;
-	int		col;
+	t_mat4d m;
+	int i;
+	int row;
+	int col;
 
 	i = -1;
 	while (++i < 16)

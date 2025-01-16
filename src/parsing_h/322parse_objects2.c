@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   322parse_objects2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:32:20 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/24 17:01:44 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/16 16:09:54 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-static void	parse_bonus(t_minirt *minirt, char *data, \
-				size_t *i, size_t idx)
+static void parse_bonus(t_minirt *minirt, char *data,
+						size_t *i, size_t idx)
 {
 	minirt->scene.objs[idx].reflection = parse_float(data, i);
 	minirt->scene.objs[idx].shininess = parse_float(data, i);
 }
 
-void	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
+void parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_cone	*cone;
+	t_cone *cone;
 
 	cone = (t_cone *)allocate_obj(minirt, CONE, idx);
 	(*i) += 2;
@@ -33,11 +33,11 @@ void	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 		parse_bonus(minirt, data, i, idx);
 }
 
-void	parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
+void parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_cube	*cube;
+	t_cube *cube;
 
-	cube = (t_cube *) allocate_obj(minirt, CUBE, idx);
+	cube = (t_cube *)allocate_obj(minirt, CUBE, idx);
 	(*i) += 2;
 	cube->center = parse_point(data, i);
 	cube->size = parse_float(data, i);
@@ -47,10 +47,10 @@ void	parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
 		parse_bonus(minirt, data, i, idx);
 }
 
-void	parse_object(t_minirt *minirt, char *data, size_t *i)
+void parse_object(t_minirt *minirt, char *data, size_t *i)
 {
-	size_t	start;
-	size_t	idx;
+	size_t start;
+	size_t idx;
 
 	idx = minirt->scene.idx_obj++;
 	start = *i;
@@ -67,4 +67,3 @@ void	parse_object(t_minirt *minirt, char *data, size_t *i)
 	else
 		errors(ER_OBJ_TYPE, minirt);
 }
-

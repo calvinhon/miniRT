@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracer_multi.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 15:55:10 by honguyen          #+#    #+#             */
-/*   Updated: 2024/12/16 15:20:52 by honguyen         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:09:54 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ typedef struct s_light
 
 typedef struct s_plane
 {
-	t_vec3d point;   // A point on the plane
-	t_vec3d normal;  // Normal vector to the plane
-	t_vec3d color;   // Color of the plane
+	t_vec3d point;	// A point on the plane
+	t_vec3d normal; // Normal vector to the plane
+	t_vec3d color;	// Color of the plane
 } t_plane;
 
 typedef struct s_sphere
@@ -53,26 +53,26 @@ typedef struct s_sphere
 
 typedef struct s_cylinder
 {
-	t_vec3d base;     // base center of the cylinder
-	t_vec3d axis;     // axis vector (direction of the cylinder)
-	float radius;     // radius of the cylinder
-	float height;     // height of the cylinder
-	t_vec3d color;    // color of the cylinder
+	t_vec3d base;  // base center of the cylinder
+	t_vec3d axis;  // axis vector (direction of the cylinder)
+	float radius;  // radius of the cylinder
+	float height;  // height of the cylinder
+	t_vec3d color; // color of the cylinder
 } t_cylinder;
 
 typedef struct s_cone
 {
-	t_vec3d apex;     // Apex of the cone
-	t_vec3d axis;     // Axis vector (direction of the cone)
-	float angle;      // Half-angle of the cone in radians
-	t_vec3d color;    // Color of the cone
+	t_vec3d apex;  // Apex of the cone
+	t_vec3d axis;  // Axis vector (direction of the cone)
+	float angle;   // Half-angle of the cone in radians
+	t_vec3d color; // Color of the cone
 } t_cone;
 
 typedef struct s_cube
 {
-	t_vec3d min;      // Minimum corner of the cube
-	t_vec3d max;      // Maximum corner of the cube
-	t_vec3d color;    // Color of the cube
+	t_vec3d min;   // Minimum corner of the cube
+	t_vec3d max;   // Maximum corner of the cube
+	t_vec3d color; // Color of the cube
 } t_cube;
 
 typedef struct s_camera
@@ -89,12 +89,11 @@ typedef struct s_scene
 	t_plane plane;
 	t_sphere sphere;
 	t_cylinder cylinder; // Add cylinder
-	t_cone  cone;      // Add cone
-	t_cube cube;      // Add cube
-	float ambient;        // Ambient light intensity
+	t_cone cone;		 // Add cone
+	t_cube cube;		 // Add cube
+	float ambient;		 // Ambient light intensity
 	t_vec3d ambient_light_color;
 } t_scene;
-
 
 // Vector operations
 t_vec3d add_vec3d(t_vec3d a, t_vec3d b)
@@ -122,8 +121,7 @@ t_vec3d cross_vec3d(t_vec3d a, t_vec3d b)
 	return (t_vec3d){
 		a.y * b.z - a.z * b.y,
 		a.z * b.x - a.x * b.z,
-		a.x * b.y - a.y * b.x
-	};
+		a.x * b.y - a.y * b.x};
 }
 
 float length_vec3d(t_vec3d v)
@@ -136,7 +134,6 @@ t_vec3d normalize_vec3d(t_vec3d v)
 	float len = length_vec3d(v);
 	return scale_vec3d(v, 1.0f / len);
 }
-
 
 // All intersection with objects
 
@@ -157,7 +154,6 @@ t_vec3d calculate_normal_plane(t_vec3d hit_point, t_plane plane)
 	return normalize_vec3d(plane.normal);
 }
 
-
 int intersect_ray_sphere(t_ray ray, t_sphere sphere, float *t)
 {
 	t_vec3d oc = sub_vec3d(ray.origin, sphere.center);
@@ -166,13 +162,14 @@ int intersect_ray_sphere(t_ray ray, t_sphere sphere, float *t)
 	float c = vdot_vec3d(oc, oc) - sphere.radius * sphere.radius;
 	float discriminant = b * b - 4.0f * a * c;
 
-	if (discriminant > 0) {
+	if (discriminant > 0)
+	{
 		*t = (-b - sqrtf(discriminant)) / (2.0f * a);
-		if (*t > 0) return 1; // Intersection
+		if (*t > 0)
+			return 1; // Intersection
 	}
 	return 0;
 }
-
 
 int intersect_ray_cylinder(t_ray ray, t_cylinder cylinder, float *t)
 {
@@ -319,7 +316,6 @@ t_vec3d calculate_normal_cube(t_vec3d hit_point, t_cube cube)
 	return normal;
 }
 
-
 // Ambient light calculation: applying intensity and light color
 t_vec3d apply_ambient_light(t_vec3d base_color, t_vec3d light_color, float ambient_intensity)
 {
@@ -327,8 +323,7 @@ t_vec3d apply_ambient_light(t_vec3d base_color, t_vec3d light_color, float ambie
 	t_vec3d ambient_light = {
 		base_color.x * ambient_intensity * (light_color.x / 255.0f),
 		base_color.y * ambient_intensity * (light_color.y / 255.0f),
-		base_color.z * ambient_intensity * (light_color.z / 255.0f)
-	};
+		base_color.z * ambient_intensity * (light_color.z / 255.0f)};
 	return ambient_light;
 }
 
@@ -375,7 +370,7 @@ t_vec3d calculate_color(t_ray ray, t_scene scene)
 		color = add_vec3d(color, ambient_light);
 		color = add_vec3d(color, scale_vec3d(scene.cone.color, diffuse * scene.light.brightness));
 	}
-	
+
 	else if (intersect_ray_cube(ray, scene.cube, &t))
 	{
 		t_vec3d hit_point = add_vec3d(ray.origin, scale_vec3d(ray.direction, t));
@@ -410,12 +405,13 @@ t_vec3d calculate_color(t_ray ray, t_scene scene)
 	return color;
 }
 
-
 void render_scene(t_scene scene, void *mlx_ptr, void *win_ptr)
 {
 	int width = 800, height = 600;
-	for (int y = 0; y < height; y++) {
-		for (int x = 0; x < width; x++) {
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
 			float px = (2 * (x + 0.5f) / (float)width - 1) * tanf(scene.camera.fov / 2);
 			float py = (1 - 2 * (y + 0.5f) / (float)height) * tanf(scene.camera.fov / 2);
 			px *= (float)width / (float)height;
@@ -440,31 +436,31 @@ int main()
 
 	// Initialize mlx
 	mlx_ptr = mlx_init();
-	if (!mlx_ptr) {
+	if (!mlx_ptr)
+	{
 		printf("Error initializing mlx\n");
 		return 1;
 	}
 
 	// Create a new window
 	win_ptr = mlx_new_window(mlx_ptr, 800, 600, "Raytracing Window");
-	if (!win_ptr) {
+	if (!win_ptr)
+	{
 		printf("Error creating window\n");
 		return 1;
 	}
 
 	t_scene scene = {
-		.camera = {{0, 3, 10}, {0, 0, -1}, 90},  // Camera moved to Z=10 for a better view of the objects
-		.light = {{5, 5, 5}, 0.8f, {255, 255, 255}},  // Light positioned above and to the right of the camera
-		.sphere = {{0, 0, -5}, 1.0f, {255, 0, 0}},  // Red sphere at Z=-5
-		.cylinder = {{-4, 0, -10}, {0, 1, 0}, 1.0f, 3.0f, {0, 0, 255}},  // Blue cylinder at X=-4, Z=-10
-		.plane = {{0, -2, 0}, {0, 1, 0}, {0, 255, 0}},  // Green ground plane at Z=0, Y=-2
-		.cone = {{5, 0, -10}, {0, 1, -0.2}, M_PI / 4, {255, 255, 0}},  // Yellow cone at X=5, Z=-10
-		.cube = {{-6, -1, -15}, {2, 2, -12}, {0, 255, 255}},  // Cyan cube at X=-6, Z=-15
-		.ambient = 0.25f,  // Ambient light intensity
-		.ambient_light_color = {255, 255, 255}  // White ambient light
+		.camera = {{0, 3, 10}, {0, 0, -1}, 90},							// Camera moved to Z=10 for a better view of the objects
+		.light = {{5, 5, 5}, 0.8f, {255, 255, 255}},					// Light positioned above and to the right of the camera
+		.sphere = {{0, 0, -5}, 1.0f, {255, 0, 0}},						// Red sphere at Z=-5
+		.cylinder = {{-4, 0, -10}, {0, 1, 0}, 1.0f, 3.0f, {0, 0, 255}}, // Blue cylinder at X=-4, Z=-10
+		.plane = {{0, -2, 0}, {0, 1, 0}, {0, 255, 0}},					// Green ground plane at Z=0, Y=-2
+		.cone = {{5, 0, -10}, {0, 1, -0.2}, M_PI / 4, {255, 255, 0}},	// Yellow cone at X=5, Z=-10
+		.cube = {{-6, -1, -15}, {2, 2, -12}, {0, 255, 255}},			// Cyan cube at X=-6, Z=-15
+		.ambient = 0.25f,												// Ambient light intensity
+		.ambient_light_color = {255, 255, 255}							// White ambient light
 	};
-
-
 
 	// Render the scene to the window
 	render_scene(scene, mlx_ptr, win_ptr);

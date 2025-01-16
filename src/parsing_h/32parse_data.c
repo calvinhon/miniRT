@@ -19,14 +19,14 @@
 
 #include "../../include/minirt.h"
 
-void	parse_ambient(t_minirt *minirt, char *data, size_t *i)
+void parse_ambient(t_minirt *minirt, char *data, size_t *i)
 {
 	(*i) += 1;
 	minirt->scene.ambient.intensity = parse_float(data, i);
 	minirt->scene.ambient.color = parse_color(data, i);
 }
 
-void	parse_camera(t_minirt *minirt, char *data, size_t *i)
+void parse_camera(t_minirt *minirt, char *data, size_t *i)
 {
 	(*i) += 1;
 	minirt->scene.camera.origin = parse_point(data, i);
@@ -34,9 +34,9 @@ void	parse_camera(t_minirt *minirt, char *data, size_t *i)
 	minirt->scene.camera.fov = parse_float(data, i);
 }
 
-void	parse_light(t_minirt *minirt, char *data, size_t *i)
+void parse_light(t_minirt *minirt, char *data, size_t *i)
 {
-	size_t	idx;
+	size_t idx;
 
 	(*i) += 1;
 	idx = minirt->scene.idx_l++;
@@ -45,10 +45,10 @@ void	parse_light(t_minirt *minirt, char *data, size_t *i)
 	minirt->scene.light[idx].color = parse_color(data, i);
 }
 
-void	parse_data(t_minirt *minirt, char *data)
+void parse_data(t_minirt *minirt, char *data)
 {
-	size_t	i;
-	size_t	start;
+	size_t i;
+	size_t start;
 
 	i = 0;
 	while (data[i])
@@ -56,7 +56,7 @@ void	parse_data(t_minirt *minirt, char *data)
 		while (data[i] == '\t' || data[i] == ' ' || data[i] == '\n')
 			i++;
 		if (!data[i])
-			break ;
+			break;
 		start = i;
 		if (data[start] == 'A')
 			parse_ambient(minirt, data, &i);

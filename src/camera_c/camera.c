@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
-t_camera	set_camera(float fov)
+t_camera set_camera(float fov)
 {
-	t_camera	c;
+	t_camera c;
 
 	c.hsize = WINDOW_W;
 	c.vsize = WINDOW_H;
@@ -35,13 +35,13 @@ t_camera	set_camera(float fov)
 	return (c);
 }
 
-t_mat4d	view_transform(t_point from, t_point to, t_vec4d up)
+t_mat4d view_transform(t_point from, t_point to, t_vec4d up)
 {
-	t_mat4d	view_mat;
-	t_vec4d	forward;
-	t_vec4d	up_n;
-	t_vec4d	left;
-	t_vec4d	true_up;
+	t_mat4d view_mat;
+	t_vec4d forward;
+	t_vec4d up_n;
+	t_vec4d left;
+	t_vec4d true_up;
 
 	view_mat = identity_mat();
 	forward = normalize(subtract_points(to, from));
@@ -58,6 +58,6 @@ t_mat4d	view_transform(t_point from, t_point to, t_vec4d up)
 	view_mat.matrix[9] = -forward.y;
 	view_mat.matrix[10] = -forward.z;
 	view_mat = mult_n_mat4d(2, translation_mat(-from.x, -from.y, -from.z),
-		view_mat);
+							view_mat);
 	return (view_mat);
 }
