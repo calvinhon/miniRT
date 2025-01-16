@@ -79,12 +79,9 @@ t_comps	prepare_computations(t_itx *itx, t_ray *r, t_itx_set *xs)
 	comps.p = position(r, comps.t);
 	comps.eye_v = negate_vector(r->direction);
 	prepare_comps_normal(itx, &comps);
+	// adjust bump based on object thickness for spheres
 	bump = EPSILON * 10;
 	comps.over_point = add_v_to_p(comps.p, scale_vector(comps.normal_v, bump));
-	// printf("comps.p.z: %f, comps.over_point.z: %f, EPSILON: %f\n", 
-	// 	comps.p.z, comps.over_point.z, EPSILON);
-	// if (comps.over_point.z > -EPSILON/2 || comps.p.z < comps.over_point.z)
-	// 	printf("fail\n");
 	// lag_vec4s_scaleby(&margin, comps.normal_v, bump);
 	// lag_vec4s_sub(&comps.under_point, &comps.p, &margin);
 	// comps.reflectv = reflect(&r->dir, &comps.normal_v);
