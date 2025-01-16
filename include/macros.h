@@ -6,7 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:53:43 by honguyen          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/01/14 09:39:27 by marvin           ###   ########.fr       */
+=======
+/*   Updated: 2025/01/15 15:13:21 by chon             ###   ########.fr       */
+>>>>>>> 81bd0ab25fe8b8f98353709f500febd6c4c4c223
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +131,17 @@ const char *MS_ER[] =
 
 // Define raytracing parameters 
 # define _RT_MAX_ITX 200
+# define _RT_REFLECTION_DEPTH 4
 
+<<<<<<< HEAD
+=======
+// Define math constants
+# define EPSILON 	0.0001f
+# define PI         3.1415926535f
+# define MAX_LIGHT	100
+
+
+>>>>>>> 81bd0ab25fe8b8f98353709f500febd6c4c4c223
 // Define the number of threads
 # define _RT_NUM_THREADS 4
 

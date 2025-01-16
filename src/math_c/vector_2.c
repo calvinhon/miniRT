@@ -32,6 +32,8 @@ double dot(t_vec4d v1, t_vec4d v2)
 
 t_vec4d cross(t_vec4d v1, t_vec4d v2)
 {
-	return (create_vec4d(v1.x * v2.y - v1.y * v2.x,
-						  v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z));
+	return (create_vec4d(
+		v1.y * v2.z - v1.z * v2.y,
+		v1.z * v2.x - v1.x * v2.z,
+		v1.x * v2.y - v1.y * v2.x));
 }
