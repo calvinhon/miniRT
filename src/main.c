@@ -105,63 +105,17 @@ int main(int ac, char **av)
 	// printf("t: %f\n", hit_itx->t);
 
 // Draw circle test
-	// t_ray		r;
-	// t_point		r_origin = create_point(0, 0, -5);
-	// t_object	s;
-	// t_itx_set	xs;
-	// t_point		position;
-	// t_shear		shear = {0};
-	// int			y;
-	// int			x;
-	// float		world_y;
-	// float		world_x;
-	// float		pixel_size;
-
-	// s.type = SPHERE;
-	// shear.x_y = 1;
-	// s.transform = scaling_mat(1, 1, 1);
-	// s.inv_transform = inverse_mat4d(s.transform);
-	// // s.inv_transform = identity_mat();
-	// s.center = create_point(0, 0, 0);
-	// xs.count = 0;
-	// x = -1;
-	// y = -1;
-	// pixel_size = 1;
-	// while (++y < WINDOW_H - 1)
-	// {
-	// 	world_y = HALF_H - y * pixel_size;
-	// 	while (++x < WINDOW_W - 1)
-	// 	{
-	// 		world_x = -HALF_W + x * pixel_size;
-	// 		position = create_point(world_x, world_y, 100);
-	// 		r = create_ray(r_origin, normalize(subtract_points(position, r_origin)));
-	// 		if (intersect_sphere(&r, &s, &xs))
-	// 			draw(&env, x, y, OLIVE);
-	// 		else
-	// 			draw(&env, x, y, BLACK);
-	// 		xs.count = 0;
-	// 	}
-	// 	x = -1;
-	// }
-
-// Draw circle with lighting and shading
 	t_ray		r;
 	t_point		r_origin = create_point(0, 0, -5);
 	t_object	s;
 	t_itx_set	xs;
-	t_point		pixel_pos;
+	t_point		position;
 	t_shear		shear = {0};
-	t_material	m;
-	t_light		light;
-	t_color		black;
-	t_color		pixel_color;
-	t_point		point;
-	t_vec4d		eye_v;
-	t_vec4d		normal;
 	int			y;
 	int			x;
 	float		world_y;
 	float		world_x;
+	float		pixel_size;
 
 	s.type = SPHERE;
 	shear.x_y = 1;
@@ -172,35 +126,23 @@ int main(int ac, char **av)
 	xs.count = 0;
 	x = -1;
 	y = -1;
-	m.color = create_color(255, 0.2 * 255, 255);
-	printf("%u\n", plot_color(m.color));
-	s.material = m;
-	light.position = create_point(-10, 10, -10);
-	light.color = create_color(255, 255, 255);
-	black = create_color(0, 0, 0);
+	pixel_size = 1;
 	while (++y < WINDOW_H - 1)
 	{
-		world_y = HALF_H - y;
+		world_y = HALF_H - y * pixel_size;
 		while (++x < WINDOW_W - 1)
 		{
-			world_x = -HALF_W + x;
-			pixel_pos = create_point(world_x, world_y, 150);
-			r = create_ray(r_origin, normalize(subtract_points(pixel_pos, r_origin)));
+			world_x = -HALF_W + x * pixel_size;
+			position = create_point(world_x, world_y, 100);
+			r = create_ray(r_origin, normalize(subtract_points(position, r_origin)));
 			if (intersect_sphere(&r, &s, &xs))
-			{
-				point = position(&r, hit(&xs, SPHERE)->t);
-				eye_v = negate_vector(r.direction);
-				normal = normal_at(&s, &point);
-				pixel_color = lighting(&s, &light, &point, &eye_v, &normal);
-				draw(&env, x, y, pixel_color);
-			}
+				draw(&env, x, y, OLIVE);
 			else
-				draw(&env, x, y, black);
+				draw(&env, x, y, BLACK);
 			xs.count = 0;
 		}
 		x = -1;
 	}
-
 	mlx_put_image_to_window(env.mlx, env.win, env.img, 0, 0);
 	mlx_loop(env.mlx);
 	return (0);

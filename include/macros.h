@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:53:43 by honguyen          #+#    #+#             */
-/*   Updated: 2025/01/14 09:39:27 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/13 17:04:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # endif
 
 
-// Define assets
+// define assets
 # define S      "data/xpm/S100.xpm"
 # define W	    "data/xpm/W100.xpm"
 # define W0     "data/xpm/W0100.xpm"
@@ -113,7 +113,7 @@ const char *MS_ER[] =
     [ER_OTHERS] = MS_OTHERS
 };
 
-// Window sizes
+//Window sizes
 # ifdef __APPLE__
 #  define WIDTH 1440
 #  define HEIGHT 810
@@ -128,16 +128,14 @@ const char *MS_ER[] =
 // Define raytracing parameters 
 # define _RT_MAX_ITX 200
 
-// Define the number of threads
-# define _RT_NUM_THREADS 4
-
-// Define colors
+// color define
 # define WHITE 0xFFFFFF
 # define GOLD 0xFFD700
 # define OLIVE 0x808000
 # define LIME 0x32CD32
 # define PURPLE 0x800080
 # define BLACK 0x000000
+
 
 // Keyboard define
 # ifdef __APPLE__
@@ -192,6 +190,9 @@ const char *MS_ER[] =
 #  define	AKEY_D     65364
 #  define	KEY_ESC    65307
 # endif
+
+// Define the number of threads
+# define _RT_NUM_THREADS 4
 
 // hook events
 enum e_events
