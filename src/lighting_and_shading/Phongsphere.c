@@ -95,7 +95,7 @@ void render_sphere_with_phong_model(int width, int height)
             if (t > 0) // If there's an intersection
             {
                 t_point intersection_point = add_points(camera_position, scale_vector(ray_direction, t));
-                t_vec4d normal_vector = sphere_normal_at(sphere, intersection_point);
+                t_vec4d normal_vector = normal_at(sphere, intersection_point);
 
                 t_color pixel_color = lighting(sphere, light, intersection_point, eye_vector);
                 draw_pixel(x, y, pixel_color); // Placeholder function to draw pixel to canvas

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 15:55:07 by chon              #+#    #+#             */
-/*   Updated: 2024/12/11 15:55:07 by chon             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minirt_math.h"
 
 bool	is_equal_mat4d(t_mat4d m1, t_mat4d m2)
@@ -26,33 +14,22 @@ bool	is_equal_mat4d(t_mat4d m1, t_mat4d m2)
 	return (1);
 }
 
-t_mat4d	mult_n_mat4d(int num_of_matrices, ...)
+t_mat4d	mult_2x_mat4d(t_mat4d m1, t_mat4d m2)
 {
 	t_mat4d	new_m;
-	t_mat4d	m1;
-	t_mat4d	m2;
-	t_idx	idx;
-	va_list	args;
+	int		i;
+	int		j;
+	int		k;
 
-	va_start(args, num_of_matrices);
-	idx.count = -1;
-	idx.i = -1;
-	idx.j = -1;
-	m1 = va_arg(args, t_mat4d);
-	while (++idx.count < num_of_matrices - 1)
+	i = -1;
+	j = -1;
+	k = -1;
+	while (++j < 4)
 	{
-		m2 = va_arg(args, t_mat4d);
-		while (++idx.i < 4)
-		{
-			while (++idx.j < 4)
-				new_m.matrix[idx.i * 4 + idx.j] =
-					dot(row(m2, idx.i), col(m1, idx.j));
-			idx.j = -1;
-		}
-		idx.i = -1;
-		m1 = new_m;
+		while (++k < 4)
+			new_m.matrix[++i] = dot(row(m1, j), col(m2, k));
+		k = -1;
 	}
-	va_end(args);
 	return (new_m);
 }
 

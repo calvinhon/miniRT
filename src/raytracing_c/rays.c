@@ -17,16 +17,12 @@ t_point	position(t_ray *r, float t)
 	return (add_v_to_p(r->origin, scale_vector(r->direction, t)));
 }
 
-<<<<<<< HEAD
 t_ray	create_ray(t_point origin, t_vec4d direction)
-=======
-t_ray	create_ray(t_point *origin, t_vec4d *direction)
->>>>>>> 81bd0ab25fe8b8f98353709f500febd6c4c4c223
 {
 	t_ray	r;
 
-	r.origin = *origin;
-	r.direction = *direction;
+	r.origin = origin;
+	r.direction = direction;
 	return (r);
 }
 

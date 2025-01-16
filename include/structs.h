@@ -21,23 +21,11 @@
 # include <stdint.h> // bit-wise & integer types
 # include <stdbool.h> // boolean types
 <<<<<<< HEAD
-<<<<<<< HEAD
 # include "macros.h"
 # include "../libs/libft/libft.h"
 =======
 # include <macros.h>
 >>>>>>> 9b704282273b6719c73a5cff7d3bc989954b2ea9
-=======
-# include <macros.h>
-# include <stdarg.h>
-
-typedef struct s_idx
-{
-	int	count;
-	int	i;
-	int	j;
-}	t_idx;
->>>>>>> 81bd0ab25fe8b8f98353709f500febd6c4c4c223
 
 typedef struct s_point
 {
@@ -156,26 +144,25 @@ typedef struct s_light
 // Camera
 typedef struct s_camera
 {
-	bool	ini;
-	t_point	origin;
+	bool		ini;
+	t_point		origin;
 	t_vec4d	direction;
-	float	fov;
-	float	hsize;
-	float	vsize;
-	t_mat4d transform;
-	t_mat4d	inv_transform;
-	t_vec4d	forward;
-	t_vec4d	up;
-	t_vec4d	left;
-	t_mat4d	rot;
-	t_vec4d	trans;
-	t_vec4d	scale;
-	float	half_width;
-	float	half_height;
-	float	half_view;
-	float	aspect_ratio;
-	float	pixel_size;
-}	t_camera;
+	float		fov;
+	int			hsize;
+	int			vsize;
+	t_mat4d		inv_transform;
+	t_vec4d		forward;
+	t_vec4d		up;
+	t_vec4d		left;
+	t_mat4d		rot;
+	t_vec4d		trans;
+	t_vec4d		scale;
+	float		half_width;
+	float		half_height;
+	float		half_view;
+	float		aspect_ratio;
+	float		pixel_size;
+}				t_camera;
 
 // Object types
 typedef enum e_objtype
@@ -279,32 +266,15 @@ typedef struct s_itx_set
 	int		count;
 }	t_itx_set;
 
-typedef struct s_comps_for_xs
-{
-	// bool		shadowed;
-	double		t;
-	t_object	*obj;
-	t_point		p;
-	t_point		over_point;
-	t_vec4d		under_point;
-	t_vec4d		eye_v;
-	t_vec4d		normal_v;
-	// t_vec4d		reflectv;
-	bool		inside;
-	double		n1;
-	double		n2;
-}	t_comps;
-
 typedef struct s_scene
 {
 	bool		refract_reflect;
 	t_ambient	ambient;
 	int			num_shapes;
-	int			num_lights;
 	t_camera	camera;
 	size_t		l;
 	size_t		idx_l;
-	t_light		*lights;
+	t_light		*light;
 	t_object	*objs;
 	size_t		n_objs;
 	size_t		idx_obj;
@@ -354,7 +324,7 @@ typedef struct s_minirt
 	//t_mlx_vars	graphic;
 	void		*mlx;
 	void		*win;
-	t_mlx_vars	env;
+	t_mlx_vars	frame;
 	t_camera	cam;
 	t_scene		scene;
 	t_unit		*units;

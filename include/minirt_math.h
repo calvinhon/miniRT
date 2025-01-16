@@ -13,7 +13,13 @@
 #ifndef MINIRT_MATH_H
 #define MINIRT_MATH_H
 
+# include <math.h>
+# include <stdbool.h>
 # include "structs.h"
+
+# define EPISILON 	0.00001
+# define PI         3.1415926535f
+# define MAX_LIGHT	100
 
 t_point	create_point(double x, double y, double z);
 t_point	add_v_to_p(t_point p, t_vec4d v);
@@ -38,7 +44,7 @@ t_mat4d	create_mat4d(t_vec4d v1, t_vec4d v2, t_vec4d v3, t_vec4d v4);
 t_vec4d	row(t_mat4d m, int i);
 t_vec4d	col(t_mat4d m, int i);
 bool	is_equal_mat4d(t_mat4d m1, t_mat4d m2);
-t_mat4d	mult_n_mat4d(int num_of_matrices, ...);
+t_mat4d	mult_2x_mat4d(t_mat4d m1, t_mat4d m2);
 t_vec4d	mult_mat4d_vec4d(t_mat4d m, t_vec4d v);
 t_mat4d	transpose_mat4d(t_mat4d m);
 double	determinant_mat2d(t_mat2d m);
