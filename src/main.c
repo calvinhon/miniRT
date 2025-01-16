@@ -146,7 +146,7 @@ int main(int ac, char **av)
 	s.lights = l;
 	t_camera	cam;
 	cam = set_camera(PI/2);
-	cam.transform = view_transform(create_point(0, 10, -5), create_point(0, 1, 0), create_vec4d(0, 1, 0));
+	cam.transform = view_transform(create_point(0, 0.5, -5), create_point(0, 1, 0), create_vec4d(0, 1, 0));
 	cam.inv_transform = inverse_mat4d(cam.transform);
 	program.cam = cam;
 	t_object	o[6];
@@ -159,7 +159,7 @@ int main(int ac, char **av)
 	p.type = PLANE;
 	p.material = sphere_m;
 	p.material.color = scale_color(create_color(1, 0.9, 0.9), 255);
-	p.transform = identity_mat();
+	p.transform = translation_mat(0, 0.2, 0);
 	p.inv_transform = inverse_mat4d(p.transform);
 	o[0] = p;
 	t_object	middle;
@@ -190,7 +190,7 @@ int main(int ac, char **av)
 	p2.type = PLANE;
 	p2.material = p.material;
 	p2.material.color = scale_color(create_color(0.3, 0.3, 0.9), 255);
-	p2.transform = mult_n_mat4d(2, rotate_mat_x(PI/2), translation_mat(0, 0, 2));
+	p2.transform = mult_n_mat4d(2, rotate_mat_x(PI/2), translation_mat(0, 1.5, 2));
 	p2.inv_transform = inverse_mat4d(p2.transform);
 	o[4] = p2;
 	t_object	p3;

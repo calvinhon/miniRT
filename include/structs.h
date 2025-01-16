@@ -126,22 +126,6 @@ typedef struct s_ray
 	t_vec4d direction;
 } t_ray;
 
-// Ambient
-typedef struct s_ambient
-{
-	float intensity;
-	t_color color;
-} t_ambient;
-
-typedef struct s_material
-{
-	t_color color;
-	t_ambient ambient;
-	t_color diffuse;
-	t_color specular;
-	float shininess;
-} t_material;
-
 // Light source
 typedef struct s_light
 {
@@ -182,11 +166,33 @@ typedef enum e_objtype
 	PLANE,
 	CUBE,
 	CONE
-} t_objtype;
+}	t_objtype;
 
-// data for objects
+// Ambient
+typedef struct s_ambient
+{
+	float	intensity;
+	t_color	color;
+}	t_ambient;
 
-// Material = data for object
+// Data for objects
+typedef struct s_material
+{
+	t_color		color;
+	t_ambient	ambient;
+	t_color		diffuse;
+	t_color		specular;
+	float		shininess;
+}	t_material;
+
+typedef struct s_pattern
+{
+	t_color	a;
+	t_color	b;
+	t_mat4d	transform;
+	t_mat4d	inv_transform;
+}	t_pattern;
+
 // typedef struct s_material
 // {
 // 	t_color		color;
@@ -215,6 +221,7 @@ typedef struct s_object
 	t_mat4d transform;
 	t_mat4d inv_transform;
 	t_material material;
+	t_pattern	pattern;
 } t_object;
 
 // Scene objects

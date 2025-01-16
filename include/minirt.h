@@ -55,4 +55,7 @@ t_color lighting(t_material *material, t_light *l, t_comps *c, bool in_shadow);
 t_color shade_hit(t_scene *s, t_comps *comps, int depth);
 bool is_shadowed(t_scene *s, t_point *p, t_light *l);
 
+// Patterns
+
+
 #endif
