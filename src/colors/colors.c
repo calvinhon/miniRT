@@ -58,14 +58,7 @@ t_color	mult_colors(t_color c1, t_color c2)
 	return (create_color(c1.r * c2.r, c1.g * c2.g, c1.b * c2.b));
 }
 
-int	plot_color(t_color c)
+unsigned int	plot_color(t_color c)
 {
-	float	r;
-	float	g;
-	float	b;
-
-	r = fminf(fmaxf(c.r, 0.0f), 1.0f) * 255.0f;
-    g = fminf(fmaxf(c.g, 0.0f), 1.0f) * 255.0f;
-    b = fminf(fmaxf(c.b, 0.0f), 1.0f) * 255.0f;
-	return ((int)r << 16 | (int)g << 8 | (int)b);
+	return ((unsigned int)c.r << 16 | (unsigned int)c.g << 8 | (unsigned int)c.b);
 }

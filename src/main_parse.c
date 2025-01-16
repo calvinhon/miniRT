@@ -113,24 +113,24 @@ int	main(int ac, char **av)
 	minirt = new_minirt();
 	// parse including malloc for objects & lights
 	parse(minirt, av[1]);
-	// Intialize graphic mlx, window, image
-	// ini_graphic(minirt);
-	// // Initialize threads
-	// ini_threads(minirt);
-	// // Set intial controls for objs
-	// minirt->is_cam = true;
-	// minirt->obj = NULL;
-	// // update_press(int keycode, t_minirt *minirt) set moving status
-	// mlx_hook(minirt->win, KEY_PRESS, 1L, &update_press, minirt);
-	// // update_release(int keycode, t_minirt *minirt) set moving status
-	// mlx_hook(minirt->win, KEY_RELEASE, 1L << 1, &update_release, minirt);
-	// // close_minirt(t_minirt *minirt) close minirt window
-	// mlx_hook(minirt->win, KEY_DESTROY, 1L >> 2, &close_minirt, minirt);
-	// // Detect the hit of mouse to an object to move it
-	// mlx_mouse_hook(minirt->win, &select_object, minirt);
-	// // move or change selected objects, raytracing and check for all threads done
-	// mlx_loop_hook(minirt->mlx, &move_render, minirt);
-	// mlx_loop(minirt->mlx);
+	 Intialize graphic mlx, window, image
+	 ini_graphic(minirt);
+	 // Initialize threads
+	 ini_threads(minirt);
+	 // Set intial controls for objs
+	 minirt->is_cam = true;
+	 minirt->obj = NULL;
+	 // update_press(int keycode, t_minirt *minirt) set moving status
+	 mlx_hook(minirt->win, KEY_PRESS, 1L, &update_press, minirt);
+	 // update_release(int keycode, t_minirt *minirt) set moving status
+	 mlx_hook(minirt->win, KEY_RELEASE, 1L << 1, &update_release, minirt);
+	 // close_minirt(t_minirt *minirt) close minirt window
+	 mlx_hook(minirt->win, KEY_DESTROY, 1L >> 2, &close_minirt, minirt);
+	 // Detect the hit of mouse to an object to move it
+	 mlx_mouse_hook(minirt->win, &select_object, minirt);
+	 // move or change selected objects, raytracing and check for all threads done
+	 mlx_loop_hook(minirt->mlx, &move_render, minirt);
+	 mlx_loop(minirt->mlx);
 	return (OK);
 }
 
