@@ -51,11 +51,12 @@ t_mat4d view_transform(t_point from, t_point to, t_vec4d up);
 
 // Lighting and Shading
 t_vec4d reflect(t_vec4d *in, t_vec4d *normal);
-t_color lighting(t_material *material, t_light *l, t_comps *c, bool in_shadow);
+t_color lighting(t_material *m, t_light *l, t_comps *c, bool in_shadow);
 t_color shade_hit(t_scene *s, t_comps *comps, int depth);
 bool is_shadowed(t_scene *s, t_point *p, t_light *l);
 
 // Patterns
+t_color	pattern_at(t_object *o, t_point *world_point, t_pattern *pattern);
 
 
 #endif

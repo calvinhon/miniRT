@@ -118,8 +118,8 @@
 #  define WINDOW_W 1440
 #  define WINDOW_H 810
 # else
-#  define WINDOW_W 1920
-#  define WINDOW_H 1080
+#  define WINDOW_W 1600
+#  define WINDOW_H 900
 # endif
 
 # define HALF_W WINDOW_W / 2

@@ -159,14 +159,23 @@ typedef struct s_camera
 } t_camera;
 
 // Object types
-typedef enum e_objtype
+typedef enum e_object_type
 {
 	SPHERE,
 	CYLINDER,
 	PLANE,
 	CUBE,
 	CONE
-}	t_objtype;
+}	t_otype;
+
+// Pattern types
+typedef enum e_pattern_type
+{
+	STRIPED,
+	GRADIENT,
+	RING,
+	CHECKER
+}	t_ptype;
 
 // Ambient
 typedef struct s_ambient
@@ -176,6 +185,17 @@ typedef struct s_ambient
 }	t_ambient;
 
 // Data for objects
+typedef struct s_pattern
+{
+	t_ptype	type;
+	t_color	a;
+	t_color	b;
+	t_mat4d	transform;
+	t_mat4d	inv_transform;
+	bool	is_perturbed;
+	float	perturbed_scale;
+}	t_pattern;
+
 typedef struct s_material
 {
 	t_color		color;
@@ -183,15 +203,9 @@ typedef struct s_material
 	t_color		diffuse;
 	t_color		specular;
 	float		shininess;
+	t_pattern	*pattern;
 }	t_material;
 
-typedef struct s_pattern
-{
-	t_color	a;
-	t_color	b;
-	t_mat4d	transform;
-	t_mat4d	inv_transform;
-}	t_pattern;
 
 // typedef struct s_material
 // {
@@ -211,7 +225,7 @@ typedef struct s_pattern
 // Generic object structure
 typedef struct s_object
 {
-	t_objtype type;
+	t_otype type;
 	t_point center;
 	void *data;
 	float reflection;
@@ -221,7 +235,6 @@ typedef struct s_object
 	t_mat4d transform;
 	t_mat4d inv_transform;
 	t_material material;
-	t_pattern	pattern;
 } t_object;
 
 // Scene objects

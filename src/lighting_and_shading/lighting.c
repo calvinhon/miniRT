@@ -22,7 +22,7 @@ t_vec4d reflect(t_vec4d *in, t_vec4d *normal)
 	return (subtract_vectors(*in, scaled_vec));
 }
 
-t_color lighting(t_material *material, t_light *l, t_comps *c, bool in_shadow)
+t_color lighting(t_material *m, t_light *l, t_comps *c, bool in_shadow)
 {
 	t_color effective_color;
 	t_vec4d light_v;
@@ -30,23 +30,26 @@ t_color lighting(t_material *material, t_light *l, t_comps *c, bool in_shadow)
 	float light_dot_normal;
 	float reflect_dot_eye;
 
-	effective_color = mult_colors(material->color, l->color);
-	new.ambient.color = mult_colors(effective_color, material->ambient.color);
+	if (m->pattern)
+		effective_color = mult_colors(pattern_at(c->obj, &c->p, m->pattern), l->color);
+	else
+		effective_color = mult_colors(m->color, l->color);
+	new.ambient.color = mult_colors(effective_color, m->ambient.color);
 	light_v = normalize(subtract_points(l->position, c->p));
 	light_dot_normal = dot(light_v, c->normal_v);
 	new.diffuse = create_color(0, 0, 0);
 	new.specular = create_color(0, 0, 0);
 	if (light_dot_normal >= 0 && !in_shadow)
 	{
-		new.diffuse = mult_colors(effective_color, material->diffuse);
+		new.diffuse = mult_colors(effective_color, m->diffuse);
 		new.diffuse = scale_color(new.diffuse, light_dot_normal);
 		light_v = negate_vector(light_v);
 		reflect_dot_eye = dot(reflect(&light_v, &c->normal_v), c->eye_v);
 		if (reflect_dot_eye > 0)
 		{
-			new.specular = scale_color(mult_colors(material->specular,
+			new.specular = scale_color(mult_colors(m->specular,
 				scale_color(l->color, 255)),
-				pow(reflect_dot_eye, material->shininess));
+				pow(reflect_dot_eye, m->shininess));
 		}
 	}
 	// printf("ambient: %f %f %f\n", new.ambient.color.r, new.ambient.color.g, new.ambient.color.b);
@@ -87,7 +90,7 @@ t_color shade_hit(t_scene *s, t_comps *comps, int depth)
 	{
 		in_shadow = is_shadowed(s, &comps->over_point, &s->lights[i]);
 		lighting_result = lighting(&comps->obj->material,
-								   &s->lights[i], comps, in_shadow);
+				&s->lights[i], comps, in_shadow);
 		color = add_colors(2, color, lighting_result);
 	}
 	(void)depth;

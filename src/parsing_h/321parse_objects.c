@@ -19,7 +19,7 @@ static void parse_bonus(t_minirt *minirt, char *data,
 	minirt->scene.objs[idx].shininess = parse_float(data, i);
 }
 
-void *allocate_obj(t_minirt *minirt, t_objtype type, size_t idx)
+void *allocate_obj(t_minirt *minirt, t_otype type, size_t idx)
 {
 	minirt->scene.objs[idx].type = type;
 	if (type == SPHERE)

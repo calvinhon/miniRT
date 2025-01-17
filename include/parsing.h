@@ -40,7 +40,7 @@ void parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx);
 void parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx);
 void parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx);
 void parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx);
-void *allocate_obj(t_minirt *minirt, t_objtype type, size_t idx);
+void *allocate_obj(t_minirt *minirt, t_otype type, size_t idx);
 
 int parse_int(char *data, size_t *i);
 float parse_float(char *data, size_t *i);
