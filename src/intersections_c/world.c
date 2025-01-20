@@ -9,7 +9,7 @@ t_itx_set local_intersect(t_scene *s, t_ray *r)
 	set.count = 0;
 	while (++i < s->num_shapes)
 	{
-		if (set.count >= _RT_MAX_ITX)
+		if (set.count >= MAX_ITX)
 			break;
 		if (s->objs[i].type == SPHERE)
 			intersect_sphere(r, &s->objs[i], &set);

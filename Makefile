@@ -6,7 +6,7 @@
 #    By: chon <chon@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 18:56:23 by chon              #+#    #+#              #
-#    Updated: 2025/01/16 17:11:57 by chon             ###   ########.fr        #
+#    Updated: 2025/01/20 10:33:10 by chon             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,20 +30,14 @@ endif
 LIBFT_DIR = libs/libft
 INCL_DIR = include
 SRC_FILES = main.c \
-		$(addprefix draw/, draw.c) \
 		$(addprefix colors/, colors.c) \
 		$(addprefix controls/, controls.c) \
 		$(addprefix math_c/, point.c vector_1.c vector_2.c vector_3.c \
 			matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c matrix_6.c) \
 		$(addprefix lighting_and_shading/, lighting.c) \
-<<<<<<< HEAD
-		$(addprefix intersections_c/, world.c sphere.c) \
-		$(addprefix raytracing_c/, rays.c render.c) \
-=======
 		$(addprefix intersections_c/, world.c sphere.c plane.c) \
-		$(addprefix raytracing_c/, rays.c render.c pattern.c) \
+		$(addprefix raytracing_c/, rays.c render.c pattern.c draw.c) \
 		camera_c/camera.c \
->>>>>>> ed472181482a524413cb6122dc67ea5c971f55cf
 		destroy/destroy.c
 SRCS = $(addprefix src/, $(SRC_FILES))
 OBJS = $(SRCS:.c=.o)

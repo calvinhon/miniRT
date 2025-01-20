@@ -13,22 +13,12 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-// # include "../libs/libft/libft.h"
-// # include "../libs/mlx_linux/mlx.h"
-// # include "../libs/mlx_macos/mlx.h"
 #include <pthread.h>
 #include <immintrin.h> //__m256d, __m128)
 #include <stdint.h>	   // bit-wise & integer types
 #include <stdbool.h>   // boolean types
 #include <macros.h>
 #include <stdarg.h>
-
-typedef struct s_idx
-{
-	int count;
-	int i;
-	int j;
-} t_idx;
 
 typedef struct s_point
 {
@@ -166,7 +156,7 @@ typedef enum e_object_type
 	PLANE,
 	CUBE,
 	CONE
-}	t_otype;
+} t_otype;
 
 // Pattern types
 typedef enum e_pattern_type
@@ -175,67 +165,66 @@ typedef enum e_pattern_type
 	GRADIENT,
 	RING,
 	CHECKER
-}	t_ptype;
+} t_ptype;
 
 // Ambient
 typedef struct s_ambient
 {
-	float	intensity;
-	t_color	color;
-}	t_ambient;
+	float intensity;
+	t_color color;
+} t_ambient;
 
 // Data for objects
 typedef struct s_pattern
 {
-	t_ptype	type;
-	t_color	a;
-	t_color	b;
-	t_mat4d	transform;
-	t_mat4d	inv_transform;
-	bool	is_perturbed;
-	float	p_scale;
-}	t_pattern;
+	t_ptype type;
+	t_color a;
+	t_color b;
+	t_mat4d transform;
+	t_mat4d inv_transform;
+	bool is_perturbed;
+	float p_scale;
+} t_pattern;
 
 typedef struct s_perturbed
 {
-	int		i;
-	int		j;
-	int		k;
-	float	u;
-	float	v;
-	float	w;
-	int		a;
-	int		aa;
-	int		ab;
-	int		b;
-	int		ba;
-	int		bb;
-	float	gradaa;
-	float	gradab;
-	float	gradba;
-	float	gradbb;
-	float	gradaa1;
-	float	gradab1;
-	float	gradba1;
-	float	gradbb1;
-	float	x1;
-	float	x2;
-	float	x3;
-	float	x4;
-	float	y1;
-	float	y2;
-}	t_perturbed;
+	int i;
+	int j;
+	int k;
+	float u;
+	float v;
+	float w;
+	int a;
+	int aa;
+	int ab;
+	int b;
+	int ba;
+	int bb;
+	float gradaa;
+	float gradab;
+	float gradba;
+	float gradbb;
+	float gradaa1;
+	float gradab1;
+	float gradba1;
+	float gradbb1;
+	float x1;
+	float x2;
+	float x3;
+	float x4;
+	float y1;
+	float y2;
+} t_perturbed;
 
 typedef struct s_material
 {
-	t_color		color;
-	t_ambient	ambient;
-	t_color		diffuse;
-	t_color		specular;
-	float		shininess;
-	t_pattern	*pattern;
-}	t_material;
-
+	t_color color;
+	t_ambient ambient;
+	t_color diffuse;
+	t_color specular;
+	float shininess;
+	t_pattern *pattern;
+} t_material;
 
 // typedef struct s_material
 // {
@@ -319,7 +308,7 @@ typedef struct s_itx
 
 typedef struct s_itx_set
 {
-	t_itx arr[_RT_MAX_ITX];
+	t_itx arr[MAX_ITX];
 	int count;
 } t_itx_set;
 

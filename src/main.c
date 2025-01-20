@@ -33,7 +33,8 @@ int init_env(t_mlx_vars *env)
 
 int main(int ac, char **av)
 {
-	t_mlx_vars env;
+	t_minirt	program;
+	t_mlx_vars	env;
 
 	if (ac != 1) // change to 2
 	{
@@ -41,7 +42,7 @@ int main(int ac, char **av)
 		return (1);
 	}
 	(void)av;
-	if (init_env(&env))
+	if (init_env(&program.env))
 		return (1);
 
 // Pattern test
@@ -56,7 +57,7 @@ int main(int ac, char **av)
 	s.lights = l;
 	t_camera	cam;
 	cam = set_camera(PI/2);
-	cam.transform = view_transform(create_point(-25, 5, -10), create_point(0, 1, 0), create_vec4d(0, 1, 0));
+	cam.transform = view_transform(create_point(-5, 1, -10), create_point(0, 1, 0), create_vec4d(0, 1, 0));
 	cam.inv_transform = inverse_mat4d(cam.transform);
 	program.cam = cam;
 	t_object	o[8];
@@ -153,21 +154,11 @@ int main(int ac, char **av)
 	program.scene = s;
 	y = -1;
 	x = -1;
-	y = -1;
-	pixel_size = 1;
-	while (++y < WINDOW_H - 1)
+	while (++y < cam.vsize - 1)
 	{
-		world_y = HALF_H - y * pixel_size;
-		while (++x < WINDOW_W - 1)
+		while (++x < cam.hsize - 1)
 		{
-			world_x = -HALF_W + x * pixel_size;
-			position = create_point(world_x, world_y, 100);
-			r = create_ray(r_origin, normalize(subtract_points(position, r_origin)));
-			if (intersect_sphere(&r, &s, &xs))
-				draw(&env, x, y, OLIVE);
-			else
-				draw(&env, x, y, BLACK);
-			xs.count = 0;
+			render_pixel(&program, x, y);
 		}
 		x = -1;
 	}

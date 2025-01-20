@@ -6,33 +6,13 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:07:24 by honguyen          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/01/13 17:01:35 by marvin           ###   ########.fr       */
-=======
-/*   Updated: 2025/01/16 16:09:54 by chon             ###   ########.fr       */
->>>>>>> ed472181482a524413cb6122dc67ea5c971f55cf
+/*   Updated: 2025/01/20 10:19:33 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 #define PARSING_H
 
-<<<<<<< HEAD
-# include "../libs/libft/libft.h"
-# include "../libs/mlx_linux/mlx.h"
-# include "../libs/mlx_macos/mlx.h"
-# include "structs.h"
-
-void		errors(int err_code, t_minirt *minirt);
-int			close_minirt(t_minirt *minirt);
-void		check_filename(char *file);
-t_minirt	*new_minirt(void);
-void		parse(t_minirt *minirt, char *file);
-void		allocate_light_obj(t_minirt *minirt);
-void		count_elements(t_minirt *minirt, char *line);
-void		check_elements(t_minirt *minirt);
-size_t		calculate_required_size(char *file, t_minirt *minirt);
-=======
 #include "../libs/libft/libft.h"
 #include "../libs/mlx_linux/mlx.h"
 #include "../libs/mlx_macos/mlx.h"
@@ -47,7 +27,6 @@ void allocate_light_obj(t_minirt *minirt);
 void count_elements(t_minirt *minirt, char *line);
 void check_elements(t_minirt *minirt);
 size_t calculate_required_size(char *file, t_minirt *minirt);
->>>>>>> ed472181482a524413cb6122dc67ea5c971f55cf
 
 char *file_data(t_minirt *minirt, size_t *total_size, char *file);
 void parse_data(t_minirt *minirt, char *data);

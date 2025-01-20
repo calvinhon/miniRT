@@ -21,7 +21,7 @@ bool intersect_sphere(t_ray *r, t_object *o, t_itx_set *xs)
 	t_vec4d o_to_ray;
 	t_vec4d abc;
 
-	if (xs->count + 2 >= _RT_MAX_ITX)
+	if (xs->count + 2 >= MAX_ITX)
 		return (false);
 	trans_r = *r;
 	transform_ray(&trans_r, &o->inv_transform);

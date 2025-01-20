@@ -58,18 +58,13 @@ t_color mult_colors(t_color c1, t_color c2)
 	return (create_color(c1.r * c2.r, c1.g * c2.g, c1.b * c2.b));
 }
 
-<<<<<<< HEAD
-int	plot_color(t_color c)
-=======
 unsigned int plot_color(t_color c)
->>>>>>> ed472181482a524413cb6122dc67ea5c971f55cf
 {
-	float	r;
-	float	g;
-	float	b;
-
-	r = fminf(fmaxf(c.r, 0.0f), 1.0f) * 255.0f;
-    g = fminf(fmaxf(c.g, 0.0f), 1.0f) * 255.0f;
-    b = fminf(fmaxf(c.b, 0.0f), 1.0f) * 255.0f;
-	return ((int)r << 16 | (int)g << 8 | (int)b);
+	if (c.r > 255)
+		c.r = 255;
+	if (c.g > 255)
+		c.g = 255;
+	if (c.b > 255)
+		c.b = 255;
+	return ((unsigned int)c.r << 16 | (unsigned int)c.g << 8 | (unsigned int)c.b);
 }

@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:12:10 by chon              #+#    #+#             */
-/*   Updated: 2025/01/16 17:12:16 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/20 11:28:20 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ t_color	pattern_at(t_object *o, t_point *world_point, t_pattern *pat)
 	else if (pat->type == GRADIENT)
 		color = add_colors(2, pat->a,
 			scale_color(subtract_colors(pat->b, pat->a),
-			noise + (pat_pt.x - floor(pat_pt.x))));
+				(1 + noise) * (pat_pt.x - floor(pat_pt.x))));
 	return (color);
 }
