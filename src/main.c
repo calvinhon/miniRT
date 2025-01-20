@@ -44,86 +44,114 @@ int main(int ac, char **av)
 	if (init_env(&env))
 		return (1);
 
-	// Intersect test
-	// t_ray		r = create_ray(create_point(0, 2, -5), create_vec4d(0, 0, 1));
-	// t_object	s;
-	// t_itx_set	xs;
-
-	// s.type = SPHERE;
-	// s.inv_transform = identity_mat();
-	// s.center = create_point(0, 0, 0);
-	// xs.count = 0;
-	// intersect_sphere(&r, &s, &xs);
-	// printf("count: %d\n xs[0]: %.1f\n xs[1]: %.1f\n", xs.count, xs.arr[0].t, xs.arr[1].t);
-
-	// Transform ray test
-	// t_ray	r = create_ray(create_point(1, 2, 3), create_vec4d(0, 1, 0));
-	// t_mat4d	m = scaling_mat(2, 3, 4);
-	// t_ray	r2 = r;
-
-	// transform_ray(&r2, &m);
-	// printf("%.0f, %.0f, %.0f\n", r2.origin.x, r2.origin.y, r2.origin.z);
-	// printf("%.0f, %.0f, %.0f\n", r2.direction.x, r2.direction.y, r2.direction.z);
-
-	// Intersect with transform test
-	// t_ray		r = create_ray(create_point(0, 0, -5), create_vec4d(0, 0, 1));
-	// t_object	s;
-	// t_itx_set	xs;
-
-	// s.type = SPHERE;
-	// s.transform = translation_mat(5, 0, 0);
-	// s.inv_transform = inverse_mat4d(s.transform);
-	// s.center = create_point(5, 0, 0);
-	// intersect_sphere(&r, &s, &xs);
-	// printf("count: %d\n xs[0]: %.1f\n xs[1]: %.1f\n", xs.count, xs.arr[0].t, xs.arr[1].t);
-
-// Hit test
-	// t_object	s;
-	// t_itx		i1;
-	// t_itx		i2;
-	// t_itx		i3;
-	// t_itx		i4;
-	// t_itx_set	xs;
-	// t_itx		*hit_itx;
-
-	// s.type = SPHERE;
-	// i1.t = 5;
-	// i1.obj = &s;
-	// i2.t = 7;
-	// i2.obj = &s;
-	// i3.t = -3;
-	// i3.obj = &s;
-	// i4.t = 2;
-	// i4.obj = &s;
-	// xs.arr[0] = i1;
-	// xs.arr[1] = i2;
-	// xs.arr[2] = i3;
-	// xs.arr[3] = i4;
-	// xs.count = 4;
-
-	// hit_itx	= hit(&xs, SPHERE);
-	// printf("t: %f\n", hit_itx->t);
-
-// Draw circle test
-	t_ray		r;
-	t_point		r_origin = create_point(0, 0, -5);
-	t_object	s;
-	t_itx_set	xs;
-	t_point		position;
-	t_shear		shear = {0};
+// Pattern test
 	int			y;
 	int			x;
-	float		world_y;
-	float		world_x;
-	float		pixel_size;
-
-	s.type = SPHERE;
-	shear.x_y = 1;
-	s.transform = scaling_mat(1, 1, 1);
-	s.inv_transform = inverse_mat4d(s.transform);
-	// s.inv_transform = identity_mat();
-	s.center = create_point(0, 0, 0);
-	xs.count = 0;
+	t_scene		s;
+	t_light		l[1];
+	t_light		l1;
+	l1.position = create_point(-10, 10, -10);
+	l1.color = create_color(1, 1, 1);
+	l[0] = l1;
+	s.lights = l;
+	t_camera	cam;
+	cam = set_camera(PI/2);
+	cam.transform = view_transform(create_point(-25, 5, -10), create_point(0, 1, 0), create_vec4d(0, 1, 0));
+	cam.inv_transform = inverse_mat4d(cam.transform);
+	program.cam = cam;
+	t_object	o[8];
+	t_material	sphere_m;
+	sphere_m.ambient.color = create_color(.1, .1, .1);
+	sphere_m.diffuse = create_color(0.7, 0.7, 0.7);
+	sphere_m.specular = create_color(0.3, 0.3, 0.3);
+	sphere_m.shininess = 200;
+	t_pattern	pat1;
+	pat1.a = create_color(255, 0, 0);
+	pat1.b = create_color(0, 0, 255);
+	pat1.type = GRADIENT;
+	pat1.transform = scaling_mat(3, 3, 3);
+	pat1.inv_transform = inverse_mat4d(pat1.transform);
+	t_pattern	pat2;
+	pat2.a = scale_color(create_color(0.5, 1, 0.1), 255);
+	pat2.b = create_color(186, 184, 108);
+	pat2.type = STRIPED;
+	pat2.transform = mult_n_mat4d(2, rotate_mat_z(PI/2), scaling_mat(0.5, 0.5, 0.5));
+	pat2.inv_transform = inverse_mat4d(pat2.transform);
+	t_pattern	pat3;
+	pat3.a = create_color(255, 215, 0);
+	pat3.b = create_color(113, 121, 126);
+	pat3.type = RING;
+	pat3.transform = scaling_mat(1, 1, 1);
+	pat3.inv_transform = inverse_mat4d(pat3.transform);
+	t_pattern	pat4;
+	pat4.a = create_color(255, 255, 255);
+	pat4.b = create_color(24, 57, 43);
+	pat4.type = CHECKER;
+	pat4.transform = identity_mat();
+	pat4.inv_transform = inverse_mat4d(pat4.transform);
+	t_pattern	pat5 = pat3;
+	t_object	p;
+	p.type = PLANE;
+	p.material = sphere_m;
+	p.material.pattern = &pat3;
+	p.transform = translation_mat(0, 0, 0);
+	p.inv_transform = inverse_mat4d(p.transform);
+	o[0] = p;
+	t_object	middle;
+	middle.type = SPHERE;
+	middle.center = create_point(0, 0, 0);
+	middle.material = sphere_m;
+	middle.material.pattern = &pat1;
+	middle.material.color = scale_color(create_color(1, 0.5, 0.5), 255);
+	middle.transform = mult_n_mat4d(2, scaling_mat(1, 1, 1), translation_mat(-0.5, 1, 0.5));
+	middle.inv_transform = inverse_mat4d(middle.transform);
+	o[1] = middle;
+	t_object	right;
+	right.type = SPHERE;
+	right.center = create_point(0, 0, 0);
+	right.material = sphere_m;
+	right.material.pattern = &pat2;
+	right.transform = mult_n_mat4d(2, scaling_mat(1.5, 1.5, 1.5), translation_mat(1.5, 3, -3.5));
+	right.inv_transform = inverse_mat4d(right.transform);
+	o[2] = right;
+	t_object	left;
+	left.type = SPHERE;
+	left.center = create_point(0, 0, 0);
+	left.material = sphere_m;
+	left.material.color = scale_color(create_color(1, 0.8, 0.1), 255);
+	left.transform = mult_n_mat4d(2, scaling_mat(0.33, 0.33, 0.33), translation_mat(-1.5, 0.33, -0.75));
+	left.inv_transform = inverse_mat4d(left.transform);
+	o[3] = left;
+	t_object	p2;
+	p2.type = PLANE;
+	p2.material = p.material;
+	p2.material.pattern = &pat1;
+	p2.material.color = scale_color(create_color(0.3, 0.3, 0.9), 255);
+	p2.transform = mult_n_mat4d(2, rotate_mat_x(PI/2), translation_mat(0, 1.5, 2));
+	p2.inv_transform = inverse_mat4d(p2.transform);
+	o[4] = p2;
+	t_object	p3;
+	p3.type = PLANE;
+	p3.material = p.material;
+	p3.material.pattern = &pat4;
+	p3.transform = mult_n_mat4d(2, rotate_mat_z(PI/2), translation_mat(5, 0, 0));
+	p3.inv_transform = inverse_mat4d(p3.transform);
+	o[5] = p3;
+	t_object	s4;
+	s4.type = SPHERE;
+	s4.center = create_point(0, 0, 0);
+	s4.material = sphere_m;
+	s4.material.pattern = &pat5;
+	s4.material.pattern->transform = mult_n_mat4d(2, rotate_mat_x(PI/2), scaling_mat(0.3, 0.3, 0.3));
+	s4.material.pattern->inv_transform = inverse_mat4d(s4.material.pattern->transform);
+	s4.transform = mult_n_mat4d(2, scaling_mat(1.75, 1.75, 1.75), translation_mat(-10, 5, -8));
+	s4.inv_transform = inverse_mat4d(s4.transform);
+	o[6] = s4;
+	s.objs = o;
+	s.num_lights = 1;
+	s.num_shapes = 7;
+	program.scene = s;
+	y = -1;
 	x = -1;
 	y = -1;
 	pixel_size = 1;
@@ -143,6 +171,8 @@ int main(int ac, char **av)
 		}
 		x = -1;
 	}
+
+	env = program.env;
 	mlx_put_image_to_window(env.mlx, env.win, env.img, 0, 0);
 	mlx_loop(env.mlx);
 	return (0);

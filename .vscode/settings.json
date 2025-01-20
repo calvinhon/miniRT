@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",
@@ -60,4 +61,10 @@
     "minirt.h": "c",
     "parsing.h": "c"
   }
+=======
+	"files.associations": {
+		"chrono": "c",
+		"unordered_map": "c"
+	}
+>>>>>>> ed472181482a524413cb6122dc67ea5c971f55cf
 }

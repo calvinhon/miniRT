@@ -1,9 +1,9 @@
 #include "minirt_math.h"
 
-t_mat4d	rotate_mat_x(double rad)
+t_mat4d rotate_mat_x(float rad)
 {
-	t_mat4d	m;
-	int		i;
+	t_mat4d m;
+	int i;
 
 	i = -1;
 	while (++i < 16)
@@ -22,10 +22,10 @@ t_mat4d	rotate_mat_x(double rad)
 	return (m);
 }
 
-t_mat4d	rotate_mat_y(double rad)
+t_mat4d rotate_mat_y(float rad)
 {
-	t_mat4d	m;
-	int		i;
+	t_mat4d m;
+	int i;
 
 	i = -1;
 	while (++i < 16)
@@ -44,10 +44,10 @@ t_mat4d	rotate_mat_y(double rad)
 	return (m);
 }
 
-t_mat4d	rotate_mat_z(double rad)
+t_mat4d rotate_mat_z(float rad)
 {
-	t_mat4d	m;
-	int		i;
+	t_mat4d m;
+	int i;
 
 	i = -1;
 	while (++i < 16)
@@ -66,10 +66,10 @@ t_mat4d	rotate_mat_z(double rad)
 	return (m);
 }
 
-t_mat4d	shear_mat(t_shear s)
+t_mat4d shear_mat(t_shear s)
 {
-	t_mat4d	m;
-	int		i;
+	t_mat4d m;
+	int i;
 
 	i = -1;
 	while (++i < 16)

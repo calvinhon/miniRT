@@ -3,23 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   321parse_objects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:32:20 by honguyen          #+#    #+#             */
+<<<<<<< HEAD:src/parsing/321parse_objects.c
 /*   Updated: 2025/01/13 16:38:51 by marvin           ###   ########.fr       */
+=======
+/*   Updated: 2025/01/16 16:09:54 by chon             ###   ########.fr       */
+>>>>>>> ed472181482a524413cb6122dc67ea5c971f55cf:src/parsing_h/321parse_objects.c
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-static void	parse_bonus(t_minirt *minirt, char *data, \
-				size_t *i, size_t idx)
+static void parse_bonus(t_minirt *minirt, char *data,
+						size_t *i, size_t idx)
 {
 	minirt->scene.objs[idx].reflection = parse_float(data, i);
 	//minirt->scene.objs[idx].shininess = parse_float(data, i);
 }
 
-void	*allocate_obj(t_minirt *minirt, t_objtype type, size_t idx)
+void *allocate_obj(t_minirt *minirt, t_otype type, size_t idx)
 {
 	minirt->scene.objs[idx].type = type;
 	if (type == SPHERE)
@@ -39,9 +43,9 @@ void	*allocate_obj(t_minirt *minirt, t_objtype type, size_t idx)
 	return (minirt->scene.objs[idx].data);
 }
 
-void	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
+void parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_plane	*plane;
+	t_plane *plane;
 
 	plane = (t_plane *)allocate_obj(minirt, PLANE, idx);
 	(*i) += 2;
@@ -52,9 +56,9 @@ void	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 		parse_bonus(minirt, data, i, idx);
 }
 
-void	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
+void parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_sphere	*sphere;
+	t_sphere *sphere;
 
 	sphere = (t_sphere *)allocate_obj(minirt, SPHERE, idx);
 	(*i) += 2;
@@ -65,9 +69,9 @@ void	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 		parse_bonus(minirt, data, i, idx);
 }
 
-void	parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
+void parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_cylinder	*cylinder;
+	t_cylinder *cylinder;
 
 	cylinder = (t_cylinder *)allocate_obj(minirt, CYLINDER, idx);
 	(*i) += 2;

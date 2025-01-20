@@ -10,17 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <stdbool.h>
 #include <stdio.h>
 
-static void	skip_whitespace(const char **str)
+static void skip_whitespace(const char **str)
 {
 	while (**str == ' ' || **str == '\t' || **str == '\n')
 		(*str)++;
 }
 
-static int	parse_sign(const char **str)
+static int parse_sign(const char **str)
 {
 	if (**str == '-')
 	{
@@ -34,9 +33,9 @@ static int	parse_sign(const char **str)
 	return (1);
 }
 
-static float	parse_integer_part(const char **str)
+static float parse_integer_part(const char **str)
 {
-	float	result;
+	float result;
 
 	result = 0.0;
 
@@ -48,10 +47,10 @@ static float	parse_integer_part(const char **str)
 	return (result);
 }
 
-static float	parse_fractional_part(const char **str)
+static float parse_fractional_part(const char **str)
 {
-	float	fraction;
-	float	divisor;
+	float fraction;
+	float divisor;
 
 	fraction = 0;
 	divisor = 10.0;
@@ -68,10 +67,10 @@ static float	parse_fractional_part(const char **str)
 	return (fraction);
 }
 
-float	ft_atof(const char *str)
+float ft_atof(const char *str)
 {
-	float	result;
-	int		sign;
+	float result;
+	int sign;
 
 	skip_whitespace(&str);
 	sign = parse_sign(&str);

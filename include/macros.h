@@ -118,8 +118,13 @@ const char *MS_ER[] =
 #  define WIDTH 1440
 #  define HEIGHT 810
 # else
+<<<<<<< HEAD
 #  define WIDTH 1920
 #  define HEIGHT 1080
+=======
+#  define WINDOW_W 1600
+#  define WINDOW_H 900
+>>>>>>> ed472181482a524413cb6122dc67ea5c971f55cf
 # endif
 
 # define HALF_W WIDTH / 2
