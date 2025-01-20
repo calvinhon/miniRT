@@ -3,93 +3,49 @@
 t_mat4d rotate_mat_x(float rad)
 {
 	t_mat4d m;
-	int i;
 
-	i = -1;
-	while (++i < 16)
-	{
-		if (i == 0 || i == 15)
-			m.matrix[i] = 1;
-		else if (i == 5 || i == 10)
-			m.matrix[i] = cos(rad);
-		else if (i == 6)
-			m.matrix[i] = -sin(rad);
-		else if (i == 9)
-			m.matrix[i] = sin(rad);
-		else
-			m.matrix[i] = 0;
-	}
+	m = identity_mat();
+	m.matrix[5] = cos(rad);
+    m.matrix[6] = -sin(rad);
+    m.matrix[9] = sin(rad);
+    m.matrix[10] = cos(rad); 
 	return (m);
 }
 
 t_mat4d rotate_mat_y(float rad)
 {
 	t_mat4d m;
-	int i;
 
-	i = -1;
-	while (++i < 16)
-	{
-		if (i == 0 || i == 10)
-			m.matrix[i] = cos(rad);
-		else if (i == 5 || i == 15)
-			m.matrix[i] = 1;
-		else if (i == 2)
-			m.matrix[i] = sin(rad);
-		else if (i == 8)
-			m.matrix[i] = -sin(rad);
-		else
-			m.matrix[i] = 0;
-	}
+	m = identity_mat();
+    m.matrix[0] = cos(rad);
+    m.matrix[2] = sin(rad);
+    m.matrix[8] = -sin(rad);
+    m.matrix[10] = cos(rad);
 	return (m);
 }
 
 t_mat4d rotate_mat_z(float rad)
 {
 	t_mat4d m;
-	int i;
 
-	i = -1;
-	while (++i < 16)
-	{
-		if (i == 10 || i == 15)
-			m.matrix[i] = 1;
-		else if (i == 0 || i == 5)
-			m.matrix[i] = cos(rad);
-		else if (i == 1)
-			m.matrix[i] = -sin(rad);
-		else if (i == 4)
-			m.matrix[i] = sin(rad);
-		else
-			m.matrix[i] = 0;
-	}
+	m = identity_mat();
+    m.matrix[0] = cos(rad);
+    m.matrix[1] = -sin(rad);
+    m.matrix[4] = sin(rad);
+    m.matrix[5] = cos(rad);
 	return (m);
 }
 
 t_mat4d shear_mat(t_shear s)
 {
 	t_mat4d m;
-	int i;
 
-	i = -1;
-	while (++i < 16)
-	{
-		if (i == 0 || i == 5 || i == 10 || i == 15)
-			m.matrix[i] = 1;
-		else if (i == 1)
-			m.matrix[i] = s.x_y;
-		else if (i == 2)
-			m.matrix[i] = s.x_z;
-		else if (i == 4)
-			m.matrix[i] = s.y_x;
-		else if (i == 6)
-			m.matrix[i] = s.y_z;
-		else if (i == 8)
-			m.matrix[i] = s.z_x;
-		else if (i == 9)
-			m.matrix[i] = s.z_y;
-		else
-			m.matrix[i] = 0;
-	}
+	m = identity_mat();
+    m.matrix[1] = s.x_y;
+    m.matrix[2] = s.x_z;
+    m.matrix[4] = s.y_x;
+    m.matrix[6] = s.y_z;
+    m.matrix[8] = s.z_x;
+    m.matrix[9] = s.z_y;
 	return (m);
 }

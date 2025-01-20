@@ -6,7 +6,7 @@
 #    By: chon <chon@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/21 18:56:23 by chon              #+#    #+#              #
-#    Updated: 2025/01/20 10:33:10 by chon             ###   ########.fr        #
+#    Updated: 2025/01/20 16:50:25 by chon             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC_FILES = main.c \
 			matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c matrix_6.c) \
 		$(addprefix lighting_and_shading/, lighting.c) \
 		$(addprefix intersections_c/, world.c sphere.c plane.c) \
-		$(addprefix raytracing_c/, rays.c render.c pattern.c draw.c) \
+		$(addprefix raytracing_c/, rays.c render.c pattern.c perlin_noise.c) \
 		camera_c/camera.c \
 		destroy/destroy.c
 SRCS = $(addprefix src/, $(SRC_FILES))

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/20 16:50:33 by chon              #+#    #+#             */
+/*   Updated: 2025/01/20 16:50:33 by chon             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 t_itx *get_hit(t_itx_set *xs)
@@ -86,7 +98,7 @@ t_ray cam_ray_to_pixel(t_camera *cam, int px, int py)
 	t_vec4d ray_direction;
 
 	pixel_cam = create_point((cam->half_width - (px + 0.5f) * cam->pixel_size),
-							 (cam->half_height - (py + 0.5f) * cam->pixel_size), -1);
+		(cam->half_height - (py + 0.5f) * cam->pixel_size), -1);
 	pixel_world = mult_mat4d_pt4d(cam->inv_transform, pixel_cam);
 	cam_origin_world = mult_mat4d_pt4d(cam->inv_transform, create_point(0, 0, 0));
 	ray_direction = normalize(subtract_points(pixel_world, cam_origin_world));
@@ -95,11 +107,15 @@ t_ray cam_ray_to_pixel(t_camera *cam, int px, int py)
 
 t_color render_pixel(t_minirt *program, int x, int y)
 {
-	t_ray r;
-	t_color c;
+	t_ray 			r;
+	t_color 		c;
+	unsigned int	color_32b;
+	t_mlx_vars		env;
 
 	r = cam_ray_to_pixel(&program->cam, x, y);
 	c = color_at(&program->scene, &r, MAX_RFLX);
-	draw(&program->env, x, y, &c);
+	color_32b = plot_color(c);
+	env = program->env;
+	*(unsigned int *)(env.addr + y * env.l_len + x * env.bpp_8) = color_32b;
 	return (c);
 }

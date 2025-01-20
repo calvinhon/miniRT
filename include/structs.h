@@ -182,7 +182,6 @@ typedef struct s_pattern
 	t_color b;
 	t_mat4d transform;
 	t_mat4d inv_transform;
-	bool is_perturbed;
 	float p_scale;
 } t_pattern;
 
@@ -200,20 +199,14 @@ typedef struct s_perturbed
 	int b;
 	int ba;
 	int bb;
-	float gradaa;
-	float gradab;
-	float gradba;
-	float gradbb;
-	float gradaa1;
-	float gradab1;
-	float gradba1;
-	float gradbb1;
-	float x1;
-	float x2;
-	float x3;
-	float x4;
-	float y1;
-	float y2;
+	float g1;
+	float g2;
+	float g3;
+	float g4;
+	float g5;
+	float g6;
+	float g7;
+	float g8;
 } t_perturbed;
 
 typedef struct s_material

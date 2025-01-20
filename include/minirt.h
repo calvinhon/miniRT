@@ -42,7 +42,6 @@ bool intersect_sphere(t_ray *r, t_object *sphere, t_itx_set *xs);
 t_vec4d sphere_normal_at(t_object *o, t_point *wrld_p);
 bool intersect_plane(t_ray *r, t_object *o, t_itx_set *xs);
 t_vec4d plane_normal_at(t_object *o, t_point *wrld_p);
-void draw(t_mlx_vars *env, int x, int y, t_color *c);
 
 // Camera
 t_camera set_camera(float fov);
@@ -57,6 +56,6 @@ bool is_shadowed(t_scene *s, t_point *p, t_light *l);
 
 // Patterns
 t_color	pattern_at(t_object *o, t_point *world_point, t_pattern *pattern);
-
+float	perlin_noise(float x, float y, float z);
 
 #endif
