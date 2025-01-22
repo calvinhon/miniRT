@@ -58,6 +58,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "exception": "cpp",
-    "limits": "cpp"
+    "limits": "cpp",
+    "minirt.h": "c"
   }
 }
