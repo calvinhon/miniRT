@@ -128,6 +128,6 @@ void	parse(char *file, t_minirt *minirt)
 	if (!data || total_size == 0)
 		return (free(data), errors(CER_EMPTY_MAP, ER_EMPTY_MAP, minirt));
 	allocate_light_shape(minirt);
-	parse_data(minirt, data);
+	parse_data(minirt, data, total_size);
 	free(data);
 }

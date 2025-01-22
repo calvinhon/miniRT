@@ -145,7 +145,7 @@ float		ft_atof(const char *str);
 
 // Parsing
 void	parse(char *file, t_minirt *minirt);
-void	parse_data(t_minirt *minirt, char *data);
+void	parse_data(t_minirt *minirt, char *data, size_t total_size);
 
 void	parse_ambient(t_minirt *minirt, char *data, size_t *i);
 t_color	parse_color(char *data, size_t *i);
