@@ -77,11 +77,16 @@ void	pool_wait_for_frame(t_minirt *minirt)
 	{
 		thread = &minirt->cores[i];
 		pthread_mutex_lock(&thread->mutex);
+		// Change condition check to handle spurious wakeups
 		while (thread->work_ready)
 		{
-			pthread_mutex_unlock(&thread->mutex);
-			pthread_mutex_lock(&thread->mutex);
+			pthread_cond_wait(&thread->cond, &thread->mutex);
 		}
+		// while (thread->work_ready)
+		// {
+		// 	pthread_mutex_unlock(&thread->mutex);
+		// 	pthread_mutex_lock(&thread->mutex);
+		// }
 		pthread_mutex_unlock(&thread->mutex);
 	}
 }

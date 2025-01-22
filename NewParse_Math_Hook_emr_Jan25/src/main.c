@@ -41,8 +41,12 @@ t_minirt	*ini_minirt(void)
 		errors(CER_MLX_WIN, ER_MLX_WIN, minirt);
 	minirt->textures = NULL;
 	minirt->selected = (struct s_select){.is_cam = true, .object = NULL};
+	minirt->cam = (t_camera){0};
+    minirt->cores = NULL;
+    minirt->stop = false; 
 	return(minirt);
 }
+
 void check_filename(char *file)
 {
 	size_t len;

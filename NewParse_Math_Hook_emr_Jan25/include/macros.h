@@ -31,7 +31,7 @@
 #  define SPOTLIGHT_FALLOFF 2.0f
 # endif // !SPOTLIGHT_FALLOFF
 
-# define _RT_NUM_THREADS 10
+# define _RT_NUM_THREADS 1
 
 # define _RT_MAX_ITX 200
 # define _RT_MIN_INTENSITY 0.05f

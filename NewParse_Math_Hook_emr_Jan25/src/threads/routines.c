@@ -33,6 +33,10 @@ void	*render_chunk(void *arg)
 			x += STEP_SKIP;
 		}
 		y += STEP_SKIP;
+		// add
+		if (x >= cam->hsize && y >= cam->vsize)
+   			break; // Prevent out-of-bounds access
+		//
 	}
 	interpolate_horizontal(data);
 	interpolate_vertical(data);
@@ -54,10 +58,13 @@ void	*await_task(void *arg)
 			pthread_mutex_unlock(&data->mutex);
 			break ;
 		}
-		pthread_mutex_unlock(&data->mutex);
+		//pthread_mutex_unlock(&data->mutex);
 		render_chunk(data);
-		pthread_mutex_lock(&data->mutex);
+		//pthread_mutex_lock(&data->mutex);
 		data->work_ready = false;
+		// add
+		pthread_cond_signal(&data->cond);
+		// add
 		pthread_mutex_unlock(&data->mutex);
 	}
 	return (NULL);
