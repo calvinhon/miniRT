@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nthoach <nthoach@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 16:54:38 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/19 00:05:12 by nthoach          ###   ########.fr       */
+/*   Created: 2025/01/22 11:01:20 by chon              #+#    #+#             */
+/*   Updated: 2025/01/22 11:01:20 by chon             ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef STRUCTS_H
 #define STRUCTS_H
@@ -212,13 +212,24 @@ typedef struct s_perturbed
 typedef struct s_material
 {
 	t_color color;
-	t_ambient ambient;
-	t_color diffuse;
-	t_color specular;
+	float ambient_s;
+	float diffuse_s;
+	float specular_s;
 	float shininess;
 	t_pattern *pattern;
-	float	reflective;
+	float reflect_s;
 } t_material;
+
+typedef struct s_material_colors
+{
+	int light_type;
+	t_color intensity;
+	t_color effective_color;
+	t_color ambient;
+	t_color diffuse;
+	t_color specular;
+	t_color return_color;
+} t_material_colors;
 
 // typedef struct s_material
 // {
@@ -315,7 +326,7 @@ typedef struct s_comps_for_xs
 	t_vec4d under_point;
 	t_vec4d eye_v;
 	t_vec4d normal_v;
-	t_vec4d		reflectv;
+	t_vec4d reflect_v;
 	float n1;
 	float n2;
 	t_color ambient;

@@ -64,7 +64,7 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_set *xs)
 	comps.over_point = add_v_to_p(comps.p, scale_vector(comps.normal_v, bump));
 	// lag_vec4s_scaleby(&margin, comps.normal_v, bump);
 	// lag_vec4s_sub(&comps.under_point, &comps.p, &margin);
-	comps.reflectv = reflect(&r->direction, &comps.normal_v);
+	comps.reflect_v = reflect(&r->direction, &comps.normal_v);
 	// if (comps.obj->material.refractive_index > 0.f)
 	// 	prepare_refractions(itx, &comps, xs);
 	(void)xs;
@@ -73,18 +73,20 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_set *xs)
 	return (comps);
 }
 
-t_color color_at(t_scene *s, t_ray *r, int depth)
+t_color color_at(t_scene *s, t_ray *r, int remaining)
 {
-	t_itx_set world_itxs;
+	t_itx_set xs;
 	t_itx *hit;
 	t_comps comps;
 
-	world_itxs = local_intersect(s, r);
-	hit = get_hit(&world_itxs);
+	xs = local_intersect(s, r);
+	hit = get_hit(&xs);
 	if (!hit)
 		return (create_color(0, 0, 0));
-	comps = prepare_computations(hit, r, &world_itxs);
-	return (shade_hit(s, &comps, depth));
+	comps = prepare_computations(hit, r, &xs);
+	if (!remaining)
+		return (create_color(0, 0, 0));
+	return (shade_hit(s, &comps, remaining));
 }
 
 t_ray cam_ray_to_pixel(t_camera *cam, int px, int py)
@@ -95,7 +97,7 @@ t_ray cam_ray_to_pixel(t_camera *cam, int px, int py)
 	t_vec4d ray_direction;
 
 	pixel_cam = create_point((cam->half_width - (px + 0.5f) * cam->pixel_size),
-		(cam->half_height - (py + 0.5f) * cam->pixel_size), -1);
+							 (cam->half_height - (py + 0.5f) * cam->pixel_size), -1);
 	pixel_world = mult_mat4d_pt4d(cam->inv_transform, pixel_cam);
 	cam_origin_world = mult_mat4d_pt4d(cam->inv_transform, create_point(0, 0, 0));
 	ray_direction = normalize(subtract_points(pixel_world, cam_origin_world));
@@ -104,10 +106,10 @@ t_ray cam_ray_to_pixel(t_camera *cam, int px, int py)
 
 t_color render_pixel(t_minirt *program, int x, int y)
 {
-	t_ray 			r;
-	t_color 		c;
-	unsigned int	color_32b;
-	t_mlx_vars		env;
+	t_ray r;
+	t_color c;
+	unsigned int color_32b;
+	t_mlx_vars env;
 
 	r = cam_ray_to_pixel(&program->cam, x, y);
 	c = color_at(&program->scene, &r, MAX_RFLX);

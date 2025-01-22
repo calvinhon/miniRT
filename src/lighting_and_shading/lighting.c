@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 16:50:33 by chon              #+#    #+#             */
-/*   Updated: 2025/01/20 16:50:33 by chon             ###   ########.fr       */
+/*   Created: 2025/01/22 11:00:44 by chon              #+#    #+#             */
+/*   Updated: 2025/01/22 11:00:44 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,19 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, bool in_shadow)
 	if (m->pattern)
 		m->color = pattern_at(c->obj, &c->p, m->pattern);
 	effective_color = mult_colors(m->color, l->color);
-	c->ambient = mult_colors(effective_color, m->ambient.color);
+	c->ambient = scale_color(effective_color, m->ambient_s);
 	light_v = normalize(subtract_points(l->position, c->p));
 	light_dot_normal = dot(light_v, c->normal_v);
 	if (light_dot_normal >= 0 && !in_shadow)
 	{
-		c->diffuse = mult_colors(effective_color, m->diffuse);
+		c->diffuse = scale_color(effective_color, m->diffuse_s);
 		c->diffuse = scale_color(c->diffuse, light_dot_normal);
 		light_v = negate_vector(light_v);
 		reflect_dot_eye = dot(reflect(&light_v, &c->normal_v), c->eye_v);
 		if (reflect_dot_eye > 0)
 		{
-			c->specular = scale_color(mult_colors(m->specular,
-				scale_color(l->color, 255)),
-				pow(reflect_dot_eye, m->shininess));
+			c->specular = scale_color(l->color,
+				pow(reflect_dot_eye, m->shininess) * m->specular_s);
 		}
 	}
 	return (add_colors(3, c->ambient, c->diffuse, c->specular));
@@ -69,31 +68,42 @@ bool is_shadowed(t_scene *s, t_point *p, t_light *l)
 	return (false);
 }
 
-t_color shade_hit(t_scene *s, t_comps *comps, int depth)
+t_color reflected_color(t_scene *s, t_comps *c, int remaining)
+{
+	t_ray reflect_r;
+	t_color color;
+
+	reflect_r = create_ray(&c->over_point, &c->reflect_v);
+	color = color_at(s, &reflect_r, remaining - 1);
+	return (scale_color(color, c->obj->material.reflect_s));
+}
+
+t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 {
 	t_color lighting_result;
-	// t_color		refract_reflect;
-	t_color color;
+	t_color reflect;
+	t_color surface;
 	bool in_shadow;
 	int i;
 
-	color = create_color(0, 0, 0);
+	surface = create_color(0, 0, 0);
+	reflect = surface;
 	i = -1;
 	while (++i < s->num_lights)
 	{
-		in_shadow = is_shadowed(s, &comps->over_point, &s->lights[i]);
-		lighting_result = lighting(&comps->obj->material,
-				&s->lights[i], comps, in_shadow);
-		color = add_colors(2, color, lighting_result);
+		in_shadow = is_shadowed(s, &c->over_point, &s->lights[i]);
+		lighting_result = lighting(&c->obj->material,
+			&s->lights[i], c, in_shadow);
+		surface = add_colors(2, surface, lighting_result);
 	}
-	(void)depth;
+	if (c->obj->material.reflect_s)
+		reflect = reflected_color(s, c, remaining);
 	// if (s->refract_reflect)
 	// {
-	// 	refract_reflect = check_for_refref(s, comps, depth);
+	// 	refract_reflect = check_for_refref(s, comps, remaining);
 	// 	color_add(&color, &color, &refract_reflect);
 	// }
 	// color_add(&color, &color, &s->ambiance);
 	// color_clamp(&color);
-	// printf("color: %f %f %f\n", color.r, color.g, color.b);
-	return (color);
+	return (add_colors(2, surface, reflect));
 }
