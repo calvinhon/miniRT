@@ -26,15 +26,15 @@ t_vec4d sphere_normal_at(t_object *o, t_point *wrld_p)
 	return (normalize(wrld_normal));
 }
 
-bool intersect_sphere(t_ray *r, t_object *o, t_itx_set *xs)
+void	intersect_sphere(t_ray *r, t_object *o, t_itx_set *xs)
 {
-	float d;
 	t_ray trans_r;
 	t_vec4d o_to_ray;
 	t_vec4d abc;
+	float d;
 
 	if (xs->count + 2 >= MAX_ITX)
-		return (false);
+		return ;
 	trans_r = *r;
 	transform_ray(&trans_r, &o->inv_transform);
 	o_to_ray = subtract_points(trans_r.origin, o->center);
@@ -43,11 +43,11 @@ bool intersect_sphere(t_ray *r, t_object *o, t_itx_set *xs)
 	abc.z = dot(o_to_ray, o_to_ray) - 1.f;
 	d = abc.y * abc.y - 4.f * abc.x * abc.z;
 	if (d < 0)
-		return (false);
+		return ;
 	d = sqrtf(d);
+	abc.x *= 2.f;
 	xs->arr[xs->count].obj = o;
-	xs->arr[xs->count++].t = (-abc.y - d) / (2.f * abc.x);
+	xs->arr[xs->count++].t = (-abc.y - d) / abc.x;
 	xs->arr[xs->count].obj = o;
-	xs->arr[xs->count++].t = (-abc.y + d) / (2.f * abc.x);
-	return (true);
+	xs->arr[xs->count++].t = (-abc.y + d) / abc.x;
 }

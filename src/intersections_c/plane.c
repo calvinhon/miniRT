@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:57:01 by chon              #+#    #+#             */
-/*   Updated: 2025/01/20 11:14:17 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/22 15:50:04 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,18 @@ t_vec4d plane_normal_at(t_object *o, t_point *wrld_p)
 	return (normalize(wrld_normal));
 }
 
-bool intersect_plane(t_ray *r, t_object *o, t_itx_set *xs)
+void intersect_plane(t_ray *r, t_object *o, t_itx_set *xs)
 {
 	t_ray trans_r;
 	float t;
 
+	if (xs->count + 1 >= MAX_ITX)
+		return ;
 	trans_r = *r;
 	transform_ray(&trans_r, &o->inv_transform);
 	t = (-trans_r.origin.y + EPSILON) / trans_r.direction.y;
 	if (xs->count + 1 >= MAX_ITX || fabs(trans_r.direction.y) < EPSILON)
-		return (false);
+		return ;
 	xs->arr[xs->count].obj = o;
 	xs->arr[xs->count++].t = t;
-	return (true);
 }

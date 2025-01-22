@@ -18,7 +18,7 @@ t_vec4d reflect(t_vec4d *in, t_vec4d *normal)
 	t_vec4d scaled_vec;
 
 	in_dot_normal = dot(*in, *normal);
-	scaled_vec = scale_vector(*normal, 2 * in_dot_normal);
+	scaled_vec = scale_vector(*normal, 2.f * in_dot_normal);
 	return (subtract_vectors(*in, scaled_vec));
 }
 
@@ -63,8 +63,11 @@ bool is_shadowed(t_scene *s, t_point *p, t_light *l)
 	r = create_ray(p, &direction);
 	xs = local_intersect(s, &r);
 	h = get_hit(&xs);
-	if (h && h->t < magnitude(l_v))
+	if (h && h->t < magnitude(l_v)){
+		if (h->obj->type == CYLINDER)
+			printf("cyl\n");
 		return (true);
+	}
 	return (false);
 }
 

@@ -38,8 +38,8 @@ void local_normal_at(t_itx *itx, t_comps *comps)
 		comps->normal_v = sphere_normal_at(itx->obj, &comps->p);
 	else if (itx->obj->type == PLANE)
 		comps->normal_v = plane_normal_at(itx->obj, &comps->p);
-	// else if (itx->obj->type == CYLINDER)
-	// 	comps->normal_v = cylinder_normal_at(itx->obj, &comps->p);
+	else if (itx->obj->type == CYLINDER)
+		comps->normal_v = cylinder_normal_at(itx->obj, &comps->p);
 	// else if (itx->obj->type == CUBE)
 	// 	comps->normal_v = cube_normal_at(itx->obj, &comps->p);
 	// else if (itx->obj->type == CONE)

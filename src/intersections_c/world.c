@@ -15,8 +15,8 @@ t_itx_set local_intersect(t_scene *s, t_ray *r)
 			intersect_sphere(r, &s->objs[i], &xs);
 		else if (s->objs[i].type == PLANE)
 			intersect_plane(r, &s->objs[i], &xs);
-		// else if (s->objs[i].type == CYLINDER)
-		// 	intersect_cylinder(r, &s->objs[i], &xs);
+		else if (s->objs[i].type == CYLINDER)
+			intersect_cylinder(r, &s->objs[i], &xs);
 		// else if (s->objs[i].type == CUBE)
 		// 	intersect_cube(r, &s->objs[i], &xs);
 		// else if (s->objs[i].type == CONE)

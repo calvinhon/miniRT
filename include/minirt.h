@@ -38,10 +38,12 @@ t_itx_set local_intersect(t_scene *s, t_ray *r);
 t_itx *get_hit(t_itx_set *xs);
 t_color color_at(t_scene *s, t_ray *r, int depth);
 t_color render_pixel(t_minirt *program, int x, int y);
-bool intersect_sphere(t_ray *r, t_object *sphere, t_itx_set *xs);
+void intersect_sphere(t_ray *r, t_object *sphere, t_itx_set *xs);
 t_vec4d sphere_normal_at(t_object *o, t_point *wrld_p);
-bool intersect_plane(t_ray *r, t_object *o, t_itx_set *xs);
+void intersect_plane(t_ray *r, t_object *o, t_itx_set *xs);
 t_vec4d plane_normal_at(t_object *o, t_point *wrld_p);
+void	intersect_cylinder(t_ray *r, t_object *o, t_itx_set *xs);
+t_vec4d	cylinder_normal_at(t_object *o, t_point *wrld_p);
 
 // Camera
 t_camera set_camera(float fov);
