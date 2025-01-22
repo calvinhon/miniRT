@@ -1,0 +1,176 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   common.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nth <nth@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/04 16:38:28 by nth          #+#    #+#             */
+/*   Updated: 2024/10/09 05:00:45 by nth         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef COMMON_H
+# define COMMON_H
+
+# include "lag.h"
+# include <stdbool.h>
+
+enum e_object_types
+{
+	SPHERE,
+	CYLINDER,
+	PLANE,
+	CUBIC,
+	CONE,
+	SPOT_LIGHT,
+	POINT_LIGHT
+};
+
+typedef union u_color
+{
+	t_vec4s	v;
+	struct
+	{
+		float	a;
+		float	r;
+		float	g;
+		float	b;
+	};
+}	t_color;
+
+typedef struct s_frame	t_frame;
+
+typedef struct s_material
+{
+	t_color		color;
+	t_color		xordc;
+	float		ambient;
+	float		diffuse;
+	float		specular;
+	float		sheen;
+	float		reflective;
+	float		transparency;
+	float		refractive_index;
+	bool		checkered;
+	t_frame	*fra_tex;
+}	t_material;
+
+typedef struct s_material_colors
+{
+	int		light_type;
+	t_color	intensity;
+	t_color	effective_color;
+	t_color	ambient;
+	t_color	diffuse;
+	t_color	specular;
+	t_color	return_color;
+}	t_material_colors;
+
+typedef struct s_object
+{
+	int			type;
+	t_vec4s		center;
+	t_mat4s		inv_transform;
+	t_mat4s		transposed_inverse;
+	t_mat4s		rot;
+	t_vec4s		trans;
+	t_vec4s		scale;
+	t_vec4s		orientation;
+	t_material	material;
+	float		radius;
+	union u_specs
+	{
+		struct
+		{
+			t_vec4s	normal;
+		};
+		struct
+		{
+			float	side_length;
+		};
+		struct
+		{
+			float	min;
+			float	max;
+			bool	closed;
+		};
+	}	specs;
+}	t_object;
+
+typedef struct s_itx
+{
+	float	t;
+	t_object	*object;
+	float	n1;
+	float	n2;
+}	t_itx;
+
+typedef struct s_itx_grp
+{
+	t_itx	arr[200];
+	int		count;
+}	t_itx_grp;
+
+typedef struct s_ray
+{
+	t_vec4s		origin;
+	t_vec4s		direction;
+}	t_ray;
+
+typedef struct s_camera
+{
+	bool		is_set;
+	int			line_set;
+	int			hsize;
+	int			vsize;
+	float		fov;
+	t_mat4s		inv_transform;
+	t_vec4s		forward;
+	t_vec4s		up;
+	t_vec4s		left;
+	t_mat4s		rot;
+	t_vec4s		trans;
+	t_vec4s		scale;
+	float		half_width;
+	float		half_height;
+	float		half_view;
+	float		aspect_ratio;
+	float		pixel_size;
+}	t_camera;
+
+typedef struct s_light
+{
+	int		type;
+	t_vec4s	pos;
+	float	ratio;
+	union u_light_type
+	{
+		struct s_point
+		{
+			t_color	intensity;
+		}	point;
+		struct s_spot
+		{
+			t_color	intensity;
+			t_vec4s	orientation;
+			float	spot_angle;
+		}	spot;
+	}	specs;
+}	t_light;
+
+typedef struct s_scene
+{
+	bool		refract_reflect;
+	t_color		ambiance;
+	int			num_a;
+	int			num_c;
+	int			shape_count;
+	int			light_count;
+	int			num_shapes;
+	int			num_lights;
+	t_object	*shapes;
+	t_light		*lights;
+}	t_scene;
+
+#endif // !COMMON_H
