@@ -13,7 +13,7 @@
 #ifndef LTYPES_H
 # define LTYPES_H
 
-# include <immintrin.h> // For AVX/SSE intrinsics (__m256d, __m128)
+//# include <immintrin.h> // For AVX/SSE intrinsics (__m256d, __m128)
 # include <stdint.h> // For bit-wise magic (having the option is nice)
 # include <stdbool.h> // for `true`, `false`
 
@@ -22,7 +22,7 @@
 # endif // !EPSILON
 /*--- VECTOR ---*/
 
-typedef union __attribute((aligned(32))) u_vec4d
+typedef union u_vec4d
 {
 	float		a[4];
 	uint64_t	raw[4];
@@ -35,7 +35,7 @@ typedef union __attribute((aligned(32))) u_vec4d
 	};
 } t_vec4d;
 
-typedef union __attribute((aligned(16))) u_vec4s
+typedef union u_vec4s
 {
 	float		a[4];
 	uint32_t	raw[4];
@@ -58,7 +58,7 @@ typedef union u_vec3d
 		float	z;
 		float	ignore;
 	};
-}__attribute((aligned(32)))	t_vec3d;
+}	t_vec3d;
 
 typedef union u_vec2s
 {
@@ -68,7 +68,7 @@ typedef union u_vec2s
 		float	x;
 		float	y;
 	};
-}__attribute((aligned(16)))	t_vec2s;
+}	t_vec2s;
 
 /*--- MATRIX ---*/
 
@@ -83,7 +83,7 @@ typedef union u_mat2d
 		t_vec2s	r1;
 		t_vec2s	r2;
 	};
-}__attribute((aligned(16)))	t_mat2d;
+}	t_mat2d;
 
 typedef union u_mat3d
 {
@@ -95,9 +95,9 @@ typedef union u_mat3d
 		t_vec3d	r3;
 		t_vec3d	ignore;
 	};
-}__attribute((aligned(32)))	t_mat3d;
+} t_mat3d;
 
-typedef union __attribute((aligned(16))) u_mat4s
+typedef union u_mat4s
 {
 	float	a[4][4];
 	struct
@@ -119,7 +119,7 @@ typedef union u_mat4d
 		t_vec4d	r3;
 		t_vec4d	r4;
 	};
-}__attribute((aligned(32)))	t_mat4d;
+} t_mat4d;
 
 typedef t_mat4d	t_mat4d;
 
