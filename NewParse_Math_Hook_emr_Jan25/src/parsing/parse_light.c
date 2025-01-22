@@ -28,18 +28,6 @@ void	parse_light(t_minirt *minirt, char *data, size_t *i)
 	in_color = parse_color(data, i);
 	scale_color(&minirt->scene.lights[idx].specs.point.intensity,
 		&in_color, 	minirt->scene.lights[idx].ratio);
-
-	//// test
-	printf("ligt type = %d\n", minirt->scene.lights[idx].type);// test
-	// test
-	printf("light[%ld].pos = %f, %f, %f\n", idx, minirt->scene.lights[idx].pos.x, minirt->scene.lights[idx].pos.y, minirt->scene.lights[idx].pos.z);// test
-	//test
-	printf("light[%ld].brightness = %f\n", idx, minirt->scene.lights[idx].ratio);// test
-	// test
-	printf("light[%ld].intensity = %f, %f, %f\n", idx, 
-	minirt->scene.lights[idx].specs.point.intensity.r, 
-	minirt->scene.lights[idx].specs.point.intensity.g,
-	minirt->scene.lights[idx].specs.point.intensity.b);// test
 }
 
 void	parse_spotlight(t_minirt *minirt, char *data, size_t *i)
@@ -59,18 +47,4 @@ void	parse_spotlight(t_minirt *minirt, char *data, size_t *i)
 	in_color = parse_color(data, i);
 	scale_color(&minirt->scene.lights[idx].specs.spot.intensity, \
 		&in_color, minirt->scene.lights[idx].ratio);
-
-	// test
-	printf("ligt type = %d\n", minirt->scene.lights[idx].type);// test
-	//test
-	printf("light[%ld].pos = %f, %f, %f\n", idx, minirt->scene.lights[idx].pos.x, minirt->scene.lights[idx].pos.y, minirt->scene.lights[idx].pos.z);// test
-	// test
-	printf("light[%ld].orientation = %f, %f, %f\n", idx, minirt->scene.lights[idx].specs.spot.orientation.x, minirt->scene.lights[idx].specs.spot.orientation.y, minirt->scene.lights[idx].specs.spot.orientation.z);// test
-	//test
-	printf("light[%ld].ratio = %f\n", idx, minirt->scene.lights[idx].ratio);// test
-	//test
-	printf("light[%ld].spot_angle = %f\n", idx, minirt->scene.lights[idx].specs.spot.spot_angle);// test
-	// test
-	printf("light[%ld].intensity = %f, %f, %f\n", idx, minirt->scene.lights[idx].specs.point.intensity.r, minirt->scene.lights[idx].specs.point.intensity.g, minirt->scene.lights[idx].specs.point.intensity.b);// test
-	//
 }

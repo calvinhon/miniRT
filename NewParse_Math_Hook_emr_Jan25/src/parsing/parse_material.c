@@ -24,10 +24,15 @@ bool	parse_plane_checker(t_material *material, char *data, size_t *i, t_minirt *
 		&& ft_strncmp(data + (*i), "no", 22))
 		return (minirt->error_code = 4, false);
 	if (!ft_strncmp(data + (*i), "yes", 3))
+	{
 		material->checkered = true;
+		*i += 3;
+	}
 	else
+	{
+		*i += 2;
 		material->checkered = false;
-	*i += 3;
+	}	
 	minirt->error_code = 0;
 	minirt->flt_operations = 1;
 	return (true);
