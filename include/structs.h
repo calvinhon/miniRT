@@ -217,6 +217,7 @@ typedef struct s_material
 	t_color specular;
 	float shininess;
 	t_pattern *pattern;
+	float	reflective;
 } t_material;
 
 // typedef struct s_material
@@ -307,7 +308,6 @@ typedef struct s_itx_set
 
 typedef struct s_comps_for_xs
 {
-	// bool		shadowed;
 	float t;
 	t_object *obj;
 	t_point p;
@@ -315,10 +315,12 @@ typedef struct s_comps_for_xs
 	t_vec4d under_point;
 	t_vec4d eye_v;
 	t_vec4d normal_v;
-	// t_vec4d		reflectv;
-	bool inside;
+	t_vec4d		reflectv;
 	float n1;
 	float n2;
+	t_color ambient;
+	t_color diffuse;
+	t_color specular;
 } t_comps;
 
 typedef struct s_scene

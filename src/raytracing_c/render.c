@@ -45,12 +45,7 @@ void local_normal_at(t_itx *itx, t_comps *comps)
 	// else if (itx->obj->type == CONE)
 	// 	comps->normal_v = cone_normal_at(itx->obj, &comps->p);
 	if (dot(comps->normal_v, comps->eye_v) < EPSILON)
-	{
-		comps->inside = true;
 		comps->normal_v = negate_vector(comps->normal_v);
-	}
-	else
-		comps->inside = false;
 }
 
 t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_set *xs)
@@ -69,10 +64,12 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_set *xs)
 	comps.over_point = add_v_to_p(comps.p, scale_vector(comps.normal_v, bump));
 	// lag_vec4s_scaleby(&margin, comps.normal_v, bump);
 	// lag_vec4s_sub(&comps.under_point, &comps.p, &margin);
-	// comps.reflectv = reflect(&r->dir, &comps.normal_v);
+	comps.reflectv = reflect(&r->direction, &comps.normal_v);
 	// if (comps.obj->material.refractive_index > 0.f)
 	// 	prepare_refractions(itx, &comps, xs);
 	(void)xs;
+	comps.diffuse = create_color(0, 0, 0);
+	comps.specular = create_color(0, 0, 0);
 	return (comps);
 }
 

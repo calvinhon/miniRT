@@ -46,25 +46,10 @@ t_mat4d translation_mat(float x, float y, float z)
 t_mat4d scaling_mat(float x, float y, float z)
 {
 	t_mat4d m;
-	int i;
-	int row;
-	int col;
 
-	i = -1;
-	while (++i < 16)
-	{
-		row = i / 4;
-		col = i % 4;
-		if (row == col && !row)
-			m.matrix[i] = x;
-		else if (row == col && row == 1)
-			m.matrix[i] = y;
-		else if (row == col && row == 2)
-			m.matrix[i] = z;
-		else if (row == col)
-			m.matrix[i] = 1;
-		else
-			m.matrix[i] = 0;
-	}
+	m = identity_mat();
+	m.matrix[0] = x;
+	m.matrix[5] = y;
+	m.matrix[10] = z;
 	return (m);
 }

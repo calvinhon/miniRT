@@ -57,7 +57,7 @@ int main(int ac, char **av)
 	s.lights = l;
 	t_camera	cam;
 	cam = set_camera(PI/2);
-	cam.transform = view_transform(create_point(-35, 25, -40), create_point(1, 0, 0), create_vec4d(0, 1, 0));
+	cam.transform = view_transform(create_point(-25, 15, -30), create_point(1, 0, 0), create_vec4d(0, 1, 0));
 	cam.inv_transform = inverse_mat4d(cam.transform);
 	program.cam = cam;
 	t_object	o[8];
@@ -91,7 +91,7 @@ int main(int ac, char **av)
 	pat4.a = create_color(255, 255, 255);
 	pat4.b = create_color(24, 57, 43);
 	pat4.type = CHECKER;
-	pat4.p_scale = 1;
+	pat4.p_scale = 0.5;
 	pat4.transform = identity_mat();
 	pat4.inv_transform = inverse_mat4d(pat4.transform);
 	t_pattern	pat5 = pat3;

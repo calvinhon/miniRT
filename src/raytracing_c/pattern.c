@@ -18,6 +18,10 @@ t_color	pattern_at(t_object *o, t_point *world_point, t_pattern *pat)
 	t_color		color;
 	float		noise;
 
+	// if (!pat)
+	// 	printf("uhoh\n");
+	// printf("%d\n", pat->type);
+	// printf("%d: %f %f %f\n", pat->type, pat->a.r, pat->a.g, pat->a.b);
 	color = pat->a;
 	pat_pt = mult_mat4d_pt4d(o->inv_transform, *world_point);
 	pat_pt = mult_mat4d_pt4d(pat->inv_transform, pat_pt);
