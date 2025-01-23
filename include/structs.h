@@ -149,23 +149,23 @@ typedef struct s_camera
 } t_camera;
 
 // Object types
-typedef enum e_object_type
+enum e_object_type
 {
 	SPHERE,
-	CYLINDER,
 	PLANE,
+	CYLINDER,
 	CUBE,
 	CONE
-} t_otype;
+};
 
 // Pattern types
-typedef enum e_pattern_type
+enum e_pattern_type
 {
 	STRIPED,
 	GRADIENT,
 	RING,
 	CHECKER
-} t_ptype;
+};
 
 // Ambient
 typedef struct s_ambient
@@ -177,7 +177,7 @@ typedef struct s_ambient
 // Data for objects
 typedef struct s_pattern
 {
-	t_ptype type;
+	int type;
 	t_color a;
 	t_color b;
 	t_mat4d transform;
@@ -249,59 +249,33 @@ typedef struct s_material_colors
 // Generic object structure
 typedef struct s_object
 {
-	t_otype type;
+	int type;
 	t_point center;
 	void *data;
-	float reflection;
 	t_mat4d rotate;
 	t_mat4d scale;
 	t_mat4d translate;
 	t_mat4d transform;
 	t_mat4d inv_transform;
 	t_material material;
+	union u_specs
+	{
+		struct t_cyl
+		{
+			float min_y;
+			float max_y;
+			bool closed;
+		} t_cyl;
+		struct
+		{
+			t_vec4d normal;
+		};
+		struct s_cube
+		{
+			float side_length;
+		} t_cube;
+	} specs;
 } t_object;
-
-// Scene objects
-typedef struct s_plane
-{
-	t_point point;
-	t_vec4d normal;
-	t_color color;
-} t_plane;
-
-typedef struct s_sphere
-{
-	t_point center;
-	float radius;
-	t_color color;
-	t_mat4d transform;
-	t_material material;
-} t_sphere;
-
-typedef struct s_cylinder
-{
-	t_point base;
-	t_vec4d axis;
-	float radius;
-	float height;
-	t_color color;
-} t_cylinder;
-
-typedef struct s_cone
-{
-	t_point apex;
-	t_vec4d axis;
-	float angle;
-	t_color color;
-} t_cone;
-
-typedef struct s_cube
-{
-	t_point center;
-	float size;
-	t_vec4d rotation;
-	t_color color;
-} t_cube;
 
 typedef struct s_itx
 {

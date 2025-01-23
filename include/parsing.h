@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 16:07:24 by honguyen          #+#    #+#             */
-/*   Updated: 2025/01/20 10:19:33 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/23 09:40:56 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx);
 void parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx);
 void parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx);
 void parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx);
-void *allocate_obj(t_minirt *minirt, t_otype type, size_t idx);
+void *allocate_obj(t_minirt *minirt, int type, size_t idx);
 
 int parse_int(char *data, size_t *i);
 float parse_float(char *data, size_t *i);

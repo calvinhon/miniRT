@@ -9,13 +9,11 @@ t_itx_set local_intersect(t_scene *s, t_ray *r)
 	xs.count = 0;
 	while (++i < s->num_shapes)
 	{
-		if (xs.count >= MAX_ITX)
-			break ;
-		if (s->objs[i].type == SPHERE)
+		if (s->objs[i].type == SPHERE && xs.count + 2 <= MAX_ITX)
 			intersect_sphere(r, &s->objs[i], &xs);
-		else if (s->objs[i].type == PLANE)
+		else if (s->objs[i].type == PLANE && xs.count + 1 <= MAX_ITX)
 			intersect_plane(r, &s->objs[i], &xs);
-		else if (s->objs[i].type == CYLINDER)
+		else if (s->objs[i].type == CYLINDER && xs.count + 2 <= MAX_ITX)
 			intersect_cylinder(r, &s->objs[i], &xs);
 		// else if (s->objs[i].type == CUBE)
 		// 	intersect_cube(r, &s->objs[i], &xs);

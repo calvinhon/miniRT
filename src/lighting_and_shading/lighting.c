@@ -63,11 +63,8 @@ bool is_shadowed(t_scene *s, t_point *p, t_light *l)
 	r = create_ray(p, &direction);
 	xs = local_intersect(s, &r);
 	h = get_hit(&xs);
-	if (h && h->t < magnitude(l_v)){
-		if (h->obj->type == CYLINDER)
-			printf("cyl\n");
+	if (h && h->t < magnitude(l_v))
 		return (true);
-	}
 	return (false);
 }
 

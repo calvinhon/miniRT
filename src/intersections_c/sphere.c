@@ -28,18 +28,17 @@ t_vec4d sphere_normal_at(t_object *o, t_point *wrld_p)
 
 void	intersect_sphere(t_ray *r, t_object *o, t_itx_set *xs)
 {
-	t_ray trans_r;
+	t_ray trfm_r;
 	t_vec4d o_to_ray;
 	t_vec4d abc;
 	float d;
 
-	if (xs->count + 2 >= MAX_ITX)
-		return ;
-	trans_r = *r;
-	transform_ray(&trans_r, &o->inv_transform);
-	o_to_ray = subtract_points(trans_r.origin, o->center);
-	abc.x = dot(trans_r.direction, trans_r.direction);
-	abc.y = 2.f * dot(trans_r.direction, o_to_ray);
+	trfm_r = *r;
+	transform_ray(&trfm_r, &o->inv_transform);
+	// o_to_ray = subtract_points(trfm_r.origin, o->center);
+	o_to_ray = create_vec4d(trfm_r.origin.x, trfm_r.origin.y, trfm_r.origin.z);
+	abc.x = dot(trfm_r.direction, trfm_r.direction);
+	abc.y = 2.f * dot(trfm_r.direction, o_to_ray);
 	abc.z = dot(o_to_ray, o_to_ray) - 1.f;
 	d = abc.y * abc.y - 4.f * abc.x * abc.z;
 	if (d < 0)
