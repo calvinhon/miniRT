@@ -26,7 +26,7 @@ t_color	pattern_at(t_object *o, t_point *world_point, t_pattern *pat)
 	pat_pt = mult_mat4d_pt4d(o->inv_transform, *world_point);
 	pat_pt = mult_mat4d_pt4d(pat->inv_transform, pat_pt);
 	noise = 0;
-	if (pat->p_scale)
+	if (pat && pat->p_scale)
 	{
 		noise = perlin_noise(pat_pt.x, pat_pt.y, pat_pt.z) * pat->p_scale;
 		if (pat->type == GRADIENT)
