@@ -45,14 +45,20 @@ float	parse_float(char *data, size_t *i)
 	return (value);
 }
 
-t_color	parse_color(char *data, size_t *i)
+t_color	parse_color(char *data, size_t *i, t_minirt *minirt)
 {
     t_color	color;
-    // check format of color
+    
  	color.a = 0.f;
     color.r = parse_int(data, i)/255.999f;
     color.g = parse_int(data, i)/255.999f;
 	color.b = parse_int(data, i)/255.999f;
+	if (color.r < 0.f || color.r > 1.f || color.g < 0.f || color.g > 1.f || color.b < 0.f || color.b > 1.f)
+	{
+		free(data);
+		printf("Invalid input at position %ld: \n", *i);
+		errors(CER_COLOR_VALUE, ER_COLOR_VALUE, minirt);
+	}
     return color;
 }
 
@@ -63,7 +69,7 @@ void	parse_ambient(t_minirt *minirt, char *data, size_t *i)
 	if (minirt->ambiance.ratio < -0.f || minirt->ambiance.ratio > 1.f)
 		return (free(data), errors(CER_AMBIENT_VALUE, ER_AMBIENT_VALUE, minirt));
 	minirt->ambiance.is_set = true;
-	minirt->ambiance.color = parse_color(data, i);
+	minirt->ambiance.color = parse_color(data, i, minirt);
 	scale_color(&minirt->scene.ambiance, &minirt->ambiance.color,
 		minirt->ambiance.ratio);	
 }

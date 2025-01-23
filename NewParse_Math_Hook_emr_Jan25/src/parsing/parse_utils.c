@@ -40,7 +40,7 @@ void	parse_shape(t_minirt *minirt, char *data, size_t *i)
 		
 }
 
-void	parse_data(t_minirt *minirt, char *data)
+void	parse_data(t_minirt *minirt, char *data, size_t total_size)
 {
 	size_t	i;
 
@@ -63,4 +63,8 @@ void	parse_data(t_minirt *minirt, char *data)
 		else
 			parse_shape(minirt, data, &i);
 	}
+	if (i == total_size)
+		ft_printf("Parsing completed successfully\n");
+	else
+		ft_printf("Parsing failed at position %ld\n", i);
 }

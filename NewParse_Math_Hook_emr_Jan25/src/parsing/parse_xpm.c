@@ -26,9 +26,11 @@ static bool	parse_new_bump_xpm(t_material *obj_mat, t_minirt *minirt, char *file
 	((t_tex_frame *)new->content)->name = ft_strdup(filename);
 	if (!((t_tex_frame *)new->content)->name)
 		return (ft_lstdelone(new, free), minirt->error_code = 3, false);
+
 	((t_tex_frame *)new->content)->fra_tex = rt_xpm_file_to_canvas(
 			filename, minirt->mlx);
-	printf("export xpm to canvas\n");
+	//test	
+	//printf("export xpm to canvas\n");
 	obj_mat->fra_tex = ((t_tex_frame *)new->content)->fra_tex;
 	if (!obj_mat->fra_tex)
 		return (free(((t_tex_frame *)new->content)->name), ft_lstdelone(new,

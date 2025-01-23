@@ -37,7 +37,7 @@ t_vec4s	normalize_vec4s_highp(const t_vec4s in)
 
     msqr = in.a[0] * in.a[0] + in.a[1] * in.a[1] + in.a[2] * in.a[2] + in.a[3] * in.a[3];
 
-    if (msqr < EPSILON)
+    if (msqr == 0.0f)
         return (vec4s_re(0.f, 0.f, 0.f, 0.f));
 
     sqrt_msqr = sqrtf(msqr);

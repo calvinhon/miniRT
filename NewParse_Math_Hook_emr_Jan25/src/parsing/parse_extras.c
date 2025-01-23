@@ -12,6 +12,7 @@
 
 #include "lag.h"
 #include "libft.h"
+#include "minirt.h"
 
 static inline t_vec4s	quat_from_axis_angle(const t_vec4s axis, float theta)
 {
@@ -53,6 +54,8 @@ static inline t_mat4s	mat4_from_quat(const t_vec4s q)
 	return (ret);
 }
 
+/// @minirt u Normalized orientation vector.
+/// @warning At the risk of being repetitive, `u` must be a normalized vector!!
 t_mat4s	rt_extract_rot_vertical(const t_vec4s u)
 {
 	t_vec4s	j_hat;
@@ -74,16 +77,22 @@ t_mat4s	rt_extract_rot_vertical(const t_vec4s u)
 	return (mat4_from_quat(q));
 }
 
-bool	is_normalised(t_vec4s *vec, int curr_line)
+bool	is_normalised(t_vec4s *vec, size_t pos, t_minirt *minirt)
 {
 	float	mag;
 
 	magnitude_vec4s(&mag, *vec);
-	if (fabsf(mag - 1.0f) > EPSILON)
+
+	if (mag <= EPSILON)
 	{
-		ft_printf("Warning on line %d: orientation vector not normalised. \n\t be normalised now.\n", curr_line);
+		printf("Zero vector as input at position %zu \n", pos);
+		errors(CER_ZERO_VEC, ER_ZERO_VEC, minirt);
+	}
+	else if (fabsf(mag - 1.0f) > EPSILON)
+	{
+		printf("Unormalized vector at position %zu has been normalised. \n", pos);
 		*vec = normalize_vec4s_highp(*vec);
 		return (false);
-	}
+	}	
 	return (true);
 }

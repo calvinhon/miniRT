@@ -94,8 +94,7 @@ bool	thread_arbiter(t_minirt *minirt)
 	start_time = my_gettime();
 	pool_start_frame(minirt);
 	pool_wait_for_frame(minirt);
-	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr,
-		0, 0);
+	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
 	frame_time = my_gettime() - start_time;
 	printf("Frame took: %lld\n", frame_time);
 	return (true);

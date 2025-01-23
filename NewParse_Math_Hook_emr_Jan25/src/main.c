@@ -72,5 +72,6 @@ int	main(int ac, char **av)
 	mlx_mouse_hook(minirt->win, &select_shape, minirt);
 	mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
 	mlx_loop(minirt->mlx);
+	//free_minirt(minirt);
 	return (0);
 }

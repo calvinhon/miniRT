@@ -24,7 +24,7 @@ bool	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	sphere->type = SPHERE;
 	sphere->trans = parse_point(data, i);
 	sphere->radius = parse_float(data, i) / 2.f;
-	sphere->material.color = parse_color(data, i);
+	sphere->material.color = parse_color(data, i, minirt);
 	set_material(&sphere->material, data, i, minirt);
 	sphere->scale = vec4s_re(sphere->radius, sphere->radius, sphere->radius, 1.f);
 	sphere->rot = ini_indentity_mat4s();

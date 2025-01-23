@@ -63,6 +63,7 @@ typedef enum e_error_code
     CER_OPEN_FILE,
     CER_MALLOC,
     CER_EMPTY_MAP,
+    CER_ZERO_VEC,
     CER_ONE_CAMERA,
     CER_ONE_AMBIENT,
     CER_NO_LIGHT,
@@ -137,6 +138,7 @@ typedef enum e_error_code
 # define ER_OPEN_FILE "Couldn't open requested file\n"
 # define ER_MALLOC "Cannot allocate dynamic memory\n"
 # define ER_EMPTY_MAP "Empty map\n"
+# define ER_ZERO_VEC "Zero vector for orientation, invalid put\n"
 # define ER_ONE_CAMERA "One camera needed\n"
 # define ER_ONE_AMBIENT "One ambient light needed\n"
 # define ER_NO_LIGHT "No light found\n"

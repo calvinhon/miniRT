@@ -15,12 +15,11 @@
 void	cross_mat4s_vec4s(const t_mat4s *m,
 							const t_vec4s *v, t_vec4s *out)
 {
-    out->x = dot_vec4s_re(&m->r1, v);
-    out->y = dot_vec4s_re(&m->r2, v);
-    out->z = dot_vec4s_re(&m->r3, v);
-    out->w = dot_vec4s_re(&m->r4, v);
+    out->a[0] = dot_vec4s_re(&m->r1, v);
+    out->a[1] = dot_vec4s_re(&m->r2, v);
+    out->a[2] = dot_vec4s_re(&m->r3, v);
+    out->a[3] = dot_vec4s_re(&m->r4, v);
 }
-
 
 void	cross_mat4s_mat4s(const t_mat4s in1,
 						const t_mat4s in2, t_mat4s *out)

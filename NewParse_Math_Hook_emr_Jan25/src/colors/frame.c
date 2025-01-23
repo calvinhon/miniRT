@@ -20,12 +20,8 @@ bool	make_window(t_minirt *minirt, int width, int height)
 	minirt->frame.ptr = mlx_new_image(minirt->mlx, width, height);
 	if (!minirt->frame.ptr)
 		return (false);
-	minirt->frame.addr = mlx_get_data_addr(\
-		minirt->frame.ptr, \
-		&minirt->frame.bpp, \
-		&minirt->frame.line_length, \
-		&minirt->frame.endian \
-	);
+	minirt->frame.addr = mlx_get_data_addr(	minirt->frame.ptr, &minirt->frame.bpp,
+ &minirt->frame.line_length, &minirt->frame.endian);
 	minirt->frame.bpp_8 = minirt->frame.bpp / 8;
 	return (true);
 }

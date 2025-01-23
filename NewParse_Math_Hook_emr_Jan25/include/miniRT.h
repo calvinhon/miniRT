@@ -56,6 +56,7 @@ typedef struct s_tex_frame
 typedef struct s_minirt
 {
 	int			error_code;
+	char		*data;
 	int			flt_operations;
 	void		*mlx;
 	void		*win;
@@ -139,16 +140,16 @@ typedef struct s_validate_atof
 	bool	found_alpha;
 }	t_vatof;
 
-bool		is_normalised(t_vec4s *vec, int curr_line);
+bool		is_normalised(t_vec4s *vec, size_t i, t_minirt *minirt);
 //float		ft_atof(char *rep, t_minirt *minirt);
 float		ft_atof(const char *str);
 
 // Parsing
 void	parse(char *file, t_minirt *minirt);
-void	parse_data(t_minirt *minirt, char *data);
+void	parse_data(t_minirt *minirt, char *data, size_t total_size);
 
 void	parse_ambient(t_minirt *minirt, char *data, size_t *i);
-t_color	parse_color(char *data, size_t *i);
+t_color	parse_color(char *data, size_t *i, t_minirt *minirt);
 float	parse_float(char *data, size_t *i);
 int		parse_int(char *data, size_t *i);
 

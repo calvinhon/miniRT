@@ -25,9 +25,9 @@ bool	parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cube->type = CUBIC;
 	cube->trans = parse_point(data, i);
 	cube->orientation = parse_vector(data, i);
-	is_normalised(&cube->orientation, *i);
+	is_normalised(&cube->orientation, *i, minirt);
 	cube->specs.side_length = parse_float(data, i);
-	cube->material.color = parse_color(data, i);
+	cube->material.color = parse_color(data, i, minirt);
 	set_material(&cube->material, data, i, minirt);
 	cube->scale = vec4s_re(1.f, 1.f, 1.f, 1.f);
 	cube->rot = rt_extract_rot_vertical(cube->orientation);

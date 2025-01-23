@@ -56,13 +56,13 @@ bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cone->type = CONE;
 	cone->trans = parse_point(data, i);
 	cone->orientation = parse_vector(data, i);
-	is_normalised(&cone->orientation, *i);
+	is_normalised(&cone->orientation, *i, minirt);
 	cone->radius = parse_float(data, i)/2.0f;
 	height = parse_float(data, i);
 	cone->specs.min = -height / 2.0f;
 	cone->specs.max = height / 2.0f;
 	cone->specs.closed = false;
-	cone->material.color = parse_color(data, i);
+	cone->material.color = parse_color(data, i, minirt);
 	set_material(&cone->material, data, i, minirt);
 	cone->scale = vec4s_re(cone->radius, height, cone->radius, 1);
 	cone->rot = rt_extract_rot_vertical(cone->orientation);

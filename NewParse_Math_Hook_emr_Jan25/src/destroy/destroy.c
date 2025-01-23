@@ -80,6 +80,8 @@ void	free_minirt(t_minirt *minirt)
 {
 	if (!minirt)
 		return ;
+	if (minirt->data)
+		free(minirt->data);
 	destroy_cores(minirt);
 	destroy_scene(minirt);
 	destroy_textures(minirt);
@@ -95,7 +97,6 @@ int	destroy_minirt(t_minirt *minirt)
 	return (0);
 }
 
-// @warning Assumes `arr` is `NULL`-terminated.
 void	destroy_2d_arr(char **arr)
 {
 	char	**original;

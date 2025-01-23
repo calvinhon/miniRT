@@ -31,7 +31,7 @@ t_mat4s get_inv_tranform_mat4s(const t_mat4s rot, const t_vec4s s, const t_vec4s
     t_vec4s rcps;
     t_vec4s tinv;
 
-    rcps = vec4s_re(1.f / s.a[0], 1.f / s.a[1], 1.f / s.a[2], 0.f);
+    rcps = vec4s_re(1.f / s.a[0], 1.f / s.a[1], 1.f / s.a[2], 1.f);
     tinv = vec4s_re(-t.a[0], -t.a[1], -t.a[2], -t.a[3]);
 
     transpose_and_scale_rotation(rot, &ret, rcps);

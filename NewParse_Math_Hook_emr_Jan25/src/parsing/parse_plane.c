@@ -24,8 +24,8 @@ bool	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	plane->type = PLANE;
 	plane->trans = parse_point(data, i);
 	plane->orientation = parse_vector(data, i);
-	is_normalised(&plane->orientation, *i);
-	plane->material.color = parse_color(data, i);
+	is_normalised(&plane->orientation, *i, minirt);
+	plane->material.color = parse_color(data, i, minirt);
 	set_material(&plane->material, data, i, minirt);
 	//
 	plane->scale = vec4s_re(1.f, 1.f, 1.f, 1.f);
