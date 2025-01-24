@@ -42,7 +42,7 @@
 
 # define ENV_DISPLAY "DISPLAY"
 # define LOCALHOST "localhost"
-# define ERR_NO_TRUECOLOR "MinilibX Error : No TrueColor Visual available.\n"
+# define ER_NO_TRUECOLOR "MinilibX Error : No TrueColor Visual available.\n"
 # define WARN_SHM_ATTACH "MinilibX Warning : X server can't attach shared memory.\n"
 
 
@@ -63,7 +63,7 @@ typedef struct	s_event_list
 {
 	int		mask;
 	int		(*hook)();
-	void	*param;
+	void	*minirt;
 }				t_event_list;
 
 

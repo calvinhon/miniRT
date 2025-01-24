@@ -167,7 +167,7 @@ int     mlx_do_sync(mlx_ptr_t *mlx_ptr)
 }
 
 
-int mlx_loop_hook(mlx_ptr_t *mlx_ptr, void (*fct)(void *), void *param)
+int mlx_loop_hook(mlx_ptr_t *mlx_ptr, void (*fct)(void *), void *minirt)
 {
   CFRunLoopTimerContext	tcontext = {0, mlx_ptr, NULL, NULL, NULL};
   CFRunLoopTimerRef	timer;
@@ -179,7 +179,7 @@ int mlx_loop_hook(mlx_ptr_t *mlx_ptr, void (*fct)(void *), void *param)
     }
 
   mlx_ptr->loop_hook = fct;
-  mlx_ptr->loop_hook_data = param;
+  mlx_ptr->loop_hook_data = minirt;
 
   if (fct)
     {

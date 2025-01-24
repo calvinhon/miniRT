@@ -21,18 +21,18 @@ unsigned char magic[PNG_MAGIC_SIZE] = {137, 80, 78, 71, 13, 10, 26, 10};
 
 #define	Z_CHUNK	32768
 
-#define	ERR_MAGIC_SIZE	1
-#define	ERR_MAGIC_WRONG	2
-#define	ERR_STRUCT_INCOMPLETE	3
-#define	ERR_STRUCT_HDR	4
-#define	ERR_STRUCT_END	5
-#define	ERR_STRUCT_CRC	6
-#define	ERR_STRUCT_INCIMPL 7
-#define	ERR_STRUCT_DAT	8
-#define	ERR_STRUCT_MISSCHK	9
-#define	ERR_ZLIB	10
-#define	ERR_DATA_MISMATCH	11
-#define	ERR_DATA_FILTER	12
+#define	ER_MAGIC_SIZE	1
+#define	ER_MAGIC_WRONG	2
+#define	ER_STRUCT_INCOMPLETE	3
+#define	ER_STRUCT_HDR	4
+#define	ER_STRUCT_END	5
+#define	ER_STRUCT_CRC	6
+#define	ER_STRUCT_INCIMPL 7
+#define	ER_STRUCT_DAT	8
+#define	ER_STRUCT_MISSCHK	9
+#define	ER_ZLIB	10
+#define	ER_DATA_MISMATCH	11
+#define	ER_DATA_FILTER	12
 char *(mipng_err[]) =
 {
   "No error",
@@ -127,7 +127,7 @@ int	mipng_fill_img(mlx_img_list_t *img, unsigned char *buf, png_info_t *pi)
       if ((ipos % iline) == 0)
 	{
 	  if ((current_filter = buf[bpos++]) > 4)
-	    return (ERR_DATA_FILTER);
+	    return (ER_DATA_FILTER);
 	}
       ibuf[ipos] = mipng_defilter[current_filter](buf, bpos,
 				 ipos%iline>3?ibuf[ipos-UNIQ_BPP]:0,
@@ -143,7 +143,7 @@ int	mipng_fill_img(mlx_img_list_t *img, unsigned char *buf, png_info_t *pi)
   if (ipos != ilen || bpos != blen)
     {
       //      printf("fill err ipos %d vs %d, bpos %d vs %d\n", ipos, ilen, bpos, blen);
-      return (ERR_DATA_MISMATCH);
+      return (ER_DATA_MISMATCH);
     }
   ipos = 0;
   while (ipos < ilen)
@@ -179,7 +179,7 @@ int	mipng_data(mlx_img_list_t *img, unsigned char *dat, png_info_t *pi)
   z_strm.next_in = Z_NULL;
   z_ret = inflateInit(&z_strm);
   if (z_ret != Z_OK)
-    return (ERR_ZLIB);
+    return (ER_ZLIB);
 
   while (mipng_is_type(dat, "IDAT"))
     {
@@ -197,12 +197,12 @@ int	mipng_data(mlx_img_list_t *img, unsigned char *dat, png_info_t *pi)
 	  if (z_ret != Z_OK && z_ret != Z_STREAM_END)
 	    {
 	      inflateEnd(&z_strm);
-	      return (ERR_ZLIB);
+	      return (ER_ZLIB);
 	    }
 	  if (b_pos + Z_CHUNK - z_strm.avail_out > img->width*img->height*pi->bpp+img->height)
 	    {
 	      inflateEnd(&z_strm);
-	      return (ERR_DATA_MISMATCH);
+	      return (ER_DATA_MISMATCH);
 	    }
 	  bcopy(z_out, buffer+b_pos, Z_CHUNK - z_strm.avail_out);
 	  b_pos += Z_CHUNK - z_strm.avail_out;
@@ -213,7 +213,7 @@ int	mipng_data(mlx_img_list_t *img, unsigned char *dat, png_info_t *pi)
   if (b_pos != img->width*img->height*pi->bpp+img->height)
     {
       //      printf("pb : bpos %d vs expected %d\n", b_pos, img->width*img->height*pi->bpp+img->height);
-      return (ERR_DATA_MISMATCH);
+      return (ER_DATA_MISMATCH);
     }
   if ((ret = mipng_fill_img(img, buffer, pi)))
     return (ret);
@@ -227,11 +227,11 @@ int	mipng_magic(unsigned char *ptr, int size)
   int	i;
 
   if (size < PNG_MAGIC_SIZE)
-    return (ERR_MAGIC_SIZE);
+    return (ER_MAGIC_SIZE);
   i = 0;
   while (i < PNG_MAGIC_SIZE)
     if (*(ptr++) != magic[i++])
-      return (ERR_MAGIC_WRONG);
+      return (ER_MAGIC_WRONG);
   return (0);
 }
 
@@ -277,20 +277,20 @@ int	mipng_structure(unsigned char *ptr, int size, unsigned char **hdr, unsigned 
 	  len = *((unsigned int *)ptr);
 	  len = ntohl(len);
 	  if (size < 4 + 4 + 4 + len)
-	    return (ERR_STRUCT_INCOMPLETE);
+	    return (ER_STRUCT_INCOMPLETE);
 	  if (mipng_crc(ptr, len))
-	    return (ERR_STRUCT_CRC);
+	    return (ER_STRUCT_CRC);
 	  //	  printf("found chunk len %d type %c%c%c%c\n", len, *(ptr+4), *(ptr+5), *(ptr+6), *(ptr+7));
 	  if (mipng_is_type(ptr, "IHDR"))
 	    {
 	      if (*hdr || len != PNG_HDR_SIZE)
-		return (ERR_STRUCT_HDR);
+		return (ER_STRUCT_HDR);
 	      *hdr = ptr;
 	    }
 	  if (mipng_is_type(ptr, "IEND"))
 	    {
 	      if (len != 0 || size != 4+4+4)
-		return (ERR_STRUCT_END);
+		return (ER_STRUCT_END);
 	      end = 1;
 	    }
 	  if (mipng_is_type(ptr, "IDAT"))
@@ -301,7 +301,7 @@ int	mipng_structure(unsigned char *ptr, int size, unsigned char **hdr, unsigned 
 		  *dat = ptr;
 		}
 	      if (dat_state == 2)
-		return (ERR_STRUCT_DAT);
+		return (ER_STRUCT_DAT);
 	    }
 	  else
 	    if (dat_state == 1)
@@ -310,10 +310,10 @@ int	mipng_structure(unsigned char *ptr, int size, unsigned char **hdr, unsigned 
 	  ptr += 4+4+4+len;
 	}
       else
-	return (ERR_STRUCT_INCOMPLETE);
+	return (ER_STRUCT_INCOMPLETE);
     }
   if (*hdr == 0 || *dat == 0 || end == 0)
-    return (ERR_STRUCT_MISSCHK);
+    return (ER_STRUCT_MISSCHK);
   return (0);
 }
 
@@ -333,7 +333,7 @@ int	mipng_verif_hdr(unsigned char *hdr, png_info_t *pi)
   pi->interlace = *(hdr+12);
   if (pi->width <= 0 || pi->height <= 0 || (pi->depth != 8 && pi->depth != 16)
       || (pi->color != 2 && pi->color != 6) || compress != 0 || filter != 0 || pi->interlace != 0)
-    return (ERR_STRUCT_INCIMPL);
+    return (ER_STRUCT_INCIMPL);
   pi->bpp = pi->depth / 8;
   if (pi->color == 2)
     pi->bpp *= 3;

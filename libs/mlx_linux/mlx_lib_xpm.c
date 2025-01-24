@@ -15,7 +15,7 @@
 
 
 void		*mlx_int_xpm_f_image(t_xvar *xvar,int *width,int *height,
-				     int (*xpm_func)(),void *param)
+				     int (*xpm_func)(),void *minirt)
 {
   XImage	*img1;
   XImage	*img2;
@@ -27,7 +27,7 @@ void		*mlx_int_xpm_f_image(t_xvar *xvar,int *width,int *height,
   xpm_att.depth = xvar->depth;
   xpm_att.bitmap_format = ZPixmap;
   xpm_att.valuemask = XpmDepth|XpmBitmapFormat|XpmVisual|XpmColormap;
-  if (xpm_func(xvar->display,param,&img1,&img2,&xpm_att))
+  if (xpm_func(xvar->display,minirt,&img1,&img2,&xpm_att))
     return ((void *)0);
   if (img2)
     XDestroyImage(img2);

@@ -67,15 +67,15 @@ int mlx_shaders_pixel(glsl_info_t *glsl)
     return (1);
   }
 
-  glsl->pixel_program = glCreateProgram();
-  glAttachShader(glsl->pixel_program, glsl->pixel_vshader);
-  glAttachShader(glsl->pixel_program, glsl->pixel_fshader);
-  glLinkProgram(glsl->pixel_program);
+  glsl->pixel_minirt = glCreateProgram();
+  glAttachShader(glsl->pixel_minirt, glsl->pixel_vshader);
+  glAttachShader(glsl->pixel_minirt, glsl->pixel_fshader);
+  glLinkProgram(glsl->pixel_minirt);
 
-  glGetProgramiv(glsl->pixel_program, GL_LINK_STATUS, &action_ok);
+  glGetProgramiv(glsl->pixel_minirt, GL_LINK_STATUS, &action_ok);
   if (!action_ok) {
     fprintf(stderr, "Failed to link pixel shader program:\n");
-    display_log(glsl->pixel_program, glGetProgramiv, glGetProgramInfoLog);
+    display_log(glsl->pixel_minirt, glGetProgramiv, glGetProgramInfoLog);
     return (1);
   }
 
@@ -137,15 +137,15 @@ int mlx_shaders_image(glsl_info_t *glsl)
     return (1);
   }
 
-  glsl->image_program = glCreateProgram();
-  glAttachShader(glsl->image_program, glsl->image_vshader);
-  glAttachShader(glsl->image_program, glsl->image_fshader);
-  glLinkProgram(glsl->image_program);
+  glsl->image_minirt = glCreateProgram();
+  glAttachShader(glsl->image_minirt, glsl->image_vshader);
+  glAttachShader(glsl->image_minirt, glsl->image_fshader);
+  glLinkProgram(glsl->image_minirt);
 
-  glGetProgramiv(glsl->image_program, GL_LINK_STATUS, &action_ok);
+  glGetProgramiv(glsl->image_minirt, GL_LINK_STATUS, &action_ok);
   if (!action_ok) {
     fprintf(stderr, "Failed to link image shader program:\n");
-    display_log(glsl->image_program, glGetProgramiv, glGetProgramInfoLog);
+    display_log(glsl->image_minirt, glGetProgramiv, glGetProgramInfoLog);
     return (1);
   }
 
@@ -215,15 +215,15 @@ int mlx_shaders_font(glsl_info_t *glsl)
     return (1);
   }
 
-  glsl->font_program = glCreateProgram();
-  glAttachShader(glsl->font_program, glsl->font_vshader);
-  glAttachShader(glsl->font_program, glsl->font_fshader);
-  glLinkProgram(glsl->font_program);
+  glsl->font_minirt = glCreateProgram();
+  glAttachShader(glsl->font_minirt, glsl->font_vshader);
+  glAttachShader(glsl->font_minirt, glsl->font_fshader);
+  glLinkProgram(glsl->font_minirt);
 
-  glGetProgramiv(glsl->font_program, GL_LINK_STATUS, &action_ok);
+  glGetProgramiv(glsl->font_minirt, GL_LINK_STATUS, &action_ok);
   if (!action_ok) {
     fprintf(stderr, "Failed to link font shader program:\n");
-    display_log(glsl->font_program, glGetProgramiv, glGetProgramInfoLog);
+    display_log(glsl->font_minirt, glGetProgramiv, glGetProgramInfoLog);
     return (1);
   }
 

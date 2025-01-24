@@ -29,7 +29,7 @@ Requirements for MacOS
 ```bash
 ➜  ~ Brew install Xquartz
 ➜  ~ reboot
-➜  ~ xeyes # run an hello world X11 app
+➜  ~ xeyes # run an hello scene X11 app
 ```
 
 MlX Color Opacity / Transparency / Alpha (32 bits depth)

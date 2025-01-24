@@ -94,21 +94,21 @@ unsigned int	mlx_get_color_value(void *mlx_ptr, int color);
 ** dealing with Events
 */
 
-int	mlx_mouse_hook (void *win_ptr, int (*funct_ptr)(), void *param);
-int	mlx_key_hook (void *win_ptr, int (*funct_ptr)(), void *param);
-int	mlx_expose_hook (void *win_ptr, int (*funct_ptr)(), void *param);
+int	mlx_mouse_hook (void *win_ptr, int (*funct_ptr)(), void *minirt);
+int	mlx_key_hook (void *win_ptr, int (*funct_ptr)(), void *minirt);
+int	mlx_expose_hook (void *win_ptr, int (*funct_ptr)(), void *minirt);
 
-int	mlx_loop_hook (void *mlx_ptr, int (*funct_ptr)(), void *param);
+int	mlx_loop_hook (void *mlx_ptr, int (*funct_ptr)(), void *minirt);
 int	mlx_loop (void *mlx_ptr);
 
 
 /*
 **  hook funct are called as follow :
 **
-**   expose_hook(void *param);
-**   key_hook(int keycode, void *param);
-**   mouse_hook(int button, int x,int y, void *param);
-**   loop_hook(void *param);
+**   expose_hook(void *minirt);
+**   key_hook(int keycode, void *minirt);
+**   mouse_hook(int button, int x,int y, void *minirt);
+**   loop_hook(void *minirt);
 **
 */
 
@@ -135,7 +135,7 @@ int	mlx_destroy_image(void *mlx_ptr, void *img_ptr);
 */
 
 int	mlx_hook(void *win_ptr, int x_event, int x_mask,
-                 int (*funct)(), void *param);
+                 int (*funct)(), void *minirt);
 
 int     mlx_mouse_hide();
 int     mlx_mouse_show();

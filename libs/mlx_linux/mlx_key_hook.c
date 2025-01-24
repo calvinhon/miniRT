@@ -14,9 +14,9 @@
 
 
 
-int		mlx_key_hook(t_win_list *win,int (*funct)(),void *param)
+int		mlx_key_hook(t_win_list *win,int (*funct)(),void *minirt)
 {
   win->hooks[KeyRelease].hook = funct;
-  win->hooks[KeyRelease].param = param;
+  win->hooks[KeyRelease].minirt = minirt;
   win->hooks[KeyRelease].mask = KeyReleaseMask;
 }

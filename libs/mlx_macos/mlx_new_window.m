@@ -80,10 +80,10 @@ int get_mouse_button(NSEventType eventtype)
 }
 
 
-- (void) setEvent:(int)event andFunc:(func_t)func andParam:(void *)param
+- (void) setEvent:(int)event andFunc:(func_t)func andParam:(void *)minirt
 {
   event_funct[event] = func;
-  event_param[event] = param;
+  event_param[event] = minirt;
   if (event == 6 || event == 32) // motion notify && high precision motion notify
     {
       if (func == NULL)
@@ -428,33 +428,33 @@ int get_mouse_button(NSEventType eventtype)
 	       GL_BGRA, GL_UNSIGNED_BYTE,   /* external format, type */
 	       pixtexbuff                   /* pixels */
 	       );
-  //      printf("pix tex err? 0x%x\n", glGetError());
+  //      printf("pix fra_tex err? 0x%x\n", glGetError());
 
   if (mlx_shaders(&glsl))
     return (0);
 
-  glUseProgram(glsl.pixel_program);
-  glsl.loc_pixel_texture = glGetUniformLocation(glsl.pixel_program, "texture");
-  //glsl.loc_pixel_winhalfsize = glGetUniformLocation(glsl.pixel_program, "winhalfsize");
-  glsl.loc_pixel_position = glGetAttribLocation(glsl.pixel_program, "position");
+  glUseProgram(glsl.pixel_minirt);
+  glsl.loc_pixel_texture = glGetUniformLocation(glsl.pixel_minirt, "texture");
+  //glsl.loc_pixel_winhalfsize = glGetUniformLocation(glsl.pixel_minirt, "winhalfsize");
+  glsl.loc_pixel_position = glGetAttribLocation(glsl.pixel_minirt, "position");
   //      printf("err? 0x%x\n", glGetError());
 
-  glUseProgram(glsl.image_program);
-  glsl.loc_image_texture = glGetUniformLocation(glsl.image_program, "texture");
-  glsl.loc_image_pos = glGetUniformLocation(glsl.image_program, "imagepos");
-  glsl.loc_image_size = glGetUniformLocation(glsl.image_program, "imagesize");
-  glsl.loc_image_winhalfsize = glGetUniformLocation(glsl.image_program, "winhalfsize");
-  glsl.loc_image_position = glGetAttribLocation(glsl.image_program, "position");
+  glUseProgram(glsl.image_minirt);
+  glsl.loc_image_texture = glGetUniformLocation(glsl.image_minirt, "texture");
+  glsl.loc_image_pos = glGetUniformLocation(glsl.image_minirt, "imagepos");
+  glsl.loc_image_size = glGetUniformLocation(glsl.image_minirt, "imagesize");
+  glsl.loc_image_winhalfsize = glGetUniformLocation(glsl.image_minirt, "winhalfsize");
+  glsl.loc_image_position = glGetAttribLocation(glsl.image_minirt, "position");
   //      printf("err? 0x%x\n", glGetError());
 
-  glUseProgram(glsl.font_program);
-  glsl.loc_font_texture = glGetUniformLocation(glsl.font_program, "texture");
-  glsl.loc_font_color = glGetUniformLocation(glsl.font_program, "color");
-  glsl.loc_font_posinwin = glGetUniformLocation(glsl.font_program, "fontposinwin");
-  glsl.loc_font_posinatlas = glGetUniformLocation(glsl.font_program, "fontposinatlas");
-  glsl.loc_font_atlassize = glGetUniformLocation(glsl.font_program, "fontatlassize");
-  glsl.loc_font_winhalfsize = glGetUniformLocation(glsl.font_program, "winhalfsize");
-  glsl.loc_font_position = glGetAttribLocation(glsl.font_program, "position");
+  glUseProgram(glsl.font_minirt);
+  glsl.loc_font_texture = glGetUniformLocation(glsl.font_minirt, "texture");
+  glsl.loc_font_color = glGetUniformLocation(glsl.font_minirt, "color");
+  glsl.loc_font_posinwin = glGetUniformLocation(glsl.font_minirt, "fontposinwin");
+  glsl.loc_font_posinatlas = glGetUniformLocation(glsl.font_minirt, "fontposinatlas");
+  glsl.loc_font_atlassize = glGetUniformLocation(glsl.font_minirt, "fontatlassize");
+  glsl.loc_font_winhalfsize = glGetUniformLocation(glsl.font_minirt, "winhalfsize");
+  glsl.loc_font_position = glGetAttribLocation(glsl.font_minirt, "position");
   //      printf("err? 0x%x\n", glGetError());
 
   glFlush();
@@ -463,7 +463,7 @@ int get_mouse_button(NSEventType eventtype)
 
 - (void) ctxNeedsUpdate
 {
-  // printf("Context update\n");
+  // printf("minirt update\n");
   [ctx update];
 }
 
@@ -509,8 +509,8 @@ int get_mouse_button(NSEventType eventtype)
   [self selectGLContext];
   glDeleteBuffers(1, &pixel_vbuffer);
   glDeleteTextures(1, &pixel_texture);
-  glDeleteProgram(glsl.pixel_program);
-  glDeleteProgram(glsl.image_program);
+  glDeleteProgram(glsl.pixel_minirt);
+  glDeleteProgram(glsl.image_minirt);
   glDeleteShader(glsl.pixel_vshader);
   glDeleteShader(glsl.pixel_fshader);
   glDeleteShader(glsl.image_vshader);
@@ -527,9 +527,9 @@ int get_mouse_button(NSEventType eventtype)
   [self release];
 }
 
-- (void) setEvent:(int)event andFunc:(func_t)func andParam:(void *)param
+- (void) setEvent:(int)event andFunc:(func_t)func andParam:(void *)minirt
 {
-  [win setEvent:event andFunc:func andParam:param];
+  [win setEvent:event andFunc:func andParam:minirt];
 }
 
 - (void) setKeyRepeat:(int)mode
@@ -549,7 +549,7 @@ int get_mouse_button(NSEventType eventtype)
   if (pixel_nb >0)
     [self mlx_gl_draw];
 
-  glUseProgram(glsl.image_program);
+  glUseProgram(glsl.image_minirt);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, imgctx->texture);
@@ -584,7 +584,7 @@ int get_mouse_button(NSEventType eventtype)
   color_tab[1] = ((float)((color&0xFF00)>>8))/255.0;
   color_tab[2] = ((float)((color&0xFF)>>0))/255.0;
   color_tab[3] = 1.0;
-  glUseProgram(glsl.font_program);
+  glUseProgram(glsl.font_minirt);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, imgctx->texture);
@@ -615,7 +615,7 @@ int get_mouse_button(NSEventType eventtype)
   if (pixel_nb <= 0)
     return ;
 
-  glUseProgram(glsl.pixel_program);
+  glUseProgram(glsl.pixel_minirt);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, pixel_vbuffer);
@@ -679,24 +679,24 @@ void mlx_clear_window(mlx_ptr_t *mlx_ptr, mlx_win_list_t *win_ptr)
 }
 
 
-void mlx_expose_hook(mlx_win_list_t *win_ptr, int (*funct_ptr)(), void *param)
+void mlx_expose_hook(mlx_win_list_t *win_ptr, int (*funct_ptr)(), void *minirt)
 {
-  [(id)(win_ptr->winid) setEvent:12 andFunc:funct_ptr andParam:param];
+  [(id)(win_ptr->winid) setEvent:12 andFunc:funct_ptr andParam:minirt];
 }
 
-void mlx_key_hook(mlx_win_list_t *win_ptr, int (*funct_ptr)(), void *param)
+void mlx_key_hook(mlx_win_list_t *win_ptr, int (*funct_ptr)(), void *minirt)
 {
-  [(id)(win_ptr->winid) setEvent:3 andFunc:funct_ptr andParam:param];
+  [(id)(win_ptr->winid) setEvent:3 andFunc:funct_ptr andParam:minirt];
 }
 
-void mlx_mouse_hook(mlx_win_list_t *win_ptr, int (*funct_ptr)(), void *param)
+void mlx_mouse_hook(mlx_win_list_t *win_ptr, int (*funct_ptr)(), void *minirt)
 {
-  [(id)(win_ptr->winid) setEvent:4 andFunc:funct_ptr andParam:param];
+  [(id)(win_ptr->winid) setEvent:4 andFunc:funct_ptr andParam:minirt];
 }
 
-void mlx_hook(mlx_win_list_t *win_ptr, int x_event, int x_mask, int (*funct_ptr)(), void *param)
+void mlx_hook(mlx_win_list_t *win_ptr, int x_event, int x_mask, int (*funct_ptr)(), void *minirt)
 {
-  [(id)(win_ptr->winid) setEvent:x_event andFunc:funct_ptr andParam:param];
+  [(id)(win_ptr->winid) setEvent:x_event andFunc:funct_ptr andParam:minirt];
 }
 
 int     mlx_do_key_autorepeatoff(mlx_ptr_t *mlx_ptr)
