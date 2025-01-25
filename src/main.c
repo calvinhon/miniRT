@@ -26,7 +26,6 @@ int init_env(t_mlx_vars *env)
 	env->bpp_8 = env->bpp / 8;
 	if (!env->win || !env->img || !env->addr)
 		return (1);
-	// ft_bzero(env->addr, WINDOW_W * WINDOW_H * env->bpp_8);
 	set_controls(env);
 	return (0);
 }

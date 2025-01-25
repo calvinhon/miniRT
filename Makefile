@@ -37,8 +37,7 @@ SRC_FILES = main.c \
 		$(addprefix lighting_and_shading/, lighting.c) \
 		$(addprefix intersections_c/, world.c sphere.c plane.c cylinder.c) \
 		$(addprefix raytracing_c/, rays.c render.c pattern.c perlin_noise.c) \
-		camera_c/camera.c \
-		destroy/destroy.c
+		camera_c/camera.c
 SRCS = $(addprefix src/, $(SRC_FILES))
 OBJS = $(SRCS:.c=.o)
 

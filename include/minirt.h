@@ -19,7 +19,6 @@
 #include "colors.h"
 #include "structs.h"
 #include "macros.h"
-#include "parsing.h"
 #include "minirt_math.h"
 #include <stdio.h>
 #include <pthread.h>
