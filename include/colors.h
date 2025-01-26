@@ -13,7 +13,14 @@
 #ifndef COLORS_H
 #define COLORS_H
 
-#include "structs.h"
+#include "miniRT.h"
+
+#define WHITE 0xFFFFFF
+#define GOLD 0xFFD700
+#define OLIVE 0x808000
+#define LIME 0x32CD32
+#define PURPLE 0x800080
+#define BLACK 0x000000
 
 t_color create_color(float r, float g, float b);
 t_color add_colors(int num_of_colors, ...);
