@@ -1,0 +1,32 @@
+# Ambient light
+A 0.1 230,170,100
+
+# Camera
+C 0,5,-20 0,0,1 60
+
+# Point Lights
+L -10,10,-1.5 0.5 255,255,255
+# Spot Lights
+SL 0,10,0 0,-1,0 0.4 25 0,0,255
+SL 0,2,-5 0,0,1  0.8 45 255,255,0
+
+# Shapes
+# Planes
+#pl 0,0,10 0,-1,0 255,255,255 M sheen=167.0,diffuse=0.6,specular=0.5,reflective=0.8 bump_xpm=./textures/sand.xpm
+pl 0,0,10 0,1,0 0,0,40 M bump_xpm=./textures/sand.xpm
+pl 0,0,15 -1,0,-1 0,40,0 M bump_xpm=./textures/brick_wall.xpm
+pl 0,0,15 1,0,-1 40,0,0 M bump_xpm=./textures/brick_wall.xpm
+
+# Spheres
+sp 0,1.5,-1 0.6 20,0,5 M transparency=1.0,refractive_index=1.8
+sp -0.8,2,0.5 1 255,10,100 M transparency=0.5,refractive_index=1.3
+sp 0.5,0.5,-0.5 0.5 200,0,0 M sheen=145.0,reflective=0.8
+
+# Cone
+co 0,1,-0.2 0,1,0 1 1 255,255,100 M sheen=167.0,diffuse=0.6,specular=0.5,reflective=0.8
+
+# Cylinder
+cy 0,1,-0.2 0,1,0 1 1 255,100,255 M sheen=200.0,ambient=0.2,diffuse=0.5,reflective=0.8
+
+# Cubic
+cu 2,1,0.8 0,1,0 1 100,255,255 M sheen=198.0,specular=0.1,ambient=0.5
