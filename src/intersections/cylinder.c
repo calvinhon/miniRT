@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:35:57 by chon              #+#    #+#             */
-/*   Updated: 2025/01/23 13:35:10 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/28 10:13:41 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_vec4d cylinder_normal_at(t_object *o, t_point *wrld_p)
 
 	obj_pt = mult_mat4d_pt4d(o->inv_transform, *wrld_p);
 	dist = pow(obj_pt.x, 2) + pow(obj_pt.z, 2);
-	if (dist < 1 && obj_pt.y >= o->specs.t_cyl.max_y - EPSILON)
+	if (dist < 1 && obj_pt.y >= o->specs.max_y - EPSILON)
 		obj_normal = create_vec4d(0, 1, 0);
-	else if (dist < 1 && obj_pt.y <= o->specs.t_cyl.min_y + EPSILON)
+	else if (dist < 1 && obj_pt.y <= o->specs.min_y + EPSILON)
 		obj_normal = create_vec4d(0, -1, 0);
 	else
 		obj_normal = create_vec4d(obj_pt.x, 0, obj_pt.z);
@@ -47,15 +47,15 @@ void intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs)
 {
 	float	t;
 
-	if (!o->specs.t_cyl.closed || fabsf(r->direction.y) < EPSILON)
+	if (!o->specs.closed || fabsf(r->direction.y) < EPSILON)
 		return ;
-	t = (o->specs.t_cyl.min_y - r->origin.y) / r->direction.y;
+	t = (o->specs.min_y - r->origin.y) / r->direction.y;
 	if (check_cap(r, t))
 	{
 		xs->arr[xs->count].obj = o;
 		xs->arr[xs->count++].t = t;
 	}
-	t = (o->specs.t_cyl.max_y - r->origin.y) / r->direction.y;
+	t = (o->specs.max_y - r->origin.y) / r->direction.y;
 	if (check_cap(r, t))
 	{
 		xs->arr[xs->count].obj = o;
@@ -74,15 +74,15 @@ void check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs)
 		t[1] = t[2];
 	}
 	y = r->origin.y + t[0] * r->direction.y;
-	if (y > o->specs.t_cyl.min_y
-		&& y < o->specs.t_cyl.max_y)
+	if (y > o->specs.min_y
+		&& y < o->specs.max_y)
 	{
 		xs->arr[xs->count].obj = o;
 		xs->arr[xs->count++].t = t[0];
 	}
 	y = r->origin.y + t[1] * r->direction.y;
-	if (y > o->specs.t_cyl.min_y
-		&& y < o->specs.t_cyl.max_y)
+	if (y > o->specs.min_y
+		&& y < o->specs.max_y)
 	{
 		xs->arr[xs->count].obj = o;
 		xs->arr[xs->count++].t = t[1];

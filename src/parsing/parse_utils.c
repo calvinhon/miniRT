@@ -12,8 +12,11 @@
 
 #include "miniRT.h"
 #include "macros.h"
-#include "libft.h"
+// #include "libft.h"
 #include "colors.h"
+
+void	parse_spotlight(t_minirt *minirt, char *data, size_t *i);
+void	parse_light(t_minirt *minirt, char *data, size_t *i);
 
 void	parse_shape(t_minirt *minirt, char *data, size_t *i)
 {

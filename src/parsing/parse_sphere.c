@@ -12,13 +12,13 @@
 
 #include "miniRT.h"
 #include "macros.h"
-#include "libft.h"
+// #include "libft.h"
 #include "colors.h"
 
 bool	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
 	t_object	*sphere;
-	t_vec4d		t;
+	t_point		t;
 
 	(*i) += 2;
 	sphere = minirt->scene.shapes + idx;

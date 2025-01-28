@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
-#include "mlx.h"
+// #include "mlx.h"
 #include "macros.h"
 
 

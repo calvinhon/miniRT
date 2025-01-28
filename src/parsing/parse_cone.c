@@ -12,12 +12,12 @@
 
 #include "miniRT.h"
 #include "macros.h"
-#include "libft.h"
+// #include "libft.h"
 #include "colors.h"
 
-//static void	set_material_1(t_material *material, char *data, size_t *i, t_minirt *minirt)
+// static void	set_material_1(t_material *material, char *data, size_t *i, t_minirt *minirt)
 //{
-//    t_vec4d color_vec;
+//     t_vec4d color_vec;
 
 //    color_vec = material->color.v;
 //    material->xordc = (t_color)
@@ -30,7 +30,7 @@
 //	material->ambient = 0.1;
 //	material->diffuse = 0.9;
 //	material->specular = 0.9;
-//	material->sheen = 200;
+//	material->shininess = 200;
 //	material->reflective = 0.0;
 //	material->transparency = 0.0;
 //	material->refractive_index = 1.0;
@@ -46,28 +46,32 @@
 //	}
 //}
 
-bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
+bool parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_object	*cone;
-	float		height;
+	t_object *cone;
+	float height;
+	t_point		t;
+	t_vec4d		s;
 
 	(*i) += 2;
 	cone = minirt->scene.shapes + idx;
 	cone->type = CONE;
-	cone->translate= parse_point(data, i);
+	t = parse_point(data, i);
+	cone->translate = translation_mat(t.x, t.y, t.z);
 	cone->orientation = parse_vector(data, i);
 	is_normalised(&cone->orientation, *i, minirt);
-	cone->radius = parse_float(data, i)/2.0f;
+	cone->radius = parse_float(data, i) / 2.0f;
 	height = parse_float(data, i);
-	cone->specs.min = -height / 2.0f;
-	cone->specs.max = height / 2.0f;
+	cone->specs.min_y = -height / 2.0f;
+	cone->specs.max_y = height / 2.0f;
 	cone->specs.closed = false;
 	cone->material.color = parse_color(data, i, minirt);
 	set_material(&cone->material, data, i, minirt);
-	cone->scale = vec4s_re(cone->radius, height, cone->radius, 1);
+	s = create_vec4d(cone->radius, height, cone->radius);
+	cone->scale = scaling_mat(s.x, s.y, s.z);
 	cone->rot = rt_extract_rot_vertical(cone->orientation);
-	cone->inv_transform = get_inv_tranform_mat4s(cone->rot,
-			cone->scale, cone->trans);
+	cone->inv_transform = inverse_mat4d(mult_n_mat4d(3, cone->rot,
+									cone->scale, cone->translate));
 	/*
 		// test
 	printf("shape[%ld], type = %d\n", idx, cone->type);// test
@@ -76,9 +80,9 @@ bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 		(minirt->scene.shapes + idx)->trans.y, (minirt->scene.shapes + idx)->trans.z);
 	// test
 	printf("cone radius =  %f\n", (minirt->scene.shapes + idx)->radius);
-	//test	
+	//test
 	printf("cone color = %f, %f, %f\n", (minirt->scene.shapes + idx)->material.color.r, \
 		(minirt->scene.shapes + idx)->material.color.g, (minirt->scene.shapes + idx)->material.color.b);
 	*/
-return (true);
+	return (true);
 }

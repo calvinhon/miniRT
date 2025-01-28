@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include "colors.h"
 
 t_itx *get_hit(t_itx_grp *xs)
 {
@@ -89,7 +90,7 @@ t_color color_at(t_scene *s, t_ray *r, int remaining)
 	return (shade_hit(s, &comps, remaining));
 }
 
-t_ray cam_ray_to_pixel(t_camera *cam, int px, int py)
+t_ray cam_ray_to_pixel(const t_camera *cam, int px, int py)
 {
 	t_point pixel_cam;
 	t_point pixel_world;

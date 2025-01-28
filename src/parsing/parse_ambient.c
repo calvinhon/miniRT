@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 #include "macros.h"
-#include "libft.h"
+// #include "libft.h"
 #include "colors.h"
 
 int	parse_int(char *data, size_t *i)

@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 #include "macros.h"
-#include "mlx.h"
+// #include "mlx.h"
 #include <stdio.h>
 #include <sys/time.h>
 
@@ -27,7 +27,7 @@ long long	my_gettime(void)
 	return ((timeofday.tv_sec * 1000) + (timeofday.tv_usec / 1000));
 }
 
-bool	ini_core(t_minirt *minirt)
+bool	init_core(t_minirt *minirt)
 {
 	t_core	*thread;
 	int			i;

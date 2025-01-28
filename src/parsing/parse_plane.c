@@ -12,17 +12,19 @@
 
 #include "miniRT.h"
 #include "macros.h"
-#include "libft.h"
+// #include "libft.h"
 #include "colors.h"
 
 bool	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
 	t_object	*plane;
+	t_point		t;
 
 	(*i) += 2;
 	plane = minirt->scene.shapes + idx;
 	plane->type = PLANE;
-	plane->translate= parse_point(data, i);
+	t = parse_point(data, i);
+	plane->translate = translation_mat(t.x, t.y, t.z);
 	plane->orientation = parse_vector(data, i);
 	is_normalised(&plane->orientation, *i, minirt);
 	plane->material.color = parse_color(data, i, minirt);
@@ -49,5 +51,5 @@ bool	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	printf("Bonus = %c\n", data[*i]);
 */
 	
-	return (plane->center.w = 1.f, true);
+	return (plane->center.p = 1.f, true);
 }

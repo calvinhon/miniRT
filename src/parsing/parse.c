@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
-#include "libft.h"
+// #include "libft.h"
 
 bool	count_elements(t_minirt *minirt, char *line)
 {

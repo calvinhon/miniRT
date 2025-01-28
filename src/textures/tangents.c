@@ -35,7 +35,7 @@
 // 	t_vec4d			reference;
 // 	t_vec4d			retval;
 
-// 	if (fabsf(magnitude_vec4s_re(*local_normal)) < 0.999f)
+// 	if (fabsf(magnitude(*local_normal)) < 0.999f)
 // 		reference = create_vec4d(0, 1, 0);
 // 	else
 // 		reference = create_vec4d(1, 0, 0);

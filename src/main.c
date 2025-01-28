@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "macros.h"
 #include "miniRT.h"
-#include "mlx.h"
-#include "keys.h"
 
 void	errors(int err_code, char* err_ms, void *ptr)
 {
@@ -66,7 +63,7 @@ int	main(int ac, char **av)
 	check_filename(av[1]);
 	minirt = ini_minirt();
 	parse(av[1], minirt);
-	ini_core(minirt);
+	init_core(minirt);
 	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
 	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1, &record_keyrelease, minirt);
 	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2, &destroy_minirt, minirt);

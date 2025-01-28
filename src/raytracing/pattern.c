@@ -6,11 +6,12 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:17:52 by chon              #+#    #+#             */
-/*   Updated: 2025/01/20 16:40:35 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/28 11:55:34 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include "colors.h"
 
 t_color	pattern_at(t_object *o, t_point *world_point, t_pattern *pat)
 {

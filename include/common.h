@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 #ifndef COMMON_H
-# define COMMON_H
+#define COMMON_H
 
-# include <stdbool.h>
-# include "miniRT_math.h"
+#include <stdbool.h>
+#include "miniRT_math.h"
 
 enum e_object_types
 {
@@ -29,13 +29,13 @@ enum e_object_types
 
 typedef union s_color
 {
-	float	a;
-	float	r;
-	float	g;
-	float	b;
-}	t_color;
+	float a;
+	float r;
+	float g;
+	float b;
+} t_color;
 
-typedef struct s_frame	t_frame;
+typedef struct s_frame t_frame;
 
 enum e_pattern_type
 {
@@ -81,135 +81,135 @@ typedef struct s_perturbed
 
 typedef struct s_material
 {
-	t_color		color;
-	t_color		xordc;
-	float		ambient;
-	float		diffuse;
-	float		specular;
-	float		sheen;
-	float		reflective;
-	float		transparency;
-	float		refractive_index;
-	bool		checkered;
-	t_pattern 	*pattern;
-	t_frame	*fra_tex;
-}	t_material;
+	t_color color;
+	t_color xordc;
+	float ambient_s;
+	float diffuse_s;
+	float specular_s;
+	float shininess;
+	float reflective;
+	float transparency;
+	float refractive_index;
+	bool checkered;
+	t_pattern *pattern;
+	t_frame *fra_tex;
+} t_material;
 
 typedef struct s_material_colors
 {
-	int		light_type;
-	t_color	intensity;
-	t_color	effective_color;
-	t_color	ambient;
-	t_color	diffuse;
-	t_color	specular;
-	t_color	return_color;
-}	t_material_colors;
+	int light_type;
+	t_color intensity;
+	t_color effective_color;
+	t_color ambient;
+	t_color diffuse;
+	t_color specular;
+	t_color return_color;
+} t_material_colors;
 
 typedef struct s_object
 {
-	int			type;
-	t_vec4d		center;
-	t_mat4d		inv_transform;
-	t_mat4d		transposed_inverse;
-	t_mat4d		rot;
-	t_mat4d		translate;
-	t_mat4d		scale;
-	t_vec4d		orientation;
-	t_material	material;
-	float		radius;
+	int type;
+	t_vec4d center;
+	t_mat4d inv_transform;
+	t_mat4d transposed_inverse;
+	t_mat4d rot;
+	t_mat4d translate;
+	t_mat4d scale;
+	t_vec4d orientation;
+	t_material material;
+	float radius;
 	union u_specs
 	{
 		struct
 		{
-			t_vec4d	normal;
+			t_vec4d normal;
 		};
 		struct
 		{
-			float	side_length;
+			float side_length;
 		};
-		struct s_cyl
+		struct
 		{
-			float	min_y;
-			float	max_y;
-			bool	closed;
-		}	t_cyl;
-	}	specs;
-}	t_object;
+			float min_y;
+			float max_y;
+			bool closed;
+		};
+	} specs;
+} t_object;
 
 typedef struct s_itx
 {
-	float	t;
-	t_object	*obj;
-	float	n1;
-	float	n2;
-}	t_itx;
+	float t;
+	t_object *obj;
+	float n1;
+	float n2;
+} t_itx;
 
 typedef struct s_itx_grp
 {
-	t_itx	arr[200];
-	int		count;
-}	t_itx_grp;
+	t_itx arr[200];
+	int count;
+} t_itx_grp;
 
 typedef struct s_ray
 {
-	t_point		origin;
-	t_vec4d		direction;
-}	t_ray;
+	t_point origin;
+	t_vec4d direction;
+} t_ray;
 
 typedef struct s_camera
 {
-	bool		is_set;
-	int			line_set;
-	int			hsize;
-	int			vsize;
-	float		fov;
-	t_mat4d		inv_transform;
-	t_vec4d		forward;
-	t_vec4d		up;
-	t_vec4d		left;
-	t_mat4d		rot;
-	t_vec4d		from;
-	t_vec4d		scale;
-	float		half_width;
-	float		half_height;
-	float		half_view;
-	float		aspect_ratio;
-	float		pixel_size;
-}	t_camera;
+	bool is_set;
+	int line_set;
+	int hsize;
+	int vsize;
+	float fov;
+	t_mat4d inv_transform;
+	t_vec4d forward;
+	t_vec4d up;
+	t_vec4d left;
+	t_mat4d rot;
+	t_point from;
+	t_vec4d scale;
+	float half_width;
+	float half_height;
+	float half_view;
+	float aspect_ratio;
+	float pixel_size;
+} t_camera;
 
 typedef struct s_light
 {
-	int		type;
-	t_vec4d	pos;
-	float	ratio;
+	int type;
+	t_point pos;
+	float ratio;
 	union u_light_type
 	{
 		struct l_point
 		{
-			t_color	intensity;
-		}	point;
+			t_color intensity;
+		} point;
 		struct l_spot
 		{
-			t_color	intensity;
-			t_vec4d	orientation;
-			float	spot_angle;
-		}	spot;
-	}	specs;
-}	t_light;
+			t_color intensity;
+			t_vec4d orientation;
+			float spot_angle;
+		} spot;
+	} specs;
+} t_light;
 
 typedef struct s_scene
 {
-	bool		refract_reflect;
-	t_color		ambiance;
-	int			num_a;
-	int			num_c;
-	int			shape_count;
-	int			light_count;
-	int			num_shapes;
-	int			num_lights;
-	t_object	*shapes;
-	t_light		*lights;
-}	t_scene;
+	bool refract_reflect;
+	t_color ambiance;
+	int num_a;
+	int num_c;
+	int shape_count;
+	int light_count;
+	int num_shapes;
+	int num_lights;
+	t_object *shapes;
+	t_light *lights;
+} t_scene;
 
 #endif // !COMMON_H

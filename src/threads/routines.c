@@ -11,15 +11,14 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
-#include "macros.h"
 
-void	*render_chunk(void *arg)
+void *render_chunk(void *arg)
 {
-	const t_core		*data = (t_core *)arg;
-	t_camera			*cam;
-	int					x;
-	int					y;
-	int					yend;
+	const t_core *data = (t_core *)arg;
+	t_camera *cam;
+	int x;
+	int y;
+	int yend;
 
 	y = data->y;
 	yend = data->yend;
@@ -29,7 +28,7 @@ void	*render_chunk(void *arg)
 		x = 0;
 		while (x < cam->hsize)
 		{
-			rt_render_pixel(data->minirt, x, y);
+			render_pixel(data->minirt, x, y);
 			x += STEP_SKIP;
 		}
 		y += STEP_SKIP;
@@ -39,9 +38,9 @@ void	*render_chunk(void *arg)
 	return (NULL);
 }
 
-void	*await_task(void *arg)
+void *await_task(void *arg)
 {
-	t_core	*data;
+	t_core *data;
 
 	data = (t_core *)arg;
 	while (true)
@@ -52,7 +51,7 @@ void	*await_task(void *arg)
 		if (data->minirt->stop)
 		{
 			pthread_mutex_unlock(&data->mutex);
-			break ;
+			break;
 		}
 		pthread_mutex_unlock(&data->mutex);
 		render_chunk(data);

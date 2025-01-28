@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 #include "macros.h"
-#include "libft.h"
+// #include "libft.h"
 #include "colors.h"
 
 static bool	parse_new_bump_xpm(t_material *obj_mat, t_minirt *minirt, char *filename)

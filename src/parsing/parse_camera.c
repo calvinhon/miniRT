@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 #include "macros.h"
-#include "libft.h"
+// #include "libft.h"
 #include "colors.h"
 
 void	set_camera_orient(t_camera *cam)
@@ -61,9 +61,9 @@ void	set_camera_fields(t_camera *cam)
 	cam->pixel_size = (cam->half_width * 2.f) / cam->hsize;
 }
 
-t_vec4d	parse_point(char *data, size_t *i)
+t_point	parse_point(char *data, size_t *i)
 {
-	t_vec4d	point;
+	t_point	point;
 
 	point.x = parse_float(data, i);
 	point.y = parse_float(data, i);

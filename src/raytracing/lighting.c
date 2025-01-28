@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include "colors.h"
 
 t_vec4d reflect(t_vec4d *in, t_vec4d *normal)
 {
@@ -31,7 +32,7 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, bool in_shadow)
 
 	if (m->pattern)
 		m->color = pattern_at(c->obj, &c->p, m->pattern);
-	effective_color = mult_colors(m->color, l->color);
+	effective_color = mult_colors(m->color, c->l_color);
 	c->ambient = scale_color(effective_color, m->ambient_s);
 	light_v = normalize(subtract_points(l->pos, c->p));
 	light_dot_normal = dot(light_v, c->normal_v);
@@ -43,7 +44,7 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, bool in_shadow)
 		reflect_dot_eye = dot(reflect(&light_v, &c->normal_v), c->eye_v);
 		if (reflect_dot_eye > 0)
 		{
-			c->specular = scale_color(l->color,
+			c->specular = scale_color(c->l_color,
 				pow(reflect_dot_eye, m->shininess) * m->specular_s);
 		}
 	}
@@ -91,6 +92,10 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 	i = -1;
 	while (++i < s->num_lights)
 	{
+		if (s->lights[i].type == SPOT_LIGHT)
+			c->l_color = s->lights[i].specs.spot.intensity;
+		else
+			c->l_color = s->lights[i].specs.point.intensity;
 		in_shadow = is_shadowed(s, &c->over_point, &s->lights[i]);
 		lighting_result = lighting(&c->obj->material,
 			&s->lights[i], c, in_shadow);

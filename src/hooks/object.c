@@ -47,9 +47,9 @@ static inline void	_move_longitudinally_check(t_minirt *minirt,
 	t_point		op;
 
 	selected_object = minirt->selected.object;
-	op = create_point(selected_object->translate.x, \
-		minirt->cam.from.y, selected_object->translate.z);
-	viewport_forward = subtract_v_from_p(op, minirt->cam.from);
+	op = create_point(selected_object->translate.matrix[3],
+		minirt->cam.from.y, selected_object->translate.matrix[11]);
+	viewport_forward = subtract_points(minirt->cam.from, op);
 	viewport_forward = normalize(viewport_forward);
 	viewport_forward = scale_vector(viewport_forward,
 		(MOVE_SPEED + (MOVE_SPEED / 2.f)) * minirt->delta_time);

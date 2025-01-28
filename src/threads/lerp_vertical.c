@@ -12,24 +12,26 @@
 
 #include "miniRT.h"
 #include "macros.h"
+#include "colors.h"
 
-static void	fill_in_vertically(t_core const *data, int x, int y)
+static void fill_in_vertically(t_core const *data, int x, int y)
 {
-	t_color		c_i;
-	t_color		c_f;
-	t_color		temp;
+	t_color c_i;
+	t_color c_f;
+	t_color temp;
 
 	c_i = fetch_pixel_color(&data->minirt->frame, x, y - 1);
 	if (y + STEP_SKIP - 1 >= data->minirt->cam.vsize)
 		c_f = fetch_pixel_color(&data->minirt->frame, x,
-				data->minirt->cam.vsize - 1);
+								data->minirt->cam.vsize - 1);
 	else
 		c_f = fetch_pixel_color(&data->minirt->frame, x,
-				y + STEP_SKIP - 1);
-	if (cdiff(c_i, c_f) > INTP_THRES)
+								y + STEP_SKIP - 1);
+	temp = subtract_colors(c_i, c_f);
+	if (temp.r + temp.g + temp.b > INTP_THRES)
 	{
-		rt_render_pixel(data->minirt, x, y);
-		rt_render_pixel(data->minirt, x, y + 1);
+		render_pixel(data->minirt, x, y);
+		render_pixel(data->minirt, x, y + 1);
 	}
 	else
 	{
@@ -40,11 +42,11 @@ static void	fill_in_vertically(t_core const *data, int x, int y)
 	}
 }
 
-static void	check_vertical_fill(t_core const *data, int x, int y)
+static void check_vertical_fill(t_core const *data, int x, int y)
 {
-	t_minirt		*minirt;
-	t_camera		*cam;
-	t_color			temp;
+	t_minirt *minirt;
+	t_camera *cam;
+	t_color temp;
 
 	minirt = data->minirt;
 	cam = &minirt->cam;
@@ -61,13 +63,13 @@ static void	check_vertical_fill(t_core const *data, int x, int y)
 	}
 }
 
-void	interpolate_vertical(t_core const *data)
+void interpolate_vertical(t_core const *data)
 {
-	t_minirt		*minirt;
-	t_camera		*cam;
-	int				x;
-	int				y;
-	int				yend;
+	t_minirt *minirt;
+	t_camera *cam;
+	int x;
+	int y;
+	int yend;
 
 	minirt = data->minirt;
 	cam = &minirt->cam;
