@@ -130,8 +130,8 @@ typedef struct s_object
 		};
 		struct s_cyl
 		{
-			float	min;
-			float	max;
+			float	min_y;
+			float	max_y;
 			bool	closed;
 		}	t_cyl;
 	}	specs;
@@ -153,7 +153,7 @@ typedef struct s_itx_grp
 
 typedef struct s_ray
 {
-	t_vec4d		origin;
+	t_point		origin;
 	t_vec4d		direction;
 }	t_ray;
 

@@ -33,7 +33,7 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, bool in_shadow)
 		m->color = pattern_at(c->obj, &c->p, m->pattern);
 	effective_color = mult_colors(m->color, l->color);
 	c->ambient = scale_color(effective_color, m->ambient_s);
-	light_v = normalize(subtract_points(l->position, c->p));
+	light_v = normalize(subtract_points(l->pos, c->p));
 	light_dot_normal = dot(light_v, c->normal_v);
 	if (light_dot_normal >= 0 && !in_shadow)
 	{
@@ -58,7 +58,7 @@ bool is_shadowed(t_scene *s, t_point *p, t_light *l)
 	t_itx_grp xs;
 	t_itx *h;
 
-	l_v = subtract_points(l->position, *p);
+	l_v = subtract_points(l->pos, *p);
 	direction = normalize(l_v);
 	r = create_ray(p, &direction);
 	xs = local_intersect(s, &r);
@@ -75,7 +75,7 @@ t_color reflected_color(t_scene *s, t_comps *c, int remaining)
 
 	reflect_r = create_ray(&c->over_point, &c->reflect_v);
 	color = color_at(s, &reflect_r, remaining - 1);
-	return (scale_color(color, c->obj->material.reflect_s));
+	return (scale_color(color, c->obj->material.reflective));
 }
 
 t_color shade_hit(t_scene *s, t_comps *c, int remaining)
@@ -96,7 +96,7 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 			&s->lights[i], c, in_shadow);
 		surface = add_colors(2, surface, lighting_result);
 	}
-	if (c->obj->material.reflect_s)
+	if (c->obj->material.reflective)
 		reflect = reflected_color(s, c, remaining);
 	// if (s->refract_reflect)
 	// {

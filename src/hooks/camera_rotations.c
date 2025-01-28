@@ -12,26 +12,20 @@
 
 #include "miniRT.h"
 
-static inline void	update_camera_state(t_camera *camera)
+void	update_camera_state(t_camera *camera)
 {
 	camera->up = normalize(camera->up);
 	camera->left = normalize(camera->left);
 	camera->forward = normalize(camera->forward);
-	camera->inv_transform = fill_matrix(\
-		create_vec4d(camera->left.x, camera->left.y, camera->left.z), \
-		create_vec4d(camera->up.x, camera->up.y, camera->up.z), \
-		create_vec4d(-camera->forward.x, -camera->forward.y, \
-			-camera->forward.z), \
-		create_vec4d(0.0f, 0.0f, 0.0f) \
+	camera->inv_transform = fill_matrix(
+		create_vec4d(camera->left.x, camera->left.y, camera->left.z), 
+		create_vec4d(camera->up.x, camera->up.y, camera->up.z), 
+		create_vec4d(-camera->forward.x, -camera->forward.y, 
+			-camera->forward.z), 
+		create_vec4d(0.0f, 0.0f, 0.0f) 
 	);
 	camera->inv_transform.matrix[15] = 1;
-	cross_mat4s_mat4s(camera->inv_transform, \
-		translation_mat4s(\
-			-camera->trans.x, -camera->trans.y, -camera->trans.z \
-		), \
-			&camera->inv_transform \
-		);
-	camera->inv_transform = rt_get_cam_inverse(&camera->inv_transform);
+	camera->inv_transform = inverse_mat4d(&camera->inv_transform);
 }
 
 static inline void	_rotcam_apply_pitch_rot(t_minirt *state, bool left)
@@ -45,7 +39,7 @@ static inline void	_rotcam_apply_pitch_rot(t_minirt *state, bool left)
 		rot = rotate_mat_y(angle);
 	state->cam.forward = mult_mat4d_vec4d(rot, state->cam.forward);
 	state->cam.left = mult_mat4d_vec4d(rot, state->cam.left);
-	state->cam.up = mult_mat4d_vec4d(rot, state->cam.up,);
+	state->cam.up = mult_mat4d_vec4d(rot, state->cam.up);
 }
 
 static inline void	_rotcam_apply_yaw_rot(t_minirt *state, bool up)
@@ -59,7 +53,7 @@ static inline void	_rotcam_apply_yaw_rot(t_minirt *state, bool up)
 		rot = rt_rotation_matrix_from_axis_angle(&state->cam.left, -angle);
 	state->cam.forward = mult_mat4d_vec4d(rot, state->cam.forward);
 	state->cam.left = mult_mat4d_vec4d(rot, state->cam.left);
-	state->cam.up = mult_mat4d_vec4d(rot, state->cam.up,);
+	state->cam.up = mult_mat4d_vec4d(rot, state->cam.up);
 }
 
 void	camera_rotations(t_minirt *state)

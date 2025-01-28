@@ -15,6 +15,7 @@
 
 # include <stdbool.h>
 # include <math.h>
+# include <stdarg.h>
 
 #define EPSILON 0.0001f
 #define PI 3.1415926535f

@@ -169,7 +169,7 @@
 // 	float specular_s;
 // 	float shininess;
 // 	t_pattern *pattern;
-// 	float reflect_s;
+// 	float reflective;
 // } t_material;
 
 // typedef struct s_material_colors

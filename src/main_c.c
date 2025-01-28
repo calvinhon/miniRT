@@ -98,7 +98,7 @@ int main(int ac, char **av)
 	t_object p;
 	p.type = PLANE;
 	p.material = sphere_m;
-	p.material.reflect_s = 0;
+	p.material.reflective = 0;
 	p.material.pattern = &pat4;
 	p.transform = translation_mat(0, 0, 0);
 	p.inv_transform = inverse_mat4d(p.transform);
@@ -107,7 +107,7 @@ int main(int ac, char **av)
 	middle.type = SPHERE;
 	middle.center = create_point(0, 0, 0);
 	middle.material = sphere_m;
-	middle.material.reflect_s = 0;
+	middle.material.reflective = 0;
 	middle.material.pattern = &pat1;
 	middle.material.color = scale_color(create_color(1, 0.5, 0.5), 255);
 	middle.transform = mult_n_mat4d(2, scaling_mat(1, 1, 1), translation_mat(-0.5, 1, 0.5));
@@ -118,7 +118,7 @@ int main(int ac, char **av)
 	right.center = create_point(0, 0, 0);
 	right.material = sphere_m;
 	right.material.color = create_color(255, 0, 0);
-	right.material.reflect_s = 1;
+	right.material.reflective = 1;
 	right.material.pattern = NULL;
 	right.transform = mult_n_mat4d(2, scaling_mat(1.5, 1.5, 1.5), translation_mat(-8, 2, -5));
 	right.inv_transform = inverse_mat4d(right.transform);
@@ -127,7 +127,7 @@ int main(int ac, char **av)
 	left.type = SPHERE;
 	left.center = create_point(0, 0, 0);
 	left.material = sphere_m;
-	left.material.reflect_s = 1;
+	left.material.reflective = 1;
 	left.material.pattern = NULL;
 	left.material.color = scale_color(create_color(1, 0.8, 0.1), 255);
 	left.transform = mult_n_mat4d(2, scaling_mat(0.33, 0.33, 0.33), translation_mat(-1.5, 0.33, -0.75));
@@ -138,7 +138,7 @@ int main(int ac, char **av)
 	p2.material = p.material;
 	p2.material.pattern = NULL;
 	p2.material.color = scale_color(create_color(1, 1, 1), 255);
-	p2.material.reflect_s = 0;
+	p2.material.reflective = 0;
 	p2.transform = mult_n_mat4d(2, rotate_mat_x(PI / 2), translation_mat(0, 1.5, 2));
 	p2.inv_transform = inverse_mat4d(p2.transform);
 	o[4] = p2;
@@ -146,7 +146,7 @@ int main(int ac, char **av)
 	p3.type = PLANE;
 	p3.material = sphere_m;
 	p3.material.color = scale_color(create_color(0.3, 0.3, 0.9), 255);
-	p3.material.reflect_s = 0;
+	p3.material.reflective = 0;
 	p3.material.pattern = &pat4;
 	p3.transform = mult_n_mat4d(2, rotate_mat_z(PI / 2), translation_mat(5, 0, 0));
 	p3.inv_transform = inverse_mat4d(p3.transform);
@@ -160,7 +160,7 @@ int main(int ac, char **av)
 	// s4.material.pattern->transform = mult_n_mat4d(2, rotate_mat_x(PI / 2), scaling_mat(0.3, 0.3, 0.3));
 	// s4.material.pattern->inv_transform = inverse_mat4d(s4.material.pattern->transform);
 	s4.material.color = create_color(0, 255, 0);
-	s4.material.reflect_s = 1;
+	s4.material.reflective = 1;
 	s4.transform = mult_n_mat4d(2, scaling_mat(1.75, 1.75, 1.75), translation_mat(4, 3, -10));
 	s4.inv_transform = inverse_mat4d(s4.transform);
 	o[6] = s4;
@@ -174,7 +174,7 @@ int main(int ac, char **av)
 	c1.material.pattern = NULL;
 	// c1.material.pattern->p_scale = 0;
 	c1.material.color = create_color(0, 168, 107);
-	c1.material.reflect_s = 1;
+	c1.material.reflective = 1;
 	c1.transform = identity_mat();
 	c1.transform = mult_n_mat4d(4, rotate_mat_z(PI/5), rotate_mat_x(-PI/7), scaling_mat(1, 1, 1), translation_mat(0, 5, -5));
 	c1.inv_transform = inverse_mat4d(c1.transform);

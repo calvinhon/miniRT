@@ -15,12 +15,8 @@
 
 static inline void	update_object_cache(t_object *object)
 {
-	object->inv_transform = get_inv_tranform_mat4s(\
-	object->rot, 
-	object->scale, \
-	object->translate\
-	);
-	transpose_mat4d(&object->inv_transform, &object->transposed_inverse);
+	object->inv_transform = inverse_mat4d(mult_n_mat4d(3,
+	object->rot, object->scale, object->translate));
 }
 
 static inline void	_move_sideways_check(t_minirt *minirt, bool *state_changed)
@@ -33,14 +29,12 @@ static inline void	_move_sideways_check(t_minirt *minirt, bool *state_changed)
 	selected_object = minirt->selected.object;
 	if (minirt->move.a || minirt->move.left)
 	{
-		selected_object->translate= add_vector(selected_object->trans,
-			scaled_left);
+		selected_object->translate.matrix[3] += scaled_left.x; 
 		*state_changed = true;
 	}
 	if (minirt->move.d || minirt->move.right)
 	{
-		selected_object->translate= subtract_vectors(selected_object->trans,
-			scaled_left);
+		selected_object->translate.matrix[3] -= scaled_left.x;
 		*state_changed = true;
 	}
 }
@@ -53,22 +47,24 @@ static inline void	_move_longitudinally_check(t_minirt *minirt,
 	t_point		op;
 
 	selected_object = minirt->selected.object;
-	op = create_point(selected_object->trans.x, \
-		minirt->cam.from.y, selected_object->trans.z);
+	op = create_point(selected_object->translate.x, \
+		minirt->cam.from.y, selected_object->translate.z);
 	viewport_forward = subtract_v_from_p(op, minirt->cam.from);
 	viewport_forward = normalize(viewport_forward);
 	viewport_forward = scale_vector(viewport_forward,
 		(MOVE_SPEED + (MOVE_SPEED / 2.f)) * minirt->delta_time);
 	if (minirt->move.w)
 	{
-		selected_object->translate= add_vector(selected_object->trans,
-			viewport_forward);
+		selected_object->translate.matrix[3] += viewport_forward.x;
+		// selected_object->translate.matrix[7] += viewport_forward.y;
+		// selected_object->translate.matrix[11] += viewport_forward.z;
 		*state_changed = true;
 	}
 	if (minirt->move.s)
 	{
-		selected_object->translate= subtract_vectors(selected_object->trans,
-			viewport_forward);
+		selected_object->translate.matrix[3] -= viewport_forward.x;
+		// selected_object->translate.matrix[7] -= viewport_forward.y;
+		// selected_object->translate.matrix[11] -= viewport_forward.z;
 		*state_changed = true;
 	}
 }
@@ -80,12 +76,12 @@ static inline void	_move_elevation_check(t_minirt *minirt, bool *state_changed)
 	selected_object = minirt->selected.object;
 	if (minirt->move.space  || minirt->move.up)
 	{
-		selected_object->trans.y += (MOVE_SPEED * minirt->delta_time);
+		selected_object->translate.matrix[7] += (MOVE_SPEED * minirt->delta_time);
 		*state_changed = true;
 	}
 	if (minirt->move.leftshift || minirt->move.down)
 	{
-		selected_object->trans.y -= (MOVE_SPEED * minirt->delta_time);
+		selected_object->translate.matrix[7] -= (MOVE_SPEED * minirt->delta_time);
 		*state_changed = true;
 	}
 }

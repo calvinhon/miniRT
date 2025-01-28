@@ -22,6 +22,7 @@
 # include <sys/time.h>
 # include <math.h>
 # include <stdbool.h>
+# include <float.h>
 # include "mlx.h"
 # include "keys.h"
 # include "macros.h"
@@ -114,17 +115,17 @@ struct s_core
 	pthread_cond_t	cond;
 };
 
-typedef struct s_comps_for_xs
+typedef struct s_computations_for_xs
 {
 	bool		shadowed;
 	double		t;
-	t_object		*obj;
-	t_vec4d		p;
-	t_vec4d		over_point;
-	t_vec4d		under_point;
-	t_vec4d		eyev;
-	t_vec4d		normalv;
-	t_vec4d		reflectv;
+	t_object	*obj;
+	t_point		p;
+	t_point		over_point;
+	t_point		under_point;
+	t_vec4d		eye_v;
+	t_vec4d		normal_v;
+	t_vec4d		reflect_v;
 	int			inside;
 	double		n1;
 	double		n2;
@@ -235,7 +236,7 @@ t_color		fetch_pixel_color(const t_frame *frame, int x, int y);
 
 /*--- STATE ---*/
 
-//void		update_camera_state(t_camera *camera);
+void		update_camera_state(t_camera *camera);
 int			update_rt(t_minirt *minirt);
 int			update_minirt(t_minirt *minirt);
 int			record_keypress(int keycode, t_minirt *minirt);

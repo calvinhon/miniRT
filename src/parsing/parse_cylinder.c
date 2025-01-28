@@ -20,11 +20,13 @@ bool	parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
 	t_object	*cylinder;
 	float		height;
+	t_vec4d		shift_v;
 
 	(*i) += 2;
 	cylinder = minirt->scene.shapes + idx;
 	cylinder->type = CYLINDER;
-	cylinder->translate= parse_point(data, i);
+	shift_v = parse_vector(data, i);
+	cylinder->translate = translation_mat(shift_v.x, shift_v.y, shift_v.z);
 	cylinder->orientation = parse_vector(data, i);
 	is_normalised(&cylinder->orientation, *i, minirt);
 	cylinder->radius = parse_float(data, i) / 2.f;
