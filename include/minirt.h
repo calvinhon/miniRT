@@ -13,9 +13,9 @@
 #ifndef MINIRT_H
 #define MINIRT_H
 
-#include "../libs/libft/libft.h"
-#include "../libs/mlx_linux/mlx.h"
-#include "../libs/mlx_macos/mlx.h"
+#include "libft.h"
+#include "mlx.h"
+#include "mlx.h"
 #include <pthread.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -23,7 +23,6 @@
 #include <math.h>
 #include <stdbool.h>
 #include <float.h>
-// #include "mlx.h"
 #include "keys.h"
 #include "macros.h"
 #include "common.h"

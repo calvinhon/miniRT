@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "macros.h"
 #include "miniRT.h"
+#include "mlx.h"
+#include "keys.h"
 
 void	errors(int err_code, char* err_ms, void *ptr)
 {
@@ -23,7 +26,7 @@ void	errors(int err_code, char* err_ms, void *ptr)
 	exit(err_code);
 }
 
-t_minirt	*ini_minirt(void)
+static t_minirt	*ini_minirt(void)
 {
 	t_minirt	*minirt;
 
@@ -41,7 +44,7 @@ t_minirt	*ini_minirt(void)
 	return(minirt);
 }
 
-void check_filename(char *file)
+static void check_filename(char *file)
 {
 	size_t len;
 

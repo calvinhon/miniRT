@@ -1,26 +1,24 @@
 CC := cc
 BONUS ?= 0
-CFLAGS = -Wextra -Wall -Werror #-lz -Wno-unused-result -mavx -mavx2 -O3 -flto -funroll-loops -fno-signed-zeros #-g -fsanitize=address
+CFLAGS = -Wextra -Wall -Werror
 
 OS := $(shell uname)
 CFLAGS += -DBONUS=$(BONUS)
 
 Dar = Darwin
-
 Lin = Linux
 
 ifeq (${OS}, ${Dar})
-	BUILD_DIR := libs/mlx_macos
+	MLX_DIR := libs/mlx_macos
 	MLX := mlx
-	CFLAGS += -L$(BUILD_DIR) -I$(BUILD_DIR) -l$(MLX) -framework OpenGL -framework Appkit -Llibs/libft -Ilibs/libft -lft -L/usr/lib -lm
+	CFLAGS += -L$(MLX_DIR) -I$(MLX_DIR) -l$(MLX) -framework OpenGL -framework Appkit -Llibs/libft -Ilibs/libft -lft -L/usr/lib -lm
 else ifeq (${OS}, ${Lin})
-	BUILD_DIR := libs/mlx_linux
+	MLX_DIR := libs/mlx_linux
 	MLX := mlx_Linux
-	CFLAGS += -L$(BUILD_DIR) -I$(BUILD_DIR) -l$(MLX) -L/usr/lib -lXext -lX11 -lm -lz -Llibs/libft -Ilibs/libft -lft
+	CFLAGS += -L$(MLX_DIR) -I$(MLX_DIR) -l$(MLX) -L/usr/lib -lXext -lX11 -lm -lz -Llibs/libft -Ilibs/libft -lft
 else
-	$(error Different OS!)
+	$(error Unsupported OS: $(OS))
 endif
-
 
 NAME := miniRT
 
@@ -40,10 +38,12 @@ SRC := main.c \
 SRC_DIR :=	src
 SRCS := $(addprefix $(SRC_DIR)/, $(SRC))
 
-INC := miniRT.h miniRT_math.h common.h colors.h macros.h keys.h
+INC := colors.h common.h keys.h macros.h miniRT_math.h miniRT.h
 LIBFT_DIR := libs/libft
-INC_DIR := include
-INCLUDE := $(addprefix $(INC_DIR)/, $(INC))
+
+INCLUDE := $(addprefix include/, $(INC))
+
+OBJS := $(SRCS:.c=.o)
 
 all: $(NAME)
 
@@ -53,19 +53,24 @@ bonus:
 mandatory:
 	$(MAKE) BONUS=0
 
-$(NAME): $(SRCS) $(LAG_SRCS) $(INCLUDE)
-	@make -C $(BUILD_DIR)
+%.o: %.c $(SRCS) $(INCLUDE)
+	$(CC) $(CFLAGS) -Iinclude -c $< -o $@
+
+$(NAME): $(OBJS) $(INCLUDE)
+	@make -C $(MLX_DIR)
 	make -C libs/libft
-	$(CC) -o $(NAME) -I$(INC_DIR) $(SRCS) $(LAG_SRCS) $(CFLAGS)
+	$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
 
 clean:
-	@make -C $(BUILD_DIR) clean
+	@make -C $(MLX_DIR) clean
 	make -C libs/libft clean
+	rm -rf $(OBJS)
 
 fclean:
-	@make -C $(BUILD_DIR) clean
-	rm -rf $(BUILD_DIR)/lib$(MLX).a
+	@make -C $(MLX_DIR) clean
+	rm -rf $(MLX_DIR)/lib$(MLX).a
 	make -C libs/libft fclean
+	rm -rf $(OBJS)
 	rm -rf $(NAME)
 
 run: re $(NAME)

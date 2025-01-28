@@ -12,14 +12,11 @@
 
 #include "miniRT.h"
 #include "macros.h"
-// #include "libft.h"
 #include "colors.h"
 
 int	parse_int(char *data, size_t *i)
 {
 	int	value;
-	
-	//Check format for int
 
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
@@ -34,8 +31,6 @@ float	parse_float(char *data, size_t *i)
 {
 	float	value;
 
-	// check format for float
-
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
 	value = ft_atof(&data[*i]);
@@ -47,29 +42,32 @@ float	parse_float(char *data, size_t *i)
 
 t_color	parse_color(char *data, size_t *i, t_minirt *minirt)
 {
-    t_color	color;
-    
- 	color.a = 0.f;
-    color.r = parse_int(data, i)/255.999f;
-    color.g = parse_int(data, i)/255.999f;
-	color.b = parse_int(data, i)/255.999f;
-	if (color.r < 0.f || color.r > 1.f || color.g < 0.f || color.g > 1.f || color.b < 0.f || color.b > 1.f)
+	t_color	color;
+
+	color.a = 0.f;
+	color.r = parse_int(data, i) / 255.999f;
+	color.g = parse_int(data, i) / 255.999f;
+	color.b = parse_int(data, i) / 255.999f;
+	if (color.r < 0.f || color.r > 1.f || \
+	color.g < 0.f || color.g > 1.f || color.b < 0.f || color.b > 1.f)
 	{
 		free(data);
 		printf("Invalid input at position %ld: \n", *i);
 		errors(CER_COLOR_VALUE, ER_COLOR_VALUE, minirt);
 	}
-    return color;
+	return (color);
 }
 
 void	parse_ambient(t_minirt *minirt, char *data, size_t *i)
 {
 	(*i) += 1;
 	minirt->ambiance.ratio = parse_float(data, i);
-	if (minirt->ambiance.ratio < -0.f || minirt->ambiance.ratio > 1.f)
-		return (free(data), errors(CER_AMBIENT_VALUE, ER_AMBIENT_VALUE, minirt));
+	if (minirt->ambiance.ratio < -0.f || \
+		minirt->ambiance.ratio > 1.f)
+		return (free(data), errors(CER_AMBIENT_VALUE, \
+			ER_AMBIENT_VALUE, minirt));
 	minirt->ambiance.is_set = true;
 	minirt->ambiance.color = parse_color(data, i, minirt);
-	minirt->scene.ambiance = scale_color(minirt->ambiance.color,
-		minirt->ambiance.ratio);	
+	minirt->scene.ambiance = scale_color(minirt->ambiance.color, \
+		minirt->ambiance.ratio);
 }

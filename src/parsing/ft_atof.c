@@ -6,13 +6,12 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 18:52:25 by honguyen          #+#    #+#             */
-/*   Updated: 2025/01/21 13:55:52 by marvin           ###   ########.fr       */
+/*   Updated: 2025/01/24 12:13:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <stdbool.h>
-#include <stdio.h> //
+#include <stdio.h>
 
 static void	skip_whitespace(const char **str)
 {
@@ -36,8 +35,9 @@ static int	parse_sign(const char **str)
 
 static float	parse_integer_part(const char **str)
 {
-	float	result = 0.0;
+	float	result;
 
+	result = 0.0;
 	while (**str >= '0' && **str <= '9')
 	{
 		result = result * 10 + (**str - '0');
