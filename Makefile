@@ -53,7 +53,7 @@ bonus:
 mandatory:
 	$(MAKE) BONUS=0
 
-%.o: %.c $(SRCS) $(INCLUDE)
+%.o: %.c
 	$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
 $(NAME): $(OBJS) $(INCLUDE)
