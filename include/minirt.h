@@ -233,9 +233,9 @@ t_color render_pixel(t_minirt *program, int x, int y);
 bool init_core(t_minirt *minirt);
 bool thread_arbiter(t_minirt *minirt);
 void *await_task(void *arg);
-void interpolate_horizontal(t_core const *data);
-void interpolate_vertical(t_core const *data);
-// int			cdiff(t_color a, t_color b);
+void	interpolate_horizontal(t_core const *data);
+void	interpolate_vertical(t_core const *data);
+int		cdiff(t_color a, t_color b);
 t_color lerp_colors(const t_color *a, const t_color *b, float t);
 t_color fetch_pixel_color(const t_frame *frame, int x, int y);
 

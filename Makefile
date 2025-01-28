@@ -1,19 +1,6 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: chon <chon@student.42.fr>                  +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/21 18:56:23 by chon              #+#    #+#              #
-#    Updated: 2025/01/28 12:27:07 by chon             ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-# CC := cc
+CC := cc
 BONUS ?= 0
-CFLAGS = -Wextra -Wall -Werror -Iinclude -g #-lz -Wno-unused-result -mavx -mavx2 -O3 -flto -funroll-loops -fno-signed-zeros # -fsanitize=address
-LDFLAGS =
+CFLAGS = -Wextra -Wall -Werror #-lz -Wno-unused-result -mavx -mavx2 -O3 -flto -funroll-loops -fno-signed-zeros #-g -fsanitize=address
 
 OS := $(shell uname)
 CFLAGS += -DBONUS=$(BONUS)
@@ -23,21 +10,22 @@ Dar = Darwin
 Lin = Linux
 
 ifeq (${OS}, ${Dar})
-	MLX_DIR = libs/mlx_macos
-	LIBS = $(addprefix libs/, libft/libft.a mlx_macos/libmlx.a)
-	LDFLAGS += -L/usr/lib -framework OpenGL -framework Appkit -lm
+	BUILD_DIR := libs/mlx_macos
+	MLX := mlx
+	CFLAGS += -L$(BUILD_DIR) -I$(BUILD_DIR) -l$(MLX) -framework OpenGL -framework Appkit -Llibs/libft -Ilibs/libft -lft -L/usr/lib -lm
 else ifeq (${OS}, ${Lin})
-	MLX_DIR = libs/mlx_linux
-	LIBS = $(addprefix libs/, libft/libft.a mlx_linux/libmlx.a)
-	LDFLAGS += -L/usr/lib -lXext -lX11 -Ofast -lm
+	BUILD_DIR := libs/mlx_linux
+	MLX := mlx_Linux
+	CFLAGS += -L$(BUILD_DIR) -I$(BUILD_DIR) -l$(MLX) -L/usr/lib -lXext -lX11 -lm -lz -Llibs/libft -Ilibs/libft -lft
 else
 	$(error Different OS!)
 endif
 
+
 NAME := miniRT
 
 SRC := main.c \
-			$(addprefix colors/, colors.c frame.c) \
+			$(addprefix colors/, colors.c frame.c paint.c) \
 			$(addprefix parsing/, parse.c parse_ambient.c parse_light.c \
 				parse_camera.c parse_sphere.c parse_utils.c parse_errors.c \
 				parse_plane.c parse_cylinder.c parse_cube.c parse_cone.c \
@@ -52,10 +40,10 @@ SRC := main.c \
 SRC_DIR :=	src
 SRCS := $(addprefix $(SRC_DIR)/, $(SRC))
 
-# INC := miniRT.h miniRT_math.h common.h colors.h macros.h keys.h
+INC := miniRT.h miniRT_math.h common.h colors.h macros.h keys.h
 LIBFT_DIR := libs/libft
 INC_DIR := include
-# INCLUDE := $(addprefix $(INC_DIR)/, $(INC))
+INCLUDE := $(addprefix $(INC_DIR)/, $(INC))
 
 all: $(NAME)
 
@@ -65,24 +53,19 @@ bonus:
 mandatory:
 	$(MAKE) BONUS=0
 
-# $(NAME): $(SRCS) $(INCLUDE)
-# 	@make -C $(BUILD_DIR)
-# 	make -C libs/libft
-# 	$(CC) -o $(NAME) -I$(INC_DIR) $(SRCS) $(CFLAGS)
-OBJS := $(SRCS:.c=.o)
-
-$(NAME): $(OBJS)
-	make -C $(LIBFT_DIR)
-	make -C $(MLX_DIR)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LDFLAGS) -o $(NAME)
+$(NAME): $(SRCS) $(LAG_SRCS) $(INCLUDE)
+	@make -C $(BUILD_DIR)
+	make -C libs/libft
+	$(CC) -o $(NAME) -I$(INC_DIR) $(SRCS) $(LAG_SRCS) $(CFLAGS)
 
 clean:
-	make clean -C $(LIBFT_DIR)
-	make clean -C $(MLX_DIR)
-	rm -rf $(OBJS)
+	@make -C $(BUILD_DIR) clean
+	make -C libs/libft clean
 
-fclean: clean
-	make fclean -C $(LIBFT_DIR)
+fclean:
+	@make -C $(BUILD_DIR) clean
+	rm -rf $(BUILD_DIR)/lib$(MLX).a
+	make -C libs/libft fclean
 	rm -rf $(NAME)
 
 run: re $(NAME)
