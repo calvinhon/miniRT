@@ -42,7 +42,7 @@ void	destroy_textures(t_minirt *minirt)
 
 	i = 0;
 
-	while (i < minirt->scene.num_shapes)
+	while (i < minirt->scene.shape_count && minirt->scene.shapes)
 	{
 		if (minirt->scene.shapes[i].material.pattern)
 			free(minirt->scene.shapes[i].material.pattern);

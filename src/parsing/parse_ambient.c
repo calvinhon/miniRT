@@ -54,7 +54,6 @@ t_color	parse_color(char *data, size_t *i, t_minirt *minirt)
 	if (color.r < 0.f || color.r > 255.f || \
 	color.g < 0.f || color.g > 255.f || color.b < 0.f || color.b > 255.f)
 	{
-		free(data);
 		printf("Invalid input at position %ld: \n", *i);
 		errors(CER_COLOR_VALUE, ER_COLOR_VALUE, minirt);
 	}
