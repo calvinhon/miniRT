@@ -36,7 +36,7 @@
 #define MAX_ITX 200
 #define _RT_MIN_INTENSITY 0.05f
 
-#define MOVE_SPEED 2.f
+#define MOVE_SPEED 1.f
 #define PITCH_SPEED 0.1f
 #define YAW_SPEED 0.1f
 
