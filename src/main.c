@@ -68,32 +68,23 @@ int main(int ac, char **av)
 	parse(av[1], minirt);
 	init_core(minirt);
 
-	// t_mat4d	m = minirt->cam.inv_transform;
-	// int y = -1;
-	// int x = -1;
-	// while (y < 15)
-	// {
-	// 	while (++x < 4)
-	// 		printf("%.0f ", m.matrix[++y]);
-	// 	printf("\n");
-	// 	x = -1;
-	// }
-
-	// int y = -1;
-	// int x = -1;
-	// while (++y < minirt->cam.vsize - 1)
-	// {
-	// 	while (++x < minirt->cam.hsize - 1)
-	// 	{
-	// 		render_pixel(minirt, x, y);
-	// 	}
-	// 	x = -1;
-	// }
-	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
-	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1, &record_keyrelease, minirt);
-	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2, &destroy_minirt, minirt);
-	mlx_mouse_hook(minirt->win, &select_shape, minirt);
-	mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
+	int y = -1;
+	int x = -1;
+	while (++y < minirt->cam.vsize - 1)
+	{
+		while (++x < minirt->cam.hsize - 1)
+		{
+			render_pixel(minirt, x, y);
+		}
+		x = -1;
+	}
+	
+	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
+	// mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
+	// mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1, &record_keyrelease, minirt);
+	// mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2, &destroy_minirt, minirt);
+	// mlx_mouse_hook(minirt->win, &select_shape, minirt);
+	// mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
 	mlx_loop(minirt->mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: chon <chon@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 08:55:08 by chon              #+#    #+#              #
-#    Updated: 2025/01/29 11:17:25 by chon             ###   ########.fr        #
+#    Updated: 2025/01/29 12:53:57 by chon             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ bonus:
 mandatory:
 	$(MAKE) BONUS=0
 
-%.o: %.c $(INCLUDE) $(SRCS)
+%.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS) $(INCLUDE) $(SRCS)

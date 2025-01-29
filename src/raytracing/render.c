@@ -57,6 +57,7 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 
 	comps.t = itx->t;
 	comps.obj = itx->obj;
+	// printf("r origin: %.2f %.2f %.2f\n", r->origin.x, r->origin.y, r->origin.z);
 	comps.p = position(r, comps.t);
 	comps.eye_v = negate_vector(r->direction);
 	local_normal_at(itx, &comps);
@@ -82,8 +83,10 @@ t_color color_at(t_scene *s, t_ray *r, int remaining)
 
 	xs = local_intersect(s, r);
 	hit = get_hit(&xs);
+	// printf("before: r direction: %.2f %.2f %.2f\n", r->direction.x, r->direction.y, r->direction.z);
 	if (!hit)
 		return (create_color(0, 0, 0));
+	printf("after: r direction: %.5f %.5f %.5f\n", r->direction.x, r->direction.y, r->direction.z);
 	comps = prepare_computations(hit, r, &xs);
 	if (!remaining)
 		return (create_color(0, 0, 0));
@@ -111,6 +114,7 @@ t_color render_pixel(t_minirt *program, int x, int y)
 	t_color c;
 
 	r = cam_ray_to_pixel(&program->cam, x, y);
+	// printf("before: r direction: %.2f %.2f %.2f\n", r.direction.x, r.direction.y, r.direction.z);
 	c = color_at(&program->scene, &r, MAX_RFLX);
 	// if (c.r > 0)
 	// 	printf("color: %.2f %.2f %.2f\n", c.r, c.g, c.b);
