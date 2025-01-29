@@ -26,6 +26,9 @@ void	update_camera_state(t_camera *camera)
 	);
 	camera->inv_transform.matrix[15] = 1;
 	camera->inv_transform = inverse_mat4d(camera->inv_transform);
+
+	//
+	printf("update camera\n");
 }
 
 static inline void	_rotcam_apply_pitch_rot(t_minirt *state, bool left)

@@ -100,7 +100,7 @@ typedef struct s_minirt
 	} mouse;
 } t_minirt;
 
-struct s_core
+typedef struct s_core
 {
 	int id;
 	pthread_t thread;
@@ -112,7 +112,7 @@ struct s_core
 	bool work_ready;
 	pthread_mutex_t mutex;
 	pthread_cond_t cond;
-};
+}	t_core;
 
 typedef struct s_computations_for_xs
 {

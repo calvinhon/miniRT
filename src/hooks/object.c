@@ -17,6 +17,9 @@ static inline void	update_object_cache(t_object *object)
 {
 	object->inv_transform = inverse_mat4d(mult_n_mat4d(3,
 	object->rot, object->scale, object->translate));
+
+	//
+	printf("update object: %d\n", object->type);
 }
 
 static inline void	_move_sideways_check(t_minirt *minirt, bool *state_changed)

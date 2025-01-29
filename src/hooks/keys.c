@@ -28,18 +28,11 @@ int	update_minirt(t_minirt *minirt)
 	if (minirt->selected.is_cam)
 	{
 		camera_controls(minirt);
-		if (minirt->move.left || minirt->move.right
-			|| minirt->move.up || minirt->move.down)
-			camera_rotations(minirt);
+		camera_rotations(minirt);
 	}
-	else //if // (minirt->move.a || minirt->move.d || minirt->move.s
-		//|| minirt->move.w || minirt->move.space || minirt->move.leftshift
-		//|| minirt->move.up || minirt->move.down || minirt->move.left 
-		//|| minirt->move.right)
+	else
 		object_controls(minirt);
-	//
-	return (0);
-	//return (update_rt(minirt), 0);
+	return (update_rt(minirt), 0);
 }
 
 int	record_keypress(int keycode, t_minirt *minirt)
