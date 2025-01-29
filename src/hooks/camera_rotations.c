@@ -25,7 +25,15 @@ void	update_camera_state(t_camera *camera)
 		create_vec4d(0.0f, 0.0f, 0.0f) 
 	);
 	camera->inv_transform.matrix[15] = 1;
-	camera->inv_transform = inverse_mat4d(camera->inv_transform);
+	//camera->inv_transform = mult_n_mat4d(2, camera->inv_transform, 
+	//	translation_mat(-camera->from.x, -camera->from.y, -camera->from.z));
+	//camera->inv_transform = inverse_mat4d(camera->inv_transform);
+	////
+	//plane->rot = rt_extract_rot_vertical(plane->orientation);
+	//plane->inv_transform = mult_n_mat4d(3, plane->rot, plane->scale, plane->translate);	
+	//plane->inv_transform = inverse_mat4d(plane->inv_transform);
+	////
+	printf("update camera\n");
 }
 
 static inline void	_rotcam_apply_pitch_rot(t_minirt *state, bool left)

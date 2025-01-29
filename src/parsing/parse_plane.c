@@ -30,10 +30,17 @@ bool	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	plane->material.color = parse_color(data, i, minirt);
 	set_material(&plane->material, data, i, minirt);
 	//
+	// modify
+	plane->scale = scaling_mat(1.f, 1.f, 1.f);
+	//
 	plane->rot = rt_extract_rot_vertical(plane->orientation);
-	plane->inv_transform = mult_n_mat4d(2, plane->rot, plane->inv_transform);
+	plane->inv_transform = mult_n_mat4d(3, plane->rot, plane->scale, plane->translate);	
 	plane->inv_transform = inverse_mat4d(plane->inv_transform);
 
+	//cylinder->scale = scaling_mat(cylinder->radius, height / 2.f, cylinder->radius);
+	//cylinder->rot = rt_extract_rot_vertical(cylinder->orientation);
+	//cylinder->inv_transform = inverse_mat4d(mult_n_mat4d(3, cylinder->rot,
+	//		cylinder->scale, cylinder->translate));
 /*
 	// test
 	printf("shape[%ld], type = %d\n", idx, plane->type);// test

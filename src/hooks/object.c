@@ -17,6 +17,16 @@ static inline void	update_object_cache(t_object *object)
 {
 	object->inv_transform = inverse_mat4d(mult_n_mat4d(3,
 	object->rot, object->scale, object->translate));
+
+	//add
+	//object->inv_transform = transpose_mat4d(object->inv_transform);
+
+	//cylinder->scale = scaling_mat(cylinder->radius, height / 2.f, cylinder->radius);
+	//cylinder->rot = rt_extract_rot_vertical(cylinder->orientation);
+	//cylinder->inv_transform = inverse_mat4d(mult_n_mat4d(3, cylinder->rot,
+	//		cylinder->scale, cylinder->translate));
+	//
+	printf("update object: %d\n", object->type);
 }
 
 static inline void	_move_sideways_check(t_minirt *minirt, bool *state_changed)

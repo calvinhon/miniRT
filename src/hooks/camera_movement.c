@@ -70,13 +70,9 @@ void	camera_controls(t_minirt *state)
 	bool	state_changed;
 
 	state_changed = false;
-	//if (state->move.a || state->move.d || state->move.s
-	//	|| state->move.w || state->move.space || state->move.leftshift)
-	//{
-		_movecam_sideways_check(state, &state_changed);
-		_movecam_longitudinally_check(state, &state_changed);
-		_movecam_elevation_check(state, &state_changed);
-		if (state_changed)
-			update_camera_state(&state->cam);
-	//}
+	_movecam_sideways_check(state, &state_changed);
+	_movecam_longitudinally_check(state, &state_changed);
+	_movecam_elevation_check(state, &state_changed);
+	if (state_changed)
+		update_camera_state(&state->cam);
 }
