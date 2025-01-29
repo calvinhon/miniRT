@@ -2,7 +2,7 @@
 
 t_point position(t_ray *r, float t)
 {
-	return (add_v_to_p(r->origin, scale_vector(r->direction, t)));
+	return (add_v_to_p(r->origin, scale_vector(&r->direction, t)));
 }
 
 t_ray create_ray(t_point *origin, t_vec4d *direction)

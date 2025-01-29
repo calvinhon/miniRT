@@ -66,9 +66,9 @@ t_mat4d rt_extract_rot_vertical(const t_vec4d u)
 	if (u.x == 0 && fabsf(u.y + 1) < EPSILON && u.z == 0)
 		return (rotate_mat_x((float)-PI));
 	rot_axis = cross(j_hat, u);
-	if (magnitude(rot_axis) < EPSILON)
+	if (magnitude(&rot_axis) < EPSILON)
 		return (identity_mat());
-	rot_axis = normalize(rot_axis);
+	rot_axis = normalize(&rot_axis);
 	theta = acosf(fmaxf(-1.0f, fminf(1.0f, dot(u, j_hat))));
 	q = quat_from_axis_angle(rot_axis, theta);
 	return (mat4_from_quat(q));
@@ -78,7 +78,7 @@ bool is_normalised(t_vec4d *vec, size_t pos, t_minirt *minirt)
 {
 	float mag;
 
-	mag = magnitude(*vec);
+	mag = magnitude(vec);
 
 	if (mag <= EPSILON)
 	{
@@ -88,7 +88,7 @@ bool is_normalised(t_vec4d *vec, size_t pos, t_minirt *minirt)
 	else if (fabsf(mag - 1.0f) > EPSILON)
 	{
 		printf("Unnormalized vector at position %zu has been normalised. \n", pos);
-		*vec = normalize(*vec);
+		*vec = normalize(vec);
 		return (false);
 	}
 	return (true);

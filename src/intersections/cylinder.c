@@ -30,7 +30,7 @@ t_vec4d cylinder_normal_at(t_object *o, t_point *wrld_p)
 		obj_normal = create_vec4d(obj_pt.x, 0, obj_pt.z);
 	transposed = transpose_mat4d(o->inv_transform);
 	wrld_normal = mult_mat4d_vec4d(transposed, obj_normal);
-	return (normalize(wrld_normal));
+	return (normalize(&wrld_normal));
 }
 
 float check_cap(t_ray *r, float t)

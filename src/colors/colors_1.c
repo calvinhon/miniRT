@@ -53,8 +53,8 @@ t_color scale_color(t_color c, float scale)
 	return (create_color(c.r * scale, c.g * scale, c.b * scale));
 }
 
-t_color mult_colors(t_color c1, t_color c2)
+t_color mult_colors(const t_color *c1, const t_color *c2)
 {
-	return (create_color(c1.r * c2.r / 255.f,
-		c1.g * c2.g / 255.f, c1.b * c2.b / 255.f));
+	return (create_color(c1->r * c2->r / 255.f,
+		c1->g * c2->g / 255.f, c1->b * c2->b / 255.f));
 }

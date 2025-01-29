@@ -22,7 +22,7 @@ t_vec2d	rt_get_sphere_uv_local(t_vec4d *hitp)
 
 	op_hitp = *hitp;
 	phi = atan2f(hitp->z, hitp->x);
-	theta = acosf(hitp->y / magnitude(op_hitp));
+	theta = acosf(hitp->y / magnitude(&op_hitp));
 	if (phi < 0.f)
 		phi += two_pi;
 	if (theta < 0.f)

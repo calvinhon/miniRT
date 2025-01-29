@@ -17,7 +17,7 @@ static inline void	_movecam_sideways_check(t_minirt *state,
 {
 	t_vec4d	scaled_left;
 
-	scaled_left = scale_vector(state->cam.left,
+	scaled_left = scale_vector(&state->cam.left,
 		(MOVE_SPEED + (MOVE_SPEED / 2.f)) * state->delta_time);
 	if (state->move.a)
 	{
@@ -36,7 +36,7 @@ static inline void	_movecam_longitudinally_check(t_minirt *state,
 {
 	t_vec4d	scaled_forward;
 
-	scaled_forward = scale_vector(state->cam.forward,
+	scaled_forward = scale_vector(&state->cam.forward,
 		(MOVE_SPEED + (MOVE_SPEED / 2.f)) * state->delta_time);
 	if (state->move.w)
 	{

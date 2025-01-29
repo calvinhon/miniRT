@@ -20,10 +20,12 @@ t_vec4d sphere_normal_at(t_object *o, t_point *wrld_p)
 	t_mat4d transposed;
 
 	obj_pt = mult_mat4d_pt4d(o->inv_transform, *wrld_p);
-	obj_normal = subtract_points(obj_pt, create_point(0, 0, 0));
+	// obj_normal = subtract_points(&obj_pt, create_point(0, 0, 0));
+	obj_normal = create_vec4d(obj_pt.x, obj_pt.y, obj_pt.z);
 	transposed = transpose_mat4d(o->inv_transform);
 	wrld_normal = mult_mat4d_vec4d(transposed, obj_normal);
-	return (normalize(wrld_normal));
+	wrld_normal = normalize(&wrld_normal);
+	return (wrld_normal);
 }
 
 void	intersect_sphere(t_ray *r, t_object *o, t_itx_grp *xs)
