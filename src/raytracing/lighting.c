@@ -32,19 +32,15 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 
 	// if (m->pattern)
 	// 	m->color = pattern_at(c->obj, &c->p, m->pattern);
+	c->diffuse = create_color(0, 0, 0);
+	c->specular = create_color(0, 0, 0);
 	effective_color = mult_colors(m->color, c->l_color);
-	// printf("e_color: %.2f %.2f %.2f\n", effective_color.r, effective_color.g, effective_color.b);
-	// printf("a_color: %.2f %.2f %.2f\n", ambiance->r, ambiance->g, ambiance->b);
 	c->ambient = mult_colors(effective_color, *ambiance);
 	light_v = normalize(subtract_points(l->pos, c->p));
-	// printf("c.p: %f %f %f\n", c->p.x, c->p.y, c->p.z);
 	light_dot_normal = dot(light_v, c->normal_v);
 	if (light_dot_normal >= 0 && !c->shadowed)
 	{
-		// printf("diffuse_s: %f\n", m->diffuse_s);
 		c->diffuse = scale_color(effective_color, m->diffuse_s);
-		// printf("c->diffuse: %.2f %.2f %.2f\n", c->diffuse.r, c->diffuse.g, c->diffuse.b);
-		// printf("light dot normal: %.2f\n", light_dot_normal);
 		c->diffuse = scale_color(c->diffuse, light_dot_normal);
 		light_v = negate_vector(light_v);
 		reflect_dot_eye = dot(reflect(&light_v, &c->normal_v), c->eye_v);
@@ -54,7 +50,6 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 				pow(reflect_dot_eye, m->shininess) * m->specular_s);
 		}
 	}
-	// printf("c->a_color: %f %f %f\n", c->ambient.r, c->ambient.g, c->ambient.b);
 	return (add_colors(3, c->ambient, c->diffuse, c->specular));
 }
 
@@ -103,6 +98,8 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 		else
 			c->l_color = s->lights[i].specs.point.intensity;
 		c->shadowed = is_shadowed(s, &c->over_point, &s->lights[i]);
+		if (i > 0)
+			s->ambiance = create_color(0, 0, 0);
 		lighting_result = lighting(&c->obj->material,
 			&s->lights[i], c, &s->ambiance);
 		surface = add_colors(2, surface, lighting_result);

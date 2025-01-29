@@ -70,8 +70,6 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 	// if (comps.obj->material.refractive_index > 0.f)
 	// 	prepare_refractions(itx, &comps, xs);
 	(void)xs;
-	comps.diffuse = create_color(0, 0, 0);
-	comps.specular = create_color(0, 0, 0);
 	return (comps);
 }
 
