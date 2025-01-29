@@ -67,7 +67,7 @@ int main(int ac, char **av)
 	minirt = init_minirt();
 	parse(av[1], minirt);
 	init_core(minirt);
-
+//
 	int y = -1;
 	int x = -1;
 	while (++y < minirt->cam.vsize - 1)
@@ -78,6 +78,7 @@ int main(int ac, char **av)
 		}
 		x = -1;
 	}
+//
 	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
 	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
 	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1, \
