@@ -129,6 +129,9 @@ void	set_material(t_material *material, char *data, size_t *i, \
 	material->reflective = 0.0;
 	material->transparency = 0.0;
 	material->refractive_index = 1.0;
+	//add
+	material->pattern = NULL;
+	//
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
 	if (data[*i] == 'M')

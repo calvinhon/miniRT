@@ -41,36 +41,39 @@ static void	parse_pattern_cont(t_pattern *pattern, char *data, size_t *i, \
 bool	parse_pattern(t_material *material, char *data, \
 	size_t *i, t_minirt *minirt)
 {
-	t_pattern	pattern;
+	t_pattern	*pattern;
 
-	pattern.a = parse_color(data, i, minirt);
-	pattern.b = parse_color(data, i, minirt);
-	pattern.p_scale = parse_float(data, i);
+	pattern = ft_calloc(1, sizeof(t_pattern));
+	if (!pattern)
+		errors(CER_MALLOC, ER_MALLOC, minirt);
+	pattern->a = parse_color(data, i, minirt);
+	pattern->b = parse_color(data, i, minirt);
+	pattern->p_scale = parse_float(data, i);
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
 	if (!ft_strncmp(data + (*i), "GRADIENT", 8))
 	{
 		*i += 8;
-		pattern.type= GRADIENT;
-		pattern.transform = scaling_mat(10, 10, 10);
+		pattern->type= GRADIENT;
+		pattern->transform = scaling_mat(10, 10, 10);
 	}
 	else if (!ft_strncmp(data + (*i), "CHECKER", 7))
 	{
 		*i += 7;
-		pattern.type = CHECKER;
-		pattern.transform = identity_mat();	
+		pattern->type = CHECKER;
+		pattern->transform = identity_mat();	
 	}
 	else
-		parse_pattern_cont(&pattern, data, i, minirt);
+		parse_pattern_cont(pattern, data, i, minirt);
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
-	pattern.inv_transform = inverse_mat4d(pattern.transform);
+	pattern->inv_transform = inverse_mat4d(pattern->transform);
 	material->pattern = pattern;
 	//
-	printf("pattern color: %f %f %f\n", pattern.a.r, pattern.a.g, pattern.a.b);
-	printf("pattern color: %f %f %f\n", pattern.b.r, pattern.b.g, pattern.b.b);
-	printf("pattern scale: %f\n", pattern.p_scale);
-	printf("pattern type: %d\n", pattern.type);
+	printf("pattern color: %f %f %f\n", pattern->a.r, pattern->a.g, pattern->a.b);
+	printf("pattern color: %f %f %f\n", pattern->b.r, pattern->b.g, pattern->b.b);
+	printf("pattern scale: %f\n", pattern->p_scale);
+	printf("pattern type: %d\n", pattern->type);
 	//
 	return (true);
 }
