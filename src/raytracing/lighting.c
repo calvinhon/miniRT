@@ -41,17 +41,17 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 	light_dot_normal = dot(light_v, c->normal_v);
 	if (light_dot_normal >= 0 && !c->shadowed)
 	{
-		c->diffuse = scale_color(effective_color, m->diffuse_s);
-		c->diffuse = scale_color(c->diffuse, light_dot_normal);
+		c->diffuse = scale_color(&effective_color, m->diffuse_s);
+		c->diffuse = scale_color(&c->diffuse, light_dot_normal);
 		light_v = negate_vector(&light_v);
 		reflect_dot_eye = dot(reflect(&light_v, &c->normal_v), c->eye_v);
 		if (reflect_dot_eye > 0)
 		{
-			c->specular = scale_color(c->l_color,
+			c->specular = scale_color(&c->l_color,
 				pow(reflect_dot_eye, m->shininess) * m->specular_s);
 		}
 	}
-	return (add_colors(3, c->ambient, c->diffuse, c->specular));
+	return (add_colors(3, &c->ambient, &c->diffuse, &c->specular));
 }
 
 bool is_shadowed(t_scene *s, t_point *p, t_light *l)
@@ -79,7 +79,7 @@ t_color reflected_color(t_scene *s, t_comps *c, int remaining)
 
 	reflect_r = create_ray(&c->over_point, &c->reflect_v);
 	color = color_at(s, &reflect_r, remaining - 1);
-	return (scale_color(color, c->obj->material.reflective));
+	return (scale_color(&color, c->obj->material.reflective));
 }
 
 t_color shade_hit(t_scene *s, t_comps *c, int remaining)
@@ -103,7 +103,7 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 			s->ambiance = create_color(0, 0, 0);
 		lighting_result = lighting(&c->obj->material,
 			&s->lights[i], c, &s->ambiance);
-		surface = add_colors(2, surface, lighting_result);
+		surface = add_colors(2, &surface, &lighting_result);
 	}
 	if (c->obj->material.reflective)
 		reflect = reflected_color(s, c, remaining);
@@ -116,5 +116,5 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 	// color_clamp(&color);
 	// if (surface.r > 0)
 	// 	printf("surface: %.2f %.2f %.2f\n", surface.r, surface.g, surface.b);
-	return (add_colors(2, surface, reflect));
+	return (add_colors(2, &surface, &reflect));
 }

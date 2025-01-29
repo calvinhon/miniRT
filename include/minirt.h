@@ -219,7 +219,7 @@ bool make_window(t_minirt *minirt, int width, int height);
 t_camera set_camera(float fov);
 t_ray cam_ray_to_pixel(const t_camera *cam, int x, int y);
 t_mat4d view_transform(t_point from, t_point to, t_vec4d up);
-void put_pixel(t_frame *frame, int x, int y, const t_color *color);
+void put_pixel(t_frame *frame, int x, int y, t_color *color);
 t_color render_pixel(t_minirt *program, int x, int y);
 // t_color		render_pixel(t_minirt *minirt, int x, int y);
 // t_ray		ray_for_pixel(const t_camera *cam, int px, int py);

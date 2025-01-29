@@ -42,8 +42,10 @@ t_color	pattern_at(t_object *o, t_point *world_point, t_pattern *pat)
 		&& ((int)(floor(pat_pt.x + noise) + floor(pat_pt.y + noise) + floor(pat_pt.z + noise)) % 2)))
 			color = pat->b;
 	else if (pat->type == GRADIENT)
-		color = add_colors(2, pat->a,
-			scale_color(subtract_colors(pat->b, pat->a),
-				(1 + noise) * (pat_pt.x - floor(pat_pt.x))));
+	{
+		color = subtract_colors(&pat->b, &pat->a);
+		color = scale_color(&color, (1 + noise) * (pat_pt.x - floor(pat_pt.x)));
+		color = add_colors(2, &pat->a, &color);
+	}
 	return (color);
 }

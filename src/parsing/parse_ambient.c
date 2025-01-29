@@ -71,6 +71,6 @@ void	parse_ambient(t_minirt *minirt, char *data, size_t *i)
 			ER_AMBIENT_VALUE, minirt));
 	minirt->ambiance.is_set = true;
 	minirt->ambiance.color = parse_color(data, i, minirt);
-	minirt->scene.ambiance = scale_color(minirt->ambiance.color, \
+	minirt->scene.ambiance = scale_color(&minirt->ambiance.color, \
 		minirt->ambiance.ratio);
 }

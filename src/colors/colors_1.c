@@ -26,7 +26,7 @@ t_color add_colors(int num_of_colors, ...)
 {
 	t_color c;
 	int i;
-	t_color c_arg;
+	t_color *c_arg;
 	va_list args;
 
 	va_start(args, num_of_colors);
@@ -34,23 +34,23 @@ t_color add_colors(int num_of_colors, ...)
 	c = create_color(0, 0, 0);
 	while (++i < num_of_colors)
 	{
-		c_arg = va_arg(args, t_color);
-		c.r += c_arg.r;
-		c.g += c_arg.g;
-		c.b += c_arg.b;
+		c_arg = va_arg(args, t_color*);
+		c.r += c_arg->r;
+		c.g += c_arg->g;
+		c.b += c_arg->b;
 	}
 	va_end(args);
 	return (create_color(c.r, c.g, c.b));
 }
 
-t_color subtract_colors(t_color c1, t_color c2)
+t_color subtract_colors(const t_color *c1, const t_color *c2)
 {
-	return (create_color(c1.r - c2.r, c1.g - c2.g, c1.b - c2.b));
+	return (create_color(c1->r - c2->r, c1->g - c2->g, c1->b - c2->b));
 }
 
-t_color scale_color(t_color c, float scale)
+t_color scale_color(const t_color *c, float scale)
 {
-	return (create_color(c.r * scale, c.g * scale, c.b * scale));
+	return (create_color(c->r * scale, c->g * scale, c->b * scale));
 }
 
 t_color mult_colors(const t_color *c1, const t_color *c2)

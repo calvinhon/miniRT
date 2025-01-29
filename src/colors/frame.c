@@ -25,12 +25,12 @@ bool	make_window(t_minirt *minirt, int width, int height)
 	return (true);
 }
 
-void	put_pixel(t_frame *frame, int x, int y, const t_color *color)
+void	put_pixel(t_frame *frame, int x, int y, t_color *color)
 {
 	char	*dst;
 
 	dst = frame->addr + (y * frame->line_length + x * frame->bpp_8);
-	*(uint32_t *)dst = plot_color(*color);
+	*(uint32_t *)dst = plot_color(color);
 }
 
 t_color	lerp_colors(const t_color *a, const t_color *b, float t)
