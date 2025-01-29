@@ -66,10 +66,10 @@ bonus:
 mandatory:
 	$(MAKE) BONUS=0
 
-%.o: %.c
+%.o: %.c $(INCLUDE) $(SRCS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(NAME): $(OBJS) $(INCLUDE)
+$(NAME): $(OBJS) $(INCLUDE) $(SRCS)
 	@make -C $(MLX_DIR)
 	make -C libs/libft
 	$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)

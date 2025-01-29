@@ -32,8 +32,8 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 
 	// if (m->pattern)
 	// 	m->color = pattern_at(c->obj, &c->p, m->pattern);
-	// printf("m_color: %.2f %.2f %.2f\n", m->color.r, m->color.g, m->color.b);
-	// printf("l_color: %.2f %.2f %.2f\n", c->l_color.r, c->l_color.g, c->l_color.b);
+	 printf("m_color: %.2f %.2f %.2f\n", m->color.r, m->color.g, m->color.b);
+	 printf("l_color: %.2f %.2f %.2f\n", c->l_color.r, c->l_color.g, c->l_color.b);
 	effective_color = mult_colors(m->color, c->l_color);
 	// printf("e_color: %.2f %.2f %.2f\n", effective_color.r, effective_color.g, effective_color.b);
 	// printf("a_color: %.2f %.2f %.2f\n", ambiance->r, ambiance->g, ambiance->b);

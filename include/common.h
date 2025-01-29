@@ -27,7 +27,7 @@ enum e_object_types
 	POINT_LIGHT
 };
 
-typedef union s_color
+typedef struct s_color
 {
 	float a;
 	float r;
