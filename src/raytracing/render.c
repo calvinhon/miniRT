@@ -86,7 +86,7 @@ t_color color_at(t_scene *s, t_ray *r, int remaining)
 	// printf("before: r direction: %.2f %.2f %.2f\n", r->direction.x, r->direction.y, r->direction.z);
 	if (!hit)
 		return (create_color(0, 0, 0));
-	printf("after: r direction: %.5f %.5f %.5f\n", r->direction.x, r->direction.y, r->direction.z);
+	// printf("after: r direction: %.5f %.5f %.5f\n", r->direction.x, r->direction.y, r->direction.z);
 	comps = prepare_computations(hit, r, &xs);
 	if (!remaining)
 		return (create_color(0, 0, 0));
