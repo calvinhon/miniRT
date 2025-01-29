@@ -29,7 +29,7 @@ int	update_rt(t_minirt *minirt)
 	if (last_time.tv_sec != 0 || last_time.tv_nsec != 0)
 		minirt->delta_time = get_delta_time(&last_time, &curr_time);
 	last_time = curr_time;
-	// if (!thread_arbiter(minirt))
-	// 	return (1);
+	if (!thread_arbiter(minirt))
+		return (1);
 	return (0);
 }

@@ -112,7 +112,8 @@ t_color render_pixel(t_minirt *program, int x, int y)
 
 	r = cam_ray_to_pixel(&program->cam, x, y);
 	c = color_at(&program->scene, &r, MAX_RFLX);
-	// printf("color: %.2f %.2f %.2f\n", c.r, c.g, c.b);
+	// if (c.r > 0)
+	// 	printf("color: %.2f %.2f %.2f\n", c.r, c.g, c.b);
 	put_pixel(&program->frame, x, y, &c);
 	return (c);
 }

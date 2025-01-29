@@ -6,7 +6,7 @@
 #    By: chon <chon@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 08:55:08 by chon              #+#    #+#              #
-#    Updated: 2025/01/29 10:02:39 by chon             ###   ########.fr        #
+#    Updated: 2025/01/29 11:17:25 by chon             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ endif
 NAME := miniRT
 
 SRC := main.c \
-	$(addprefix colors/, colors.c frame.c paint.c) \
+	$(addprefix colors/, colors_1.c colors_2.c frame.c paint.c) \
 	$(addprefix parsing/, parse.c parse_ambient.c parse_light.c \
 	parse_camera.c parse_sphere.c parse_utils.c parse_errors.c \
 	parse_plane.c parse_cylinder.c parse_cube.c parse_cone.c \

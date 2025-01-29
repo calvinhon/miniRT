@@ -288,7 +288,7 @@ t_vec4d rt_apply_normal_map(const t_object *obj, const t_vec2d *uv,
 
 /*--- LIGHTING ---*/
 t_vec4d reflect(t_vec4d *in, t_vec4d *normal);
-t_color lighting(t_material *m, t_light *l, t_comps *c, bool in_shadow);
+t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance);
 t_color shade_hit(t_scene *s, t_comps *comps, int depth);
 bool is_shadowed(t_scene *s, t_point *p, t_light *l);
 // t_color		shade_hit(t_scene *scene, t_comps *comps, int depth);

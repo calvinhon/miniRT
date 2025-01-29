@@ -54,7 +54,6 @@ void *await_task(void *arg)
 			break;
 		}
 		pthread_mutex_unlock(&data->mutex);
-		printf("hits\n");
 		render_chunk(data);
 		pthread_mutex_lock(&data->mutex);
 		data->work_ready = false;

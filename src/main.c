@@ -15,10 +15,10 @@
 #include "mlx.h"
 #include "keys.h"
 
-void	errors(int err_code, char* err_ms, void *ptr)
+void errors(int err_code, char *err_ms, void *ptr)
 {
 	t_minirt *minirt;
-	
+
 	minirt = (t_minirt *)ptr;
 	if (minirt)
 		free_minirt(minirt);
@@ -26,9 +26,9 @@ void	errors(int err_code, char* err_ms, void *ptr)
 	exit(err_code);
 }
 
-static t_minirt	*ini_minirt(void)
+static t_minirt *init_minirt(void)
 {
-	t_minirt	*minirt;
+	t_minirt *minirt;
 
 	minirt = ft_calloc(1, sizeof(t_minirt));
 	if (!minirt)
@@ -41,7 +41,7 @@ static t_minirt	*ini_minirt(void)
 		errors(CER_MLX_WIN, ER_MLX_WIN, minirt);
 	minirt->textures = NULL;
 	minirt->selected = (struct s_select){.is_cam = true, .object = NULL};
-	return(minirt);
+	return (minirt);
 }
 
 static void check_filename(char *file)
@@ -53,18 +53,18 @@ static void check_filename(char *file)
 		errors(CER_FILE, ER_FILE, NULL);
 	else if (!ft_strnstr(file + (len - 3), ".rt", len))
 		errors(CER_NOT_RT, ER_NOT_RT, NULL);
-    if (access(file, F_OK) != 0)
-    	errors(CER_NO_FILE, ER_NO_FILE, NULL);
+	if (access(file, F_OK) != 0)
+		errors(CER_NO_FILE, ER_NO_FILE, NULL);
 }
 
-int	main(int ac, char **av)
+int main(int ac, char **av)
 {
-	t_minirt	*minirt;
+	t_minirt *minirt;
 
 	if (ac != 2)
 		errors(CER_AGC, ER_AGC, NULL);
 	check_filename(av[1]);
-	minirt = ini_minirt();
+	minirt = init_minirt();
 	parse(av[1], minirt);
 	init_core(minirt);
 
@@ -79,16 +79,16 @@ int	main(int ac, char **av)
 	// 	x = -1;
 	// }
 
-	int y = -1;
-	int x = -1;
-	while (++y < minirt->cam.vsize - 1)
-	{
-		while (++x < minirt->cam.hsize - 1)
-		{
-			render_pixel(minirt, x, y);
-		}
-		x = -1;
-	}
+	// int y = -1;
+	// int x = -1;
+	// while (++y < minirt->cam.vsize - 1)
+	// {
+	// 	while (++x < minirt->cam.hsize - 1)
+	// 	{
+	// 		render_pixel(minirt, x, y);
+	// 	}
+	// 	x = -1;
+	// }
 	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
 	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1, &record_keyrelease, minirt);
 	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2, &destroy_minirt, minirt);

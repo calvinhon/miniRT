@@ -23,7 +23,7 @@ t_vec4d reflect(t_vec4d *in, t_vec4d *normal)
 	return (subtract_vectors(*in, scaled_vec));
 }
 
-t_color lighting(t_material *m, t_light *l, t_comps *c, bool in_shadow)
+t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 {
 	t_color effective_color;
 	t_vec4d light_v;
@@ -32,12 +32,15 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, bool in_shadow)
 
 	// if (m->pattern)
 	// 	m->color = pattern_at(c->obj, &c->p, m->pattern);
-	printf("m_color: %.2f %.2f %.2f\n", m->color.r, m->color.g, m->color.b);
+	// printf("m_color: %.2f %.2f %.2f\n", m->color.r, m->color.g, m->color.b);
+	// printf("l_color: %.2f %.2f %.2f\n", c->l_color.r, c->l_color.g, c->l_color.b);
 	effective_color = mult_colors(m->color, c->l_color);
-	c->ambient = scale_color(effective_color, m->ambient_s);
+	// printf("e_color: %.2f %.2f %.2f\n", effective_color.r, effective_color.g, effective_color.b);
+	// printf("a_color: %.2f %.2f %.2f\n", ambiance->r, ambiance->g, ambiance->b);
+	c->ambient = normalize_color(mult_colors(effective_color, *ambiance));
 	light_v = normalize(subtract_points(l->pos, c->p));
 	light_dot_normal = dot(light_v, c->normal_v);
-	if (light_dot_normal >= 0 && !in_shadow)
+	if (light_dot_normal >= 0 && !c->shadowed)
 	{
 		c->diffuse = scale_color(effective_color, m->diffuse_s);
 		c->diffuse = scale_color(c->diffuse, light_dot_normal);
@@ -49,6 +52,7 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, bool in_shadow)
 				pow(reflect_dot_eye, m->shininess) * m->specular_s);
 		}
 	}
+	// printf("c->a_color: %.2f %.2f %.2f\n", c->ambient.r, c->ambient.g, c->ambient.b);
 	return (add_colors(3, c->ambient, c->diffuse, c->specular));
 }
 
@@ -85,7 +89,6 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 	t_color lighting_result;
 	t_color reflect;
 	t_color surface;
-	bool in_shadow;
 	int i;
 
 	surface = create_color(0, 0, 0);
@@ -97,9 +100,9 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 			c->l_color = s->lights[i].specs.spot.intensity;
 		else
 			c->l_color = s->lights[i].specs.point.intensity;
-		in_shadow = is_shadowed(s, &c->over_point, &s->lights[i]);
+		c->shadowed = is_shadowed(s, &c->over_point, &s->lights[i]);
 		lighting_result = lighting(&c->obj->material,
-			&s->lights[i], c, in_shadow);
+			&s->lights[i], c, &s->ambiance);
 		surface = add_colors(2, surface, lighting_result);
 	}
 	if (c->obj->material.reflective)

@@ -99,6 +99,7 @@ void parse_material(t_material *material, char *data, size_t *i, t_minirt *minir
 void set_material(t_material *material, char *data, size_t *i, t_minirt *minirt)
 {
 	// material->xordc = (t_color){.v = vec4s_re(0.f, 0.f, 0.f, 0.f)};
+	// printf("scene ambiance: %.2f %.2f %.2f\n", minirt->scene.ambiance.r, minirt->scene.ambiance.g, minirt->scene.ambiance.b);
 	material->ambient_s = 0.1;
 	material->diffuse_s = 0.9;
 	material->specular_s = 0.9;
