@@ -30,8 +30,9 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, bool in_shadow)
 	float light_dot_normal;
 	float reflect_dot_eye;
 
-	if (m->pattern)
-		m->color = pattern_at(c->obj, &c->p, m->pattern);
+	// if (m->pattern)
+	// 	m->color = pattern_at(c->obj, &c->p, m->pattern);
+	printf("m_color: %.2f %.2f %.2f\n", m->color.r, m->color.g, m->color.b);
 	effective_color = mult_colors(m->color, c->l_color);
 	c->ambient = scale_color(effective_color, m->ambient_s);
 	light_v = normalize(subtract_points(l->pos, c->p));

@@ -45,11 +45,14 @@ t_color	parse_color(char *data, size_t *i, t_minirt *minirt)
 	t_color	color;
 
 	color.a = 0.f;
-	color.r = parse_int(data, i) / 255.999f;
-	color.g = parse_int(data, i) / 255.999f;
-	color.b = parse_int(data, i) / 255.999f;
-	if (color.r < 0.f || color.r > 1.f || \
-	color.g < 0.f || color.g > 1.f || color.b < 0.f || color.b > 1.f)
+	// color.r = parse_int(data, i) / 255.999f;
+	// color.g = parse_int(data, i) / 255.999f;
+	// color.b = parse_int(data, i) / 255.999f;
+	color.r = parse_int(data, i);
+	color.g = parse_int(data, i);
+	color.b = parse_int(data, i);
+	if (color.r < 0.f || color.r > 255.f || \
+	color.g < 0.f || color.g > 255.f || color.b < 0.f || color.b > 255.f)
 	{
 		free(data);
 		printf("Invalid input at position %ld: \n", *i);

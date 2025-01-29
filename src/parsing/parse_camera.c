@@ -19,13 +19,14 @@ void	set_camera_orient(t_camera *cam)
 {
 	t_mat4d view_mat;
 
+	// printf("forward: %.2f %.2f %.2f\n", cam->forward.x, cam->forward.y, cam->forward.z);
 	if (fabsf(cam->forward.x) < EPSILON && fabsf(cam->forward.z) < EPSILON)
 		cam->left = create_vec4d(-1.0f, 0.0f, 0.0f);
 	else
 		cam->left = cross(cam->forward,
 				create_vec4d(0.0f, 1.0f, 0.0f));
+	// printf("left: %.2f %.2f %.2f\n", cam->left.x, cam->left.y, cam->left.z);
 	view_mat = identity_mat();
-	cam->left = normalize(cam->left);
 	cam->up = cross(cam->left, cam->forward);
 	view_mat.matrix[0] = cam->left.x;
 	view_mat.matrix[1] = cam->left.y;

@@ -109,7 +109,7 @@ typedef struct s_material_colors
 typedef struct s_object
 {
 	int type;
-	t_vec4d center;
+	t_point center;
 	t_mat4d inv_transform;
 	t_mat4d transposed_inverse;
 	t_mat4d rot;
