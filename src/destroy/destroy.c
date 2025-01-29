@@ -27,10 +27,23 @@ void	destroy_mlx(t_minirt *minirt)
 
 void	destroy_scene(t_minirt *minirt)
 {
+	//int	i;
+
+	//i = -1;
 	if (minirt->scene.lights)
 		free(minirt->scene.lights);
-	if (minirt->scene.lights)	
+	if (minirt->scene.shapes)
+	{		
+		//while (++i < minirt->scene.num_shapes)
+		//{
+		//	if (minirt->scene.shapes[i].material.pattern)
+		//	{
+		//		free(minirt->scene.shapes->material.pattern);
+		//		minirt->scene.shapes->material.pattern = NULL;
+		//	}
+		//}
 		free(minirt->scene.shapes);
+	}
 	minirt->scene.lights = NULL;
 	minirt->scene.shapes = NULL;
 }

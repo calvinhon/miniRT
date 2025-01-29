@@ -91,7 +91,7 @@ typedef struct s_material
 	float transparency;
 	float refractive_index;
 	bool checkered;
-	t_pattern *pattern;
+	t_pattern pattern;
 	t_frame *fra_tex;
 } t_material;
 
