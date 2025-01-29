@@ -84,6 +84,8 @@ int main(int ac, char **av)
 		mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1, \
 		&record_keyrelease, minirt);
 	*/
+	//mlx_mouse_hook(minirt->win, &select_shape, minirt);
+	//mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
 	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2, \
 		&destroy_minirt, minirt);
 	mlx_loop(minirt->mlx);
