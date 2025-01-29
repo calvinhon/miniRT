@@ -35,6 +35,7 @@ void	parse_shape(t_minirt *minirt, char *data, size_t *i)
 	else
 	{
 		ft_printf("Unknown object type: %c%c at position %d\n", data[start], data[start + 1], start);
+		ft_printf("data = : %s\n", data + *i);
 		errors(CER_OBJ_TYPE,ER_OBJ_TYPE, minirt);
 	}
 		

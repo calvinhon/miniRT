@@ -34,6 +34,7 @@ static void	parse_pattern_cont(t_pattern *pattern, char *data, size_t *i, \
 	else
 	{
 		ft_printf("Unknown pattern type field at position %d\n", *i);
+		ft_printf("data = : %s\n", data + *i);
 		errors(CER_EXPECT_M_TRAIT, ER_EXPECT_M_TRAIT, minirt);
 	}
 }

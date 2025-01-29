@@ -32,7 +32,7 @@ bool	count_elements(t_minirt *minirt, char *line)
 		(*line == 'c' && *(line + 1) == 'o' && *(line + 2) == ' '))
 		minirt->scene.num_shapes++;
 	else
-		return (printf("Unknown element: %c%c\n", *line, *(line + 1)), free(line), false);
+		return (printf("Unknown element: %s\n", line), free(line), false);
 	return (true);
 }
 void	check_elements(t_minirt *minirt)
