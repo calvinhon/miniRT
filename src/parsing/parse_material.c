@@ -12,14 +12,16 @@
 
 #include "miniRT.h"
 #include "macros.h"
-// #include "libft.h"
+#include "libft.h"
 #include "colors.h"
 
-bool parse_plane_checker(t_material *material, char *data, size_t *i, t_minirt *minirt)
+bool	parse_plane_checker(t_material *material, char *data, \
+	size_t *i, t_minirt *minirt)
 {
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
-	if (ft_strncmp(data + (*i), "yes", 3) && ft_strncmp(data + (*i), "no", 22))
+	if (ft_strncmp(data + (*i), "yes", 3)
+		&& ft_strncmp(data + (*i), "no", 22))
 		return (minirt->error_code = 4, false);
 	if (!ft_strncmp(data + (*i), "yes", 3))
 	{
@@ -31,13 +33,60 @@ bool parse_plane_checker(t_material *material, char *data, size_t *i, t_minirt *
 		*i += 2;
 		material->checkered = false;
 	}
-
 	minirt->error_code = 0;
 	minirt->flt_operations = 1;
 	return (true);
 }
 
-void parse_material(t_material *material, char *data, size_t *i, t_minirt *minirt)
+void	parse_material_cont1(t_material *material, char *data, \
+	size_t *i, t_minirt *minirt)
+{
+	if (!ft_strncmp(data + (*i), "bump_xpm=", 9))
+	{
+		(*i) += 9;
+		parse_bump_xpm(material, data, i, minirt);
+	}
+	else if (!ft_strncmp(data + (*i), "checker=", 8))
+	{
+		*i += 8;
+		parse_plane_checker(material, data, i, minirt);
+	}
+	else
+	{
+		ft_printf("Unknown material field at position %d\n", *i);
+		errors(CER_EXPECT_M_TRAIT, ER_EXPECT_M_TRAIT, minirt);
+	}
+}
+
+void	parse_material_cont(t_material *material, char *data, \
+	size_t *i, t_minirt *minirt)
+{
+	if (!ft_strncmp(data + (*i), "reflective=", 11))
+	{
+		(*i) += 11;
+		material->reflective = parse_float(data, i);
+	}
+	else if (!ft_strncmp(data + (*i), "sheen=", 6))
+	{
+		(*i) += 6;
+		material->shininess = parse_float(data, i);
+	}
+	else if (!ft_strncmp(data + (*i), "transparency=", 13))
+	{
+		(*i) += 13;
+		material->transparency = parse_float(data, i);
+	}
+	else if (!ft_strncmp(data + (*i), "refractive_index=", 17))
+	{
+		(*i) += 17;
+		material->refractive_index = parse_float(data, i);
+	}
+	else
+		parse_material_cont1(material, data, i, minirt);
+}
+
+void	parse_material(t_material *material, char *data, \
+	size_t *i, t_minirt *minirt)
 {
 	while (data[*i] != '\0' && data[*i] != '\n')
 	{
@@ -58,48 +107,15 @@ void parse_material(t_material *material, char *data, size_t *i, t_minirt *minir
 			(*i) += 9;
 			material->specular_s = parse_float(data, i);
 		}
-		else if (!ft_strncmp(data + (*i), "shininess=", 6))
-		{
-			(*i) += 6;
-			material->shininess = parse_float(data, i);
-		}
-		else if (!ft_strncmp(data + (*i), "reflective=", 11))
-		{
-			(*i) += 11;
-			material->reflective = parse_float(data, i);
-		}
-		else if (!ft_strncmp(data + (*i), "transparency=", 13))
-		{
-			(*i) += 13;
-			material->transparency = parse_float(data, i);
-		}
-		else if (!ft_strncmp(data + (*i), "refractive_index=", 17))
-		{
-			(*i) += 17;
-			material->refractive_index = parse_float(data, i);
-		}
-		else if (!ft_strncmp(data + (*i), "bump_xpm=", 9))
-		{
-			(*i) += 9;
-			parse_bump_xpm(material, data, i, minirt);
-		}
-		else if (!ft_strncmp(data + (*i), "checker=", 8))
-		{
-			*i += 8;
-			parse_plane_checker(material, data, i, minirt);
-		}
 		else
-		{
-			ft_printf("Unknown material field at position %d\n", *i);
-			errors(CER_EXPECT_M_TRAIT, ER_EXPECT_M_TRAIT, minirt);
-		}
+			parse_material_cont(material, data, i, minirt);
 	}
 }
 
-void set_material(t_material *material, char *data, size_t *i, t_minirt *minirt)
+void	set_material(t_material *material, char *data, size_t *i, \
+	t_minirt *minirt)
 {
-	// material->xordc = (t_color){.v = vec4s_re(0.f, 0.f, 0.f, 0.f)};
-	// printf("scene ambiance: %.2f %.2f %.2f\n", minirt->scene.ambiance.r, minirt->scene.ambiance.g, minirt->scene.ambiance.b);
+	//material->xordc = (t_color){.v = vec4s_re(0.f, 0.f, 0.f, 0.f)};
 	material->ambient_s = 0.1;
 	material->diffuse_s = 0.9;
 	material->specular_s = 0.9;
