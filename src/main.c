@@ -79,13 +79,11 @@ int main(int ac, char **av)
 		x = -1;
 	}
 	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
-	//mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
-	/*
-		mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1, \
+	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
+	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1, \
 		&record_keyrelease, minirt);
-	*/
-	//mlx_mouse_hook(minirt->win, &select_shape, minirt);
-	//mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
+	mlx_mouse_hook(minirt->win, &select_shape, minirt);
+	mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
 	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2, \
 		&destroy_minirt, minirt);
 	mlx_loop(minirt->mlx);

@@ -37,7 +37,9 @@ int	update_minirt(t_minirt *minirt)
 		//|| minirt->move.up || minirt->move.down || minirt->move.left 
 		//|| minirt->move.right)
 		object_controls(minirt);
-	return (update_rt(minirt), 0);
+	//
+	return (0);
+	//return (update_rt(minirt), 0);
 }
 
 int	record_keypress(int keycode, t_minirt *minirt)
