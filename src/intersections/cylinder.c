@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:35:57 by chon              #+#    #+#             */
-/*   Updated: 2025/01/28 10:13:41 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/30 11:41:56 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_vec4d cylinder_normal_at(t_object *o, t_point *wrld_p)
 	t_mat4d transposed;
 	float	dist;
 
-	obj_pt = mult_mat4d_pt4d(o->inv_transform, *wrld_p);
+	obj_pt = mult_mat4d_pt4d(&o->inv_transform, wrld_p);
 	dist = pow(obj_pt.x, 2) + pow(obj_pt.z, 2);
 	if (dist < 1 && obj_pt.y >= o->specs.max_y - EPSILON)
 		obj_normal = create_vec4d(0, 1, 0);
@@ -28,8 +28,8 @@ t_vec4d cylinder_normal_at(t_object *o, t_point *wrld_p)
 		obj_normal = create_vec4d(0, -1, 0);
 	else
 		obj_normal = create_vec4d(obj_pt.x, 0, obj_pt.z);
-	transposed = transpose_mat4d(o->inv_transform);
-	wrld_normal = mult_mat4d_vec4d(transposed, obj_normal);
+	transposed = transpose_mat4d(&o->inv_transform);
+	wrld_normal = mult_mat4d_vec4d(&transposed, &obj_normal);
 	return (normalize(&wrld_normal));
 }
 

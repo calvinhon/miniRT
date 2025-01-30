@@ -65,11 +65,11 @@ t_mat4d rt_extract_rot_vertical(const t_vec4d u)
 		return (identity_mat());
 	if (u.x == 0 && fabsf(u.y + 1) < EPSILON && u.z == 0)
 		return (rotate_mat_x((float)-PI));
-	rot_axis = cross(j_hat, u);
+	rot_axis = cross_pointers(&j_hat, &u);
 	if (magnitude(&rot_axis) < EPSILON)
 		return (identity_mat());
 	rot_axis = normalize(&rot_axis);
-	theta = acosf(fmaxf(-1.0f, fminf(1.0f, dot(u, j_hat))));
+	theta = acosf(fmaxf(-1.0f, fminf(1.0f, dot_pointers(&u, &j_hat))));
 	q = quat_from_axis_angle(rot_axis, theta);
 	return (mat4_from_quat(q));
 }

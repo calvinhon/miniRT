@@ -15,8 +15,9 @@
 
 static inline void	update_object_cache(t_object *object)
 {
-	object->inv_transform = inverse_mat4d(mult_n_mat4d(3,
-	object->rot, object->scale, object->translate));
+	object->inv_transform = mult_n_mat4d(3,
+	object->rot, object->scale, object->translate);
+	object->inv_transform = inverse_mat4d(&object->inv_transform);
 
 	//add
 	//object->inv_transform = transpose_mat4d(object->inv_transform);
@@ -34,7 +35,7 @@ static inline void	_move_sideways_check(t_minirt *minirt, bool *state_changed)
 	t_object	*selected_object;
 	t_vec4d	scaled_left;
 
-	scaled_left = scale_vector(minirt->cam.left,
+	scaled_left = scale_vector(&minirt->cam.left,
 		(MOVE_SPEED + (MOVE_SPEED / 2.f)) * minirt->delta_time);
 	selected_object = minirt->selected.object;
 	if (minirt->move.a || minirt->move.left)
@@ -59,9 +60,9 @@ static inline void	_move_longitudinally_check(t_minirt *minirt,
 	selected_object = minirt->selected.object;
 	op = create_point(selected_object->translate.matrix[3],
 		minirt->cam.from.y, selected_object->translate.matrix[11]);
-	viewport_forward = subtract_points(minirt->cam.from, op);
-	viewport_forward = normalize(viewport_forward);
-	viewport_forward = scale_vector(viewport_forward,
+	viewport_forward = subtract_points(&minirt->cam.from, &op);
+	viewport_forward = normalize(&viewport_forward);
+	viewport_forward = scale_vector(&viewport_forward,
 		(MOVE_SPEED + (MOVE_SPEED / 2.f)) * minirt->delta_time);
 	if (minirt->move.w)
 	{

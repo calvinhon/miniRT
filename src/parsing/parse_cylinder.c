@@ -38,8 +38,9 @@ bool	parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	set_material(&cylinder->material, data, i, minirt);
 	cylinder->scale = scaling_mat(cylinder->radius, height / 2.f, cylinder->radius);
 	cylinder->rot = rt_extract_rot_vertical(cylinder->orientation);
-	cylinder->inv_transform = inverse_mat4d(mult_n_mat4d(3, cylinder->rot,
-			cylinder->scale, cylinder->translate));
+	cylinder->inv_transform = mult_n_mat4d(3, cylinder->rot,
+			cylinder->scale, cylinder->translate);
+	cylinder->inv_transform = inverse_mat4d(&cylinder->inv_transform);
 /*
 	//test
 	printf("shape[%ld], type = %d\n", idx, cylinder->type);// test

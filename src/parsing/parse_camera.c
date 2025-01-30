@@ -23,11 +23,12 @@ void	set_camera_orient(t_camera *cam)
 	if (fabsf(cam->forward.x) < EPSILON && fabsf(cam->forward.z) < EPSILON)
 		cam->left = create_vec4d(-1.0f, 0.0f, 0.0f);
 	else
-		cam->left = cross(cam->forward,
+		cam->left = cross_values(cam->forward,
 				create_vec4d(0.0f, 1.0f, 0.0f));
 	// printf("left: %.2f %.2f %.2f\n", cam->left.x, cam->left.y, cam->left.z);
 	view_mat = identity_mat();
-	cam->up = cross(cam->left, cam->forward);
+	cam->up = cross_pointers(&cam->left, &cam->forward);
+	// printf("up: %.2f %.2f %.2f\n", cam->up.x, cam->up.y, cam->up.z);
 	view_mat.matrix[0] = cam->left.x;
 	view_mat.matrix[1] = cam->left.y;
 	view_mat.matrix[2] = cam->left.z;
@@ -37,8 +38,9 @@ void	set_camera_orient(t_camera *cam)
 	view_mat.matrix[8] = -cam->forward.x;
 	view_mat.matrix[9] = -cam->forward.y;
 	view_mat.matrix[10] = -cam->forward.z;
-	cam->inv_transform = inverse_mat4d(mult_n_mat4d(2,
-		translation_mat(-cam->from.x, -cam->from.y, -cam->from.z), view_mat));
+	cam->inv_transform = mult_n_mat4d(2,
+		translation_mat(-cam->from.x, -cam->from.y, -cam->from.z), view_mat);
+	cam->inv_transform = inverse_mat4d(&cam->inv_transform);
 }
 
 void	set_camera_fields(t_camera *cam)

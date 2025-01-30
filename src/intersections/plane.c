@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:57:01 by chon              #+#    #+#             */
-/*   Updated: 2025/01/22 15:50:04 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/30 11:41:46 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_vec4d plane_normal_at(t_object *o, t_point *wrld_p)
 	(void)o;
 	(void)wrld_p;
 	obj_normal = create_vec4d(0, 1, 0);
-	transposed = transpose_mat4d(o->inv_transform);
-	wrld_normal = mult_mat4d_vec4d(transposed, obj_normal);
+	transposed = transpose_mat4d(&o->inv_transform);
+	wrld_normal = mult_mat4d_vec4d(&transposed, &obj_normal);
 	return (normalize(&wrld_normal));
 }
 

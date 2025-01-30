@@ -36,10 +36,12 @@ t_color	rt_sample_texture(const t_frame *fra_tex, const t_vec2d *uv)
 static inline t_vec4d	_from_sample_to_tangent_normal(const t_color *sample)
 {
 	t_vec4d	tangent_normal;
+	t_vec4d	unit_v;
 
 	tangent_normal = create_vec4d(sample->r, sample->g, sample->b);
-	tangent_normal = scale_vector(tangent_normal, 2.f);
-	tangent_normal = subtract_vectors(tangent_normal, create_vec4d(1.f, 1.f, 1.f));
+	tangent_normal = scale_vector(&tangent_normal, 2.f);
+	unit_v = create_vec4d(1.f, 1.f, 1.f);
+	tangent_normal = subtract_vectors(&tangent_normal, &unit_v);
 	// tangent_normal.a[3] = 0.f;
 	return (tangent_normal);
 }
@@ -65,10 +67,11 @@ t_vec4d	rt_apply_normal_map(const t_object *obj, const t_vec2d *uv,
 	t_mat4d			tbn_matrix;
 	t_vec4d			perturbed_normal;
 
-	bitangent = cross(*local_normal, *tangent);
+	bitangent = cross_pointers(local_normal, tangent);
 	tangent_normal = _from_sample_to_tangent_normal(&sample);
-	bitangent = normalize(negate_vector(bitangent));
+	bitangent = negate_vector(&bitangent);
+	bitangent = normalize(&bitangent);
 	tbn_matrix = _construct_tbn_matrix(local_normal, tangent, &bitangent);
-	perturbed_normal = mult_mat4d_vec4d(tbn_matrix, tangent_normal);
-	return (normalize(perturbed_normal));
+	perturbed_normal = mult_mat4d_vec4d(&tbn_matrix, &tangent_normal);
+	return (normalize(&perturbed_normal));
 }

@@ -14,9 +14,9 @@
 
 void	update_camera_state(t_camera *camera)
 {
-	camera->up = normalize(camera->up);
-	camera->left = normalize(camera->left);
-	camera->forward = normalize(camera->forward);
+	camera->up = normalize(&camera->up);
+	camera->left = normalize(&camera->left);
+	camera->forward = normalize(&camera->forward);
 	camera->inv_transform = fill_matrix(
 		create_vec4d(camera->left.x, camera->left.y, camera->left.z), 
 		create_vec4d(camera->up.x, camera->up.y, camera->up.z), 
@@ -45,9 +45,9 @@ static inline void	_rotcam_apply_pitch_rot(t_minirt *state, bool left)
 		rot = rotate_mat_y(-angle);
 	else
 		rot = rotate_mat_y(angle);
-	state->cam.forward = mult_mat4d_vec4d(rot, state->cam.forward);
-	state->cam.left = mult_mat4d_vec4d(rot, state->cam.left);
-	state->cam.up = mult_mat4d_vec4d(rot, state->cam.up);
+	state->cam.forward = mult_mat4d_vec4d(&rot, &state->cam.forward);
+	state->cam.left = mult_mat4d_vec4d(&rot, &state->cam.left);
+	state->cam.up = mult_mat4d_vec4d(&rot, &state->cam.up);
 }
 
 static inline void	_rotcam_apply_yaw_rot(t_minirt *state, bool up)
@@ -59,9 +59,9 @@ static inline void	_rotcam_apply_yaw_rot(t_minirt *state, bool up)
 		rot = rt_rotation_matrix_from_axis_angle(&state->cam.left, angle);
 	else
 		rot = rt_rotation_matrix_from_axis_angle(&state->cam.left, -angle);
-	state->cam.forward = mult_mat4d_vec4d(rot, state->cam.forward);
-	state->cam.left = mult_mat4d_vec4d(rot, state->cam.left);
-	state->cam.up = mult_mat4d_vec4d(rot, state->cam.up);
+	state->cam.forward = mult_mat4d_vec4d(&rot, &state->cam.forward);
+	state->cam.left = mult_mat4d_vec4d(&rot, &state->cam.left);
+	state->cam.up = mult_mat4d_vec4d(&rot, &state->cam.up);
 }
 
 void	camera_rotations(t_minirt *state)

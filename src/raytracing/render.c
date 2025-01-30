@@ -45,7 +45,7 @@ void local_normal_at(t_itx *itx, t_comps *comps)
 	// 	comps->normal_v = cube_normal_at(itx->obj, &comps->p);
 	// else if (itx->obj->type == CONE)
 	// 	comps->normal_v = cone_normal_at(itx->obj, &comps->p);
-	if (dot(comps->normal_v, comps->eye_v) < EPSILON)
+	if (dot_pointers(&comps->normal_v, &comps->eye_v) < EPSILON)
 		comps->normal_v = negate_vector(&comps->normal_v);
 }
 
@@ -61,7 +61,6 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 	comps.p = position(r, comps.t);
 	comps.eye_v = negate_vector(&r->direction);
 	local_normal_at(itx, &comps);
-	// adjust bump based on object thickness for spheres
 	bump = EPSILON * 10;
 	comps.over_point = add_v_to_p(comps.p, scale_vector(&comps.normal_v, bump));
 	// lag_vec4s_scaleby(&margin, comps.normal_v, bump);
@@ -97,11 +96,13 @@ t_ray cam_ray_to_pixel(const t_camera *cam, int px, int py)
 	t_point pixel_world;
 	t_point cam_origin_world;
 	t_vec4d ray_direction;
+	t_point	origin;
 
 	pixel_cam = create_point((cam->half_width - (px + 0.5f) * cam->pixel_size),
 							 (cam->half_height - (py + 0.5f) * cam->pixel_size), -1);
-	pixel_world = mult_mat4d_pt4d(cam->inv_transform, pixel_cam);
-	cam_origin_world = mult_mat4d_pt4d(cam->inv_transform, create_point(0, 0, 0));
+	pixel_world = mult_mat4d_pt4d(&cam->inv_transform, &pixel_cam);
+	origin = create_point(0, 0, 0);
+	cam_origin_world = mult_mat4d_pt4d(&cam->inv_transform, &origin);
 	ray_direction = subtract_points(&pixel_world, &cam_origin_world);
 	ray_direction = normalize(&ray_direction);
 	return (create_ray(&cam_origin_world, &ray_direction));

@@ -12,25 +12,6 @@
 
 #include "miniRT_math.h"
 
-t_vec2d create_vec2d(float x, float y)
-{
-	t_vec2d v;
-
-	v.x = x;
-	v.y = y;
-	return (v);
-}
-
-t_vec3d create_vec3d(float x, float y, float z)
-{
-	t_vec3d v;
-
-	v.x = x;
-	v.y = y;
-	v.z = z;
-	return (v);
-}
-
 t_vec4d create_vec4d(float x, float y, float z)
 {
 	t_vec4d v;

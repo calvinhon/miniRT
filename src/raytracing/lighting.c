@@ -18,7 +18,7 @@ t_vec4d reflect(t_vec4d *in, t_vec4d *normal)
 	float in_dot_normal;
 	t_vec4d scaled_vec;
 
-	in_dot_normal = dot(*in, *normal);
+	in_dot_normal = dot_pointers(in, normal);
 	scaled_vec = scale_vector(normal, 2.f * in_dot_normal);
 	return (subtract_vectors(in, &scaled_vec));
 }
@@ -38,13 +38,13 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 	c->ambient = mult_colors(&effective_color, ambiance);
 	light_v = subtract_points(&l->pos, &c->p);
 	light_v = normalize(&light_v);
-	light_dot_normal = dot(light_v, c->normal_v);
+	light_dot_normal = dot_pointers(&light_v, &c->normal_v);
 	if (light_dot_normal >= 0 && !c->shadowed)
 	{
 		c->diffuse = scale_color(&effective_color, m->diffuse_s);
 		c->diffuse = scale_color(&c->diffuse, light_dot_normal);
 		light_v = negate_vector(&light_v);
-		reflect_dot_eye = dot(reflect(&light_v, &c->normal_v), c->eye_v);
+		reflect_dot_eye = dot_values(reflect(&light_v, &c->normal_v), c->eye_v);
 		if (reflect_dot_eye > 0)
 		{
 			c->specular = scale_color(&c->l_color,

@@ -43,9 +43,9 @@ t_vec2d	rt_get_plane_uv_local(t_vec4d *hitp, t_vec4d tangent, t_vec4d *normal)
 	float	tile_factor;
 
 	tile_factor = 0.1f;
-	bitangent = cross(tangent, *normal);
-	uv.x = dot(*hitp, tangent) * tile_factor;
-	uv.y = dot(*hitp, bitangent) * tile_factor;
+	bitangent = cross_pointers(&tangent, normal);
+	uv.x = dot_pointers(hitp, &tangent) * tile_factor;
+	uv.y = dot_pointers(hitp, &bitangent) * tile_factor;
 	uv.x = uv.x - floorf(uv.x);
 	uv.y = uv.y - floorf(uv.y);
 	return (uv);

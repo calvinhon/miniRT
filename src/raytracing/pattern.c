@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:17:52 by chon              #+#    #+#             */
-/*   Updated: 2025/01/28 11:55:34 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/30 11:06:39 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ t_color	pattern_at(t_object *o, t_point *world_point, t_pattern *pat)
 	// printf("%d\n", pat->type);
 	// printf("%d: %f %f %f\n", pat->type, pat->a.r, pat->a.g, pat->a.b);
 	color = pat->a;
-	pat_pt = mult_mat4d_pt4d(o->inv_transform, *world_point);
-	pat_pt = mult_mat4d_pt4d(pat->inv_transform, pat_pt);
+	pat_pt = mult_mat4d_pt4d(&o->inv_transform, world_point);
+	pat_pt = mult_mat4d_pt4d(&pat->inv_transform, &pat_pt);
 	noise = 0;
 	if (pat && pat->p_scale)
 	{

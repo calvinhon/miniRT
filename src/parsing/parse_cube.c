@@ -33,7 +33,7 @@ bool	parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	set_material(&cube->material, data, i, minirt);
 	// cube->scale = vec4s_re(1.f, 1.f, 1.f, 1.f);
 	cube->rot = rt_extract_rot_vertical(cube->orientation);
-	cube->inv_transform = inverse_mat4d(mult_n_mat4d(2, cube->rot,
-			cube->translate));
+	cube->inv_transform = mult_n_mat4d(2, cube->rot, cube->translate);
+	cube->inv_transform = inverse_mat4d(&cube->inv_transform);
 	return (true);
 }

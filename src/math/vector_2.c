@@ -25,12 +25,25 @@ t_vec4d normalize(const t_vec4d *v)
 	return (create_vec4d(v->x / mag_v, v->y / mag_v, v->z / mag_v));
 }
 
-float dot(t_vec4d v1, t_vec4d v2)
+float dot_pointers(const t_vec4d *v1, const t_vec4d *v2)
+{
+	return (v1->x * v2->x + v1->y * v2->y + v1->z * v2->z + v1->p * v2->p);
+}
+
+float dot_values(t_vec4d v1, t_vec4d v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.p * v2.p);
 }
 
-t_vec4d cross(t_vec4d v1, t_vec4d v2)
+t_vec4d cross_pointers(const t_vec4d *v1, const t_vec4d *v2)
+{
+	return (create_vec4d(
+		v1->y * v2->z - v1->z * v2->y,
+		v1->z * v2->x - v1->x * v2->z,
+		v1->x * v2->y - v1->y * v2->x));
+}
+
+t_vec4d cross_values(t_vec4d v1, t_vec4d v2)
 {
 	return (create_vec4d(
 		v1.y * v2.z - v1.z * v2.y,

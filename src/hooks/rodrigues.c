@@ -39,7 +39,7 @@ t_mat4d	rt_rotation_matrix_from_axis_angle(const t_vec4d *axis, float angle)
 	t_mat4d	rot;
 	t_vec4d	k;
 
-	k = normalize(*axis);
+	k = normalize(axis);
 	rot = fill_matrix(compute_rot_row(k, 0, angle),
 	compute_rot_row(k, 1, angle),
 	compute_rot_row(k, 2, angle),

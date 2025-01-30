@@ -1,8 +1,8 @@
 #include "miniRT_math.h"
 
-t_mat2d submatrix_mat3d(t_mat3d m, int row, int col)
+t_mat2d submatrix_mat3d(const t_mat3d *m, int row, int col)
 {
-	float arr[4];
+	t_mat2d	sub_m;
 	int i;
 	int j;
 
@@ -10,14 +10,13 @@ t_mat2d submatrix_mat3d(t_mat3d m, int row, int col)
 	j = -1;
 	while (++i < 9)
 		if (i / 3 != row && i % 3 != col)
-			arr[++j] = m.matrix[i];
-	return (create_mat2d(create_vec2d(arr[0], arr[1]),
-						 create_vec2d(arr[2], arr[3])));
+			sub_m.matrix[++j] = m->matrix[i];
+	return (sub_m);
 }
 
-t_mat3d submatrix_mat4d(t_mat4d m, int row, int col)
+t_mat3d submatrix_mat4d(const t_mat4d *m, int row, int col)
 {
-	float arr[9];
+	t_mat3d	sub_m;
 	int i;
 	int j;
 
@@ -25,18 +24,19 @@ t_mat3d submatrix_mat4d(t_mat4d m, int row, int col)
 	j = -1;
 	while (++i < 16)
 		if (i / 4 != row && i % 4 != col)
-			arr[++j] = m.matrix[i];
-	return (create_mat3d(create_vec3d(arr[0], arr[1], arr[2]),
-						 create_vec3d(arr[3], arr[4], arr[5]),
-						 create_vec3d(arr[6], arr[7], arr[8])));
+			sub_m.matrix[++j] = m->matrix[i];
+	return (sub_m);
 }
 
-float minor_mat3d(t_mat3d m, int row, int col)
+float minor_mat3d(const t_mat3d *m, int row, int col)
 {
-	return (determinant_mat2d(submatrix_mat3d(m, row, col)));
+	t_mat2d	m2d;
+
+	m2d = submatrix_mat3d(m, row, col);
+	return (determinant_mat2d(&m2d));
 }
 
-float cofactor_mat3d(t_mat3d m, int row, int col)
+float cofactor_mat3d(const t_mat3d *m, int row, int col)
 {
 	if (!((row + col) % 2))
 		return (minor_mat3d(m, row, col));
