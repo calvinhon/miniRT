@@ -53,7 +53,8 @@ void	parse_material_cont1(t_material *material, char *data, \
 	}
 	else
 	{
-		ft_printf("Unknown material field at position %d\n", *i);
+		ft_printf("Unknown material field at position %d:\n", *i);
+		ft_printf("data: %s\n", data + *i);
 		errors(CER_EXPECT_M_TRAIT, ER_EXPECT_M_TRAIT, minirt);
 	}
 }
@@ -80,7 +81,7 @@ void	parse_material_cont(t_material *material, char *data, \
 	{
 		(*i) += 17;
 		material->refractive_index = parse_float(data, i);
-	}
+	}	
 	else
 		parse_material_cont1(material, data, i, minirt);
 }
@@ -107,6 +108,11 @@ void	parse_material(t_material *material, char *data, \
 			(*i) += 9;
 			material->specular_s = parse_float(data, i);
 		}
+		else if (!ft_strncmp(data + (*i), "pattern=", 8))
+		{
+			*i += 8;
+			parse_pattern(material, data, i, minirt);
+		}
 		else
 			parse_material_cont(material, data, i, minirt);
 	}
@@ -123,6 +129,9 @@ void	set_material(t_material *material, char *data, size_t *i, \
 	material->reflective = 0.0;
 	material->transparency = 0.0;
 	material->refractive_index = 1.0;
+	//add
+	material->pattern = NULL;
+	//
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
 	if (data[*i] == 'M')

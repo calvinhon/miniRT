@@ -177,7 +177,7 @@ typedef enum e_error_code
 #define ER_EXPECT_M "Expected: M <material.trait>=<float>,<material.trait>\n"
 #define ER_EM2 "=<float>,<etc>\n\tUsing default values...\n"
 #define ER_EXPECT_M_TRAIT "Expected: Valid Material Trait: [ambient, diffuse, specular, shininess]\n"
-#define ER_EMT2 "diffuse, specular, shininess]\n\tUsing default values...\n"
+#define ER_EMT2 "diffuse, specular, sheen, pattern]\n\tUsing default values...\n"
 #define ER_EXPECT_FLOAT "Expected: valid floating-point number.\n"
 #define ER_EXPECT_INT "Expected: valid integer number.\n"
 #define ER_EXPECT_TUPLE "Expected: Tuple in the format <x>,<y>,<z>\n"

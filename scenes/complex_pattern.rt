@@ -1,0 +1,13 @@
+A 0.1 230,170,100
+C 0,5,-20 0,0,1 60
+
+L -10,10,-1.5 0.5 255,255,255
+
+pl 0,0,10 0,1,0 255,255,255 M pattern=255,0,0 0,0,255 0.5 GRADIENT
+pl 0,0,15 -1,0,-1 40,40,40 M pattern=125,255,26 186,184,108 0.5 STRIPED
+pl 0,0,15 1,0,-1 40,40,40 M pattern=255,215,0 113,121,126 0 RING
+
+sp 0,1.5,-1 1 0,255,0 M transparency=1.0,refractive_index=1.8
+sp 0.5,0.5,-0.5 0.5 200,0,0 M sheen=145.0,reflective=0.8
+
+cy -2,1,0.8 0,1,0 2 1 255,100,255 M sheen=200.0,ambient=0.2,diffuse=0.5,reflective=0.8,pattern= 255,255,255 24,57,43 0.5 CHECKER

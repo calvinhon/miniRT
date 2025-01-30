@@ -171,9 +171,10 @@ bool parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx);
 bool parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx);
 bool parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx);
 
-void parse_material(t_material *material, char *data, size_t *i, t_minirt *minirt);
-bool parse_bump_xpm(t_material *material, char *data, size_t *i, t_minirt *minirt);
-void set_material(t_material *material, char *data, size_t *i, t_minirt *minirt);
+void	parse_material(t_material *material, char *data, size_t *i, t_minirt *minirt);
+bool	parse_bump_xpm(t_material *material, char *data, size_t *i, t_minirt *minirt);
+void	set_material(t_material *material, char *data, size_t *i, t_minirt *minirt);
+bool	parse_pattern(t_material *material, char *data,	size_t *i, t_minirt *minirt);
 // bool		parse(const char *filename, t_minirt *minirt);
 // bool		parse_ambient(t_minirt *minirt, t_split *fields, int curr_line);
 // bool		parse_light(t_minirt *minirt, const t_split *fields,

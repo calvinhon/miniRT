@@ -30,8 +30,10 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 	float light_dot_normal;
 	float reflect_dot_eye;
 
-	//if (m->pattern)
-	// 	m->color = pattern_at(c->obj, &c->p, m->pattern);
+	//
+	if (m->pattern)
+	 m->color = pattern_at(c->obj, &c->p, m->pattern);
+	//
 	c->diffuse = create_color(0, 0, 0);
 	c->specular = create_color(0, 0, 0);
 	effective_color = mult_colors(&m->color, &c->l_color);

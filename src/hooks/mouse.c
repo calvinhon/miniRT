@@ -26,8 +26,12 @@ int	select_shape(int button, int x, int y, void *minirt)
 		r = cam_ray_to_pixel(cam, x, y);
 		xs = local_intersect(s, &r);
 		hit = get_hit(&xs);
+
+
 		if (hit)
 		{
+			//
+			printf("hit object type = %d\n", hit->obj->type);
 			((t_minirt *)minirt)->selected.is_cam = false;
 			((t_minirt *)minirt)->selected.object = hit->obj;
 		}

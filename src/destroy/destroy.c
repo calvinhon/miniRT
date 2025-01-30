@@ -29,7 +29,7 @@ void	destroy_scene(t_minirt *minirt)
 {
 	if (minirt->scene.lights)
 		free(minirt->scene.lights);
-	if (minirt->scene.lights)	
+	if (minirt->scene.shapes)
 		free(minirt->scene.shapes);
 	minirt->scene.lights = NULL;
 	minirt->scene.shapes = NULL;
@@ -38,7 +38,17 @@ void	destroy_scene(t_minirt *minirt)
 void	destroy_textures(t_minirt *minirt)
 {
 	t_list	*temp;
+	int		i;
 
+	i = 0;
+
+	while (i < minirt->scene.shape_count && minirt->scene.shapes)
+	{
+		if (minirt->scene.shapes[i].material.pattern)
+			free(minirt->scene.shapes[i].material.pattern);
+		minirt->scene.shapes[i].material.pattern = NULL;
+		i++;
+	}
 	temp = minirt->textures;
 	while (temp)
 	{
@@ -83,8 +93,8 @@ void	free_minirt(t_minirt *minirt)
 	if (minirt->data)
 		free(minirt->data);
 	destroy_cores(minirt);
-	destroy_scene(minirt);
 	destroy_textures(minirt);
+	destroy_scene(minirt);
 	destroy_mlx(minirt);
 	free(minirt);
 	minirt = NULL;
