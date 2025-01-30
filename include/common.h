@@ -21,7 +21,7 @@ enum e_object_types
 	SPHERE,
 	CYLINDER,
 	PLANE,
-	CUBIC,
+	CUBE,
 	CONE,
 	SPOT_LIGHT,
 	POINT_LIGHT

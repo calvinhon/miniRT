@@ -6,7 +6,7 @@
 #    By: chon <chon@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 08:55:08 by chon              #+#    #+#              #
-#    Updated: 2025/01/29 12:53:57 by chon             ###   ########.fr        #
+#    Updated: 2025/01/30 17:37:14 by chon             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ SRC := main.c \
 	$(addprefix raytracing/, lighting.c pattern.c perlin_noise.c rays.c render.c) \
 	$(addprefix hooks/, update.c keys.c mouse.c object.c camera_movement.c camera_rotations.c rodrigues.c) \
 	$(addprefix math/, matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c matrix_6.c point.c vector_1.c vector_2.c vector_3.c) \
-	$(addprefix intersections/, sphere.c plane.c cylinder.c world.c) \
+	$(addprefix intersections/, world.c sphere.c plane.c cylinder.c cube.c) \
 	$(addprefix textures/, textures.c parametrizations.c tangents.c)
 SRC_DIR := src
 SRCS := $(addprefix $(SRC_DIR)/, $(SRC))

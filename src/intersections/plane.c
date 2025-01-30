@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:57:01 by chon              #+#    #+#             */
-/*   Updated: 2025/01/30 13:57:32 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/30 17:43:33 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void intersect_plane(t_ray *r, t_object *o, t_itx_grp *xs)
 	t_ray trans_r;
 	float t;
 
-	if (xs->count + 1 >= MAX_ITX)
-		return;
 	trans_r = *r;
 	transform_ray(&trans_r, &o->inv_transform);
 	t = (-trans_r.origin.y + EPSILON) / trans_r.direction.y;

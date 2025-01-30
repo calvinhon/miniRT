@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:35:57 by chon              #+#    #+#             */
-/*   Updated: 2025/01/30 13:57:32 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/30 17:57:05 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,7 @@ void check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs)
 {
 	float y;
 
-	if (t[0] > t[1])
-	{
-		t[2] = t[0];
-		t[0] = t[1];
-		t[1] = t[2];
-	}
+	swap(t);
 	y = r->origin.y + t[0] * r->direction.y;
 	if (y > o->specs.min_y && y < o->specs.max_y)
 	{

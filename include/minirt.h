@@ -267,7 +267,7 @@ void destroy_textures(t_minirt *minirt);
 void destroy_2d_arr(char **arr);
 void free_minirt(t_minirt *minirt);
 
-/*--- RAY - MANIPULATION ---*/
+/*--- RAY MANIPULATION ---*/
 t_point position(t_ray *r, float t);
 t_ray create_ray(t_point *origin, t_vec4d *direction);
 void transform_ray(t_ray *r, t_mat4d *m);
@@ -314,6 +314,7 @@ bool is_shadowed(t_scene *s, t_point *p, t_light *l);
 
 /*--- INTERSECTIONS ---*/
 t_itx_grp local_intersect(t_scene *s, t_ray *r);
+void	swap(float *t);
 t_itx *get_hit(t_itx_grp *xs);
 t_color color_at(t_scene *s, t_ray *r, int depth);
 t_color render_pixel(t_minirt *program, int x, int y);
@@ -323,6 +324,9 @@ void intersect_plane(t_ray *r, t_object *o, t_itx_grp *xs);
 t_vec4d plane_normal_at(t_object *o, t_point *wrld_p);
 void intersect_cylinder(t_ray *r, t_object *o, t_itx_grp *xs);
 t_vec4d cylinder_normal_at(t_object *o, t_point *wrld_p);
+void intersect_cube(t_ray *r, t_object *o, t_itx_grp *xs);
+t_vec4d cube_normal_at(t_object *o, t_point *wrld_p);
+
 
 /*--- PATTERNS ---*/
 t_color pattern_at(t_object *o, t_point *world_point, t_pattern *pattern);

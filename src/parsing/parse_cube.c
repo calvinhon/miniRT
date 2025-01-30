@@ -23,7 +23,7 @@ bool parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
 
 	(*i) += 2;
 	cube = minirt->scene.shapes + idx;
-	cube->type = CUBIC;
+	cube->type = CUBE;
 	t = parse_point(data, i);
 	cube->translate = translation_mat(t.x, t.y, t.z);
 	cube->orientation = parse_vector(data, i);

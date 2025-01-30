@@ -71,14 +71,41 @@ int main(int ac, char **av)
 	check_filename(av[1]);
 	minirt = init_minirt();
 	parse(av[1], minirt);
-	init_core(minirt);
-	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
-	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1,
-			 &record_keyrelease, minirt);
-	mlx_mouse_hook(minirt->win, &select_shape, minirt);
-	mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
-	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2,
-			 &destroy_minirt, minirt);
-	mlx_loop(minirt->mlx);
+	// int x = -1;
+	// int y = -1;
+	// while (++y < minirt->cam.vsize - 1)
+	// {
+	// 	while (++x < minirt->cam.hsize - 1)
+	// 		render_pixel(minirt, x, y);
+	// 	x = -1;
+	// }
+	// mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
+
+	t_ray		r;
+	t_point		p;
+	t_vec4d		d;
+	t_object	c;
+	t_itx_grp	xs;
+
+	p = create_point(2, 2, 0);
+	d = create_vec4d(-1, 0, 0);
+	r = create_ray(&p, &d);
+	c.inv_transform = identity_mat();
+	xs.count = 0;
+	intersect_cube(&r, &c, &xs);
+	printf("%d\n", xs.count);
+	if (xs.count > 0)
+		printf("%.2f %.2f\n", xs.arr[0].t, xs.arr[1].t);
+
+	// init_core(minirt);
+	// mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
+	// mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1,
+	// 		 &record_keyrelease, minirt);
+	// mlx_mouse_hook(minirt->win, &select_shape, minirt);
+	// mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
+	
+	// mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2,
+	// 		 &destroy_minirt, minirt);
+	// mlx_loop(minirt->mlx);
 	return (0);
 }
