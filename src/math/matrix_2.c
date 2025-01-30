@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_math.h"
+#include "minirt_math.h"
 
-void	fill_row(t_mat4d *m, int row, t_vec4d v)
+void fill_row(t_mat4d *m, int row, t_vec4d v)
 {
 	m->matrix[row * 4] = v.x;
 	m->matrix[row * 4 + 1] = v.y;
@@ -20,9 +20,9 @@ void	fill_row(t_mat4d *m, int row, t_vec4d v)
 	m->matrix[row * 4 + 3] = v.p;
 }
 
-t_mat4d	fill_matrix(t_vec4d v1, t_vec4d v2, t_vec4d v3, t_vec4d v4)
+t_mat4d fill_matrix(t_vec4d v1, t_vec4d v2, t_vec4d v3, t_vec4d v4)
 {
-	t_mat4d	m;
+	t_mat4d m;
 
 	fill_row(&m, 0, v1);
 	fill_row(&m, 1, v2);
@@ -31,20 +31,20 @@ t_mat4d	fill_matrix(t_vec4d v1, t_vec4d v2, t_vec4d v3, t_vec4d v4)
 	return (m);
 }
 
-t_mat4d	mult_n_mat4d(int num_of_matrices, ...)
+t_mat4d mult_n_mat4d(int num_of_matrices, ...)
 {
-	t_mat4d	new_m;
-	t_idx	idx;
-	va_list	args;
+	t_mat4d new_m;
+	t_idx idx;
+	va_list args;
 
 	va_start(args, num_of_matrices);
 	idx.count = -1;
 	idx.i = -1;
 	idx.j = -1;
-	idx.m1 = va_arg(args, t_mat4d*);
+	idx.m1 = va_arg(args, t_mat4d *);
 	while (++idx.count < num_of_matrices - 1)
 	{
-		idx.m2 = va_arg(args, t_mat4d*);
+		idx.m2 = va_arg(args, t_mat4d *);
 		while (++idx.i < 4)
 		{
 			while (++idx.j < 4)
@@ -59,9 +59,9 @@ t_mat4d	mult_n_mat4d(int num_of_matrices, ...)
 	return (new_m);
 }
 
-t_vec4d	mult_mat4d_vec4d(const t_mat4d *m, const t_vec4d *v)
+t_vec4d mult_mat4d_vec4d(const t_mat4d *m, const t_vec4d *v)
 {
-	t_vec4d	new_v;
+	t_vec4d new_v;
 
 	new_v.x = dot_values(row(m, 0), *v);
 	new_v.y = dot_values(row(m, 1), *v);
@@ -70,7 +70,7 @@ t_vec4d	mult_mat4d_vec4d(const t_mat4d *m, const t_vec4d *v)
 	return (new_v);
 }
 
-t_mat4d	transpose_mat4d(const t_mat4d *m)
+t_mat4d transpose_mat4d(const t_mat4d *m)
 {
 	return (fill_matrix(col(m, 0), col(m, 1), col(m, 2), col(m, 3)));
 }

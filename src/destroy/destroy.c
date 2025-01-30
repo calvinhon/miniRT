@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 // #include "mlx.h"
-#include "miniRT.h"
+#include "minirt.h"
 #include "macros.h"
 
-void	destroy_mlx(t_minirt *minirt)
+void destroy_mlx(t_minirt *minirt)
 {
 	if (minirt->mlx)
 	{
@@ -25,7 +25,7 @@ void	destroy_mlx(t_minirt *minirt)
 	}
 }
 
-void	destroy_scene(t_minirt *minirt)
+void destroy_scene(t_minirt *minirt)
 {
 	if (minirt->scene.lights)
 		free(minirt->scene.lights);
@@ -35,10 +35,10 @@ void	destroy_scene(t_minirt *minirt)
 	minirt->scene.shapes = NULL;
 }
 
-void	destroy_textures(t_minirt *minirt)
+void destroy_textures(t_minirt *minirt)
 {
-	t_list	*temp;
-	int		i;
+	t_list *temp;
+	int i;
 
 	i = 0;
 
@@ -55,16 +55,16 @@ void	destroy_textures(t_minirt *minirt)
 		if (((t_tex_frame *)temp->content)->name)
 			free(((t_tex_frame *)temp->content)->name);
 		mlx_destroy_image(minirt->mlx,
-			((t_tex_frame *)temp->content)->fra_tex->ptr);
+						  ((t_tex_frame *)temp->content)->fra_tex->ptr);
 		free(((t_tex_frame *)temp->content)->fra_tex);
 		temp = temp->next;
 	}
 	ft_lstclear(&minirt->textures, free);
 }
 
-void	destroy_cores(t_minirt *minirt)
+void destroy_cores(t_minirt *minirt)
 {
-	int	i;
+	int i;
 
 	if (minirt->cores)
 	{
@@ -86,10 +86,10 @@ void	destroy_cores(t_minirt *minirt)
 	}
 }
 
-void	free_minirt(t_minirt *minirt)
+void free_minirt(t_minirt *minirt)
 {
 	if (!minirt)
-		return ;
+		return;
 	if (minirt->data)
 		free(minirt->data);
 	destroy_cores(minirt);
@@ -100,19 +100,19 @@ void	free_minirt(t_minirt *minirt)
 	minirt = NULL;
 }
 
-int	destroy_minirt(t_minirt *minirt)
+int destroy_minirt(t_minirt *minirt)
 {
 	free_minirt(minirt);
 	exit(0);
 	return (0);
 }
 
-void	destroy_2d_arr(char **arr)
+void destroy_2d_arr(char **arr)
 {
-	char	**original;
+	char **original;
 
 	if (!arr)
-		return ;
+		return;
 	original = arr;
 	while (*arr)
 		free(*arr++);

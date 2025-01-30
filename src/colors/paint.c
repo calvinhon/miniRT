@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 #include "colors.h"
-#include "miniRT.h"
+#include "minirt.h"
 #include "macros.h"
 
-int	cdiff(t_color a, t_color b)
+int cdiff(t_color a, t_color b)
 {
-	int				r_diff;
-	int				g_diff;
-	int				b_diff;
+	int r_diff;
+	int g_diff;
+	int b_diff;
 
 	r_diff = fabs((a.r * 255.999) - (b.r * 255.999));
 	g_diff = fabs((a.g * 255.999) - (b.g * 255.999));
@@ -26,7 +26,7 @@ int	cdiff(t_color a, t_color b)
 	return (r_diff + g_diff + b_diff);
 }
 
-void	clamp_color(t_color *color)
+void clamp_color(t_color *color)
 {
 	if (color->r > 1)
 		color->r = 1;
@@ -42,13 +42,13 @@ void	clamp_color(t_color *color)
 		color->b = 0;
 }
 
-uint32_t	convert_color32(const t_color *_color)
+uint32_t convert_color32(const t_color *_color)
 {
-	uint32_t	r;
-	uint32_t	g;
-	uint32_t	b;
-	uint32_t	color_value;
-	t_color		color;
+	uint32_t r;
+	uint32_t g;
+	uint32_t b;
+	uint32_t color_value;
+	t_color color;
 
 	color = *_color;
 	clamp_color(&color);

@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
-int	update_minirt(t_minirt *minirt)
+int update_minirt(t_minirt *minirt)
 {
 	if (minirt->stop)
 	{
@@ -35,7 +35,7 @@ int	update_minirt(t_minirt *minirt)
 	return (update_rt(minirt), 0);
 }
 
-int	record_keypress(int keycode, t_minirt *minirt)
+int record_keypress(int keycode, t_minirt *minirt)
 {
 	if (keycode == KEY_ESC)
 		return (minirt->stop = true, 0);
@@ -64,7 +64,7 @@ int	record_keypress(int keycode, t_minirt *minirt)
 	return (keycode);
 }
 
-int	record_keyrelease(int keycode, t_minirt *minirt)
+int record_keyrelease(int keycode, t_minirt *minirt)
 {
 	if (keycode == KEY_A)
 		minirt->move.a = false;

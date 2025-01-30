@@ -13,7 +13,7 @@
 #ifndef COLORS_H
 #define COLORS_H
 
-#include "miniRT.h"
+#include "minirt.h"
 
 #define WHITE 0xFFFFFF
 #define GOLD 0xFFD700

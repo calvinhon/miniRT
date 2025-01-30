@@ -1,4 +1,4 @@
-#include "miniRT_math.h"
+#include "minirt_math.h"
 
 t_vec4d add_vectors(const t_vec4d *v1, const t_vec4d *v2)
 {

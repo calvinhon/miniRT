@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "macros.h"
 #include "colors.h"
 
-bool	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
+bool parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_object	*sphere;
-	t_point		t;
+	t_object *sphere;
+	t_point t;
 
 	(*i) += 2;
 	sphere = minirt->scene.shapes + idx;
@@ -30,21 +30,20 @@ bool	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	sphere->scale = scaling_mat(sphere->radius, sphere->radius, sphere->radius);
 	sphere->inv_transform = mult_n_mat4d(2, &sphere->scale, &sphere->translate);
 	sphere->inv_transform = inverse_mat4d(&sphere->inv_transform);
-/*
+	/*
 
-	// test
-	printf("shape[%ld], type = %d\n", idx, sphere->type);// test
-	//test
-	printf("sphere position = %f, %f, %f\n", (minirt->scene.shapes + idx)->trans.x, \
-		(minirt->scene.shapes + idx)->trans.y, (minirt->scene.shapes + idx)->trans.z);
-	// test
-	printf("sphere radius =  %f\n", (minirt->scene.shapes + idx)->radius);
-	//test	
-	printf("sphere color = %f, %f, %f\n", (minirt->scene.shapes + idx)->material.color.r, \
-		(minirt->scene.shapes + idx)->material.color.g, (minirt->scene.shapes + idx)->material.color.b);
+		// test
+		printf("shape[%ld], type = %d\n", idx, sphere->type);// test
+		//test
+		printf("sphere position = %f, %f, %f\n", (minirt->scene.shapes + idx)->trans.x, \
+			(minirt->scene.shapes + idx)->trans.y, (minirt->scene.shapes + idx)->trans.z);
+		// test
+		printf("sphere radius =  %f\n", (minirt->scene.shapes + idx)->radius);
+		//test
+		printf("sphere color = %f, %f, %f\n", (minirt->scene.shapes + idx)->material.color.r, \
+			(minirt->scene.shapes + idx)->material.color.g, (minirt->scene.shapes + idx)->material.color.b);
 
-*/
+	*/
 
 	return (true);
 }
-

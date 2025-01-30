@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "macros.h"
 // #include "libft.h"
 #include "colors.h"
 
-bool	parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
+bool parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
 
-	t_object	*cube;
-	t_point		t;
+	t_object *cube;
+	t_point t;
 
 	(*i) += 2;
 	cube = minirt->scene.shapes + idx;

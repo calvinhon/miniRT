@@ -26,7 +26,7 @@
 #include "keys.h"
 #include "macros.h"
 #include "common.h"
-#include "miniRT_math.h"
+#include "minirt_math.h"
 #include "colors.h"
 
 #define GL_SILENCE_DEPRECATION

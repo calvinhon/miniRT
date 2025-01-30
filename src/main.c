@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "macros.h"
-#include "miniRT.h"
+#include "minirt.h"
 #include "mlx.h"
 #include "keys.h"
 
@@ -28,7 +28,7 @@ void errors(int err_code, char *err_ms, void *ptr)
 
 static t_minirt *init_minirt(void)
 {
-	t_minirt	*minirt;
+	t_minirt *minirt;
 
 	minirt = ft_calloc(1, sizeof(t_minirt));
 	if (!minirt)
@@ -69,12 +69,12 @@ int main(int ac, char **av)
 	parse(av[1], minirt);
 	init_core(minirt);
 	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
-	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1, \
-		&record_keyrelease, minirt);
+	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1,
+			 &record_keyrelease, minirt);
 	mlx_mouse_hook(minirt->win, &select_shape, minirt);
 	mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
-	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2, \
-		&destroy_minirt, minirt);
+	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2,
+			 &destroy_minirt, minirt);
 	mlx_loop(minirt->mlx);
 	return (0);
 }

@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 // #include "libft.h"
 
-bool	count_elements(t_minirt *minirt, char *line)
+bool count_elements(t_minirt *minirt, char *line)
 {
 	while (*line == ' ')
 		line++;
@@ -21,21 +21,20 @@ bool	count_elements(t_minirt *minirt, char *line)
 		minirt->scene.num_a++;
 	else if (*line == 'C' && *(line + 1) == ' ')
 		minirt->scene.num_c++;
-	else if (((*line == 'L' || *line == 'l') && *(line + 1) == ' ') || \
-	 ((*line == 'S'|| *line == 's') && (*(line + 1) == 'L' || *line == 'l')
-	  && *(line + 2) == ' '))
+	else if (((*line == 'L' || *line == 'l') && *(line + 1) == ' ') ||
+			 ((*line == 'S' || *line == 's') && (*(line + 1) == 'L' || *line == 'l') && *(line + 2) == ' '))
 		minirt->scene.num_lights++;
-	else if ((*line == 's' && *(line + 1) == 'p' && *(line + 2) == ' ') || \
-		(*line == 'p' && *(line + 1) == 'l' && *(line + 2) == ' ') || \
-		(*line == 'c' && *(line + 1) == 'y' && *(line + 2) == ' ') || \
-		(*line == 'c' && *(line + 1) == 'u' && *(line + 2) == ' ') || \
-		(*line == 'c' && *(line + 1) == 'o' && *(line + 2) == ' '))
+	else if ((*line == 's' && *(line + 1) == 'p' && *(line + 2) == ' ') ||
+			 (*line == 'p' && *(line + 1) == 'l' && *(line + 2) == ' ') ||
+			 (*line == 'c' && *(line + 1) == 'y' && *(line + 2) == ' ') ||
+			 (*line == 'c' && *(line + 1) == 'u' && *(line + 2) == ' ') ||
+			 (*line == 'c' && *(line + 1) == 'o' && *(line + 2) == ' '))
 		minirt->scene.num_shapes++;
 	else
 		return (printf("Unknown element: %s\n", line), free(line), false);
 	return (true);
 }
-void	check_elements(t_minirt *minirt)
+void check_elements(t_minirt *minirt)
 {
 	if (minirt->scene.num_c != 1)
 	{
@@ -64,11 +63,11 @@ void	check_elements(t_minirt *minirt)
 }
 
 // Helper function: Calculate the memory required
-size_t	calculate_required_size(char *file, t_minirt *minirt)
+size_t calculate_required_size(char *file, t_minirt *minirt)
 {
-	char	*line;
-	int		fd;
-	size_t	total_size;
+	char *line;
+	int fd;
+	size_t total_size;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -78,15 +77,15 @@ size_t	calculate_required_size(char *file, t_minirt *minirt)
 	{
 		line = get_next_line_err(fd, 0);
 		if (!line)
-			break ;
+			break;
 		if (!ft_strchr("\n#", line[0]))
 		{
 			total_size += ft_strlen(line);
-			if(!count_elements(minirt, line))
+			if (!count_elements(minirt, line))
 			{
 				get_next_line_err(fd, 1);
 				errors(CER_OBJ_TYPE, ER_OBJ_TYPE, minirt);
-			}	
+			}
 		}
 		free(line);
 	}
@@ -97,12 +96,12 @@ size_t	calculate_required_size(char *file, t_minirt *minirt)
 	return (total_size);
 }
 
-char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
+char *file_data(t_minirt *minirt, size_t *total_size, char *file)
 {
-	int		fd;
-	char	*line;
-	char	*data;
-	size_t	line_len;
+	int fd;
+	char *line;
+	char *data;
+	size_t line_len;
 
 	data = ft_calloc(calculate_required_size(file, minirt) + 1, sizeof(char));
 	fd = open(file, O_RDONLY);
@@ -112,7 +111,7 @@ char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 	{
 		line = get_next_line_err(fd, 0);
 		if (!line)
-			break ;
+			break;
 		if (!ft_strchr("\n#", line[0]))
 		{
 			line_len = ft_strlen(line);
@@ -121,13 +120,13 @@ char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 		}
 		free(line);
 	}
-	data[*total_size]= '\0';
+	data[*total_size] = '\0';
 	get_next_line_err(fd, 1);
 	close(fd);
 	return (data);
 }
 
-void	allocate_light_shape(t_minirt *minirt)
+void allocate_light_shape(t_minirt *minirt)
 {
 	minirt->scene.lights = (t_light *)malloc(minirt->scene.num_lights * sizeof(t_light));
 	if (!minirt->scene.lights)
@@ -137,9 +136,9 @@ void	allocate_light_shape(t_minirt *minirt)
 		errors(CER_MALLOC, ER_MALLOC, minirt);
 }
 
-void	parse(char *file, t_minirt *minirt)
+void parse(char *file, t_minirt *minirt)
 {
-	size_t	total_size;
+	size_t total_size;
 
 	total_size = 0;
 	minirt->data = file_data(minirt, &total_size, file);

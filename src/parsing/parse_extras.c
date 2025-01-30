@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 // #include "libft.h"
-#include "miniRT.h"
+#include "minirt.h"
 
 static inline t_vec4d quat_from_axis_angle(const t_vec4d axis, float theta)
 {

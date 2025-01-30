@@ -6,18 +6,18 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:17:52 by chon              #+#    #+#             */
-/*   Updated: 2025/01/30 11:06:39 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/30 13:57:32 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "colors.h"
 
-t_color	pattern_at(t_object *o, t_point *world_point, t_pattern *pat)
+t_color pattern_at(t_object *o, t_point *world_point, t_pattern *pat)
 {
-	t_point		pat_pt;
-	t_color		color;
-	float		noise;
+	t_point pat_pt;
+	t_color color;
+	float noise;
 
 	// if (!pat)
 	// 	printf("uhoh\n");
@@ -35,12 +35,8 @@ t_color	pattern_at(t_object *o, t_point *world_point, t_pattern *pat)
 		if (pat->type == CHECKER)
 			noise = (0.5 + (0.5 * noise));
 	}
-	if ((pat->type == STRIPED && (int)floor(pat_pt.x + noise) % 2)
-		|| (pat->type == RING
-		&& (int)floor(sqrt(pow(pat_pt.x, 2) + pow(pat_pt.z, 2)) + noise) % 2)
-		|| (pat->type == CHECKER
-		&& ((int)(floor(pat_pt.x + noise) + floor(pat_pt.y + noise) + floor(pat_pt.z + noise)) % 2)))
-			color = pat->b;
+	if ((pat->type == STRIPED && (int)floor(pat_pt.x + noise) % 2) || (pat->type == RING && (int)floor(sqrt(pow(pat_pt.x, 2) + pow(pat_pt.z, 2)) + noise) % 2) || (pat->type == CHECKER && ((int)(floor(pat_pt.x + noise) + floor(pat_pt.y + noise) + floor(pat_pt.z + noise)) % 2)))
+		color = pat->b;
 	else if (pat->type == GRADIENT)
 	{
 		color = subtract_colors(&pat->b, &pat->a);

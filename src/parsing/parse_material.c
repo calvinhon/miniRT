@@ -10,18 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "macros.h"
 #include "libft.h"
 #include "colors.h"
 
-bool	parse_plane_checker(t_material *material, char *data, \
-	size_t *i, t_minirt *minirt)
+bool parse_plane_checker(t_material *material, char *data,
+						 size_t *i, t_minirt *minirt)
 {
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
-	if (ft_strncmp(data + (*i), "yes", 3)
-		&& ft_strncmp(data + (*i), "no", 22))
+	if (ft_strncmp(data + (*i), "yes", 3) && ft_strncmp(data + (*i), "no", 22))
 		return (minirt->error_code = 4, false);
 	if (!ft_strncmp(data + (*i), "yes", 3))
 	{
@@ -38,8 +37,8 @@ bool	parse_plane_checker(t_material *material, char *data, \
 	return (true);
 }
 
-void	parse_material_cont1(t_material *material, char *data, \
-	size_t *i, t_minirt *minirt)
+void parse_material_cont1(t_material *material, char *data,
+						  size_t *i, t_minirt *minirt)
 {
 	if (!ft_strncmp(data + (*i), "bump_xpm=", 9))
 	{
@@ -59,8 +58,8 @@ void	parse_material_cont1(t_material *material, char *data, \
 	}
 }
 
-void	parse_material_cont(t_material *material, char *data, \
-	size_t *i, t_minirt *minirt)
+void parse_material_cont(t_material *material, char *data,
+						 size_t *i, t_minirt *minirt)
 {
 	if (!ft_strncmp(data + (*i), "reflective=", 11))
 	{
@@ -81,13 +80,13 @@ void	parse_material_cont(t_material *material, char *data, \
 	{
 		(*i) += 17;
 		material->refractive_index = parse_float(data, i);
-	}	
+	}
 	else
 		parse_material_cont1(material, data, i, minirt);
 }
 
-void	parse_material(t_material *material, char *data, \
-	size_t *i, t_minirt *minirt)
+void parse_material(t_material *material, char *data,
+					size_t *i, t_minirt *minirt)
 {
 	while (data[*i] != '\0' && data[*i] != '\n')
 	{
@@ -118,10 +117,10 @@ void	parse_material(t_material *material, char *data, \
 	}
 }
 
-void	set_material(t_material *material, char *data, size_t *i, \
-	t_minirt *minirt)
+void set_material(t_material *material, char *data, size_t *i,
+				  t_minirt *minirt)
 {
-	//material->xordc = (t_color){.v = vec4s_re(0.f, 0.f, 0.f, 0.f)};
+	// material->xordc = (t_color){.v = vec4s_re(0.f, 0.f, 0.f, 0.f)};
 	material->ambient_s = 0.1;
 	material->diffuse_s = 0.9;
 	material->specular_s = 0.9;
@@ -129,7 +128,7 @@ void	set_material(t_material *material, char *data, size_t *i, \
 	material->reflective = 0.0;
 	material->transparency = 0.0;
 	material->refractive_index = 1.0;
-	//add
+	// add
 	material->pattern = NULL;
 	//
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')

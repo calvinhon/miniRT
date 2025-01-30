@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 // t_vec4d	rt_get_cylinder_tangent(t_vec4d *local_normal, t_object *cylinder)
 // {

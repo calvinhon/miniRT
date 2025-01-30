@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_math.h"
+#include "minirt_math.h"
 
 float magnitude(const t_vec4d *v)
 {

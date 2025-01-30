@@ -1,8 +1,8 @@
-#include "miniRT_math.h"
+#include "minirt_math.h"
 
 t_mat2d submatrix_mat3d(const t_mat3d *m, int row, int col)
 {
-	t_mat2d	sub_m;
+	t_mat2d sub_m;
 	int i;
 	int j;
 
@@ -16,7 +16,7 @@ t_mat2d submatrix_mat3d(const t_mat3d *m, int row, int col)
 
 t_mat3d submatrix_mat4d(const t_mat4d *m, int row, int col)
 {
-	t_mat3d	sub_m;
+	t_mat3d sub_m;
 	int i;
 	int j;
 
@@ -30,7 +30,7 @@ t_mat3d submatrix_mat4d(const t_mat4d *m, int row, int col)
 
 float minor_mat3d(const t_mat3d *m, int row, int col)
 {
-	t_mat2d	m2d;
+	t_mat2d m2d;
 
 	m2d = submatrix_mat3d(m, row, col);
 	return (determinant_mat2d(&m2d));

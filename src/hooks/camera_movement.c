@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
-static inline void	_movecam_sideways_check(t_minirt *state,
-						bool *state_changed)
+static inline void _movecam_sideways_check(t_minirt *state,
+										   bool *state_changed)
 {
-	t_vec4d	scaled_left;
+	t_vec4d scaled_left;
 
 	scaled_left = scale_vector(&state->cam.left,
-		(MOVE_SPEED + (MOVE_SPEED / 2.f)) * state->delta_time);
+							   (MOVE_SPEED + (MOVE_SPEED / 2.f)) * state->delta_time);
 	if (state->move.a)
 	{
 		state->cam.from = add_v_to_p(&state->cam.from, scaled_left);
@@ -31,13 +31,13 @@ static inline void	_movecam_sideways_check(t_minirt *state,
 	}
 }
 
-static inline void	_movecam_longitudinally_check(t_minirt *state,
-						bool *state_changed)
+static inline void _movecam_longitudinally_check(t_minirt *state,
+												 bool *state_changed)
 {
-	t_vec4d	scaled_forward;
+	t_vec4d scaled_forward;
 
 	scaled_forward = scale_vector(&state->cam.forward,
-		(MOVE_SPEED + (MOVE_SPEED / 2.f)) * state->delta_time);
+								  (MOVE_SPEED + (MOVE_SPEED / 2.f)) * state->delta_time);
 	if (state->move.w)
 	{
 		state->cam.from = add_v_to_p(&state->cam.from, scaled_forward);
@@ -50,8 +50,8 @@ static inline void	_movecam_longitudinally_check(t_minirt *state,
 	}
 }
 
-static inline void	_movecam_elevation_check(t_minirt *state,
-						bool *state_changed)
+static inline void _movecam_elevation_check(t_minirt *state,
+											bool *state_changed)
 {
 	if (state->move.space)
 	{
@@ -65,9 +65,9 @@ static inline void	_movecam_elevation_check(t_minirt *state,
 	}
 }
 
-void	camera_controls(t_minirt *state)
+void camera_controls(t_minirt *state)
 {
-	bool	state_changed;
+	bool state_changed;
 
 	state_changed = false;
 	_movecam_sideways_check(state, &state_changed);

@@ -6,11 +6,11 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:57:01 by chon              #+#    #+#             */
-/*   Updated: 2025/01/30 11:41:46 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/30 13:57:32 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 t_vec4d plane_normal_at(t_object *o, t_point *wrld_p)
 {
@@ -44,12 +44,12 @@ void intersect_plane(t_ray *r, t_object *o, t_itx_grp *xs)
 	float t;
 
 	if (xs->count + 1 >= MAX_ITX)
-		return ;
+		return;
 	trans_r = *r;
 	transform_ray(&trans_r, &o->inv_transform);
 	t = (-trans_r.origin.y + EPSILON) / trans_r.direction.y;
 	if (xs->count + 1 >= MAX_ITX || fabs(trans_r.direction.y) < EPSILON)
-		return ;
+		return;
 	xs->arr[xs->count].obj = o;
 	xs->arr[xs->count++].t = t;
 }

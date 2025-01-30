@@ -10,20 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include <time.h>
 
-static inline float	get_delta_time(struct timespec *prev,
-						struct timespec *curr)
+static inline float get_delta_time(struct timespec *prev,
+								   struct timespec *curr)
 {
-	return ((curr->tv_sec - prev->tv_sec) + \
-		(curr->tv_nsec - prev->tv_nsec) / 1e9f);
+	return ((curr->tv_sec - prev->tv_sec) +
+			(curr->tv_nsec - prev->tv_nsec) / 1e9f);
 }
 
-int	update_rt(t_minirt *minirt)
+int update_rt(t_minirt *minirt)
 {
-	static struct timespec	last_time;
-	struct timespec			curr_time;
+	static struct timespec last_time;
+	struct timespec curr_time;
 
 	clock_gettime(CLOCK_MONOTONIC, &curr_time);
 	if (last_time.tv_sec != 0 || last_time.tv_nsec != 0)

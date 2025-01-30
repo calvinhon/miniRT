@@ -1,4 +1,4 @@
-#include "miniRT.h"
+#include "minirt.h"
 
 t_itx_grp local_intersect(t_scene *s, t_ray *r)
 {

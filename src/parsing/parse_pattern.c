@@ -10,20 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "macros.h"
 #include "libft.h"
 #include "colors.h"
 
-static void	parse_pattern_cont(t_pattern *pattern, char *data, size_t *i, \
-		t_minirt *minirt)
+static void parse_pattern_cont(t_pattern *pattern, char *data, size_t *i,
+							   t_minirt *minirt)
 {
-	if  (!ft_strncmp(data + (*i), "STRIPED", 7))
+	if (!ft_strncmp(data + (*i), "STRIPED", 7))
 	{
 		*i += 7;
 		pattern->type = STRIPED;
-		pattern->transform =  mult_n_mat4d(2, rotate_mat_z(PI / 2), \
-			scaling_mat(0.5, 0.5, 0.5));;
+		pattern->transform = mult_n_mat4d(2, rotate_mat_z(PI / 2),
+										  scaling_mat(0.5, 0.5, 0.5));
+		;
 	}
 	else if (!ft_strncmp(data + (*i), "RING", 4))
 	{
@@ -39,10 +40,10 @@ static void	parse_pattern_cont(t_pattern *pattern, char *data, size_t *i, \
 	}
 }
 
-bool	parse_pattern(t_material *material, char *data, \
-	size_t *i, t_minirt *minirt)
+bool parse_pattern(t_material *material, char *data,
+				   size_t *i, t_minirt *minirt)
 {
-	t_pattern	*pattern;
+	t_pattern *pattern;
 
 	pattern = ft_calloc(1, sizeof(t_pattern));
 	if (!pattern)
@@ -55,20 +56,20 @@ bool	parse_pattern(t_material *material, char *data, \
 	if (!ft_strncmp(data + (*i), "GRADIENT", 8))
 	{
 		*i += 8;
-		pattern->type= GRADIENT;
+		pattern->type = GRADIENT;
 		pattern->transform = scaling_mat(10, 10, 10);
 	}
 	else if (!ft_strncmp(data + (*i), "CHECKER", 7))
 	{
 		*i += 7;
 		pattern->type = CHECKER;
-		pattern->transform = identity_mat();	
+		pattern->transform = identity_mat();
 	}
 	else
 		parse_pattern_cont(pattern, data, i, minirt);
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
-	pattern->inv_transform = inverse_mat4d(pattern->transform);
+	pattern->inv_transform = inverse_mat4d(&pattern->transform);
 	material->pattern = pattern;
 	//
 	printf("pattern color: %f %f %f\n", pattern->a.r, pattern->a.g, pattern->a.b);

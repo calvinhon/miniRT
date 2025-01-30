@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_math.h"
+#include "minirt_math.h"
 
 t_vec4d create_vec4d(float x, float y, float z)
 {

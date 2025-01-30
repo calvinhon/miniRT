@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "macros.h"
 // #include "libft.h"
 #include "colors.h"
 
-void	parse_shape(t_minirt *minirt, char *data, size_t *i)
+void parse_shape(t_minirt *minirt, char *data, size_t *i)
 {
-	size_t	start;
-	size_t	idx;
+	size_t start;
+	size_t idx;
 
 	idx = minirt->scene.shape_count++;
 	start = *i;
@@ -36,14 +36,13 @@ void	parse_shape(t_minirt *minirt, char *data, size_t *i)
 	{
 		ft_printf("Unknown object type: %c%c at position %d\n", data[start], data[start + 1], start);
 		ft_printf("data = : %s\n", data + *i);
-		errors(CER_OBJ_TYPE,ER_OBJ_TYPE, minirt);
+		errors(CER_OBJ_TYPE, ER_OBJ_TYPE, minirt);
 	}
-		
 }
 
-void	parse_data(t_minirt *minirt, char *data, size_t total_size)
+void parse_data(t_minirt *minirt, char *data, size_t total_size)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (data[i])
@@ -51,15 +50,14 @@ void	parse_data(t_minirt *minirt, char *data, size_t total_size)
 		while (data[i] == '\t' || data[i] == ' ' || data[i] == '\n')
 			i++;
 		if (!data[i])
-			break ;
-		if (data[i] == 'A'  && data[i + 1] == ' ')
+			break;
+		if (data[i] == 'A' && data[i + 1] == ' ')
 			parse_ambient(minirt, data, &i);
 		else if (data[i] == 'C' && data[i + 1] == ' ')
 			parse_camera(minirt, data, &i);
 		else if ((data[i] == 'L' || data[i] == 'l') && data[i + 1] == ' ')
 			parse_light(minirt, data, &i);
-		else if ((data[i] == 'S' || data[i] == 's') && (data[i + 1] == 'L'|| data[i + 1] == 'l')
-		 && data[i + 2] == ' ')
+		else if ((data[i] == 'S' || data[i] == 's') && (data[i + 1] == 'L' || data[i + 1] == 'l') && data[i + 2] == ' ')
 			parse_spotlight(minirt, data, &i);
 		else
 			parse_shape(minirt, data, &i);

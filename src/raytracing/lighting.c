@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "colors.h"
 
 t_vec4d reflect(t_vec4d *in, t_vec4d *normal)
@@ -32,7 +32,7 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 
 	//
 	if (m->pattern)
-	 m->color = pattern_at(c->obj, &c->p, m->pattern);
+		m->color = pattern_at(c->obj, &c->p, m->pattern);
 	//
 	c->diffuse = create_color(0, 0, 0);
 	c->specular = create_color(0, 0, 0);
@@ -50,7 +50,7 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 		if (reflect_dot_eye > 0)
 		{
 			c->specular = scale_color(&c->l_color,
-				pow(reflect_dot_eye, m->shininess) * m->specular_s);
+									  pow(reflect_dot_eye, m->shininess) * m->specular_s);
 		}
 	}
 	return (add_colors(3, &c->ambient, &c->diffuse, &c->specular));
@@ -104,7 +104,7 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 		if (i > 0)
 			s->ambiance = create_color(0, 0, 0);
 		lighting_result = lighting(&c->obj->material,
-			&s->lights[i], c, &s->ambiance);
+								   &s->lights[i], c, &s->ambiance);
 		surface = add_colors(2, &surface, &lighting_result);
 	}
 	if (c->obj->material.reflective)

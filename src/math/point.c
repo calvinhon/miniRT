@@ -6,11 +6,11 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 15:10:08 by chon              #+#    #+#             */
-/*   Updated: 2025/01/30 13:17:03 by chon             ###   ########.fr       */
+/*   Updated: 2025/01/30 13:57:11 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_math.h"
+#include "minirt_math.h"
 
 t_point create_point(float x, float y, float z)
 {

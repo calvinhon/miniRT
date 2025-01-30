@@ -14,7 +14,7 @@
 #define COMMON_H
 
 #include <stdbool.h>
-#include "miniRT_math.h"
+#include "minirt_math.h"
 
 enum e_object_types
 {
@@ -91,7 +91,7 @@ typedef struct s_material
 	float transparency;
 	float refractive_index;
 	bool checkered;
-	t_pattern	*pattern;
+	t_pattern *pattern;
 	t_frame *fra_tex;
 } t_material;
 

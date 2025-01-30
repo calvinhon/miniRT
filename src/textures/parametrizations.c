@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
-t_vec2d	rt_get_sphere_uv_local(t_vec4d *hitp)
+t_vec2d rt_get_sphere_uv_local(t_vec4d *hitp)
 {
-	const float	two_pi = 2.f * (float)PI;
-	t_vec2d		uv;
-	float		phi;
-	float		theta;
-	t_vec4d		op_hitp;
+	const float two_pi = 2.f * (float)PI;
+	t_vec2d uv;
+	float phi;
+	float theta;
+	t_vec4d op_hitp;
 
 	op_hitp = *hitp;
 	phi = atan2f(hitp->z, hitp->x);
@@ -36,11 +36,11 @@ t_vec2d	rt_get_sphere_uv_local(t_vec4d *hitp)
 	return (uv);
 }
 
-t_vec2d	rt_get_plane_uv_local(t_vec4d *hitp, t_vec4d tangent, t_vec4d *normal)
+t_vec2d rt_get_plane_uv_local(t_vec4d *hitp, t_vec4d tangent, t_vec4d *normal)
 {
-	t_vec4d	bitangent;
-	t_vec2d	uv;
-	float	tile_factor;
+	t_vec4d bitangent;
+	t_vec2d uv;
+	float tile_factor;
 
 	tile_factor = 0.1f;
 	bitangent = cross_pointers(&tangent, normal);

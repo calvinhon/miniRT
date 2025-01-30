@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 
 t_vec4d sphere_normal_at(t_object *o, t_point *wrld_p)
 {
@@ -28,7 +28,7 @@ t_vec4d sphere_normal_at(t_object *o, t_point *wrld_p)
 	return (wrld_normal);
 }
 
-void	intersect_sphere(t_ray *r, t_object *o, t_itx_grp *xs)
+void intersect_sphere(t_ray *r, t_object *o, t_itx_grp *xs)
 {
 	t_ray trfm_r;
 	t_vec4d o_to_ray;
@@ -44,7 +44,7 @@ void	intersect_sphere(t_ray *r, t_object *o, t_itx_grp *xs)
 	abc.z = dot_pointers(&o_to_ray, &o_to_ray) - 1.f;
 	d = abc.y * abc.y - 4.f * abc.x * abc.z;
 	if (d < 0)
-		return ;
+		return;
 	d = sqrtf(d);
 	abc.x *= 2.f;
 	xs->arr[xs->count].obj = o;

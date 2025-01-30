@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "colors.h"
 
 t_itx *get_hit(t_itx_grp *xs)
@@ -96,7 +96,7 @@ t_ray cam_ray_to_pixel(const t_camera *cam, int px, int py)
 	t_point pixel_world;
 	t_point cam_origin_world;
 	t_vec4d ray_direction;
-	t_point	origin;
+	t_point origin;
 
 	pixel_cam = create_point((cam->half_width - (px + 0.5f) * cam->pixel_size),
 							 (cam->half_height - (py + 0.5f) * cam->pixel_size), -1);

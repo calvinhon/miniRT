@@ -10,21 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "macros.h"
 // #include "libft.h"
 #include "colors.h"
 
-void	set_camera_orient(t_camera *cam)
+void set_camera_orient(t_camera *cam)
 {
 	t_mat4d view_m;
-	t_mat4d	translate_m;
+	t_mat4d translate_m;
 
 	if (fabsf(cam->forward.x) < EPSILON && fabsf(cam->forward.z) < EPSILON)
 		cam->left = create_vec4d(-1.0f, 0.0f, 0.0f);
 	else
 		cam->left = cross_values(cam->forward,
-				create_vec4d(0.0f, 1.0f, 0.0f));
+								 create_vec4d(0.0f, 1.0f, 0.0f));
 	view_m = identity_mat();
 	cam->up = cross_pointers(&cam->left, &cam->forward);
 	view_m.matrix[0] = cam->left.x;
@@ -41,7 +41,7 @@ void	set_camera_orient(t_camera *cam)
 	cam->inv_transform = inverse_mat4d(&cam->inv_transform);
 }
 
-void	set_camera_fields(t_camera *cam)
+void set_camera_fields(t_camera *cam)
 {
 	cam->is_set = true;
 	cam->scale = create_vec4d(1.f, 1.f, 1.f);
@@ -62,9 +62,9 @@ void	set_camera_fields(t_camera *cam)
 	cam->pixel_size = (cam->half_width * 2.f) / cam->hsize;
 }
 
-t_point	parse_point(char *data, size_t *i)
+t_point parse_point(char *data, size_t *i)
 {
-	t_point	point;
+	t_point point;
 
 	point.x = parse_float(data, i);
 	point.y = parse_float(data, i);
@@ -74,9 +74,9 @@ t_point	parse_point(char *data, size_t *i)
 	return (point);
 }
 
-t_vec4d	parse_vector(char *data, size_t *i)
+t_vec4d parse_vector(char *data, size_t *i)
 {
-	t_vec4d	vector;
+	t_vec4d vector;
 
 	vector.x = parse_float(data, i);
 	vector.y = parse_float(data, i);
@@ -86,7 +86,7 @@ t_vec4d	parse_vector(char *data, size_t *i)
 	return (vector);
 }
 
-void	parse_camera(t_minirt *minirt, char *data, size_t *i)
+void parse_camera(t_minirt *minirt, char *data, size_t *i)
 {
 	(*i) += 1;
 	minirt->cam.from = parse_point(data, i);
