@@ -14,6 +14,9 @@
 
 int update_minirt(t_minirt *minirt)
 {
+	//
+	minirt->state_changed = false;
+	//
 	if (minirt->stop)
 	{
 		if (!minirt->selected.is_cam)
@@ -32,7 +35,14 @@ int update_minirt(t_minirt *minirt)
 	}
 	else
 		object_controls(minirt);
-	return (update_rt(minirt), 0);
+		// check state change and update
+	if (minirt->state_changed || minirt->first_time)
+	{
+		printf("state changed -> update\n");
+		minirt->first_time = false;
+		update_rt(minirt);
+	}
+	return (0);
 }
 
 int record_keypress(int keycode, t_minirt *minirt)

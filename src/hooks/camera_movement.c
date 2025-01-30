@@ -75,4 +75,6 @@ void camera_controls(t_minirt *state)
 	_movecam_elevation_check(state, &state_changed);
 	if (state_changed)
 		update_camera_state(&state->cam);
+	//
+	state->state_changed = state_changed;	
 }

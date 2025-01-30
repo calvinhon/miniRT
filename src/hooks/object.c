@@ -109,4 +109,6 @@ void object_controls(t_minirt *minirt)
 	_move_elevation_check(minirt, &state_changed);
 	if (state_changed)
 		update_object_cache(selected_object);
+	//
+	minirt->state_changed = state_changed;
 }

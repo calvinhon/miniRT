@@ -30,8 +30,8 @@ bool parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	is_normalised(&cylinder->orientation, *i, minirt);
 	cylinder->radius = parse_float(data, i) / 2;
 	height = parse_float(data, i);
-	cylinder->specs.min_y = -height / 4;
-	cylinder->specs.max_y = height / 4;
+	cylinder->specs.min_y = -height / 2;
+	cylinder->specs.max_y = height / 2;
 	cylinder->specs.closed = true;
 	cylinder->material.color = parse_color(data, i, minirt);
 	set_material(&cylinder->material, data, i, minirt);

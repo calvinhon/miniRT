@@ -55,6 +55,10 @@ typedef struct s_tex_frame
 
 typedef struct s_minirt
 {
+	//
+	bool state_changed;
+	bool first_time;
+	//
 	int error_code;
 	char *data;
 	int flt_operations;

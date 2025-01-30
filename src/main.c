@@ -39,6 +39,10 @@ static t_minirt *init_minirt(void)
 	minirt->win = mlx_new_window(minirt->mlx, FRAME_W, FRAME_H, "miniRT");
 	if (!make_window(minirt, FRAME_W, FRAME_H))
 		errors(CER_MLX_WIN, ER_MLX_WIN, minirt);
+	//
+	minirt->first_time = true;
+	minirt->state_changed = false;
+	//
 	minirt->textures = NULL;
 	minirt->selected.is_cam = true;
 	minirt->selected.object = NULL;

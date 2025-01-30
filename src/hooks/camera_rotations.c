@@ -89,4 +89,6 @@ void camera_rotations(t_minirt *state)
 	}
 	if (state_changed)
 		update_camera_state(&state->cam);
+	//
+	state->state_changed = state_changed;
 }
