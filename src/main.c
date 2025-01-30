@@ -81,21 +81,26 @@ int main(int ac, char **av)
 	// }
 	// mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
 
-	t_ray		r;
-	t_point		p;
-	t_vec4d		d;
-	t_object	c;
-	t_itx_grp	xs;
+	t_ray r;
+	t_point p;
+	t_vec4d d;
+	t_object c;
+	// t_itx_grp xs;
 
 	p = create_point(2, 2, 0);
 	d = create_vec4d(-1, 0, 0);
 	r = create_ray(&p, &d);
 	c.inv_transform = identity_mat();
-	xs.count = 0;
-	intersect_cube(&r, &c, &xs);
-	printf("%d\n", xs.count);
-	if (xs.count > 0)
-		printf("%.2f %.2f\n", xs.arr[0].t, xs.arr[1].t);
+	// xs.count = 0;
+	// intersect_cube(&r, &c, &xs);
+	// printf("%d\n", xs.count);
+	// if (xs.count > 0)
+	// 	printf("%.2f %.2f\n", xs.arr[0].t, xs.arr[1].t);
+	t_point wrld_p;
+	t_vec4d wrld_normal;
+	wrld_p = create_point(-1, -1, -1);
+	wrld_normal = cube_normal_at(&c, &wrld_p);
+	printf("%.2f %.2f %.2f\n", wrld_normal.x, wrld_normal.y, wrld_normal.z);
 
 	// init_core(minirt);
 	// mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
@@ -103,7 +108,7 @@ int main(int ac, char **av)
 	// 		 &record_keyrelease, minirt);
 	// mlx_mouse_hook(minirt->win, &select_shape, minirt);
 	// mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
-	
+
 	// mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2,
 	// 		 &destroy_minirt, minirt);
 	// mlx_loop(minirt->mlx);
