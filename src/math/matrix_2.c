@@ -41,19 +41,19 @@ t_mat4d	mult_n_mat4d(int num_of_matrices, ...)
 	idx.count = -1;
 	idx.i = -1;
 	idx.j = -1;
-	idx.m1 = va_arg(args, t_mat4d);
+	idx.m1 = va_arg(args, t_mat4d*);
 	while (++idx.count < num_of_matrices - 1)
 	{
-		idx.m2 = va_arg(args, t_mat4d);
+		idx.m2 = va_arg(args, t_mat4d*);
 		while (++idx.i < 4)
 		{
 			while (++idx.j < 4)
 				new_m.matrix[idx.i * 4 + idx.j] =
-					dot_values(row(&idx.m2, idx.i), col(&idx.m1, idx.j));
+					dot_values(row(idx.m2, idx.i), col(idx.m1, idx.j));
 			idx.j = -1;
 		}
 		idx.i = -1;
-		idx.m1 = new_m;
+		idx.m1 = &new_m;
 	}
 	va_end(args);
 	return (new_m);
@@ -72,16 +72,5 @@ t_vec4d	mult_mat4d_vec4d(const t_mat4d *m, const t_vec4d *v)
 
 t_mat4d	transpose_mat4d(const t_mat4d *m)
 {
-	t_mat4d new_m;
-	t_vec4d	v1;
-	t_vec4d	v2;
-	t_vec4d	v3;
-	t_vec4d	v4;
-
-	v1 = col(m, 0);
-	v2 = col(m, 1);
-	v3 = col(m, 2);
-	v4 = col(m, 3);
-	new_m = create_mat4d(v1, v2, v3, v4);
-	return (new_m);
+	return (fill_matrix(col(m, 0), col(m, 1), col(m, 2), col(m, 3)));
 }

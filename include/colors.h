@@ -27,7 +27,6 @@ t_color add_colors(int num_of_colors, ...);
 t_color subtract_colors(const t_color *c1, const t_color *c2);
 t_color scale_color(const t_color *c, float scale);
 t_color mult_colors(const t_color *c1, const t_color *c2);
-t_color	normalize_color(t_color c);
 unsigned int plot_color(t_color *c);
 
 #endif

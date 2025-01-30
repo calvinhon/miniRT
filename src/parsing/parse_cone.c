@@ -71,7 +71,7 @@ bool parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cone->scale = scaling_mat(s.x, s.y, s.z);
 	cone->rot = rt_extract_rot_vertical(cone->orientation);
 	cone->inv_transform = mult_n_mat4d(3,
-		cone->rot, cone->scale, cone->translate);
+		&cone->rot, &cone->scale, &cone->translate);
 	cone->inv_transform = inverse_mat4d(&cone->inv_transform);
 	/*
 		// test

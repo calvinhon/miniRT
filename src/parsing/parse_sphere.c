@@ -12,7 +12,6 @@
 
 #include "miniRT.h"
 #include "macros.h"
-// #include "libft.h"
 #include "colors.h"
 
 bool	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
@@ -29,8 +28,7 @@ bool	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	sphere->material.color = parse_color(data, i, minirt);
 	set_material(&sphere->material, data, i, minirt);
 	sphere->scale = scaling_mat(sphere->radius, sphere->radius, sphere->radius);
-	// sphere->rot = identity_mat();
-	sphere->inv_transform = mult_n_mat4d(2, sphere->scale, sphere->translate);
+	sphere->inv_transform = mult_n_mat4d(2, &sphere->scale, &sphere->translate);
 	sphere->inv_transform = inverse_mat4d(&sphere->inv_transform);
 /*
 

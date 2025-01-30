@@ -239,7 +239,6 @@ t_color lerp_colors(const t_color *a, const t_color *b, float t);
 t_color fetch_pixel_color(const t_frame *frame, int x, int y);
 
 /*--- STATE ---*/
-
 void update_camera_state(t_camera *camera);
 int update_rt(t_minirt *minirt);
 int update_minirt(t_minirt *minirt);

@@ -80,42 +80,50 @@ typedef struct s_idx
 	int 	count;
 	int 	i;
 	int 	j;
-	t_mat4d	m1;
-	t_mat4d	m2;
+	t_mat4d	*m1;
+	t_mat4d	*m2;
 } t_idx;
 
+/*--- POINTS ---*/
 t_point create_point(float x, float y, float z);
-t_point add_v_to_p(t_point p, t_vec4d v);
-t_point subtract_v_from_p(t_point p, t_vec4d v);
-float dot_v_p(const t_vec4d *v, const t_point *p);
+t_point add_v_to_p(const t_point *p, t_vec4d v);
+t_point subtract_v_from_p(const t_point *p, const t_vec4d *v);
 t_point mult_mat4d_pt4d(const t_mat4d *m, const t_point *p);
+
+/*--- VECTORS ---*/
 t_vec4d create_vec4d(float x, float y, float z);
 t_vec4d add_vectors(const t_vec4d *v1, const t_vec4d *v2);
 t_vec4d subtract_points(const t_point *p1, const t_point *p2);
 t_vec4d subtract_vectors(const t_vec4d *v1, const t_vec4d *v2);
 t_vec4d scale_vector(const t_vec4d *v, float factor);
 t_vec4d negate_vector(const t_vec4d *v);
-float magnitude(const t_vec4d *v);
 t_vec4d normalize(const t_vec4d *v);
-float dot_pointers(const t_vec4d *v1, const t_vec4d *v2);
-float dot_values(t_vec4d v1, t_vec4d v2);
 t_vec4d cross_pointers(const t_vec4d *v1, const t_vec4d *v2);
 t_vec4d cross_values(t_vec4d v1, t_vec4d v2);
-t_mat4d create_mat4d(t_vec4d v1, t_vec4d v2, t_vec4d v3, t_vec4d v4);
 t_vec4d row(const t_mat4d *m, int i);
 t_vec4d col(const t_mat4d *m, int i);
+
+/*--- FLOATS ---*/
+float magnitude(const t_vec4d *v);
+float dot_v_p(t_vec4d v, const t_point *p);
+float dot_pointers(const t_vec4d *v1, const t_vec4d *v2);
+float dot_values(t_vec4d v1, t_vec4d v2);
+
+/*--- MATRICES ---*/
 void	fill_row(t_mat4d *m, int row, t_vec4d v);
 t_mat4d	fill_matrix(t_vec4d v1, t_vec4d v2, t_vec4d v3, t_vec4d v4);
 t_mat4d mult_n_mat4d(int num_of_matrices, ...);
 t_vec4d mult_mat4d_vec4d(const t_mat4d *m, const t_vec4d *v);
 t_mat4d transpose_mat4d(const t_mat4d *m);
 float determinant_mat2d(const t_mat2d *m);
-float determinant_mat3d(const t_mat3d *m);
+float determinant_mat3d(t_mat3d m);
 float determinant_mat4d(const t_mat4d *m);
 t_mat2d submatrix_mat3d(const t_mat3d *m, int row, int col);
 t_mat3d submatrix_mat4d(const t_mat4d *m, int row, int col);
 float minor_mat3d(const t_mat3d *m, int row, int col);
 float cofactor_mat3d(const t_mat3d *m, int row, int col);
+
+/*--- OBJECT MANIPULATION ---*/
 t_mat4d inverse_mat4d(const t_mat4d *m);
 t_mat4d identity_mat(void);
 t_mat4d translation_mat(float x, float y, float z);

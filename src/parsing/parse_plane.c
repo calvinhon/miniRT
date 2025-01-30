@@ -12,7 +12,6 @@
 
 #include "miniRT.h"
 #include "macros.h"
-// #include "libft.h"
 #include "colors.h"
 
 bool	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
@@ -34,7 +33,7 @@ bool	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	plane->scale = scaling_mat(1.f, 1.f, 1.f);
 	//
 	plane->rot = rt_extract_rot_vertical(plane->orientation);
-	plane->inv_transform = mult_n_mat4d(3, plane->rot, plane->scale, plane->translate);	
+	plane->inv_transform = mult_n_mat4d(3, &plane->rot, &plane->scale, &plane->translate);	
 	plane->inv_transform = inverse_mat4d(&plane->inv_transform);
 
 	//cylinder->scale = scaling_mat(cylinder->radius, height / 2.f, cylinder->radius);
