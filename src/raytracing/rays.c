@@ -4,7 +4,7 @@ t_point position(t_ray *r, float t)
 {
 	t_vec4d scaled_v;
 
-	scaled_v = scale_vector(&r->direction, t);
+	scale_vector(&scaled_v, &r->direction, t);
 	return (add_v_to_p(&r->origin, scaled_v));
 }
 

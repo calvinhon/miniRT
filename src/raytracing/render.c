@@ -41,8 +41,8 @@ void local_normal_at(t_itx *itx, t_comps *comps)
 		comps->normal_v = plane_normal_at(itx->obj, &comps->p);
 	else if (itx->obj->type == CYLINDER)
 		comps->normal_v = cylinder_normal_at(itx->obj, &comps->p);
-	// else if (itx->obj->type == CUBE)
-	// 	comps->normal_v = cube_normal_at(itx->obj, &comps->p);
+	 else if (itx->obj->type == CUBE)
+	 	comps->normal_v = cube_normal_at(itx->obj, &comps->p);
 	// else if (itx->obj->type == CONE)
 	// 	comps->normal_v = cone_normal_at(itx->obj, &comps->p);
 	if (dot_pointers(&comps->normal_v, &comps->eye_v) < EPSILON)
@@ -53,7 +53,7 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 {
 	float bump;
 	t_comps comps;
-	// t_vec4d		margin;
+	t_vec4d	margin;
 
 	comps.t = itx->t;
 	comps.obj = itx->obj;
@@ -62,7 +62,9 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 	comps.eye_v = negate_vector(&r->direction);
 	local_normal_at(itx, &comps);
 	bump = EPSILON * 10;
-	comps.over_point = add_v_to_p(&comps.p, scale_vector(&comps.normal_v, bump));
+	//
+	scale_vector(&margin, &comps.normal_v, bump);
+	comps.over_point = add_v_to_p(&comps.p, margin);
 	// lag_vec4s_scaleby(&margin, comps.normal_v, bump);
 	// lag_vec4s_sub(&comps.under_point, &comps.p, &margin);
 	comps.reflect_v = reflect(&r->direction, &comps.normal_v);

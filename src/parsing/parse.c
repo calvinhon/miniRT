@@ -128,12 +128,19 @@ char *file_data(t_minirt *minirt, size_t *total_size, char *file)
 
 void allocate_light_shape(t_minirt *minirt)
 {
+	int i;
+
 	minirt->scene.lights = (t_light *)malloc(minirt->scene.num_lights * sizeof(t_light));
 	if (!minirt->scene.lights)
 		errors(CER_MALLOC, ER_MALLOC, minirt);
 	minirt->scene.shapes = (t_object *)malloc(minirt->scene.num_shapes * sizeof(t_object));
 	if (!minirt->scene.shapes)
 		errors(CER_MALLOC, ER_MALLOC, minirt);
+	i = -1;
+	while (++i < minirt->scene.num_shapes)
+		minirt->scene.shapes[i].material.pattern = NULL;
+	//
+	printf("located %d lights and %d shapes\n", minirt->scene.num_lights, minirt->scene.num_shapes);
 }
 
 void parse(char *file, t_minirt *minirt)

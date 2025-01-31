@@ -120,7 +120,6 @@ void parse_material(t_material *material, char *data,
 void set_material(t_material *material, char *data, size_t *i,
 				  t_minirt *minirt)
 {
-	// material->xordc = (t_color){.v = vec4s_re(0.f, 0.f, 0.f, 0.f)};
 	material->ambient_s = 0.1;
 	material->diffuse_s = 0.9;
 	material->specular_s = 0.9;
@@ -128,9 +127,6 @@ void set_material(t_material *material, char *data, size_t *i,
 	material->reflective = 0.0;
 	material->transparency = 0.0;
 	material->refractive_index = 1.0;
-	// add
-	material->pattern = NULL;
-	//
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
 	if (data[*i] == 'M')

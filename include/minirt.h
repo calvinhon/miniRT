@@ -55,10 +55,8 @@ typedef struct s_tex_frame
 
 typedef struct s_minirt
 {
-	//
-	bool state_changed;
-	bool first_time;
-	//
+	bool changed;
+
 	int error_code;
 	char *data;
 	int flt_operations;
@@ -234,7 +232,7 @@ t_color render_pixel(t_minirt *program, int x, int y);
 
 /*---- THREADS ----*/
 
-bool init_core(t_minirt *minirt);
+bool multicore(t_minirt *minirt);
 bool thread_arbiter(t_minirt *minirt);
 void *await_task(void *arg);
 void	interpolate_horizontal(t_core const *data);

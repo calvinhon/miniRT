@@ -17,11 +17,11 @@ static inline void _movecam_sideways_check(t_minirt *state,
 {
 	t_vec4d scaled_left;
 
-	scaled_left = scale_vector(&state->cam.left,
+	scale_vector(&scaled_left, &state->cam.left,
 							   (MOVE_SPEED + (MOVE_SPEED / 2.f)) * state->delta_time);
 	if (state->move.a)
 	{
-		state->cam.from = add_v_to_p(&state->cam.from, scaled_left);
+		state->cam.from = add_v_to_p(&scaled_left, &state->cam.from);
 		*state_changed = true;
 	}
 	if (state->move.d)
@@ -36,7 +36,7 @@ static inline void _movecam_longitudinally_check(t_minirt *state,
 {
 	t_vec4d scaled_forward;
 
-	scaled_forward = scale_vector(&state->cam.forward,
+	scale_vector(&scaled_forward, &state->cam.forward,
 								  (MOVE_SPEED + (MOVE_SPEED / 2.f)) * state->delta_time);
 	if (state->move.w)
 	{
@@ -76,5 +76,5 @@ void camera_controls(t_minirt *state)
 	if (state_changed)
 		update_camera_state(&state->cam);
 	//
-	state->state_changed = state_changed;	
+	state->changed = state_changed;	
 }

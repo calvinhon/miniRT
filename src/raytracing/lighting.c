@@ -19,7 +19,7 @@ t_vec4d reflect(t_vec4d *in, t_vec4d *normal)
 	t_vec4d scaled_vec;
 
 	in_dot_normal = dot_pointers(in, normal);
-	scaled_vec = scale_vector(normal, 2.f * in_dot_normal);
+	scale_vector(&scaled_vec, normal, 2.f * in_dot_normal);
 	return (subtract_vectors(in, &scaled_vec));
 }
 

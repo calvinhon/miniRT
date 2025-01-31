@@ -14,9 +14,6 @@
 
 int update_minirt(t_minirt *minirt)
 {
-	//
-	minirt->state_changed = false;
-	//
 	if (minirt->stop)
 	{
 		if (!minirt->selected.is_cam)
@@ -35,12 +32,10 @@ int update_minirt(t_minirt *minirt)
 	}
 	else
 		object_controls(minirt);
-		// check state change and update
-	if (minirt->state_changed || minirt->first_time)
+	if (minirt->changed)
 	{
-		printf("state changed -> update\n");
-		minirt->first_time = false;
-		update_rt(minirt);
+		multicore(minirt);
+		minirt->changed = false;
 	}
 	return (0);
 }

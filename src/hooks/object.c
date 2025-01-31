@@ -35,7 +35,7 @@ static inline void _move_sideways_check(t_minirt *minirt, bool *state_changed)
 	t_object *selected_object;
 	t_vec4d scaled_left;
 
-	scaled_left = scale_vector(&minirt->cam.left,
+	scale_vector(&scaled_left, &minirt->cam.left,
 							   (MOVE_SPEED + (MOVE_SPEED / 2.f)) * minirt->delta_time);
 	selected_object = minirt->selected.object;
 	if (minirt->move.a || minirt->move.left)
@@ -62,7 +62,7 @@ static inline void _move_longitudinally_check(t_minirt *minirt,
 					  minirt->cam.from.y, selected_object->translate.matrix[11]);
 	viewport_forward = subtract_points(&minirt->cam.from, &op);
 	viewport_forward = normalize(&viewport_forward);
-	viewport_forward = scale_vector(&viewport_forward,
+	scale_vector(&viewport_forward, &viewport_forward,
 									(MOVE_SPEED + (MOVE_SPEED / 2.f)) * minirt->delta_time);
 	if (minirt->move.w)
 	{
@@ -110,5 +110,5 @@ void object_controls(t_minirt *minirt)
 	if (state_changed)
 		update_object_cache(selected_object);
 	//
-	minirt->state_changed = state_changed;
+	minirt->changed = state_changed;
 }
