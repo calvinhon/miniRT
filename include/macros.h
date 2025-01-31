@@ -20,8 +20,8 @@
 #define LIGHTS_MAX 100
 #define SHAPES_MAX 100
 
-#define STEP_SKIP 5
-#define INTP_THRES 5
+#define STEP_SKIP 3
+#define INTP_THRES 20
 
 #ifndef MAX_RFLX
 #define MAX_RFLX 4
@@ -36,9 +36,9 @@
 #define MAX_ITX 200
 #define _RT_MIN_INTENSITY 0.05f
 
-#define MOVE_SPEED 0.1f
-#define PITCH_SPEED 0.01f
-#define YAW_SPEED 0.01f
+#define MOVE_SPEED 2.f
+#define PITCH_SPEED 0.1f
+#define YAW_SPEED 0.1f
 
 #ifdef __MACH__
 #undef OS_MACOS

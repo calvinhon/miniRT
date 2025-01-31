@@ -107,7 +107,8 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 								   &s->lights[i], c, &s->ambiance);
 		surface = add_colors(2, &surface, &lighting_result);
 	}
-	if (c->obj->material.reflective)
+	//
+	if (c->obj->material.reflective && s->refract_reflect)
 		reflect = reflected_color(s, c, remaining);
 	// if (s->refract_reflect)
 	// {

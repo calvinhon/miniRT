@@ -48,7 +48,7 @@ int record_keypress(int keycode, t_minirt *minirt)
 	if (keycode == KEY_ESC)
 		return (minirt->stop = true, 0);
 	if (keycode == KEY_R)
-		minirt->scene.refract_reflect ^= true;
+		return (minirt->changed = true, minirt->scene.refract_reflect ^= true, keycode);
 	if (keycode == KEY_A)
 		minirt->move.a = true;
 	if (keycode == KEY_D)
