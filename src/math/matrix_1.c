@@ -33,3 +33,22 @@ t_vec4d col(const t_mat4d *m, int i)
 	v.p = m->matrix[i + 12];
 	return (v);
 }
+
+void fill_row(t_mat4d *m, int row, t_vec4d v)
+{
+	m->matrix[row * 4] = v.x;
+	m->matrix[row * 4 + 1] = v.y;
+	m->matrix[row * 4 + 2] = v.z;
+	m->matrix[row * 4 + 3] = v.p;
+}
+
+t_mat4d fill_matrix(t_vec4d v1, t_vec4d v2, t_vec4d v3, t_vec4d v4)
+{
+	t_mat4d m;
+
+	fill_row(&m, 0, v1);
+	fill_row(&m, 1, v2);
+	fill_row(&m, 2, v3);
+	fill_row(&m, 3, v4);
+	return (m);
+}

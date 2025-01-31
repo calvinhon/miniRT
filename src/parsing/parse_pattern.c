@@ -18,13 +18,16 @@
 static void parse_pattern_cont(t_pattern *pattern, char *data, size_t *i,
 							   t_minirt *minirt)
 {
+	t_mat4d	rot_m;
+	t_mat4d	scale_m;
+
 	if (!ft_strncmp(data + (*i), "STRIPED", 7))
 	{
 		*i += 7;
 		pattern->type = STRIPED;
-		pattern->transform = mult_n_mat4d(2, rotate_mat_z(PI / 2),
-										  scaling_mat(0.5, 0.5, 0.5));
-		;
+		rot_m = rotate_mat_z(PI / 2);
+		scale_m = scaling_mat(0.5, 0.5, 0.5);
+		pattern->transform = mult_n_mat4d(2, &rot_m, &scale_m);
 	}
 	else if (!ft_strncmp(data + (*i), "RING", 4))
 	{
