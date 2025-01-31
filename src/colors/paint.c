@@ -26,21 +26,21 @@ int cdiff(t_color a, t_color b)
 	return (r_diff + g_diff + b_diff);
 }
 
-void clamp_color(t_color *color)
-{
-	if (color->r > 1)
-		color->r = 1;
-	else if (color->r < 0)
-		color->r = 0;
-	if (color->g > 1)
-		color->g = 1;
-	else if (color->g < 0)
-		color->g = 0;
-	if (color->b > 1)
-		color->b = 1;
-	else if (color->b < 0)
-		color->b = 0;
-}
+//void clamp_color(t_color *color)
+//{
+//	if (color->r > 1)
+//		color->r = 1;
+//	else if (color->r < 0)
+//		color->r = 0;
+//	if (color->g > 1)
+//		color->g = 1;
+//	else if (color->g < 0)
+//		color->g = 0;
+//	if (color->b > 1)
+//		color->b = 1;
+//	else if (color->b < 0)
+//		color->b = 0;
+//}
 
 //uint32_t convert_color32(const t_color *_color)
 //{

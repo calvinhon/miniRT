@@ -20,8 +20,8 @@
 #define LIGHTS_MAX 100
 #define SHAPES_MAX 100
 
-#define STEP_SKIP 3
-#define INTP_THRES 20
+#define STEP_SKIP 5
+#define INTP_THRES 5
 
 #ifndef MAX_RFLX
 #define MAX_RFLX 4
