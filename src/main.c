@@ -73,15 +73,15 @@ int main(int ac, char **av)
 	parse(av[1], minirt);
 	
 	// Direct to render
-	int x = -1;
-	int y = -1;
-	while (++y < minirt->cam.vsize - 1)
-	{
-		while (++x < minirt->cam.hsize - 1)
-			render_pixel(minirt, x, y);
-		x = -1;
-	}
-	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
+	// int x = -1;
+	// int y = -1;
+	// while (++y < minirt->cam.vsize - 1)
+	// {
+	// 	while (++x < minirt->cam.hsize - 1)
+	// 		render_pixel(minirt, x, y);
+	// 	x = -1;
+	// }
+	// mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
 
 	// Comment out below to enable direct to render
 	//
@@ -92,6 +92,27 @@ int main(int ac, char **av)
 	// mlx_mouse_hook(minirt->win, &select_shape, minirt);
 	// mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
 	//
+
+	// Cone tests
+	t_object	c;
+	// t_itx_grp	xs;
+	// t_ray		r = create_ray(&o, &d);
+	// t_point		o = create_point(1, 1, -5);
+	// t_vec4d		d = create_vec4d(-0.5, -1, 1);
+	// d = normalize(&d);
+	c.inv_transform = identity_mat();
+	c.specs.min_y = -100;
+	c.specs.max_y = 100;
+	c.specs.closed = 1;
+	// xs.count = 0;
+	// intersect_cone(&r, &c, &xs);
+	// printf("%d\n", xs.count);
+	// if (xs.count)
+	// 	printf("%.5f %.5f %.5f %.5f\n", xs.arr[0].t, xs.arr[1].t, xs.arr[2].t, xs.arr[3].t);
+	t_point wrld_p = create_point(-1, -1, 0);
+	t_vec4d	n = cone_normal_at(&c, &wrld_p);
+	printf("%.2f, %.2f, %.2f\n", n.x, n.y, n.z);
+
 
 	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2,
 			 &destroy_minirt, minirt);

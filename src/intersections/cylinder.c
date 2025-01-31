@@ -33,55 +33,6 @@ t_vec4d cylinder_normal_at(t_object *o, t_point *wrld_p)
 	return (normalize(&wrld_normal));
 }
 
-float check_cap(t_ray *r, float t)
-{
-	float x;
-	float z;
-
-	x = r->origin.x + t * r->direction.x;
-	z = r->origin.z + t * r->direction.z;
-	return (x * x + z * z <= 1 + EPSILON);
-}
-
-void intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs)
-{
-	float t;
-
-	if (!o->specs.closed || fabsf(r->direction.y) < EPSILON)
-		return;
-	t = (o->specs.min_y - r->origin.y) / r->direction.y;
-	if (check_cap(r, t))
-	{
-		xs->arr[xs->count].obj = o;
-		xs->arr[xs->count++].t = t;
-	}
-	t = (o->specs.max_y - r->origin.y) / r->direction.y;
-	if (check_cap(r, t))
-	{
-		xs->arr[xs->count].obj = o;
-		xs->arr[xs->count++].t = t;
-	}
-}
-
-void check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs)
-{
-	float y;
-
-	swap(t);
-	y = r->origin.y + t[0] * r->direction.y;
-	if (y > o->specs.min_y && y < o->specs.max_y)
-	{
-		xs->arr[xs->count].obj = o;
-		xs->arr[xs->count++].t = t[0];
-	}
-	y = r->origin.y + t[1] * r->direction.y;
-	if (y > o->specs.min_y && y < o->specs.max_y)
-	{
-		xs->arr[xs->count].obj = o;
-		xs->arr[xs->count++].t = t[1];
-	}
-}
-
 void intersect_cylinder(t_ray *r, t_object *o, t_itx_grp *xs)
 {
 	t_ray trfm_r;
@@ -91,16 +42,17 @@ void intersect_cylinder(t_ray *r, t_object *o, t_itx_grp *xs)
 
 	trfm_r = *r;
 	transform_ray(&trfm_r, &o->inv_transform);
-	intersect_caps(&trfm_r, o, xs);
+	intersect_caps(&trfm_r, o, xs, 0);
 	abc.x = pow(trfm_r.direction.x, 2) + pow(trfm_r.direction.z, 2);
 	if (abc.x < EPSILON)
 		return;
-	abc.y = 2 * trfm_r.origin.x * trfm_r.direction.x + 2 * trfm_r.origin.z * trfm_r.direction.z;
+	abc.y = 2 * (trfm_r.origin.x * trfm_r.direction.x + trfm_r.origin.z * trfm_r.direction.z);
 	abc.z = pow(trfm_r.origin.x, 2) + pow(trfm_r.origin.z, 2) - 1;
 	d = abc.y * abc.y - 4 * abc.x * abc.z;
-	if (d < 0)
-		return;
-	d = sqrtf(d);
+	if (d < -EPSILON)
+		return ;
+	if (d > 0)
+		d = sqrtf(d);
 	abc.x *= 2.f;
 	t[0] = (-abc.y - d) / abc.x;
 	t[1] = (-abc.y + d) / abc.x;

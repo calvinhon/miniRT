@@ -41,10 +41,10 @@ void local_normal_at(t_itx *itx, t_comps *comps)
 		comps->normal_v = plane_normal_at(itx->obj, &comps->p);
 	else if (itx->obj->type == CYLINDER)
 		comps->normal_v = cylinder_normal_at(itx->obj, &comps->p);
-	// else if (itx->obj->type == CUBE)
-	// 	comps->normal_v = cube_normal_at(itx->obj, &comps->p);
-	// else if (itx->obj->type == CONE)
-	// 	comps->normal_v = cone_normal_at(itx->obj, &comps->p);
+	else if (itx->obj->type == CUBE)
+		comps->normal_v = cube_normal_at(itx->obj, &comps->p);
+	else if (itx->obj->type == CONE)
+		comps->normal_v = cone_normal_at(itx->obj, &comps->p);
 	if (dot_pointers(&comps->normal_v, &comps->eye_v) < EPSILON)
 		comps->normal_v = negate_vector(&comps->normal_v);
 }
@@ -99,7 +99,7 @@ t_ray cam_ray_to_pixel(const t_camera *cam, int px, int py)
 	t_point origin;
 
 	pixel_cam = create_point((cam->half_width - (px + 0.5f) * cam->pixel_size),
-							 (cam->half_height - (py + 0.5f) * cam->pixel_size), -1);
+				(cam->half_height - (py + 0.5f) * cam->pixel_size), -1);
 	pixel_world = mult_mat4d_pt4d(&cam->inv_transform, &pixel_cam);
 	origin = create_point(0, 0, 0);
 	cam_origin_world = mult_mat4d_pt4d(&cam->inv_transform, &origin);
