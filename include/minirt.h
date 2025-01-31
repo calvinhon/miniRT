@@ -56,7 +56,7 @@ typedef struct s_tex_frame
 typedef struct s_minirt
 {
 	bool changed;
-
+	bool	start;
 	int error_code;
 	char *data;
 	int flt_operations;

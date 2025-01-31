@@ -32,12 +32,13 @@ int update_minirt(t_minirt *minirt)
 	}
 	else
 		object_controls(minirt);
-	if (minirt->changed)
+	if (minirt->changed || minirt->start)
 	{
 		printf("updating minirt\n");//
 		update_rt(minirt);
 		printf("updating minirt done\n"); //
 		minirt->changed = false;
+		minirt->start = false;
 	}
 	return (0);
 }

@@ -43,6 +43,7 @@ static t_minirt *init_minirt(void)
 	minirt->selected.is_cam = true;
 	minirt->selected.object = NULL;
 	minirt->changed = true;
+	minirt->start = true;
 	return (minirt);
 }
 

@@ -27,8 +27,9 @@ static void fill_in_vertically(t_core const *data, int x, int y)
 	else
 		c_f = fetch_pixel_color(&data->minirt->frame, x,
 								y + STEP_SKIP - 1);
-	temp = subtract_colors(&c_i, &c_f);
-	if (temp.r + temp.g + temp.b > INTP_THRES)
+	//temp = subtract_colors(&c_i, &c_f);
+	//if (fabs(temp.r) + fabs(temp.g) + fabs(temp.b) > INTP_THRES)
+	if (cdiff(c_i, c_f) > INTP_THRES)
 	{
 		render_pixel(data->minirt, x, y);
 		render_pixel(data->minirt, x, y + 1);

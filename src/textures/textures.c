@@ -28,7 +28,7 @@ t_color rt_sample_texture(const t_frame *fra_tex, const t_vec2d *uv)
 	retval.r = (color_value >> 16) & 0xFF;
 	retval.g = (color_value >> 8) & 0xFF;
 	retval.b = color_value & 0xFF;
-	//scale_vector(&retval.v, retval.v, 1.f / 255.999f);
+	//scale_vector(&retval.v, retval.v, 1.f f);
 	retval.a = (OS_MACOS == 0);
 	return (retval);
 }
