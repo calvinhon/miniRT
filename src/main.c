@@ -42,11 +42,7 @@ static t_minirt *init_minirt(void)
 	minirt->textures = NULL;
 	minirt->selected.is_cam = true;
 	minirt->selected.object = NULL;
-	minirt->changed = false;
-	minirt->cores = malloc(sizeof(t_core) * _RT_NUM_THREADS);
-	if (!minirt->cores)
-		return (false);
-	//
+	minirt->changed = true;
 	return (minirt);
 }
 

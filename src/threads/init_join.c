@@ -83,9 +83,6 @@ bool	ini_core(t_minirt *minirt)
 		thread->work_ready = false;
 		pthread_create(&thread->thread, NULL, await_task, thread);
 	}
-	pool_start_frame(minirt);
-	pool_wait_for_frame(minirt);
-	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
 	return (true);
 }
 

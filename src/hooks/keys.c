@@ -34,9 +34,9 @@ int update_minirt(t_minirt *minirt)
 		object_controls(minirt);
 	if (minirt->changed)
 	{
+		printf("updating minirt\n");//
 		update_rt(minirt);
-		//
-		printf("update minirt\n");
+		printf("updating minirt done\n"); //
 		minirt->changed = false;
 	}
 	return (0);
