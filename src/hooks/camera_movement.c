@@ -21,7 +21,7 @@ static inline void _movecam_sideways_check(t_minirt *state,
 							   (MOVE_SPEED + (MOVE_SPEED / 2.f)) * state->delta_time);
 	if (state->move.a)
 	{
-		state->cam.from = add_v_to_p(&scaled_left, &state->cam.from);
+		state->cam.from = add_v_to_p(&state->cam.from, &scaled_left);
 		*state_changed = true;
 	}
 	if (state->move.d)
@@ -40,7 +40,7 @@ static inline void _movecam_longitudinally_check(t_minirt *state,
 								  (MOVE_SPEED + (MOVE_SPEED / 2.f)) * state->delta_time);
 	if (state->move.w)
 	{
-		state->cam.from = add_v_to_p(&state->cam.from, scaled_forward);
+		state->cam.from = add_v_to_p(&state->cam.from, &scaled_forward);
 		*state_changed = true;
 	}
 	if (state->move.s)

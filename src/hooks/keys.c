@@ -34,7 +34,9 @@ int update_minirt(t_minirt *minirt)
 		object_controls(minirt);
 	if (minirt->changed)
 	{
-		multicore(minirt);
+		update_rt(minirt);
+		//
+		printf("update minirt\n");
 		minirt->changed = false;
 	}
 	return (0);

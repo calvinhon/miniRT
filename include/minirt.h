@@ -209,7 +209,7 @@ bool	parse_pattern(t_material *material, char *data,	size_t *i, t_minirt *minirt
 // bool		parse_bump_xpm(t_material *obj_mat, t_minirt *minirt,
 //				char *filename);
 t_mat4d rt_extract_rot_vertical(const t_vec4d u);
-t_mat4d rt_get_cam_inverse(const t_mat4d *view);
+//t_mat4d rt_get_cam_inverse(const t_mat4d *view);
 // bool		check_object_validity_init(t_minirt *minirt, const char *info,
 //				int curr_line, const t_split fields);
 // void		parse_fatal_msg(char *msg, int curr_line);
@@ -232,7 +232,8 @@ t_color render_pixel(t_minirt *program, int x, int y);
 
 /*---- THREADS ----*/
 
-bool multicore(t_minirt *minirt);
+bool ini_core(t_minirt *minirt);
+
 bool thread_arbiter(t_minirt *minirt);
 void *await_task(void *arg);
 void	interpolate_horizontal(t_core const *data);

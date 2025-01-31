@@ -25,8 +25,15 @@ void set_camera_orient(t_camera *cam)
 	else
 		cam->left = cross_values(cam->forward,
 								 create_vec4d(0.0f, 1.0f, 0.0f));
-	view_m = identity_mat();
+	// added
+	cam->left = normalize(&cam->left);
+	//
 	cam->up = cross_pointers(&cam->left, &cam->forward);
+	
+	// added
+	cam->up = normalize(&cam->up);
+	//
+	view_m = identity_mat();
 	view_m.matrix[0] = cam->left.x;
 	view_m.matrix[1] = cam->left.y;
 	view_m.matrix[2] = cam->left.z;

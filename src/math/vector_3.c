@@ -21,6 +21,9 @@ void	scale_vector(t_vec4d *out, const t_vec4d *v, float factor)
 }
 
 t_vec4d negate_vector(const t_vec4d *v)
-{
-	return (scale_vector(v, -1));
+{	
+	t_vec4d	out;
+
+	scale_vector(&out, v, -1);
+	return (out);
 }

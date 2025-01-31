@@ -42,8 +42,11 @@ static t_minirt *init_minirt(void)
 	minirt->textures = NULL;
 	minirt->selected.is_cam = true;
 	minirt->selected.object = NULL;
-	//
 	minirt->changed = false;
+	minirt->cores = malloc(sizeof(t_core) * _RT_NUM_THREADS);
+	if (!minirt->cores)
+		return (false);
+	//
 	return (minirt);
 }
 
@@ -69,7 +72,6 @@ int main(int ac, char **av)
 	check_filename(av[1]);
 	minirt = init_minirt();
 	parse(av[1], minirt);
-	
 	// Direct to render
 	//int x = -1;
 	//int y = -1;
@@ -82,7 +84,7 @@ int main(int ac, char **av)
 	//mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
 
 	// Comment out below to enable direct to render
-	multicore(minirt);
+	ini_core(minirt);
 	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
 	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1, \
 	 		&record_keyrelease, minirt);

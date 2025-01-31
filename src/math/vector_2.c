@@ -22,7 +22,18 @@ t_vec4d normalize(const t_vec4d *v)
 	float mag_v;
 
 	mag_v = magnitude(v);
+
 	return (create_vec4d(v->x / mag_v, v->y / mag_v, v->z / mag_v));
+}
+
+void	normalize_vec4d(t_vec4d *v)
+{
+	float mag_v;
+
+	mag_v = magnitude(v);
+	if (mag_v == 0)
+		*v = create_vec4d(0.f, 0.f, 0.f);
+	*v = create_vec4d(v->x / mag_v, v->y / mag_v, v->z / mag_v);
 }
 
 float dot_pointers(const t_vec4d *v1, const t_vec4d *v2)
