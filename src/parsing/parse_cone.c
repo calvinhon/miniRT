@@ -49,7 +49,7 @@
 bool parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
 	t_object *cone;
-	float height;
+	//float height;
 	t_point t;
 
 	(*i) += 2;
@@ -63,7 +63,7 @@ bool parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	//
 	cone->specs.min_y = parse_float(data, i);
 	cone->specs.max_y = parse_float(data, i);
-	height = cone->specs.max_y - cone->specs.min_y;
+	//height = cone->specs.max_y - cone->specs.min_y;
 	//cone->specs.min_y = -height / 2.0f;
 	//cone->specs.max_y = height / 2.0f;
 	cone->specs.closed = false;
