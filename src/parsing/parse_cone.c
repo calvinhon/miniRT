@@ -60,9 +60,12 @@ bool parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cone->orientation = parse_vector(data, i);
 	is_normalised(&cone->orientation, *i, minirt);
 	cone->radius = parse_float(data, i) / 2.0f;
-	height = parse_float(data, i);
-	cone->specs.min_y = -height / 2.0f;
-	cone->specs.max_y = height / 2.0f;
+	//
+	cone->specs.min_y = parse_float(data, i);
+	cone->specs.max_y = parse_float(data, i);
+	height = cone->specs.max_y - cone->specs.min_y;
+	//cone->specs.min_y = -height / 2.0f;
+	//cone->specs.max_y = height / 2.0f;
 	cone->specs.closed = false;
 	cone->material.color = parse_color(data, i, minirt);
 	set_material(&cone->material, data, i, minirt);

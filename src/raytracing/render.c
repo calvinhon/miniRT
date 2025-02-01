@@ -41,17 +41,10 @@ void local_normal_at(t_itx *itx, t_comps *comps)
 		comps->normal_v = plane_normal_at(itx->obj, &comps->p);
 	else if (itx->obj->type == CYLINDER)
 		comps->normal_v = cylinder_normal_at(itx->obj, &comps->p);
-<<<<<<< HEAD
-	 else if (itx->obj->type == CUBE)
-	 	comps->normal_v = cube_normal_at(itx->obj, &comps->p);
-	// else if (itx->obj->type == CONE)
-	// 	comps->normal_v = cone_normal_at(itx->obj, &comps->p);
-=======
 	else if (itx->obj->type == CUBE)
 		comps->normal_v = cube_normal_at(itx->obj, &comps->p);
 	else if (itx->obj->type == CONE)
 		comps->normal_v = cone_normal_at(itx->obj, &comps->p);
->>>>>>> add_shapes
 	if (dot_pointers(&comps->normal_v, &comps->eye_v) < EPSILON)
 		comps->normal_v = negate_vector(&comps->normal_v);
 }
@@ -64,7 +57,7 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 
 	comps.t = itx->t;
 	comps.obj = itx->obj;
-	// printf("r origin: %.2f %.2f %.2f\n", r->origin.x, r->origin.y, r->origin.z);
+	// printf("r origin: %.2f %.2f %.2f./mi\n", r->origin.x, r->origin.y, r->origin.z);
 	comps.p = position(r, comps.t);
 	comps.eye_v = negate_vector(&r->direction);
 	local_normal_at(itx, &comps);

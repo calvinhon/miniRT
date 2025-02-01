@@ -35,13 +35,8 @@ bool parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cylinder->specs.closed = true;
 	cylinder->material.color = parse_color(data, i, minirt);
 	set_material(&cylinder->material, data, i, minirt);
-<<<<<<< HEAD
 	// 1
 	cylinder->scale = scaling_mat(cylinder->radius, 1.f, cylinder->radius);
-=======
-	// edir  hieght /2
-	cylinder->scale = scaling_mat(cylinder->radius, 1, cylinder->radius);
->>>>>>> add_shapes
 	cylinder->rot = rt_extract_rot_vertical(cylinder->orientation);
 	cylinder->inv_transform = mult_n_mat4d(3, &cylinder->rot,
 										   &cylinder->scale, &cylinder->translate);
