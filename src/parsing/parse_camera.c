@@ -20,13 +20,22 @@ void set_camera_orient(t_camera *cam)
 	t_mat4d view_m;
 	t_mat4d translate_m;
 
+	
 	if (fabsf(cam->forward.x) < EPSILON && fabsf(cam->forward.z) < EPSILON)
 		cam->left = create_vec4d(-1.0f, 0.0f, 0.0f);
 	else
 		cam->left = cross_values(cam->forward,
 								 create_vec4d(0.0f, 1.0f, 0.0f));
+	// added
+	cam->left = normalize(&cam->left);
+	//
+	//cam->up = cross_pointers(&cam->left, &cam->forward); 
+	cam->up = cross_values(cam->left, cam->forward); //added
+	
+	// added
+	cam->up = normalize(&cam->up);
+	//
 	view_m = identity_mat();
-	cam->up = cross_pointers(&cam->left, &cam->forward);
 	view_m.matrix[0] = cam->left.x;
 	view_m.matrix[1] = cam->left.y;
 	view_m.matrix[2] = cam->left.z;

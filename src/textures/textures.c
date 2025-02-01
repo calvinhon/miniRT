@@ -28,7 +28,7 @@ t_color rt_sample_texture(const t_frame *fra_tex, const t_vec2d *uv)
 	retval.r = (color_value >> 16) & 0xFF;
 	retval.g = (color_value >> 8) & 0xFF;
 	retval.b = color_value & 0xFF;
-	// retval.v = scale_vector(retval.v, 1.f / 255.999f);
+	//scale_vector(&retval.v, retval.v, 1.f f);
 	retval.a = (OS_MACOS == 0);
 	return (retval);
 }
@@ -39,7 +39,7 @@ static inline t_vec4d _from_sample_to_tangent_normal(const t_color *sample)
 	t_vec4d unit_v;
 
 	tangent_normal = create_vec4d(sample->r, sample->g, sample->b);
-	tangent_normal = scale_vector(&tangent_normal, 2.f);
+	scale_vector(&tangent_normal, &tangent_normal, 2.f);
 	unit_v = create_vec4d(1.f, 1.f, 1.f);
 	tangent_normal = subtract_vectors(&tangent_normal, &unit_v);
 	// tangent_normal.a[3] = 0.f;

@@ -60,8 +60,8 @@ t_color	fetch_pixel_color(const t_frame *frame, int x, int y)
 	ret.a = 1;
 	if (OS_MACOS)
 		ret.a = 0;
-	ret.r = ret.r / 255.999;
-	ret.g = ret.g / 255.999;
-	ret.b = ret.b / 255.999;
+	ret.r = ret.r;
+	ret.g = ret.g;
+	ret.b = ret.b;
 	return (ret);
 }

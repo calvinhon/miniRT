@@ -8,10 +8,11 @@ t_vec4d cone_normal_at(t_object *o, t_point *wrld_p)
 	t_vec4d wrld_normal;
 	float dist;
 
-	if (wrld_p->x == 0 && wrld_p->y == 0 && wrld_p->z == 0)
-		return (create_vec4d(0, 0, 0));
 	obj_p = mult_mat4d_pt4d(&o->inv_transform, wrld_p);
 	dist = pow(obj_p.x, 2) + pow(obj_p.z, 2);
+	if (wrld_p->x == 0 && wrld_p->y == 0 && wrld_p->z == 0)
+	// if (fabs(dist) < EPSILON)
+		return (create_vec4d(0, 0, 0));
 	if (dist < 1 && obj_p.y >= o->specs.max_y - EPSILON)
 		obj_normal = create_vec4d(0, 1, 0);
 	else if (dist < 1 && obj_p.y <= o->specs.min_y + EPSILON)

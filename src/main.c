@@ -39,13 +39,11 @@ static t_minirt *init_minirt(void)
 	minirt->win = mlx_new_window(minirt->mlx, FRAME_W, FRAME_H, "miniRT");
 	if (!make_window(minirt, FRAME_W, FRAME_H))
 		errors(CER_MLX_WIN, ER_MLX_WIN, minirt);
-	//
-	minirt->first_time = true;
-	minirt->state_changed = false;
-	//
 	minirt->textures = NULL;
 	minirt->selected.is_cam = true;
 	minirt->selected.object = NULL;
+	minirt->changed = true;
+	minirt->start = true;
 	return (minirt);
 }
 
@@ -71,30 +69,28 @@ int main(int ac, char **av)
 	check_filename(av[1]);
 	minirt = init_minirt();
 	parse(av[1], minirt);
-	
+
 	// Direct to render
-	int x = -1;
-	int y = -1;
-	while (++y < minirt->cam.vsize - 1)
-	{
-		while (++x < minirt->cam.hsize - 1)
-			render_pixel(minirt, x, y);
-		x = -1;
-	}
-	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
+	// int x = -1;
+	// int y = -1;
+	// while (++y < minirt->cam.vsize - 1)
+	// {
+	// 	while (++x < minirt->cam.hsize - 1)
+	// 		render_pixel(minirt, x, y);
+	// 	x = -1;
+	// }
+	// mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
 
 	// Comment out below to enable direct to render
-	//
-	// init_core(minirt);
-	// mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
-	// mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1,
-	// 		 &record_keyrelease, minirt);
-	// mlx_mouse_hook(minirt->win, &select_shape, minirt);
-	// mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
-	//
-
+	ini_core(minirt);
+	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
+	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1,
+	 		&record_keyrelease, minirt);
 	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2,
 			 &destroy_minirt, minirt);
+	mlx_mouse_hook(minirt->win, &select_shape, minirt);
+	mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
+
 	mlx_loop(minirt->mlx);
 	return (0);
 }

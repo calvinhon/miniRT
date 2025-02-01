@@ -14,9 +14,6 @@
 
 int update_minirt(t_minirt *minirt)
 {
-	//
-	minirt->state_changed = false;
-	//
 	if (minirt->stop)
 	{
 		if (!minirt->selected.is_cam)
@@ -35,12 +32,13 @@ int update_minirt(t_minirt *minirt)
 	}
 	else
 		object_controls(minirt);
-		// check state change and update
-	if (minirt->state_changed || minirt->first_time)
+	if (minirt->changed || minirt->start)
 	{
-		printf("state changed -> update\n");
-		minirt->first_time = false;
+		printf("updating minirt\n");//
 		update_rt(minirt);
+		printf("updating minirt done\n"); //
+		minirt->changed = false;
+		minirt->start = false;
 	}
 	return (0);
 }
@@ -50,7 +48,7 @@ int record_keypress(int keycode, t_minirt *minirt)
 	if (keycode == KEY_ESC)
 		return (minirt->stop = true, 0);
 	if (keycode == KEY_R)
-		minirt->scene.refract_reflect ^= true;
+		return (minirt->changed = true, minirt->scene.refract_reflect ^= true, keycode);
 	if (keycode == KEY_A)
 		minirt->move.a = true;
 	if (keycode == KEY_D)

@@ -33,8 +33,8 @@ void *render_chunk(void *arg)
 		}
 		y += STEP_SKIP;
 	}
-	// interpolate_horizontal(data);
-	// interpolate_vertical(data);
+	 interpolate_horizontal(data);
+	 interpolate_vertical(data);
 	return (NULL);
 }
 

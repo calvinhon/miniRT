@@ -86,7 +86,7 @@ typedef struct s_idx
 
 /*--- POINTS ---*/
 t_point create_point(float x, float y, float z);
-t_point add_v_to_p(const t_point *p, t_vec4d v);
+t_point add_v_to_p(const t_point *p, t_vec4d *v);
 t_point subtract_v_from_p(const t_point *p, const t_vec4d *v);
 t_point mult_mat4d_pt4d(const t_mat4d *m, const t_point *p);
 
@@ -95,9 +95,10 @@ t_vec4d create_vec4d(float x, float y, float z);
 t_vec4d add_vectors(const t_vec4d *v1, const t_vec4d *v2);
 t_vec4d subtract_points(const t_point *p1, const t_point *p2);
 t_vec4d subtract_vectors(const t_vec4d *v1, const t_vec4d *v2);
-t_vec4d scale_vector(const t_vec4d *v, float factor);
+void	scale_vector(t_vec4d *out, const t_vec4d *v, float factor);
 t_vec4d negate_vector(const t_vec4d *v);
 t_vec4d normalize(const t_vec4d *v);
+void	normalize_vec4d(t_vec4d *v);
 t_vec4d cross_pointers(const t_vec4d *v1, const t_vec4d *v2);
 t_vec4d cross_values(t_vec4d v1, t_vec4d v2);
 t_vec4d row(const t_mat4d *m, int i);

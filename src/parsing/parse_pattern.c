@@ -75,10 +75,10 @@ bool parse_pattern(t_material *material, char *data,
 	pattern->inv_transform = inverse_mat4d(&pattern->transform);
 	material->pattern = pattern;
 	//
-	printf("pattern color: %f %f %f\n", pattern->a.r, pattern->a.g, pattern->a.b);
-	printf("pattern color: %f %f %f\n", pattern->b.r, pattern->b.g, pattern->b.b);
-	printf("pattern scale: %f\n", pattern->p_scale);
-	printf("pattern type: %d\n", pattern->type);
+	//printf("pattern color: %f %f %f\n", pattern->a.r, pattern->a.g, pattern->a.b);
+	//printf("pattern color: %f %f %f\n", pattern->b.r, pattern->b.g, pattern->b.b);
+	//printf("pattern scale: %f\n", pattern->p_scale);
+	//printf("pattern type: %d\n", pattern->type);
 	//
 	return (true);
 }

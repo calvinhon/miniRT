@@ -18,39 +18,6 @@
 
 extern void *render_chunk(void *minirt);
 
-long long my_gettime(void)
-{
-	struct timeval timeofday;
-
-	if (gettimeofday(&timeofday, NULL) == -1)
-		return ((void)write(2, "Error.\n", 8), -1);
-	return ((timeofday.tv_sec * 1000) + (timeofday.tv_usec / 1000));
-}
-
-bool init_core(t_minirt *minirt)
-{
-	t_core *thread;
-	int i;
-
-	minirt->cores = malloc(sizeof(t_core) * _RT_NUM_THREADS);
-	if (!minirt->cores)
-		return (false);
-	i = -1;
-	while (++i < _RT_NUM_THREADS)
-	{
-		thread = &minirt->cores[i];
-		thread->minirt = minirt;
-		thread->id = i;
-		thread->y = i * (minirt->cam.vsize / _RT_NUM_THREADS);
-		thread->yend = (i + 1) * (minirt->cam.vsize / _RT_NUM_THREADS);
-		pthread_mutex_init(&thread->mutex, NULL);
-		pthread_cond_init(&thread->cond, NULL);
-		thread->work_ready = false;
-		pthread_create(&thread->thread, NULL, await_task, thread);
-	}
-	return (true);
-}
-
 void pool_start_frame(t_minirt *minirt)
 {
 	t_core *thread;
@@ -84,6 +51,39 @@ void pool_wait_for_frame(t_minirt *minirt)
 		}
 		pthread_mutex_unlock(&thread->mutex);
 	}
+}
+
+long long my_gettime(void)
+{
+	struct timeval timeofday;
+
+	if (gettimeofday(&timeofday, NULL) == -1)
+		return ((void)write(2, "Error.\n", 8), -1);
+	return ((timeofday.tv_sec * 1000) + (timeofday.tv_usec / 1000));
+}
+
+bool	ini_core(t_minirt *minirt)
+{
+	t_core	*thread;
+	int		i;
+
+	minirt->cores = malloc(sizeof(t_core) * _RT_NUM_THREADS);
+	if (!minirt->cores)
+		return (false);
+	i = -1;
+	while (++i < _RT_NUM_THREADS)
+	{
+		thread = &minirt->cores[i];
+		thread->minirt = minirt;
+		thread->id = i;
+		thread->y = i * (minirt->cam.vsize / _RT_NUM_THREADS);
+		thread->yend = (i + 1) * (minirt->cam.vsize / _RT_NUM_THREADS);
+		pthread_mutex_init(&thread->mutex, NULL);
+		pthread_cond_init(&thread->cond, NULL);
+		thread->work_ready = false;
+		pthread_create(&thread->thread, NULL, await_task, thread);
+	}
+	return (true);
 }
 
 bool thread_arbiter(t_minirt *minirt)

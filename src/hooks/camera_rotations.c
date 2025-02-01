@@ -14,9 +14,11 @@
 
 void update_camera_state(t_camera *camera)
 {
-	camera->up = normalize(&camera->up);
-	camera->left = normalize(&camera->left);
-	camera->forward = normalize(&camera->forward);
+	t_mat4d	translate_m;
+
+	normalize_vec4d(&camera->up);
+	normalize_vec4d(&camera->left);
+	normalize_vec4d(&camera->forward);
 	camera->inv_transform = fill_matrix(
 		create_vec4d(camera->left.x, camera->left.y, camera->left.z),
 		create_vec4d(camera->up.x, camera->up.y, camera->up.z),
@@ -24,14 +26,11 @@ void update_camera_state(t_camera *camera)
 					 -camera->forward.z),
 		create_vec4d(0.0f, 0.0f, 0.0f));
 	camera->inv_transform.matrix[15] = 1;
-	// camera->inv_transform = mult_n_mat4d(2, camera->inv_transform,
-	//	translation_mat(-camera->from.x, -camera->from.y, -camera->from.z));
-	// camera->inv_transform = inverse_mat4d(camera->inv_transform);
-	////
-	// plane->rot = rt_extract_rot_vertical(plane->orientation);
-	// plane->inv_transform = mult_n_mat4d(3, plane->rot, plane->scale, plane->translate);
-	// plane->inv_transform = inverse_mat4d(plane->inv_transform);
-	////
+// added
+	translate_m = translation_mat(-camera->from.x, -camera->from.y, -camera->from.z);
+	camera->inv_transform = mult_n_mat4d(2, &translate_m, &camera->inv_transform);
+	camera->inv_transform = inverse_mat4d(&camera->inv_transform);
+//
 	printf("update camera\n");
 }
 
@@ -90,5 +89,5 @@ void camera_rotations(t_minirt *state)
 	if (state_changed)
 		update_camera_state(&state->cam);
 	//
-	state->state_changed = state_changed;
+	state->changed = state_changed;
 }

@@ -43,9 +43,9 @@ t_color parse_color(char *data, size_t *i, t_minirt *minirt)
 	t_color color;
 
 	color.a = 0.f;
-	// color.r = parse_int(data, i) / 255.999f;
-	// color.g = parse_int(data, i) / 255.999f;
-	// color.b = parse_int(data, i) / 255.999f;
+	// color.r = parse_int(data, i) f;
+	// color.g = parse_int(data, i) f;
+	// color.b = parse_int(data, i) f;
 	color.r = parse_int(data, i);
 	color.g = parse_int(data, i);
 	color.b = parse_int(data, i);
