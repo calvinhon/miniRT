@@ -32,11 +32,24 @@ t_color pattern_at(t_object *o, t_point *world_point, t_pattern *pat)
 		noise = perlin_noise(pat_pt.x, pat_pt.y, pat_pt.z) * pat->p_scale;
 		if (pat->type == GRADIENT)
 			noise = fmaxf(fminf(noise, 0), -1);
-		if (pat->type == CHECKER)
-			noise = (0.5 + (0.5 * noise));
+		//if (pat->type == CHECKER)
+		//	noise = (0.5 + (0.5 * noise));
 	}
-	if ((pat->type == STRIPED && (int)floor(pat_pt.x + noise) % 2) || (pat->type == RING && (int)floor(sqrt(pow(pat_pt.x, 2) + pow(pat_pt.z, 2)) + noise) % 2) || (pat->type == CHECKER && ((int)(floor(pat_pt.x + noise) + floor(pat_pt.y + noise) + floor(pat_pt.z + noise)) % 2)))
+    if ((pat->type == STRIPED && (int)floor(pat_pt.x + noise) % 2) || \
+    (pat->type == RING && (int)floor(sqrt(pow(pat_pt.x, 2) + \
+    pow(pat_pt.z, 2)) + noise) % 2) || (pat->type == CHECKER && \
+    ((int)(floor(pat_pt.x) + floor(pat_pt.y) + \
+    floor(pat_pt.z)) % 2)))
+    color = pat->b;
+	/*
+		if ((pat->type == STRIPED && (int)floor(pat_pt.x + noise) % 2) || \
+		(pat->type == RING && (int)floor(sqrt(pow(pat_pt.x, 2) + \
+		pow(pat_pt.z, 2)) + noise) % 2) || (pat->type == CHECKER && \
+		((int)(floor(pat_pt.x + noise) + floor(pat_pt.y + noise) + \
+		floor(pat_pt.z + noise)) % 2)))
 		color = pat->b;
+	*/
+
 	else if (pat->type == GRADIENT)
 	{
 		color = subtract_colors(&pat->b, &pat->a);
