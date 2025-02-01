@@ -113,6 +113,7 @@ typedef struct s_object
 	t_mat4d inv_transform;
 	t_mat4d transposed_inverse;
 	t_mat4d rot;
+	t_point	trans;
 	t_mat4d translate;
 	t_mat4d scale;
 	t_vec4d orientation;
