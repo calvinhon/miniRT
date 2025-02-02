@@ -19,7 +19,6 @@
 # include <stdio.h>
 
 #define EPSILON 0.0001f
-#define PI 3.1415926535f
 
 typedef struct s_point
 {

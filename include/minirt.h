@@ -50,7 +50,7 @@ typedef struct s_core t_core;
 typedef struct s_tex_frame
 {
 	char *name;
-	t_frame *fra_tex;
+	t_frame *bump_map;
 } t_tex_frame;
 
 typedef struct s_minirt
@@ -151,8 +151,9 @@ bool is_normalised(t_vec4d *vec, size_t i, t_minirt *minirt);
 float ft_atof(const char *str);
 
 // Parsing
-void parse(char *file, t_minirt *minirt);
-void parse_data(t_minirt *minirt, char *data, size_t total_size);
+void	parse(char *file, t_minirt *minirt);
+void 	parse_data(t_minirt *minirt, char *data, size_t total_size);
+size_t	calculate_required_size(char *file, t_minirt *minirt);
 
 void parse_ambient(t_minirt *minirt, char *data, size_t *i);
 t_color parse_color(char *data, size_t *i, t_minirt *minirt);
@@ -263,7 +264,6 @@ void destroy_mlx(t_minirt *minirt);
 void destroy_scene(t_minirt *minirt);
 int destroy_minirt(t_minirt *minirt);
 void destroy_textures(t_minirt *minirt);
-void destroy_2d_arr(char **arr);
 void free_minirt(t_minirt *minirt);
 
 /*--- RAY MANIPULATION ---*/

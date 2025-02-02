@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "mlx.h"
 #include "minirt.h"
 #include "macros.h"
 
-void destroy_mlx(t_minirt *minirt)
+void	destroy_mlx(t_minirt *minirt)
 {
 	if (minirt->mlx)
 	{
@@ -25,11 +24,11 @@ void destroy_mlx(t_minirt *minirt)
 	}
 }
 
-void destroy_scene(t_minirt *minirt)
+void	destroy_scene(t_minirt *minirt)
 {
-	int i;
+	int	i;
 
-	i = -1;	
+	i = -1;
 	if (minirt->scene.lights)
 		free(minirt->scene.lights);
 	while (++i < minirt->scene.num_shapes && minirt->scene.shapes)
@@ -44,26 +43,26 @@ void destroy_scene(t_minirt *minirt)
 	minirt->scene.shapes = NULL;
 }
 
-void destroy_textures(t_minirt *minirt)
+void	destroy_textures(t_minirt *minirt)
 {
-	t_list *temp;
+	t_list	*temp;
 
 	temp = minirt->textures;
 	while (temp)
 	{
 		if (((t_tex_frame *)temp->content)->name)
 			free(((t_tex_frame *)temp->content)->name);
-		mlx_destroy_image(minirt->mlx,
-						  ((t_tex_frame *)temp->content)->fra_tex->ptr);
-		free(((t_tex_frame *)temp->content)->fra_tex);
+		mlx_destroy_image(minirt->mlx, \
+			((t_tex_frame *)temp->content)->bump_map->ptr);
+		free(((t_tex_frame *)temp->content)->bump_map);
 		temp = temp->next;
 	}
 	ft_lstclear(&minirt->textures, free);
 }
 
-void destroy_cores(t_minirt *minirt)
+void	destroy_cores(t_minirt *minirt)
 {
-	int i;
+	int	i;
 
 	if (minirt->cores)
 	{
@@ -85,10 +84,10 @@ void destroy_cores(t_minirt *minirt)
 	}
 }
 
-void free_minirt(t_minirt *minirt)
+void	free_minirt(t_minirt *minirt)
 {
 	if (!minirt)
-		return;
+		return ;
 	if (minirt->data)
 		free(minirt->data);
 	destroy_cores(minirt);
@@ -97,23 +96,4 @@ void free_minirt(t_minirt *minirt)
 	destroy_mlx(minirt);
 	free(minirt);
 	minirt = NULL;
-}
-
-int destroy_minirt(t_minirt *minirt)
-{
-	free_minirt(minirt);
-	exit(0);
-	return (0);
-}
-
-void destroy_2d_arr(char **arr)
-{
-	char **original;
-
-	if (!arr)
-		return;
-	original = arr;
-	while (*arr)
-		free(*arr++);
-	free(original);
 }

@@ -14,10 +14,10 @@
 #include "macros.h"
 #include "colors.h"
 
-bool parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
+bool	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_object *plane;
-	t_point t;
+	t_object	*plane;
+	t_point		t;
 
 	(*i) += 2;
 	plane = minirt->scene.shapes + idx;
@@ -28,10 +28,10 @@ bool parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	is_normalised(&plane->orientation, *i, minirt);
 	plane->material.color = parse_color(data, i, minirt);
 	set_material(&plane->material, data, i, minirt);
-	// modify
 	plane->scale = scaling_mat(1.f, 1.f, 1.f);
 	plane->rot = rt_extract_rot_vertical(plane->orientation);
-	plane->inv_transform = mult_n_mat4d(3, &plane->rot, &plane->scale, &plane->translate);
+	plane->inv_transform = mult_n_mat4d(3, &plane->rot, &plane->scale, \
+		&plane->translate);
 	plane->inv_transform = inverse_mat4d(&plane->inv_transform);
 	return (plane->center.p = 1.f, true);
 }

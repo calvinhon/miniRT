@@ -11,97 +11,13 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
-// #include "libft.h"
 
-bool count_elements(t_minirt *minirt, char *line)
+char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 {
-	while (*line == ' ')
-		line++;
-	if (*line == 'A' && *(line + 1) == ' ')
-		minirt->scene.num_a++;
-	else if (*line == 'C' && *(line + 1) == ' ')
-		minirt->scene.num_c++;
-	else if (((*line == 'L' || *line == 'l') && *(line + 1) == ' ') ||
-			 ((*line == 'S' || *line == 's') && (*(line + 1) == 'L' || *line == 'l') && *(line + 2) == ' '))
-		minirt->scene.num_lights++;
-	else if ((*line == 's' && *(line + 1) == 'p' && *(line + 2) == ' ') ||
-			 (*line == 'p' && *(line + 1) == 'l' && *(line + 2) == ' ') ||
-			 (*line == 'c' && *(line + 1) == 'y' && *(line + 2) == ' ') ||
-			 (*line == 'c' && *(line + 1) == 'u' && *(line + 2) == ' ') ||
-			 (*line == 'c' && *(line + 1) == 'o' && *(line + 2) == ' '))
-		minirt->scene.num_shapes++;
-	else
-		return (printf("Unknown element: %s\n", line), free(line), false);
-	return (true);
-}
-void check_elements(t_minirt *minirt)
-{
-	if (minirt->scene.num_c != 1)
-	{
-		ft_printf("Number of camera: %d\n", minirt->scene.num_c);
-		errors(CER_ONE_CAMERA, ER_ONE_CAMERA, minirt);
-	}
-	if (minirt->scene.num_a != 1)
-	{
-		ft_printf("Number of ambient: %d\n", minirt->scene.num_a);
-		errors(CER_ONE_AMBIENT, ER_ONE_AMBIENT, minirt);
-	}
-	if (minirt->scene.num_lights == 0)
-	{
-		ft_printf("There is no light\n");
-		errors(CER_NO_LIGHT, ER_NO_LIGHT, minirt);
-	}
-	if (minirt->scene.num_lights > LIGHTS_MAX)
-		errors(CER_MAX_LIGHT, ER_MAX_LIGHT, minirt);
-	if (minirt->scene.num_shapes == 0)
-	{
-		ft_printf("There is no object\n");
-		errors(CER_NO_OBJ, ER_NO_OBJ, minirt);
-	}
-	if (minirt->scene.num_shapes > SHAPES_MAX)
-		errors(CER_MAX_SHAPES, ER_MAX_SHAPES, minirt);
-}
-
-// Helper function: Calculate the memory required
-size_t calculate_required_size(char *file, t_minirt *minirt)
-{
-	char *line;
-	int fd;
-	size_t total_size;
-
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		errors(CER_OPEN_FILE, ER_OPEN_FILE, minirt);
-	total_size = 0;
-	while (1)
-	{
-		line = get_next_line_err(fd, 0);
-		if (!line)
-			break;
-		if (!ft_strchr("\n#", line[0]))
-		{
-			total_size += ft_strlen(line);
-			if (!count_elements(minirt, line))
-			{
-				get_next_line_err(fd, 1);
-				errors(CER_OBJ_TYPE, ER_OBJ_TYPE, minirt);
-			}
-		}
-		free(line);
-	}
-	close(fd);
-	if (total_size == 0)
-		return (ft_printf("file empty.\n"), errors(CER_EMPTY_MAP, ER_EMPTY_MAP, minirt), 1);
-	check_elements(minirt);
-	return (total_size);
-}
-
-char *file_data(t_minirt *minirt, size_t *total_size, char *file)
-{
-	int fd;
-	char *line;
-	char *data;
-	size_t line_len;
+	int		fd;
+	char	*line;
+	char	*data;
+	size_t	line_len;
 
 	data = ft_calloc(calculate_required_size(file, minirt) + 1, sizeof(char));
 	fd = open(file, O_RDONLY);
@@ -111,7 +27,7 @@ char *file_data(t_minirt *minirt, size_t *total_size, char *file)
 	{
 		line = get_next_line_err(fd, 0);
 		if (!line)
-			break;
+			break ;
 		if (!ft_strchr("\n#", line[0]))
 		{
 			line_len = ft_strlen(line);
@@ -122,35 +38,37 @@ char *file_data(t_minirt *minirt, size_t *total_size, char *file)
 	}
 	data[*total_size] = '\0';
 	get_next_line_err(fd, 1);
-	close(fd);
-	return (data);
+	return (close(fd), data);
 }
 
-void allocate_light_shape(t_minirt *minirt)
+void	allocate_light_shape(t_minirt *minirt)
 {
-	int i;
+	int	i;
 
-	minirt->scene.lights = (t_light *)malloc(minirt->scene.num_lights * sizeof(t_light));
+	minirt->scene.lights = (t_light *)malloc(minirt->scene.num_lights \
+		* sizeof(t_light));
 	if (!minirt->scene.lights)
 		errors(CER_MALLOC, ER_MALLOC, minirt);
-	minirt->scene.shapes = (t_object *)malloc(minirt->scene.num_shapes * sizeof(t_object));
+	minirt->scene.shapes = (t_object *)malloc(minirt->scene.num_shapes \
+		* sizeof(t_object));
 	if (!minirt->scene.shapes)
 		errors(CER_MALLOC, ER_MALLOC, minirt);
 	i = -1;
 	while (++i < minirt->scene.num_shapes)
 		minirt->scene.shapes[i].material.pattern = NULL;
-	//
-	printf("located %d lights and %d shapes\n", minirt->scene.num_lights, minirt->scene.num_shapes);
+	printf("located %d lights and %d shapes\n", minirt->scene.num_lights, \
+		minirt->scene.num_shapes);
 }
 
-void parse(char *file, t_minirt *minirt)
+void	parse(char *file, t_minirt *minirt)
 {
-	size_t total_size;
+	size_t	total_size;
 
 	total_size = 0;
 	minirt->data = file_data(minirt, &total_size, file);
 	if (total_size == 0)
-		return (free(minirt->data), errors(CER_EMPTY_MAP, ER_EMPTY_MAP, minirt));
+		return (free(minirt->data), errors(CER_EMPTY_MAP, \
+			ER_EMPTY_MAP, minirt));
 	allocate_light_shape(minirt);
 	parse_data(minirt, minirt->data, total_size);
 	if (minirt->data)

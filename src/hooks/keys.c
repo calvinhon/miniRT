@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int update_minirt(t_minirt *minirt)
+int	update_minirt(t_minirt *minirt)
 {
 	if (minirt->stop)
 	{
@@ -34,21 +34,19 @@ int update_minirt(t_minirt *minirt)
 		object_controls(minirt);
 	if (minirt->changed || minirt->start)
 	{
-		printf("updating minirt\n");//
 		update_rt(minirt);
-		printf("updating minirt done\n"); //
 		minirt->changed = false;
 		minirt->start = false;
 	}
 	return (0);
 }
 
-int record_keypress(int keycode, t_minirt *minirt)
+int	record_keypress(int keycode, t_minirt *minirt)
 {
 	if (keycode == KEY_ESC)
 		return (minirt->stop = true, 0);
 	if (keycode == KEY_R)
-		return (minirt->changed = true, minirt->scene.refract_reflect ^= true, keycode);
+		return (minirt->changed = true, minirt->scene.fr_fl ^= true, keycode);
 	if (keycode == KEY_A)
 		minirt->move.a = true;
 	if (keycode == KEY_D)
@@ -72,7 +70,7 @@ int record_keypress(int keycode, t_minirt *minirt)
 	return (keycode);
 }
 
-int record_keyrelease(int keycode, t_minirt *minirt)
+int	record_keyrelease(int keycode, t_minirt *minirt)
 {
 	if (keycode == KEY_A)
 		minirt->move.a = false;

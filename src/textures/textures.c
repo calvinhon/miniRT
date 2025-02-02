@@ -13,7 +13,7 @@
 #include "minirt.h"
 #include "macros.h"
 
-t_color rt_sample_texture(const t_frame *fra_tex, const t_vec2d *uv)
+t_color rt_sample_texture(const t_frame *bump_map, const t_vec2d *uv)
 {
 	int tex_x;
 	int tex_y;
@@ -21,9 +21,9 @@ t_color rt_sample_texture(const t_frame *fra_tex, const t_vec2d *uv)
 	uint32_t color_value;
 	t_color retval;
 
-	tex_x = floorf((int)(uv->x * fra_tex->tex_width) % fra_tex->tex_width);
-	tex_y = floorf((int)(uv->y * fra_tex->tex_height) % fra_tex->tex_height);
-	src = fra_tex->addr + (tex_y * fra_tex->line_length + tex_x * fra_tex->bpp_8);
+	tex_x = floorf((int)(uv->x * bump_map->tex_width) % bump_map->tex_width);
+	tex_y = floorf((int)(uv->y * bump_map->tex_height) % bump_map->tex_height);
+	src = bump_map->addr + (tex_y * bump_map->line_length + tex_x * bump_map->bpp_8);
 	color_value = *(uint32_t *)src;
 	retval.r = (color_value >> 16) & 0xFF;
 	retval.g = (color_value >> 8) & 0xFF;
@@ -61,7 +61,7 @@ static inline t_mat4d _construct_tbn_matrix(const t_vec4d *local_normal,
 t_vec4d rt_apply_normal_map(const t_object *obj, const t_vec2d *uv,
 							const t_vec4d *local_normal, const t_vec4d *tangent)
 {
-	const t_color sample = rt_sample_texture(obj->material.fra_tex, uv);
+	const t_color sample = rt_sample_texture(obj->material.bump_map, uv);
 	t_vec4d tangent_normal;
 	t_vec4d bitangent;
 	t_mat4d tbn_matrix;
