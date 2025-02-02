@@ -92,7 +92,7 @@ t_point mult_mat4d_pt4d(const t_mat4d *m, const t_point *p);
 /*--- VECTORS ---*/
 t_vec4d create_vec4d(float x, float y, float z);
 t_vec4d add_vectors(const t_vec4d *v1, const t_vec4d *v2);
-t_vec4d subtract_points(const t_point *p1, const t_point *p2);
+t_vec4d subtract_points(t_point *p1, t_point *p2);
 t_vec4d subtract_vectors(const t_vec4d *v1, const t_vec4d *v2);
 void	scale_vector(t_vec4d *out, const t_vec4d *v, float factor);
 t_vec4d negate_vector(const t_vec4d *v);

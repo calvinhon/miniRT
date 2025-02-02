@@ -46,8 +46,11 @@ void set_camera_orient(t_camera *cam)
 	view_m.matrix[9] = -cam->forward.y;
 	view_m.matrix[10] = -cam->forward.z;
 	translate_m = translation_mat(-cam->from.x, -cam->from.y, -cam->from.z);
+	// exchange order
 	cam->inv_transform = mult_n_mat4d(2, &translate_m, &view_m);
 	cam->inv_transform = inverse_mat4d(&cam->inv_transform);
+	//
+
 }
 
 void set_camera_fields(t_camera *cam)
@@ -69,30 +72,6 @@ void set_camera_fields(t_camera *cam)
 		cam->half_height = cam->half_view;
 	}
 	cam->pixel_size = (cam->half_width * 2.f) / cam->hsize;
-}
-
-t_point parse_point(char *data, size_t *i)
-{
-	t_point point;
-
-	point.x = parse_float(data, i);
-	point.y = parse_float(data, i);
-	point.z = parse_float(data, i);
-	point.p = 1.0;
-
-	return (point);
-}
-
-t_vec4d parse_vector(char *data, size_t *i)
-{
-	t_vec4d vector;
-
-	vector.x = parse_float(data, i);
-	vector.y = parse_float(data, i);
-	vector.z = parse_float(data, i);
-	vector.p = 0.0;
-
-	return (vector);
 }
 
 void parse_camera(t_minirt *minirt, char *data, size_t *i)

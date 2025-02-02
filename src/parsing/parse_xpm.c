@@ -12,7 +12,6 @@
 
 #include "minirt.h"
 #include "macros.h"
-// #include "libft.h"
 #include "colors.h"
 
 static bool parse_new_bump_xpm(t_material *obj_mat, t_minirt *minirt, char *filename)
@@ -27,16 +26,17 @@ static bool parse_new_bump_xpm(t_material *obj_mat, t_minirt *minirt, char *file
 	if (!((t_tex_frame *)new->content)->name)
 		return (ft_lstdelone(new, free), minirt->error_code = 3, false);
 
-	((t_tex_frame *)new->content)->fra_tex = rt_xpm_file_to_canvas(
+	((t_tex_frame *)new->content)->bump_map = rt_xpm_file_to_canvas(
 		filename, minirt->mlx);
 	// test
 	// printf("export xpm to canvas\n");
-	obj_mat->fra_tex = ((t_tex_frame *)new->content)->fra_tex;
-	if (!obj_mat->fra_tex)
+	obj_mat->bump_map = ((t_tex_frame *)new->content)->bump_map;
+	if (!obj_mat->bump_map)
 		return (free(((t_tex_frame *)new->content)->name), ft_lstdelone(new, free), minirt->error_code = 3, false);
 	ft_lstadd_back(&minirt->textures, new);
 	return (true);
 }
+
 bool parse_bump_xpm(t_material *material, char *data, size_t *i, t_minirt *minirt)
 {
 	t_list *temp;
@@ -53,14 +53,14 @@ bool parse_bump_xpm(t_material *material, char *data, size_t *i, t_minirt *minir
 	}
 	*i += len;
 	filename[len] = '\0';
-
 	if (len < 5 || ft_strncmp(data + len - 4, ".xpm", 4))
 		return (minirt->error_code = 3, false);
+	printf("%s\n", filename);
 	temp = minirt->textures;
 	while (temp)
 	{
 		if (!ft_strncmp(((t_tex_frame *)temp->content)->name, filename, len))
-			return (material->fra_tex = ((t_tex_frame *)temp->content)->fra_tex, true);
+			return (material->bump_map = ((t_tex_frame *)temp->content)->bump_map, true);
 		if (!temp->next)
 			break;
 		temp = temp->next;

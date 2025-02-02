@@ -12,82 +12,63 @@
 
 #include "minirt.h"
 
-void update_camera_state(t_camera *camera)
-{
-	t_mat4d	translate_m;
 
-	normalize_vec4d(&camera->up);
-	normalize_vec4d(&camera->left);
-	normalize_vec4d(&camera->forward);
-	camera->inv_transform = fill_matrix(
-		create_vec4d(camera->left.x, camera->left.y, camera->left.z),
-		create_vec4d(camera->up.x, camera->up.y, camera->up.z),
-		create_vec4d(-camera->forward.x, -camera->forward.y,
-					 -camera->forward.z),
-		create_vec4d(0.0f, 0.0f, 0.0f));
-	camera->inv_transform.matrix[15] = 1;
-// added
-	translate_m = translation_mat(-camera->from.x, -camera->from.y, -camera->from.z);
-	camera->inv_transform = mult_n_mat4d(2, &translate_m, &camera->inv_transform);
-	camera->inv_transform = inverse_mat4d(&camera->inv_transform);
-//
-	printf("update camera\n");
-}
-
-static inline void _rotcam_apply_pitch_rot(t_minirt *state, bool left)
+static inline void _rotcam_apply_pitch_rot(t_minirt *minirt, bool left)
 {
-	const float angle = (PITCH_SPEED + MOVE_SPEED / 10.f) * state->delta_time;
+	const float angle = (PITCH_SPEED + MOVE_SPEED / 10.f) * minirt->delta_time;
 	t_mat4d rot;
 
 	if (left)
 		rot = rotate_mat_y(-angle);
 	else
 		rot = rotate_mat_y(angle);
-	state->cam.forward = mult_mat4d_vec4d(&rot, &state->cam.forward);
-	state->cam.left = mult_mat4d_vec4d(&rot, &state->cam.left);
-	state->cam.up = mult_mat4d_vec4d(&rot, &state->cam.up);
+	minirt->cam.forward = mult_mat4d_vec4d(&rot, &minirt->cam.forward);
+	minirt->cam.left = mult_mat4d_vec4d(&rot, &minirt->cam.left);
+	minirt->cam.up = mult_mat4d_vec4d(&rot, &minirt->cam.up);
 }
 
-static inline void _rotcam_apply_yaw_rot(t_minirt *state, bool up)
+static inline void _rotcam_apply_yaw_rot(t_minirt *minirt, bool up)
 {
-	const float angle = (YAW_SPEED + MOVE_SPEED / 10.f) * state->delta_time;
+	const float angle = (YAW_SPEED + MOVE_SPEED / 10.f) * minirt->delta_time;
 	t_mat4d rot;
 
 	if (up)
-		rot = rt_rotation_matrix_from_axis_angle(&state->cam.left, angle);
+		rot = rt_rotation_matrix_from_axis_angle(&minirt->cam.left, angle);
 	else
-		rot = rt_rotation_matrix_from_axis_angle(&state->cam.left, -angle);
-	state->cam.forward = mult_mat4d_vec4d(&rot, &state->cam.forward);
-	state->cam.left = mult_mat4d_vec4d(&rot, &state->cam.left);
-	state->cam.up = mult_mat4d_vec4d(&rot, &state->cam.up);
+		rot = rt_rotation_matrix_from_axis_angle(&minirt->cam.left, -angle);
+	minirt->cam.forward = mult_mat4d_vec4d(&rot, &minirt->cam.forward);
+	minirt->cam.left = mult_mat4d_vec4d(&rot, &minirt->cam.left);
+	minirt->cam.up = mult_mat4d_vec4d(&rot, &minirt->cam.up);
 }
 
-void camera_rotations(t_minirt *state)
+void camera_rotations(t_minirt *minirt)
 {
 	bool state_changed;
 
-	if (state->move.left == true)
+	state_changed = false;
+	
+	if (minirt->move.left == true)
 	{
-		_rotcam_apply_pitch_rot(state, true);
+		_rotcam_apply_pitch_rot(minirt, true);
 		state_changed = true;
 	}
-	if (state->move.right == true)
+	if (minirt->move.right == true)
 	{
-		_rotcam_apply_pitch_rot(state, false);
+		_rotcam_apply_pitch_rot(minirt, false);
 		state_changed = true;
 	}
-	if (state->move.up == true)
+	if (minirt->move.up == true)
 	{
-		_rotcam_apply_yaw_rot(state, true);
+		_rotcam_apply_yaw_rot(minirt, true);
 		state_changed = true;
 	}
-	if (state->move.down == true)
+	if (minirt->move.down == true)
 	{
-		_rotcam_apply_yaw_rot(state, false);
+		_rotcam_apply_yaw_rot(minirt, false);
 		state_changed = true;
 	}
 	if (state_changed)
-		update_camera_state(&state->cam);
+		update_camera_state(&minirt->cam);
 	//
-	state->changed = state_changed;
+	minirt->changed = minirt->changed || state_changed;
 }

@@ -82,7 +82,6 @@ typedef struct s_perturbed
 typedef struct s_material
 {
 	t_color color;
-	t_color xordc;
 	float ambient_s;
 	float diffuse_s;
 	float specular_s;
@@ -92,7 +91,7 @@ typedef struct s_material
 	float refractive_index;
 	bool checkered;
 	t_pattern *pattern;
-	t_frame *fra_tex;
+	t_frame *bump_map;
 } t_material;
 
 typedef struct s_material_colors
@@ -113,6 +112,7 @@ typedef struct s_object
 	t_mat4d inv_transform;
 	t_mat4d transposed_inverse;
 	t_mat4d rot;
+	t_point	trans;
 	t_mat4d translate;
 	t_mat4d scale;
 	t_vec4d orientation;

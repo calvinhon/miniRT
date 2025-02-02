@@ -15,6 +15,30 @@
 // #include "libft.h"
 #include "colors.h"
 
+t_point parse_point(char *data, size_t *i)
+{
+	t_point point;
+
+	point.x = parse_float(data, i);
+	point.y = parse_float(data, i);
+	point.z = parse_float(data, i);
+	point.p = 1.0;
+
+	return (point);
+}
+
+t_vec4d parse_vector(char *data, size_t *i)
+{
+	t_vec4d vector;
+
+	vector.x = parse_float(data, i);
+	vector.y = parse_float(data, i);
+	vector.z = parse_float(data, i);
+	vector.p = 0.0;
+
+	return (vector);
+}
+
 void parse_shape(t_minirt *minirt, char *data, size_t *i)
 {
 	size_t start;

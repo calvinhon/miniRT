@@ -31,7 +31,7 @@ void	normalize_vec4d(t_vec4d *v)
 	float mag_v;
 
 	mag_v = magnitude(v);
-	if (mag_v == 0)
+	if (mag_v < EPSILON)
 		*v = create_vec4d(0.f, 0.f, 0.f);
 	*v = create_vec4d(v->x / mag_v, v->y / mag_v, v->z / mag_v);
 }

@@ -54,8 +54,8 @@ void destroy_textures(t_minirt *minirt)
 		if (((t_tex_frame *)temp->content)->name)
 			free(((t_tex_frame *)temp->content)->name);
 		mlx_destroy_image(minirt->mlx,
-						  ((t_tex_frame *)temp->content)->fra_tex->ptr);
-		free(((t_tex_frame *)temp->content)->fra_tex);
+						  ((t_tex_frame *)temp->content)->bump_map->ptr);
+		free(((t_tex_frame *)temp->content)->bump_map);
 		temp = temp->next;
 	}
 	ft_lstclear(&minirt->textures, free);

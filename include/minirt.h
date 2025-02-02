@@ -50,7 +50,7 @@ typedef struct s_core t_core;
 typedef struct s_tex_frame
 {
 	char *name;
-	t_frame *fra_tex;
+	t_frame *bump_map;
 } t_tex_frame;
 
 typedef struct s_minirt
