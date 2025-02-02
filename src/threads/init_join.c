@@ -12,16 +12,15 @@
 
 #include "minirt.h"
 #include "macros.h"
-// #include "mlx.h"
 #include <stdio.h>
 #include <sys/time.h>
 
-extern void *render_chunk(void *minirt);
+extern void	*render_chunk(void *minirt);
 
-void pool_start_frame(t_minirt *minirt)
+void	pool_start_frame(t_minirt *minirt)
 {
-	t_core *thread;
-	int i;
+	t_core	*thread;
+	int		i;
 
 	i = -1;
 	while (++i < _RT_NUM_THREADS)
@@ -34,10 +33,10 @@ void pool_start_frame(t_minirt *minirt)
 	}
 }
 
-void pool_wait_for_frame(t_minirt *minirt)
+void	pool_wait_for_frame(t_minirt *minirt)
 {
-	t_core *thread;
-	int i;
+	t_core	*thread;
+	int		i;
 
 	i = -1;
 	while (++i < _RT_NUM_THREADS)
@@ -53,9 +52,9 @@ void pool_wait_for_frame(t_minirt *minirt)
 	}
 }
 
-long long my_gettime(void)
+long long	my_gettime(void)
 {
-	struct timeval timeofday;
+	struct timeval	timeofday;
 
 	if (gettimeofday(&timeofday, NULL) == -1)
 		return ((void)write(2, "Error.\n", 8), -1);
@@ -86,16 +85,10 @@ bool	ini_core(t_minirt *minirt)
 	return (true);
 }
 
-bool thread_arbiter(t_minirt *minirt)
+bool	thread_arbiter(t_minirt *minirt)
 {
-	// long long	start_time;
-	// long long	frame_time;
-
-	// start_time = my_gettime();
 	pool_start_frame(minirt);
 	pool_wait_for_frame(minirt);
 	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
-	// frame_time = my_gettime() - start_time;
-	// printf("Frame took: %lld\n", frame_time);
 	return (true);
 }

@@ -12,9 +12,9 @@
 
 #include "minirt_math.h"
 
-t_mat4d rotate_mat_x(float rad)
+t_mat4d	rotate_mat_x(float rad)
 {
-	t_mat4d m;
+	t_mat4d	m;
 
 	m = identity_mat();
 	m.matrix[5] = cos(rad);
@@ -24,9 +24,9 @@ t_mat4d rotate_mat_x(float rad)
 	return (m);
 }
 
-t_mat4d rotate_mat_y(float rad)
+t_mat4d	rotate_mat_y(float rad)
 {
-	t_mat4d m;
+	t_mat4d	m;
 
 	m = identity_mat();
 	m.matrix[0] = cos(rad);
@@ -36,9 +36,9 @@ t_mat4d rotate_mat_y(float rad)
 	return (m);
 }
 
-t_mat4d rotate_mat_z(float rad)
+t_mat4d	rotate_mat_z(float rad)
 {
-	t_mat4d m;
+	t_mat4d	m;
 
 	m = identity_mat();
 	m.matrix[0] = cos(rad);
@@ -48,9 +48,9 @@ t_mat4d rotate_mat_z(float rad)
 	return (m);
 }
 
-t_mat4d shear_mat(t_shear s)
+t_mat4d	shear_mat(t_shear s)
 {
-	t_mat4d m;
+	t_mat4d	m;
 
 	m = identity_mat();
 	m.matrix[1] = s.x_y;

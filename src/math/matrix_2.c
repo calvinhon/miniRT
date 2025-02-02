@@ -12,11 +12,11 @@
 
 #include "minirt_math.h"
 
-t_mat4d mult_n_mat4d(int num_of_matrices, ...)
+t_mat4d	mult_n_mat4d(int num_of_matrices, ...)
 {
-	t_mat4d new_m;
-	t_idx idx;
-	va_list args;
+	t_mat4d	new_m;
+	t_idx	idx;
+	va_list	args;
 
 	va_start(args, num_of_matrices);
 	idx.count = -1;
@@ -29,7 +29,7 @@ t_mat4d mult_n_mat4d(int num_of_matrices, ...)
 		while (++idx.i < 4)
 		{
 			while (++idx.j < 4)
-				new_m.matrix[idx.i * 4 + idx.j] =
+				new_m.matrix[idx.i * 4 + idx.j] = \
 					dot_values(row(idx.m2, idx.i), col(idx.m1, idx.j));
 			idx.j = -1;
 		}
@@ -40,9 +40,9 @@ t_mat4d mult_n_mat4d(int num_of_matrices, ...)
 	return (new_m);
 }
 
-t_vec4d mult_mat4d_vec4d(const t_mat4d *m, const t_vec4d *v)
+t_vec4d	mult_mat4d_vec4d(const t_mat4d *m, const t_vec4d *v)
 {
-	t_vec4d new_v;
+	t_vec4d	new_v;
 
 	new_v.x = dot_values(row(m, 0), *v);
 	new_v.y = dot_values(row(m, 1), *v);
@@ -51,7 +51,7 @@ t_vec4d mult_mat4d_vec4d(const t_mat4d *m, const t_vec4d *v)
 	return (new_v);
 }
 
-t_mat4d transpose_mat4d(const t_mat4d *m)
+t_mat4d	transpose_mat4d(const t_mat4d *m)
 {
 	return (fill_matrix(col(m, 0), col(m, 1), col(m, 2), col(m, 3)));
 }

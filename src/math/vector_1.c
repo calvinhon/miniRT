@@ -12,9 +12,9 @@
 
 #include "minirt_math.h"
 
-t_vec4d create_vec4d(float x, float y, float z)
+t_vec4d	create_vec4d(float x, float y, float z)
 {
-	t_vec4d v;
+	t_vec4d	v;
 
 	v.x = x;
 	v.y = y;
