@@ -29,9 +29,8 @@ bool parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	plane->material.color = parse_color(data, i, minirt);
 	set_material(&plane->material, data, i, minirt);
 	// modify
-	plane->scale = scaling_mat(1.f, 1.f, 1.f);
 	plane->rot = rt_extract_rot_vertical(plane->orientation);
-	plane->inv_transform = mult_n_mat4d(3, &plane->rot, &plane->scale, &plane->translate);
+	plane->inv_transform = mult_n_mat4d(2, &plane->rot, &plane->translate);
 	plane->inv_transform = inverse_mat4d(&plane->inv_transform);
 	return (plane->center.p = 1.f, true);
 }

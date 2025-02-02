@@ -43,6 +43,7 @@ bool parse_bump_xpm(t_material *material, char *data, size_t *i, t_minirt *minir
 	size_t len;
 	char filename[256];
 
+	
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == '\n')
 		(*i)++;
 	len = 0;
@@ -53,9 +54,8 @@ bool parse_bump_xpm(t_material *material, char *data, size_t *i, t_minirt *minir
 	}
 	*i += len;
 	filename[len] = '\0';
-	if (len < 5 || ft_strncmp(data + len - 4, ".xpm", 4))
+	if (!fopen(filename, "r"))
 		return (minirt->error_code = 3, false);
-	printf("%s\n", filename);
 	temp = minirt->textures;
 	while (temp)
 	{

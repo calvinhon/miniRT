@@ -30,6 +30,9 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 	float light_dot_normal;
 	float reflect_dot_eye;
 
+	// if (m->bump_map)
+	// 	m->color = bump_map_color(m->bump_map, c->over_point);
+	// else if (m->pattern)
 	if (m->pattern)
 		m->color = pattern_at(c->obj, &c->p, m->pattern);
 	c->diffuse = create_color(0, 0, 0);

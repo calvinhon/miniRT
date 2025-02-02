@@ -277,6 +277,9 @@ void transform_ray(t_ray *r, t_mat4d *m);
 
 /*--- TEXTURES ---*/
 t_frame *rt_xpm_file_to_canvas(char *filepath, void *mlx);
+t_vec4d apply_normal_mapping(t_point *wrld_p, t_frame *texture);
+
+
 t_vec2d rt_get_sphere_uv_local(t_vec4d *hitp);
 t_vec2d rt_get_plane_uv_local(t_vec4d *hitp, t_vec4d tangent,
 							  t_vec4d *normal);
