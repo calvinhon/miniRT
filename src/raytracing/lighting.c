@@ -30,13 +30,11 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 	float light_dot_normal;
 	float reflect_dot_eye;
 
-	//
 	if (m->pattern)
 		m->color = pattern_at(c->obj, &c->p, m->pattern);
-	//
 	c->diffuse = create_color(0, 0, 0);
 	c->specular = create_color(0, 0, 0);
-	effective_color = mult_colors(&m->color, &c->l_color);
+	effective_color = mult_colors(&m->color, &l->intensity);
 	c->ambient = mult_colors(&effective_color, ambiance);
 	light_v = subtract_points(&l->pos, &c->p);
 	light_v = normalize(&light_v);
@@ -49,7 +47,7 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 		reflect_dot_eye = dot_values(reflect(&light_v, &c->normal_v), c->eye_v);
 		if (reflect_dot_eye > 0)
 		{
-			c->specular = scale_color(&c->l_color,
+			c->specular = scale_color(&l->intensity,
 									  pow(reflect_dot_eye, m->shininess) * m->specular_s);
 		}
 	}
@@ -58,18 +56,23 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 
 bool is_shadowed(t_scene *s, t_point *p, t_light *l)
 {
-	t_vec4d l_v;
-	t_vec4d direction;
+	t_vec4d light_v;
+	t_vec4d normalized_v;
 	t_ray r;
 	t_itx_grp xs;
 	t_itx *h;
 
-	l_v = subtract_points(&l->pos, p);
-	direction = normalize(&l_v);
-	r = create_ray(p, &direction);
+	light_v = subtract_points(p, &l->pos);
+	normalized_v = normalize(&light_v);
+	if (l->type == SPOT_LIGHT
+		&& dot_pointers(&l->orientation, &normalized_v) < l->spot_angle)
+		return (true);
+	light_v = subtract_points(&l->pos, p);
+	normalized_v = normalize(&light_v);
+	r = create_ray(p, &normalized_v);
 	xs = local_intersect(s, &r);
 	h = get_hit(&xs);
-	if (h && h->t < magnitude(&l_v))
+	if (h && h->t < magnitude(&light_v))
 		return (true);
 	return (false);
 }
@@ -96,10 +99,6 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 	i = -1;
 	while (++i < s->num_lights)
 	{
-		if (s->lights[i].type == SPOT_LIGHT)
-			c->l_color = s->lights[i].specs.spot.intensity;
-		else
-			c->l_color = s->lights[i].specs.point.intensity;
 		c->shadowed = is_shadowed(s, &c->over_point, &s->lights[i]);
 		if (i > 0)
 			s->ambiance = create_color(0, 0, 0);

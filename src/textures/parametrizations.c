@@ -14,7 +14,7 @@
 
 t_vec2d rt_get_sphere_uv_local(t_vec4d *hitp)
 {
-	const float two_pi = 2.f * (float)PI;
+	const float two_pi = 2.f * (float)M_PI;
 	t_vec2d uv;
 	float phi;
 	float theta;
@@ -26,11 +26,11 @@ t_vec2d rt_get_sphere_uv_local(t_vec4d *hitp)
 	if (phi < 0.f)
 		phi += two_pi;
 	if (theta < 0.f)
-		theta += (float)PI;
+		theta += (float)M_PI;
 	uv.x = phi / two_pi;
 	if (uv.x >= 1.f)
 		uv.x = 0.999f;
-	uv.y = theta / (float)PI;
+	uv.y = theta / (float)M_PI;
 	if (uv.y >= 1.f)
 		uv.y = 0.999f;
 	return (uv);

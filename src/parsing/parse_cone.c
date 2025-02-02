@@ -66,7 +66,7 @@ bool parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	//height = cone->specs.max_y - cone->specs.min_y;
 	//cone->specs.min_y = -height / 2.0f;
 	//cone->specs.max_y = height / 2.0f;
-	cone->specs.closed = false;
+	cone->specs.closed = true;
 	cone->material.color = parse_color(data, i, minirt);
 	set_material(&cone->material, data, i, minirt);
 	//cone->scale = scaling_mat(1.f, 1.f, 1.f);

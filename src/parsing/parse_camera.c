@@ -60,7 +60,7 @@ void set_camera_fields(t_camera *cam)
 	cam->hsize = FRAME_W;
 	cam->vsize = FRAME_H;
 	cam->aspect_ratio = (float)cam->hsize / (float)cam->vsize;
-	cam->half_view = tanf((cam->fov / 2.f) * ((float)PI / 180.0f));
+	cam->half_view = tanf((cam->fov / 2.f) * ((float)M_PI / 180.0f));
 	if (cam->aspect_ratio >= 1.0f)
 	{
 		cam->half_width = cam->half_view;

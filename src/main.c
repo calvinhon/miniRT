@@ -69,6 +69,19 @@ int main(int ac, char **av)
 	check_filename(av[1]);
 	minirt = init_minirt();
 	parse(av[1], minirt);
+
+	// Direct to render
+	// int x = -1;
+	// int y = -1;
+	// while (++y < minirt->cam.vsize - 1)
+	// {
+	// 	while (++x < minirt->cam.hsize - 1)
+	// 		render_pixel(minirt, x, y);
+	// 	x = -1;
+	// }
+	// mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
+	
+	// Threads to render
 	ini_core(minirt);
 	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
 	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1,

@@ -82,7 +82,6 @@ typedef struct s_perturbed
 typedef struct s_material
 {
 	t_color color;
-	t_color xordc;
 	float ambient_s;
 	float diffuse_s;
 	float specular_s;
@@ -92,7 +91,7 @@ typedef struct s_material
 	float refractive_index;
 	bool checkered;
 	t_pattern *pattern;
-	t_frame *fra_tex;
+	t_frame *bump_map;
 } t_material;
 
 typedef struct s_material_colors
@@ -184,19 +183,12 @@ typedef struct s_light
 	int type;
 	t_point pos;
 	float ratio;
-	union u_light_type
+	t_color intensity;
+	struct
 	{
-		struct l_point
-		{
-			t_color intensity;
-		} point;
-		struct l_spot
-		{
-			t_color intensity;
-			t_vec4d orientation;
-			float spot_angle;
-		} spot;
-	} specs;
+		t_vec4d orientation;
+		float spot_angle;
+	};
 } t_light;
 
 typedef struct s_scene
