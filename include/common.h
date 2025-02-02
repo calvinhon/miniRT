@@ -183,19 +183,12 @@ typedef struct s_light
 	int type;
 	t_point pos;
 	float ratio;
-	union u_light_type
+	t_color intensity;
+	struct
 	{
-		struct l_point
-		{
-			t_color intensity;
-		} point;
-		struct l_spot
-		{
-			t_color intensity;
-			t_vec4d orientation;
-			float spot_angle;
-		} spot;
-	} specs;
+		t_vec4d orientation;
+		float spot_angle;
+	};
 } t_light;
 
 typedef struct s_scene

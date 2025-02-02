@@ -25,7 +25,7 @@ static void parse_pattern_cont(t_pattern *pattern, char *data, size_t *i,
 	{
 		*i += 7;
 		pattern->type = STRIPED;
-		rot_m = rotate_mat_z(PI / 2);
+		rot_m = rotate_mat_z(M_PI / 2);
 		scale_m = scaling_mat(0.5, 0.5, 0.5);
 		pattern->transform = mult_n_mat4d(2, &rot_m, &scale_m);
 	}

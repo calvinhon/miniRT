@@ -64,7 +64,7 @@ t_mat4d rt_extract_rot_vertical(const t_vec4d u)
 	if (u.x == 0 && fabsf(u.y - 1) < EPSILON && u.z == 0)
 		return (identity_mat());
 	if (u.x == 0 && fabsf(u.y + 1) < EPSILON && u.z == 0)
-		return (rotate_mat_x((float)-PI));
+		return (rotate_mat_x((float)-M_PI));
 	rot_axis = cross_pointers(&j_hat, &u);
 	if (magnitude(&rot_axis) < EPSILON)
 		return (identity_mat());
