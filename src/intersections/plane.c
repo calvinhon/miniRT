@@ -6,7 +6,7 @@
 /*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:57:01 by chon              #+#    #+#             */
-/*   Updated: 2025/01/30 18:38:42 by chon             ###   ########.fr       */
+/*   Updated: 2025/02/03 16:03:36 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,8 @@
 
 t_vec4d plane_normal_at(t_object *o, t_point *wrld_p)
 {
-	// t_vec4d obj_normal;
-	t_vec4d wrld_normal;
-	// t_mat4d transposed;
-	// t_vec2d	uv;
-	// t_vec4d	tangent;
-
-	// (void)wrld_p;
 	if (o->material.bump_map)
-	{
-	// 	tangent = rt_get_plane_tangent(&plane->orientation);
-	// 	uv = rt_get_plane_uv_local(world_p, tangent, &plane->orientation);
-		wrld_normal = apply_normal_mapping(wrld_p, o->material.bump_map);
-		// transposed = transpose_mat4d(&o->inv_transform);
-		// wrld_normal = mult_mat4d_vec4d(&transposed, &obj_normal);
-		return (normalize(&wrld_normal));
-	}
+		return (apply_bump_map(wrld_p, o->material.bump_map, &o->orientation));
 	return (o->orientation);
 }
 

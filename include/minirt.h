@@ -56,7 +56,7 @@ typedef struct s_tex_frame
 typedef struct s_minirt
 {
 	bool changed;
-	bool	start;
+	bool start;
 	int error_code;
 	char *data;
 	int flt_operations;
@@ -114,7 +114,7 @@ typedef struct s_core
 	bool work_ready;
 	pthread_mutex_t mutex;
 	pthread_cond_t cond;
-}	t_core;
+} t_core;
 
 typedef struct s_computations_for_xs
 {
@@ -173,10 +173,10 @@ bool parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx);
 bool parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx);
 bool parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx);
 
-void	parse_material(t_material *material, char *data, size_t *i, t_minirt *minirt);
-bool	parse_bump_xpm(t_material *material, char *data, size_t *i, t_minirt *minirt);
-void	set_material(t_material *material, char *data, size_t *i, t_minirt *minirt);
-bool	parse_pattern(t_material *material, char *data,	size_t *i, t_minirt *minirt);
+void parse_material(t_material *material, char *data, size_t *i, t_minirt *minirt);
+bool parse_bump_xpm(t_material *material, char *data, size_t *i, t_minirt *minirt);
+void set_material(t_material *material, char *data, size_t *i, t_minirt *minirt);
+bool parse_pattern(t_material *material, char *data, size_t *i, t_minirt *minirt);
 // bool		parse(const char *filename, t_minirt *minirt);
 // bool		parse_ambient(t_minirt *minirt, t_split *fields, int curr_line);
 // bool		parse_light(t_minirt *minirt, const t_split *fields,
@@ -209,13 +209,13 @@ bool	parse_pattern(t_material *material, char *data,	size_t *i, t_minirt *minirt
 // bool		parse_bump_xpm(t_material *obj_mat, t_minirt *minirt,
 //				char *filename);
 t_mat4d rt_extract_rot_vertical(const t_vec4d u);
-//t_mat4d rt_get_cam_inverse(const t_mat4d *view);
-// bool		check_object_validity_init(t_minirt *minirt, const char *info,
+// t_mat4d rt_get_cam_inverse(const t_mat4d *view);
+//  bool		check_object_validity_init(t_minirt *minirt, const char *info,
 //				int curr_line, const t_split fields);
-// void		parse_fatal_msg(char *msg, int curr_line);
-// void		parse_warn_msg(char *msg, char *expected, int curr_line, bool ign);
-// void		parse_err_msg(char *msg, char *expected, int curr_line);
-// void		parse_syn_err_msg(char *msg, int curr_line);
+//  void		parse_fatal_msg(char *msg, int curr_line);
+//  void		parse_warn_msg(char *msg, char *expected, int curr_line, bool ign);
+//  void		parse_err_msg(char *msg, char *expected, int curr_line);
+//  void		parse_syn_err_msg(char *msg, int curr_line);
 
 /*--- RENDERING ---*/
 bool make_window(t_minirt *minirt, int width, int height);
@@ -236,9 +236,9 @@ bool ini_core(t_minirt *minirt);
 
 bool thread_arbiter(t_minirt *minirt);
 void *await_task(void *arg);
-void	interpolate_horizontal(t_core const *data);
-void	interpolate_vertical(t_core const *data);
-int		cdiff(t_color a, t_color b);
+void interpolate_horizontal(t_core const *data);
+void interpolate_vertical(t_core const *data);
+int cdiff(t_color a, t_color b);
 t_color lerp_colors(const t_color *a, const t_color *b, float t);
 t_color fetch_pixel_color(const t_frame *frame, int x, int y);
 
@@ -277,11 +277,11 @@ void transform_ray(t_ray *r, t_mat4d *m);
 
 /*--- TEXTURES ---*/
 t_frame *rt_xpm_file_to_canvas(char *filepath, void *mlx);
-t_vec4d apply_normal_mapping(t_point *wrld_p, t_frame *texture);
-
+t_vec4d get_plane_tangent(t_vec4d *normal);
+t_vec4d apply_bump_map(t_point *obj_p, t_frame *bump_map, t_vec4d *orient_v);
 
 t_vec2d rt_get_sphere_uv_local(t_vec4d *hitp);
-t_vec2d rt_get_plane_uv_local(t_vec4d *hitp, t_vec4d tangent,
+t_vec2d rt_get_plane_uv_local(t_point *hitp, t_vec4d tangent,
 							  t_vec4d *normal);
 t_vec4d rt_get_sphere_tangent(t_vec4d *local_normal);
 t_vec4d rt_get_plane_tangent(t_vec4d *local_normal);
@@ -315,7 +315,7 @@ bool is_shadowed(t_scene *s, t_point *p, t_light *l);
 
 /*--- INTERSECTIONS ---*/
 t_itx_grp local_intersect(t_scene *s, t_ray *r);
-void	swap(float *t);
+void swap(float *t);
 t_itx *get_hit(t_itx_grp *xs);
 t_color color_at(t_scene *s, t_ray *r, int depth);
 t_color render_pixel(t_minirt *program, int x, int y);
