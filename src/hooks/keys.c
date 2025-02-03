@@ -12,41 +12,19 @@
 
 #include "minirt.h"
 
-int	update_minirt(t_minirt *minirt)
+static void record_r(t_minirt *minirt)
 {
-	if (minirt->stop)
-	{
-		if (!minirt->selected.is_cam)
-		{
-			minirt->selected.is_cam = true;
-			minirt->selected.object = NULL;
-			minirt->stop = false;
-		}
-		else
-			return (destroy_minirt(minirt), 0);
-	}
-	if (minirt->selected.is_cam)
-	{
-		camera_controls(minirt);
-		camera_rotations(minirt);
-	}
-	else
-		object_controls(minirt);
-	if (minirt->changed || minirt->start)
-	{
-		update_rt(minirt);
-		minirt->changed = false;
-		minirt->start = false;
-	}
-	return (0);
+	minirt->changed = true;
+	minirt->scene.fr_fl ^= true;
+	ft_printf("Toggle refract/reflecting (ON/OFF):%d\n", minirt->scene.fr_fl);
 }
 
 int	record_keypress(int keycode, t_minirt *minirt)
 {
+	if (keycode == KEY_R)
+		return (record_r(minirt), keycode);
 	if (keycode == KEY_ESC)
 		return (minirt->stop = true, 0);
-	if (keycode == KEY_R)
-		return (minirt->changed = true, minirt->scene.fr_fl ^= true, keycode);
 	if (keycode == KEY_A)
 		minirt->move.a = true;
 	if (keycode == KEY_D)
