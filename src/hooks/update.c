@@ -33,3 +33,54 @@ int	update_rt(t_minirt *minirt)
 		return (1);
 	return (0);
 }
+
+static void update_stop(t_minirt *minirt)
+{
+	if (minirt->stop)
+	{
+		if (!minirt->selected.is_cam)
+		{
+			minirt->selected.is_cam = true;
+			minirt->selected.object = NULL;
+			minirt->stop = false;
+			ft_printf("Camera is selected!\n");
+		}
+		else
+			return (destroy_minirt(minirt), (void)0);
+	}
+}
+
+static void update_state(t_minirt *minirt)
+{
+	update_stop(minirt);
+	if (minirt->move.a || minirt->move.d || minirt->move.s || minirt->move.w \
+	|| minirt->move.space || minirt->move.leftshift || minirt->move.up \
+	|| minirt->move.down || minirt->move.left || minirt->move.right)
+	{
+	if (minirt->selected.is_cam)
+		{
+			camera_controls(minirt);
+			camera_rotations(minirt);
+			ft_printf("Camera is selected!\n");
+		}
+		else
+		{
+			object_controls(minirt);
+			ft_printf("Object is selected!\n");
+		}
+	}
+}
+
+int	update_minirt(t_minirt *minirt)
+{
+	update_state(minirt);
+	if (minirt->changed || minirt->start)
+	{
+		ft_printf("Redrawing RT\n");
+		update_rt(minirt);
+		minirt->changed = false;
+		minirt->start = false;
+		ft_printf("Updated RT!\n");
+	}
+	return (0);
+}
