@@ -15,24 +15,6 @@
 #include "mlx.h"
 #include "keys.h"
 
-void	errors(int err_code, char *err_ms, void *ptr)
-{
-	t_minirt	*minirt;
-
-	minirt = (t_minirt *)ptr;
-	if (minirt)
-		free_minirt(minirt);
-	ft_putstr_fd(err_ms, 2);
-	exit(err_code);
-}
-
-int	destroy_minirt(t_minirt *minirt)
-{
-	free_minirt(minirt);
-	exit(0);
-	return (0);
-}
-
 static t_minirt	*init_minirt(void)
 {
 	t_minirt	*minirt;
@@ -68,15 +50,9 @@ static void	check_filename(char *file)
 		errors(CER_NO_FILE, ER_NO_FILE, NULL);
 }
 
-int	main(int ac, char **av)
+void	bonus_program(t_minirt *minirt)
 {
-	t_minirt	*minirt;
-
-	if (ac != 2)
-		errors(CER_AGC, ER_AGC, NULL);
-	check_filename(av[1]);
-	minirt = init_minirt();
-	parse(av[1], minirt);
+	ft_printf("Running in BONUS mode\n");
 	ini_core(minirt);
 	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
 	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1, \
@@ -86,5 +62,44 @@ int	main(int ac, char **av)
 	mlx_mouse_hook(minirt->win, &select_shape, minirt);
 	mlx_loop_hook(minirt->mlx, &update_minirt, minirt);
 	mlx_loop(minirt->mlx);
+}
+
+void	mandatory_program(t_minirt *minirt)
+{
+	int			x;
+	int			y;
+
+	ft_printf("Running in MANDATORY mode\n");
+	x = -1;
+	y = -1;
+	while (++y < minirt->cam.vsize - 1)
+	{
+		while (++x < minirt->cam.hsize - 1)
+			render_pixel(minirt, x, y);
+		x = -1;
+	}
+	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
+	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2, \
+		&destroy_minirt, minirt);
+	mlx_loop(minirt->mlx);
+}
+
+int	main(int ac, char **av)
+{
+	t_minirt	*minirt;
+	bool		bonus;
+
+	bonus = false;
+	if (ac != 2 && ac != 3)
+		errors(CER_AGC, ER_AGC, NULL);
+	if (ac == 3)
+		bonus = true;
+	check_filename(av[1]);
+	minirt = init_minirt();
+	parse(av[1], minirt);
+	if (bonus)
+		bonus_program(minirt);
+	else
+		mandatory_program(minirt);
 	return (0);
 }
