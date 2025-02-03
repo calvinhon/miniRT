@@ -12,11 +12,10 @@
 
 #include "minirt.h"
 #include "macros.h"
-#include "libft.h"
 #include "colors.h"
 
-bool parse_plane_checker(t_material *material, char *data,
-						 size_t *i, t_minirt *minirt)
+bool	parse_plane_checker(t_material *material, char *data, \
+	size_t *i, t_minirt *minirt)
 {
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
@@ -37,8 +36,8 @@ bool parse_plane_checker(t_material *material, char *data,
 	return (true);
 }
 
-void parse_material_cont1(t_material *material, char *data,
-						  size_t *i, t_minirt *minirt)
+void	parse_material_cont1(t_material *material, char *data, \
+	size_t *i, t_minirt *minirt)
 {
 	if (!ft_strncmp(data + (*i), "bump_xpm=", 9))
 	{
@@ -50,6 +49,11 @@ void parse_material_cont1(t_material *material, char *data,
 		*i += 8;
 		parse_plane_checker(material, data, i, minirt);
 	}
+	else if (!ft_strncmp(data + (*i), "refractive_index=", 17))
+	{
+		(*i) += 17;
+		material->refractive_index = parse_float(data, i);
+	}
 	else
 	{
 		ft_printf("Unknown material field at position %d:\n", *i);
@@ -58,13 +62,18 @@ void parse_material_cont1(t_material *material, char *data,
 	}
 }
 
-void parse_material_cont(t_material *material, char *data,
-						 size_t *i, t_minirt *minirt)
+void	parse_material_cont(t_material *material, char *data, \
+	size_t *i, t_minirt *minirt)
 {
 	if (!ft_strncmp(data + (*i), "reflective=", 11))
 	{
 		(*i) += 11;
 		material->reflective = parse_float(data, i);
+	}
+	else if (!ft_strncmp(data + (*i), "pattern=", 8))
+	{
+		*i += 8;
+		parse_pattern(material, data, i, minirt);
 	}
 	else if (!ft_strncmp(data + (*i), "sheen=", 6))
 	{
@@ -76,16 +85,11 @@ void parse_material_cont(t_material *material, char *data,
 		(*i) += 13;
 		material->transparency = parse_float(data, i);
 	}
-	else if (!ft_strncmp(data + (*i), "refractive_index=", 17))
-	{
-		(*i) += 17;
-		material->refractive_index = parse_float(data, i);
-	}
 	else
 		parse_material_cont1(material, data, i, minirt);
 }
 
-void parse_material(t_material *material, char *data,
+void	parse_material(t_material *material, char *data,
 					size_t *i, t_minirt *minirt)
 {
 	while (data[*i] != '\0' && data[*i] != '\n')
@@ -107,18 +111,13 @@ void parse_material(t_material *material, char *data,
 			(*i) += 9;
 			material->specular_s = parse_float(data, i);
 		}
-		else if (!ft_strncmp(data + (*i), "pattern=", 8))
-		{
-			*i += 8;
-			parse_pattern(material, data, i, minirt);
-		}
 		else
 			parse_material_cont(material, data, i, minirt);
 	}
 }
 
-void set_material(t_material *material, char *data, size_t *i,
-				  t_minirt *minirt)
+void	set_material(t_material *material, char *data, size_t *i, \
+	t_minirt *minirt)
 {
 	material->ambient_s = 0.1;
 	material->diffuse_s = 0.9;

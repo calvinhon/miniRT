@@ -41,11 +41,12 @@ SRC := main.c \
 	parse_camera.c parse_sphere.c parse_utils.c parse_errors.c \
 	parse_plane.c parse_cylinder.c parse_cube.c parse_cone.c \
 	parse_extras.c parse_material.c parse_texture.c parse_xpm.c parse_pattern.c ft_atof.c) \
-	$(addprefix destroy/, destroy.c) \
+	$(addprefix destroy/, destroy.c errors.c) \
 	$(addprefix threads/, init_join.c routines.c lerp_vertical.c lerp_horizontal.c) \
 	$(addprefix raytracing/, lighting.c rays.c render.c) \
 	$(addprefix hooks/, update.c keys.c mouse.c object.c camera_movement.c camera_rotations.c rodrigues.c) \
-	$(addprefix math/, matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c matrix_6.c point.c vector_1.c vector_2.c vector_3.c) \
+	$(addprefix math/, matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c matrix_6.c point.c vector_1.c \
+	vector_2.c vector_3.c vector_4.c) \
 	$(addprefix intersections/, world.c sphere.c plane.c cylinder.c cube.c cone.c) \
 	$(addprefix textures/, bump_map.c pattern.c perlin_noise.c)
 SRC_DIR := src

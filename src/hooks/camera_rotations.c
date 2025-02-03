@@ -12,11 +12,11 @@
 
 #include "minirt.h"
 
-
-static inline void _rotcam_apply_pitch_rot(t_minirt *minirt, bool left)
+static inline void	_rotcam_apply_pitch_rot(t_minirt *minirt, bool left, \
+	bool *state_changed)
 {
-	const float angle = (PITCH_SPEED + MOVE_SPEED / 10.f) * minirt->delta_time;
-	t_mat4d rot;
+	const float	angle = (PITCH_SPEED + MOVE_SPEED / 10.f) * minirt->delta_time;
+	t_mat4d		rot;
 
 	if (left)
 		rot = rotate_mat_y(-angle);
@@ -25,12 +25,14 @@ static inline void _rotcam_apply_pitch_rot(t_minirt *minirt, bool left)
 	minirt->cam.forward = mult_mat4d_vec4d(&rot, &minirt->cam.forward);
 	minirt->cam.left = mult_mat4d_vec4d(&rot, &minirt->cam.left);
 	minirt->cam.up = mult_mat4d_vec4d(&rot, &minirt->cam.up);
+	*state_changed = true;
 }
 
-static inline void _rotcam_apply_yaw_rot(t_minirt *minirt, bool up)
+static inline void	_rotcam_apply_yaw_rot(t_minirt *minirt, \
+	bool up, bool *state_changed)
 {
-	const float angle = (YAW_SPEED + MOVE_SPEED / 10.f) * minirt->delta_time;
-	t_mat4d rot;
+	const float	angle = (YAW_SPEED + MOVE_SPEED / 10.f) * minirt->delta_time;
+	t_mat4d		rot;
 
 	if (up)
 		rot = rt_rotation_matrix_from_axis_angle(&minirt->cam.left, angle);
@@ -39,36 +41,23 @@ static inline void _rotcam_apply_yaw_rot(t_minirt *minirt, bool up)
 	minirt->cam.forward = mult_mat4d_vec4d(&rot, &minirt->cam.forward);
 	minirt->cam.left = mult_mat4d_vec4d(&rot, &minirt->cam.left);
 	minirt->cam.up = mult_mat4d_vec4d(&rot, &minirt->cam.up);
+	*state_changed = true;
 }
 
-void camera_rotations(t_minirt *minirt)
+void	camera_rotations(t_minirt *minirt)
 {
-	bool state_changed;
+	bool	state_changed;
 
 	state_changed = false;
-	
 	if (minirt->move.left == true)
-	{
-		_rotcam_apply_pitch_rot(minirt, true);
-		state_changed = true;
-	}
+		_rotcam_apply_pitch_rot(minirt, true, &state_changed);
 	if (minirt->move.right == true)
-	{
-		_rotcam_apply_pitch_rot(minirt, false);
-		state_changed = true;
-	}
+		_rotcam_apply_pitch_rot(minirt, false, &state_changed);
 	if (minirt->move.up == true)
-	{
-		_rotcam_apply_yaw_rot(minirt, true);
-		state_changed = true;
-	}
+		_rotcam_apply_yaw_rot(minirt, true, &state_changed);
 	if (minirt->move.down == true)
-	{
-		_rotcam_apply_yaw_rot(minirt, false);
-		state_changed = true;
-	}
+		_rotcam_apply_yaw_rot(minirt, false, &state_changed);
 	if (state_changed)
 		update_camera_state(&minirt->cam);
-	//
 	minirt->changed = minirt->changed || state_changed;
 }

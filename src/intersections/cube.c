@@ -12,13 +12,13 @@
 
 #include "minirt.h"
 
-t_vec4d cube_normal_at(t_object *o, t_point *wrld_p)
+t_vec4d	cube_normal_at(t_object *o, t_point *wrld_p)
 {
-	t_point obj_p;
-	t_vec4d obj_normal;
-	t_mat4d transposed;
-	t_vec4d wrld_normal;
-	float max_f[4];
+	t_point	obj_p;
+	t_vec4d	obj_normal;
+	t_mat4d	transposed;
+	t_vec4d	wrld_normal;
+	float	max_f[4];
 
 	obj_p = mult_mat4d_pt4d(&o->inv_transform, wrld_p);
 	max_f[1] = fabsf(obj_p.x);
@@ -36,10 +36,10 @@ t_vec4d cube_normal_at(t_object *o, t_point *wrld_p)
 	return (normalize(&wrld_normal));
 }
 
-void check_axis(float *axis, float origin, float direction)
+void	check_axis(float *axis, float origin, float direction)
 {
-	float tmin_numerator;
-	float tmax_numerator;
+	float	tmin_numerator;
+	float	tmax_numerator;
 
 	tmin_numerator = -1 - origin;
 	tmax_numerator = 1 - origin;
@@ -56,12 +56,12 @@ void check_axis(float *axis, float origin, float direction)
 	swap(axis);
 }
 
-void intersect_cube(t_ray *r, t_object *o, t_itx_grp *xs)
+void	intersect_cube(t_ray *r, t_object *o, t_itx_grp *xs)
 {
-	t_ray trfm_r;
-	float x[3];
-	float y[3];
-	float z[3];
+	t_ray	trfm_r;
+	float	x[3];
+	float	y[3];
+	float	z[3];
 
 	trfm_r = *r;
 	transform_ray(&trfm_r, &o->inv_transform);
@@ -71,7 +71,7 @@ void intersect_cube(t_ray *r, t_object *o, t_itx_grp *xs)
 	x[2] = fmax(x[0], fmax(y[0], z[0]));
 	y[2] = fmin(x[1], fmin(y[1], z[1]));
 	if (x[2] > y[2])
-		return;
+		return ;
 	xs->arr[xs->count].obj = o;
 	xs->arr[xs->count++].t = fmax(x[0], fmax(y[0], z[0]));
 	xs->arr[xs->count].obj = o;

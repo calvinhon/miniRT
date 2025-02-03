@@ -12,7 +12,7 @@
 
 #include "colors.h"
 
-unsigned int plot_color(t_color *c)
+unsigned int	plot_color(t_color *c)
 {
 	if (c->r > 255)
 		c->r = 255;
@@ -20,5 +20,6 @@ unsigned int plot_color(t_color *c)
 		c->g = 255;
 	if (c->b > 255)
 		c->b = 255;
-	return ((unsigned int)c->r << 16 | (unsigned int)c->g << 8 | (unsigned int)c->b);
+	return ((unsigned int)c->r << 16 | (unsigned int)c->g << 8 \
+		| (unsigned int)c->b);
 }

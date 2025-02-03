@@ -12,13 +12,13 @@
 
 #include "minirt.h"
 
-t_vec4d cylinder_normal_at(t_object *o, t_point *wrld_p)
+t_vec4d	cylinder_normal_at(t_object *o, t_point *wrld_p)
 {
-	t_point obj_p;
-	t_vec4d obj_normal;
-	t_mat4d transposed;
-	t_vec4d wrld_normal;
-	float dist;
+	t_point	obj_p;
+	t_vec4d	obj_normal;
+	t_mat4d	transposed;
+	t_vec4d	wrld_normal;
+	float	dist;
 
 	obj_p = mult_mat4d_pt4d(&o->inv_transform, wrld_p);
 	dist = pow(obj_p.x, 2) + pow(obj_p.z, 2);
@@ -33,20 +33,21 @@ t_vec4d cylinder_normal_at(t_object *o, t_point *wrld_p)
 	return (normalize(&wrld_normal));
 }
 
-void intersect_cylinder(t_ray *r, t_object *o, t_itx_grp *xs)
+void	intersect_cylinder(t_ray *r, t_object *o, t_itx_grp *xs)
 {
-	t_ray trfm_r;
-	t_vec4d abc;
-	float d;
-	float t[3];
+	t_ray	trfm_r;
+	t_vec4d	abc;
+	float	d;
+	float	t[3];
 
 	trfm_r = *r;
 	transform_ray(&trfm_r, &o->inv_transform);
 	intersect_caps(&trfm_r, o, xs, 0);
 	abc.x = pow(trfm_r.direction.x, 2) + pow(trfm_r.direction.z, 2);
 	if (abc.x < EPSILON)
-		return;
-	abc.y = 2 * (trfm_r.origin.x * trfm_r.direction.x + trfm_r.origin.z * trfm_r.direction.z);
+		return ;
+	abc.y = 2 * (trfm_r.origin.x * trfm_r.direction.x + \
+		trfm_r.origin.z * trfm_r.direction.z);
 	abc.z = pow(trfm_r.origin.x, 2) + pow(trfm_r.origin.z, 2) - 1;
 	d = abc.y * abc.y - 4 * abc.x * abc.z;
 	if (d < -EPSILON)

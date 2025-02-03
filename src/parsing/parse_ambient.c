@@ -14,42 +14,41 @@
 #include "macros.h"
 #include "colors.h"
 
-int parse_int(char *data, size_t *i)
+int	parse_int(char *data, size_t *i)
 {
-	int value;
+	int	value;
 
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
 	value = ft_atoi(&data[*i]);
-	while (data[*i] && data[*i] != '\t' && data[*i] != ' ' && data[*i] != '\n' && data[*i] != ',')
+	while (data[*i] && data[*i] != '\t' && data[*i] != ' ' && \
+		data[*i] != '\n' && data[*i] != ',')
 		(*i)++;
 	return (value);
 }
 
-float parse_float(char *data, size_t *i)
+float	parse_float(char *data, size_t *i)
 {
-	float value;
+	float	value;
 
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
 	value = ft_atof(&data[*i]);
-	while (data[*i] && data[*i] != '\t' && data[*i] != ' ' && data[*i] != '\n' && data[*i] != ',')
+	while (data[*i] && data[*i] != '\t' && data[*i] != ' ' && data[*i] \
+		!= '\n' && data[*i] != ',')
 		(*i)++;
 	return (value);
 }
 
-t_color parse_color(char *data, size_t *i, t_minirt *minirt)
+t_color	parse_color(char *data, size_t *i, t_minirt *minirt)
 {
-	t_color color;
+	t_color	color;
 
 	color.a = 0.f;
-	// color.r = parse_int(data, i) f;
-	// color.g = parse_int(data, i) f;
-	// color.b = parse_int(data, i) f;
 	color.r = parse_int(data, i);
 	color.g = parse_int(data, i);
 	color.b = parse_int(data, i);
-	if (color.r < 0.f || color.r > 255.f ||
+	if (color.r < 0.f || color.r > 255.f || \
 		color.g < 0.f || color.g > 255.f || color.b < 0.f || color.b > 255.f)
 	{
 		printf("Invalid input at position %ld: \n", *i);
@@ -58,16 +57,15 @@ t_color parse_color(char *data, size_t *i, t_minirt *minirt)
 	return (color);
 }
 
-void parse_ambient(t_minirt *minirt, char *data, size_t *i)
+void	parse_ambient(t_minirt *minirt, char *data, size_t *i)
 {
 	(*i) += 1;
 	minirt->ambiance.ratio = parse_float(data, i);
-	if (minirt->ambiance.ratio < -0.f ||
-		minirt->ambiance.ratio > 1.f)
-		return (free(data), errors(CER_AMBIENT_VALUE,
-								   ER_AMBIENT_VALUE, minirt));
+	if (minirt->ambiance.ratio < -0.f || minirt->ambiance.ratio > 1.f)
+		return (free(data), errors(CER_AMBIENT_VALUE, \
+			ER_AMBIENT_VALUE, minirt));
 	minirt->ambiance.is_set = true;
 	minirt->ambiance.color = parse_color(data, i, minirt);
-	minirt->scene.ambiance = scale_color(&minirt->ambiance.color,
-										 minirt->ambiance.ratio);
+	minirt->scene.ambiance = scale_color(&minirt->ambiance.color, \
+		minirt->ambiance.ratio);
 }

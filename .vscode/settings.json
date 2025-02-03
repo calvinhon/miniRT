@@ -4,7 +4,12 @@
 		"minirt.h": "c",
 		"colors.h": "c",
 		"macros.h": "c",
+<<<<<<< HEAD
 		"algorithm": "c"
+=======
+		"minirt_math.h": "c",
+		"common.h": "c"
+>>>>>>> 8300d3a8ef5a0b3d44f3fecb42a5aff2772d4875
 	},
 	"C_Cpp_Runner.cCompilerPath": "gcc",
 	"C_Cpp_Runner.cppCompilerPath": "g++",

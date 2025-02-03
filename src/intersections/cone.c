@@ -1,17 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cone.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 17:37:44 by chon              #+#    #+#             */
+/*   Updated: 2025/01/30 18:42:06 by chon             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-t_vec4d cone_normal_at(t_object *o, t_point *wrld_p)
+t_vec4d	cone_normal_at(t_object *o, t_point *wrld_p)
 {
-	t_point obj_p;
-	t_vec4d obj_normal;
-	t_mat4d transposed;
-	t_vec4d wrld_normal;
-	float dist;
+	t_point		obj_p;
+	t_vec4d		obj_normal;
+	t_mat4d		transposed;
+	t_vec4d		wrld_normal;
+	float		dist;
 
 	obj_p = mult_mat4d_pt4d(&o->inv_transform, wrld_p);
 	dist = pow(obj_p.x, 2) + pow(obj_p.z, 2);
 	if (wrld_p->x == 0 && wrld_p->y == 0 && wrld_p->z == 0)
-	// if (fabs(dist) < EPSILON)
 		return (create_vec4d(0, 0, 0));
 	if (dist < 1 && obj_p.y >= o->specs.max_y - EPSILON)
 		obj_normal = create_vec4d(0, 1, 0);
@@ -33,18 +44,18 @@ void	calc_abc(t_vec4d *abc, t_ray *r)
 {
 	abc->x = pow(r->direction.x, 2) - pow(r->direction.y, 2)
 		+ pow(r->direction.z, 2);
-	abc->y = 2 * (r->origin.x * r->direction.x
-		- r->origin.y * r->direction.y
+	abc->y = 2 * (r->origin.x * r->direction.x \
+		- r->origin.y * r->direction.y \
 		+ r->origin.z * r->direction.z);
 	abc->z = pow(r->origin.x, 2) - pow(r->origin.y, 2)
 		+ pow(r->origin.z, 2);
 }
 
-void intersect_cone(t_ray *r, t_object *o, t_itx_grp *xs)
+void	intersect_cone(t_ray *r, t_object *o, t_itx_grp *xs)
 {
 	t_ray	trfm_r;
-	t_vec4d abc;
-	float 	d;
+	t_vec4d	abc;
+	float	d;
 	float	t[3];
 
 	trfm_r = *r;
@@ -55,9 +66,8 @@ void intersect_cone(t_ray *r, t_object *o, t_itx_grp *xs)
 		return ;
 	if (!abc.x)
 	{
-		xs->arr[xs->count].obj = o;
-		xs->arr[xs->count++].t = -abc.z / (2 * abc.y);
-		return ;
+		return (xs->arr[xs->count].obj = o, \
+		xs->arr[xs->count++].t = -abc.z / (2 * abc.y), (void)0);
 	}
 	d = abc.y * abc.y - 4 * abc.x * abc.z;
 	if (d < -EPSILON)

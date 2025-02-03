@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix_2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/20 10:35:51 by chon              #+#    #+#             */
+/*   Updated: 2025/01/20 10:35:51 by chon             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt_math.h"
 
-t_mat2d submatrix_mat3d(const t_mat3d *m, int row, int col)
+t_mat2d	submatrix_mat3d(const t_mat3d *m, int row, int col)
 {
-	t_mat2d sub_m;
-	int i;
-	int j;
+	t_mat2d	sub_m;
+	int		i;
+	int		j;
 
 	i = -1;
 	j = -1;
@@ -14,11 +26,11 @@ t_mat2d submatrix_mat3d(const t_mat3d *m, int row, int col)
 	return (sub_m);
 }
 
-t_mat3d submatrix_mat4d(const t_mat4d *m, int row, int col)
+t_mat3d	submatrix_mat4d(const t_mat4d *m, int row, int col)
 {
-	t_mat3d sub_m;
-	int i;
-	int j;
+	t_mat3d	sub_m;
+	int		i;
+	int		j;
 
 	i = -1;
 	j = -1;
@@ -28,15 +40,15 @@ t_mat3d submatrix_mat4d(const t_mat4d *m, int row, int col)
 	return (sub_m);
 }
 
-float minor_mat3d(const t_mat3d *m, int row, int col)
+float	minor_mat3d(const t_mat3d *m, int row, int col)
 {
-	t_mat2d m2d;
+	t_mat2d	m2d;
 
 	m2d = submatrix_mat3d(m, row, col);
 	return (determinant_mat2d(&m2d));
 }
 
-float cofactor_mat3d(const t_mat3d *m, int row, int col)
+float	cofactor_mat3d(const t_mat3d *m, int row, int col)
 {
 	if (!((row + col) % 2))
 		return (minor_mat3d(m, row, col));
