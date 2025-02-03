@@ -80,12 +80,12 @@ int main(int ac, char **av)
 	// 	x = -1;
 	// }
 	// mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
-	
+
 	// Threads to render
 	ini_core(minirt);
 	mlx_hook(minirt->win, EVENT_KEYPRESS, 1L, &record_keypress, minirt);
 	mlx_hook(minirt->win, EVENT_KEYRELEASE, 1L << 1,
-	 		&record_keyrelease, minirt);
+			 &record_keyrelease, minirt);
 	mlx_hook(minirt->win, EVENT_CLOSEWINDOW, 1L >> 2,
 			 &destroy_minirt, minirt);
 	mlx_mouse_hook(minirt->win, &select_shape, minirt);

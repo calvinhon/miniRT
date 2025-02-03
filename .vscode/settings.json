@@ -3,7 +3,8 @@
 		"keys.h": "c",
 		"minirt.h": "c",
 		"colors.h": "c",
-		"macros.h": "c"
+		"macros.h": "c",
+		"algorithm": "c"
 	},
 	"C_Cpp_Runner.cCompilerPath": "gcc",
 	"C_Cpp_Runner.cppCompilerPath": "g++",

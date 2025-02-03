@@ -6,7 +6,7 @@
 #    By: chon <chon@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 08:55:08 by chon              #+#    #+#              #
-#    Updated: 2025/01/30 17:37:14 by chon             ###   ########.fr        #
+#    Updated: 2025/02/03 16:06:57 by chon             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,11 +43,11 @@ SRC := main.c \
 	parse_extras.c parse_material.c parse_texture.c parse_xpm.c parse_pattern.c ft_atof.c) \
 	$(addprefix destroy/, destroy.c) \
 	$(addprefix threads/, init_join.c routines.c lerp_vertical.c lerp_horizontal.c) \
-	$(addprefix raytracing/, lighting.c pattern.c perlin_noise.c rays.c render.c) \
+	$(addprefix raytracing/, lighting.c rays.c render.c) \
 	$(addprefix hooks/, update.c keys.c mouse.c object.c camera_movement.c camera_rotations.c rodrigues.c) \
 	$(addprefix math/, matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c matrix_6.c point.c vector_1.c vector_2.c vector_3.c) \
 	$(addprefix intersections/, world.c sphere.c plane.c cylinder.c cube.c cone.c) \
-	$(addprefix textures/, bump_map.c textures.c parametrizations.c tangents.c)
+	$(addprefix textures/, bump_map.c pattern.c perlin_noise.c)
 SRC_DIR := src
 SRCS := $(addprefix $(SRC_DIR)/, $(SRC))
 
