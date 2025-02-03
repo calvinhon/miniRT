@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int	update_minirt(t_minirt *minirt)
+static void update_state(t_minirt *minirt)
 {
 	if (minirt->stop)
 	{
@@ -23,7 +23,7 @@ int	update_minirt(t_minirt *minirt)
 			minirt->stop = false;
 		}
 		else
-			return (destroy_minirt(minirt), 0);
+			return (destroy_minirt(minirt), (void)0);
 	}
 	if (minirt->selected.is_cam)
 	{
@@ -32,11 +32,18 @@ int	update_minirt(t_minirt *minirt)
 	}
 	else
 		object_controls(minirt);
+}
+
+int	update_minirt(t_minirt *minirt)
+{
+	update_state(minirt);
 	if (minirt->changed || minirt->start)
 	{
+		ft_printf("Redrawing RT\n");
 		update_rt(minirt);
 		minirt->changed = false;
 		minirt->start = false;
+		ft_printf("Updated RT!\n");
 	}
 	return (0);
 }

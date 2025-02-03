@@ -89,21 +89,21 @@ fclean:
 
 run: re $(NAME)
 	rm -rf $(OBJS)
-	@./$(NAME) ./scenes/complex.rt
+	@./$(NAME) ./scenes/complex.rt b
 
 brun:
 	$(MAKE) BONUS=1
 	rm -rf $(OBJS)
-	@./$(NAME) ./scenes/complex.rt
+	@./$(NAME) ./scenes/complex.rt b
 
 leaks: $(NAME)
 	@$(RM) $(OBJS)
-	valgrind --leak-check=full ./$(NAME) ./scenes/complex.rt
+	valgrind --tool=helgrind --verbose ./$(NAME) ./scenes/complex.rt
 
 bleaks: $(NAME)
 	$(MAKE) BONUS=1
 	@$(RM) $(OBJS)
-	valgrind --leak-check=full ./$(NAME) ./scenes/complex.rt
+	valgrind --leak-check=full ./$(NAME) ./scenes/complex.rt b
 
 re: fclean all
 
