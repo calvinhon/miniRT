@@ -49,10 +49,10 @@ void	parse_material_cont1(t_material *material, char *data, \
 		*i += 8;
 		parse_plane_checker(material, data, i, minirt);
 	}
-	else if (!ft_strncmp(data + (*i), "refractive_index=", 17))
+	else if (!ft_strncmp(data + (*i), "refractive=", 11))
 	{
-		(*i) += 17;
-		material->refractive_index = parse_float(data, i);
+		(*i) += 11;
+		material->refractive = parse_float(data, i);
 	}
 	else
 	{
@@ -125,7 +125,7 @@ void	set_material(t_material *material, char *data, size_t *i, \
 	material->shininess = 200;
 	material->reflective = 0.0;
 	material->transparency = 0.0;
-	material->refractive_index = 1.0;
+	material->refractive = 1.0;
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
 	if (data[*i] == 'M')

@@ -234,25 +234,27 @@ t_vec4d	reflect(t_vec4d *in, t_vec4d *normal);
 t_color	lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance);
 t_color	shade_hit(t_scene *s, t_comps *comps, int depth);
 bool	is_shadowed(t_scene *s, t_point *p, t_light *l);
+void	prepare_refractions(itx, &comps, xs);
 
 /*--- INTERSECTIONS ---*/
-t_itx_grp	local_intersect(t_scene *s, t_ray *r);
-void	swap(float *t);
-t_itx	*get_hit(t_itx_grp *xs);
-t_color	color_at(t_scene *s, t_ray *r, int depth);
-t_color	render_pixel(t_minirt *program, int x, int y);
-void	intersect_sphere(t_ray *r, t_object *sphere, t_itx_grp *xs);
-t_vec4d	sphere_normal_at(t_object *o, t_point *wrld_p);
-void	intersect_plane(t_ray *r, t_object *o, t_itx_grp *xs);
-t_vec4d	plane_normal_at(t_object *o, t_point *wrld_p);
-void	check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs);
-void	intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone);
-void	intersect_cylinder(t_ray *r, t_object *o, t_itx_grp *xs);
-t_vec4d	cylinder_normal_at(t_object *o, t_point *wrld_p);
-void	intersect_cube(t_ray *r, t_object *o, t_itx_grp *xs);
-t_vec4d	cube_normal_at(t_object *o, t_point *wrld_p);
-void	intersect_cone(t_ray *r, t_object *o, t_itx_grp *xs);
-t_vec4d	cone_normal_at(t_object *o, t_point *wrld_p);
+t_itx_grp	intersect(t_scene *s, t_ray *r);
+void 		normal_at(t_itx *itx, t_comps *comps);
+void		swap(float *t);
+t_itx		*get_hit(t_itx_grp *xs);
+t_color		color_at(t_scene *s, t_ray *r, int depth);
+t_color		render_pixel(t_minirt *program, int x, int y);
+void		intersect_sphere(t_ray *r, t_object *sphere, t_itx_grp *xs);
+t_vec4d		sphere_normal_at(t_object *o, t_point *wrld_p);
+void		intersect_plane(t_ray *r, t_object *o, t_itx_grp *xs);
+t_vec4d		plane_normal_at(t_object *o, t_point *wrld_p);
+void		check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs);
+void		intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone);
+void		intersect_cylinder(t_ray *r, t_object *o, t_itx_grp *xs);
+t_vec4d		cylinder_normal_at(t_object *o, t_point *wrld_p);
+void		intersect_cube(t_ray *r, t_object *o, t_itx_grp *xs);
+t_vec4d		cube_normal_at(t_object *o, t_point *wrld_p);
+void		intersect_cone(t_ray *r, t_object *o, t_itx_grp *xs);
+t_vec4d		cone_normal_at(t_object *o, t_point *wrld_p);
 
 /*--- PATTERNS ---*/
 t_color	pattern_at(t_object *o, t_point *world_point, t_pattern *pattern);

@@ -64,6 +64,7 @@ void	parse(char *file, t_minirt *minirt)
 {
 	size_t	total_size;
 
+	printf("hits\n");
 	total_size = 0;
 	minirt->data = file_data(minirt, &total_size, file);
 	if (total_size == 0)

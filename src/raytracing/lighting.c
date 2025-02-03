@@ -68,7 +68,7 @@ bool	is_shadowed(t_scene *s, t_point *p, t_light *l)
 	light_v = subtract_points(&l->pos, p);
 	normalized_v = normalize(&light_v);
 	r = create_ray(p, &normalized_v);
-	xs = local_intersect(s, &r);
+	xs = intersect(s, &r);
 	h = get_hit(&xs);
 	if (h && h->t < magnitude(&light_v))
 		return (true);

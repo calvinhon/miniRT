@@ -12,73 +12,23 @@
 
 #include "minirt.h"
 
-float	check_cap(t_ray *r, float t, float radius)
+void normal_at(t_itx *itx, t_comps *comps)
 {
-	float	x;
-	float	z;
-
-	x = r->origin.x + t * r->direction.x;
-	z = r->origin.z + t * r->direction.z;
-	return (x * x + z * z <= radius + EPSILON);
+	if (itx->obj->type == SPHERE)
+		comps->normal_v = sphere_normal_at(itx->obj, &comps->p);
+	else if (itx->obj->type == PLANE)
+		comps->normal_v = plane_normal_at(itx->obj, &comps->p);
+	else if (itx->obj->type == CYLINDER)
+		comps->normal_v = cylinder_normal_at(itx->obj, &comps->p);
+	else if (itx->obj->type == CUBE)
+		comps->normal_v = cube_normal_at(itx->obj, &comps->p);
+	else if (itx->obj->type == CONE)
+		comps->normal_v = cone_normal_at(itx->obj, &comps->p);
+	if (dot_pointers(&comps->normal_v, &comps->eye_v) < EPSILON)
+		comps->normal_v = negate_vector(&comps->normal_v);
 }
 
-void	intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
-{
-	float	t;
-	float	radius;
-
-	if (!o->specs.closed || fabsf(r->direction.y) < EPSILON)
-		return ;
-	if (is_cone)
-		radius = fabsf(o->specs.min_y);
-	else
-		radius = 1;
-	t = (o->specs.min_y - r->origin.y) / r->direction.y;
-	if (check_cap(r, t, radius))
-	{
-		xs->arr[xs->count].obj = o;
-		xs->arr[xs->count++].t = t;
-	}
-	if (is_cone)
-		radius = fabsf(o->specs.max_y);
-	t = (o->specs.max_y - r->origin.y) / r->direction.y;
-	if (check_cap(r, t, radius))
-	{
-		xs->arr[xs->count].obj = o;
-		xs->arr[xs->count++].t = t;
-	}
-}
-
-void	check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs)
-{
-	float	y;
-
-	swap(t);
-	y = r->origin.y + t[0] * r->direction.y;
-	if (y > o->specs.min_y && y < o->specs.max_y)
-	{
-		xs->arr[xs->count].obj = o;
-		xs->arr[xs->count++].t = t[0];
-	}
-	y = r->origin.y + t[1] * r->direction.y;
-	if (y > o->specs.min_y && y < o->specs.max_y)
-	{
-		xs->arr[xs->count].obj = o;
-		xs->arr[xs->count++].t = t[1];
-	}
-}
-
-void	swap(float *t)
-{
-	if (t[0] > t[1])
-	{
-		t[2] = t[0];
-		t[0] = t[1];
-		t[1] = t[2];
-	}
-}
-
-t_itx_grp	local_intersect(t_scene *s, t_ray *r)
+t_itx_grp	intersect(t_scene *s, t_ray *r)
 {
 	t_itx_grp	xs;
 	int			i;
@@ -87,15 +37,18 @@ t_itx_grp	local_intersect(t_scene *s, t_ray *r)
 	xs.count = 0;
 	while (++i < s->num_shapes)
 	{
-		if (s->shapes[i].type == SPHERE && xs.count + 2 <= MAX_ITX)
-			intersect_sphere(r, &s->shapes[i], &xs);
-		else if (s->shapes[i].type == PLANE && xs.count + 1 <= MAX_ITX)
+		if (s->shapes[i].type == PLANE && xs.count + 1 <= MAX_ITX)
 			intersect_plane(r, &s->shapes[i], &xs);
-		else if (s->shapes[i].type == CYLINDER && xs.count + 2 <= MAX_ITX)
-			intersect_cylinder(r, &s->shapes[i], &xs);
-		else if (s->shapes[i].type == CUBE && xs.count + 2 <= MAX_ITX)
-			intersect_cube(r, &s->shapes[i], &xs);
-		else if (s->shapes[i].type == CONE && xs.count + 2 <= MAX_ITX)
+		else if (xs.count + 2 <= MAX_ITX)
+		{
+			if (s->shapes[i].type == SPHERE)
+				intersect_sphere(r, &s->shapes[i], &xs);
+			else if (s->shapes[i].type == CYLINDER)
+				intersect_cylinder(r, &s->shapes[i], &xs);
+			else if (s->shapes[i].type == CUBE)
+				intersect_cube(r, &s->shapes[i], &xs);
+		}
+		else if (s->shapes[i].type == CONE && xs.count + 4 <= MAX_ITX)
 			intersect_cone(r, &s->shapes[i], &xs);
 	}
 	return (xs);

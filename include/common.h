@@ -88,7 +88,7 @@ typedef struct s_material
 	float		shininess;
 	float		reflective;
 	float		transparency;
-	float		refractive_index;
+	float		refractive;
 	bool		checkered;
 	t_pattern	*pattern;
 	t_frame		*bump_map;

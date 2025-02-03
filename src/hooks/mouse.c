@@ -24,7 +24,7 @@ int	select_shape(int button, int x, int y, void *minirt)
 	if (button == MOUSE_LMB)
 	{
 		r = cam_ray_to_pixel(cam, x, y);
-		xs = local_intersect(s, &r);
+		xs = intersect(s, &r);
 		hit = get_hit(&xs);
 		if (hit)
 		{
