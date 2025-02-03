@@ -55,7 +55,11 @@ void	allocate_light_shape(t_minirt *minirt)
 		errors(CER_MALLOC, ER_MALLOC, minirt);
 	i = -1;
 	while (++i < minirt->scene.num_shapes)
+	// edited on 3Feb2025
+	{
 		minirt->scene.shapes[i].material.pattern = NULL;
+		minirt->scene.shapes[i].material.bump_map = NULL;
+	}
 	printf("located %d lights and %d shapes\n", minirt->scene.num_lights, \
 		minirt->scene.num_shapes);
 }

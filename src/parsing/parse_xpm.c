@@ -72,7 +72,7 @@ bool	parse_bump_xpm(t_material *material, char *data, \
 	*i += len;
 	filename[len] = '\0';
 	if (!fopen(filename, "r"))
-		return (minirt->error_code = 3, false);
+		return (errors(CER_M_BUMP_FORMAT, ER_M_BUMP_FORMAT, minirt), 1); //
 	temp = minirt->textures;
 	if (add_texture(temp, filename, material, len))
 		return (true);
