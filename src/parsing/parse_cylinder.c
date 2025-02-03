@@ -28,15 +28,14 @@ bool	parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cylinder->translate = translation_mat(t.x, t.y, t.z);
 	cylinder->orientation = parse_vector(data, i);
 	is_normalised(&cylinder->orientation, *i, minirt);
-	cylinder->radius = parse_float(data, i) / 2;
+	cylinder->radius = parse_float(data, i);
 	height = parse_float(data, i);
 	cylinder->specs.min_y = -height / 2;
 	cylinder->specs.max_y = height / 2;
 	cylinder->specs.closed = true;
 	cylinder->material.color = parse_color(data, i, minirt);
 	set_material(&cylinder->material, data, i, minirt);
-	cylinder->scale = scaling_mat(cylinder->radius, height / 2, \
-		cylinder->radius);
+	cylinder->scale = scaling_mat(cylinder->radius/2, height/2, cylinder->radius/2);
 	cylinder->rot = rt_extract_rot_vertical(cylinder->orientation);
 	cylinder->inv_transform = mult_n_mat4d(3, &cylinder->rot, \
 		&cylinder->scale, &cylinder->translate);

@@ -36,7 +36,7 @@
 # define MAX_ITX 200
 # define _RT_MIN_INTENSITY 0.05f
 
-# define MOVE_SPEED 0.2f
+# define MOVE_SPEED 0.5f
 # define PITCH_SPEED 0.1f
 # define YAW_SPEED 0.1f
 
@@ -108,21 +108,6 @@ typedef enum e_error_code
 	CER_EXPECT_F_RANGE,
 	CER_EXPECT_COLOR_RANGE,
 	CER_EXPECT_COLOR_FORMAT,
-	CER_E_FOV_RANGE,
-	CER_EXPECT_TYPE_A,
-	CER_EXPECT_TYPE_C,
-	CER_EXPECT_TYPE_L,
-	CER_EXPECT_TYPE_SL,
-	CER_ESL,
-	CER_E_TYPE_SP,
-	CER_E_T_PL,
-	CER_EXPECT_TYPE_CY,
-	CER_ECY,
-	CER_EXPECT_TYPE_CU,
-	CER_ECU,
-	CER_EXPECT_TYPE_CO,
-	CER_ECO,
-	CER_OTHERS = 100
 }	t_error_code;
 
 # define ER_OK "No error\n"
@@ -160,8 +145,6 @@ typedef enum e_error_code
 # define ER_CAM_FORMAT "Invalid format for Camera Object\n"
 # define ER_CAM_FOV "Invalid value for Camera FOV\n"
 # define ER_MAX_SHAPES "Maximum number of shapes reached\n"
-# define ER_CAM_FOV "Invalid value for Camera FOV\n"
-# define ER_MAX_SHAPES "Maximum number of shapes reached\n"
 # define ER_OBJ_FORMAT "Invalid format for Object\n"
 # define ER_OBJ_VALUE "Invalid value for Object Attribute\n"
 # define ER_VEC4_FORMAT "Invalid format for Vector4\n"
@@ -187,23 +170,4 @@ typedef enum e_error_code
 	range [0.0, 1.0]\n"
 # define ER_EXPECT_COLOR_RANGE "Expected: integer value in range [0, 255]\n"
 # define ER_EXPECT_COLOR_FORMAT "Expected: Color in the format <R>,<G>,<B>\n"
-# define ER_E_FOV_RANGE "Expected: floating-point value in range [0.0, 180.0]\n"
-# define ER_EXPECT_TYPE_A "Expected:\n\tA <ratio> <R>,<G>,<B>\n"
-# define ER_EXPECT_TYPE_C "Expected:\n\tC <x>,<y>,<z> <ox>,<oy>,<oz> <FOV>\n"
-# define ER_EXPECT_TYPE_L "Expected:\n\tL <x>,<y>,<z> <ratio> [<R>,<G>,<B>]\n"
-# define ER_EXPECT_TYPE_SL "Expected:\n\tSL <x>,<y>,<z> <ox>,<oy>,<oz> \
-	<ratio> <spot_angle> [<R>,<G>,<B>]\n"
-# define ER_ESL "<ratio> <spot_angle> [<R>,<G>,<B>]\n"
-# define ER_E_TYPE_SP "Expected:\n\tsp <x>,<y>,<z> <diameter> [<R>,<G>,<B>]\n"
-# define ER_E_T_PL "Expected:\n\tpl <x>,<y>,<z> <ox>,<oy>,<oz> [<R>,<G>,<B>]\n"
-# define ER_EXPECT_TYPE_CY "Expected:\n\tcy <x>,<y>,<z> <ox>,<oy>,<oz> \
-	<diameter> <height> [<R>,<G>,<B>]\n"
-# define ER_ECY "<diameter> <height> [<R>,<G>,<B>]\n"
-# define ER_EXPECT_TYPE_CU "Expected:\n\tcu <x>,<y>,<z> <ox>,<oy>,<oz> \
-	<side> [<R>,<G>,<B>]\n"
-# define ER_ECU "<side> [<R>,<G>,<B>]\n"
-# define ER_EXPECT_TYPE_CO "Expected:\n\tco <x>,<y>,<z> <ox>,<oy>,<oz> \
-	<diameter> <height> [<R>,<G>,<B>]\n"
-# define ER_ECO "<diameter> <height> [<R>,<G>,<B>]\n"
-# define ER_OTHERS "Other errors\n"
 #endif

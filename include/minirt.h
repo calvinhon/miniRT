@@ -14,8 +14,9 @@
 # define MINIRT_H
 
 # include <stdio.h>
-# include "libft.h"
-# include "mlx.h"
+# include "../libs/libft/libft.h"
+# include "../libs/mlx_linux/mlx.h"
+# include "../libs/mlx_macos/mlx.h"
 # include <pthread.h>
 # include <stdint.h>
 # include <sys/time.h>
@@ -181,16 +182,13 @@ t_mat4d	rt_extract_rot_vertical(const t_vec4d u);
 
 /*--- RENDERING ---*/
 bool	make_window(t_minirt *minirt, int width, int height);
-t_camera	set_camera(float fov);
 t_ray	cam_ray_to_pixel(const t_camera *cam, int x, int y);
-t_mat4d	view_transform(t_point from, t_point to, t_vec4d up);
 void	put_pixel(t_frame *frame, int x, int y, t_color *color);
 t_color	render_pixel(t_minirt *program, int x, int y);
 
 /*---- THREADS ----*/
 
 bool	ini_core(t_minirt *minirt);
-
 bool	thread_arbiter(t_minirt *minirt);
 void	*await_task(void *arg);
 void	interpolate_horizontal(t_core const *data);
@@ -230,10 +228,6 @@ void	transform_ray(t_ray *r, t_mat4d *m);
 t_frame	*rt_xpm_file_to_canvas(char *filepath, void *mlx);
 t_vec2d	rt_get_sphere_uv_local(t_vec4d *hitp);
 t_vec2d	rt_get_plane_uv_local(t_vec4d *hitp, t_vec4d tangent, t_vec4d *normal);
-t_vec4d	rt_get_sphere_tangent(t_vec4d *local_normal);
-t_vec4d	rt_get_plane_tangent(t_vec4d *local_normal);
-t_vec2d	rt_get_cylinder_uv_local(t_vec4d *hitp);
-t_vec4d	rt_get_cylinder_tangent(t_vec4d *local_normal, t_object *cylinder);
 t_color	rt_sample_texture(const t_frame *fra_tex, const t_vec2d *uv);
 t_vec4d	rt_apply_normal_map(const t_object *obj, const t_vec2d *uv, const t_vec4d *local_normal, const t_vec4d *tangent);
 
