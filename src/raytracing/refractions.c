@@ -1,5 +1,29 @@
 #include "minirt.h"
 
+bool	is_container(t_list **containers, t_object *o)
+{
+	t_list	*node;
+	t_list	*prev;
+
+	node = *containers;
+	prev = NULL;
+	while (node)
+	{
+		if (node->content == o)
+		{
+			if (prev)
+				prev->next = node->next;
+			else
+				*containers = node->next;
+			ft_lstdelone(node, NULL);
+			return (1);
+		}
+		prev = node;
+		node = node->next;
+	}
+	return (0);
+}
+
 bool	is_ordered(t_itx_grp *xs)
 {
 	int	i;
@@ -11,60 +35,21 @@ bool	is_ordered(t_itx_grp *xs)
 	return (1);
 }
 
-void	swap_itx(t_itx *itx_a, t_itx *itx_b)
-{
-	t_itx	temp_itx;
-
-	temp_itx = *itx_a;
-	*itx_a = *itx_b;
-	*itx_b = temp_itx;
-}
-
-bool	is_container(t_list **containers, t_object *o)
-{
-	t_list	*node;
-	t_list	*tmp;
-
-	node = *containers;
-	tmp = node;
-	if (&((t_object *)node->content)->type == &o->type)
-	{
-		ft_lstdelone(node, NULL);
-		*containers = NULL;
-		return (1);
-	}
-	while (node)
-	{
-		if (node->next && &((t_object *)node->next->content)->type == &o->type)
-		{
-			if (node->next->next)
-			{
-				tmp = node->next->next;
-				ft_lstdelone(node->next, NULL);
-				node->next = tmp;
-			}
-			else if (node->next)
-			{
-				ft_lstdelone(node->next, NULL);
-				node->next = NULL;
-			}
-			return (1);
-		}
-		node = node->next;
-	}
-	return (0);
-}
-
 void	sort_xs(t_itx_grp *xs)
 {
-	int	i;
+	int		i;
+	t_itx	temp_itx;
 
 	i = -1;
 	while (!is_ordered(xs))
 	{
 		while (++i < xs->count - 1)
 			if (xs->arr[i].t > xs->arr[i + 1].t)
-				swap_itx(&xs->arr[i], &xs->arr[i + 1]);
+			{
+				temp_itx = xs->arr[i];
+				xs->arr[i] = xs->arr[i + 1];
+				xs->arr[i + 1] = temp_itx;
+			}
 		i = -1;
 	}
 }
