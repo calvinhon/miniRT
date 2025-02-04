@@ -39,6 +39,8 @@ t_itx_grp	intersect(t_scene *s, t_ray *r)
 	{
 		if (s->shapes[i].type == PLANE && xs.count + 1 <= MAX_ITX)
 			intersect_plane(r, &s->shapes[i], &xs);
+		else if (s->shapes[i].type == CONE && xs.count + 4 <= MAX_ITX)
+			intersect_cone(r, &s->shapes[i], &xs);
 		else if (xs.count + 2 <= MAX_ITX)
 		{
 			if (s->shapes[i].type == SPHERE)
@@ -48,8 +50,6 @@ t_itx_grp	intersect(t_scene *s, t_ray *r)
 			else if (s->shapes[i].type == CUBE)
 				intersect_cube(r, &s->shapes[i], &xs);
 		}
-		else if (s->shapes[i].type == CONE && xs.count + 4 <= MAX_ITX)
-			intersect_cone(r, &s->shapes[i], &xs);
 	}
 	return (xs);
 }

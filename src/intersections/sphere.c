@@ -47,6 +47,7 @@ void	intersect_sphere(t_ray *r, t_object *o, t_itx_grp *xs)
 		return ;
 	d = sqrtf(d);
 	abc.x *= 2.f;
+	// printf("%.2f %.2f %.2f %.2f\n", d, abc.x, abc.y, abc.z);
 	xs->arr[xs->count].obj = o;
 	xs->arr[xs->count++].t = (-abc.y - d) / abc.x;
 	xs->arr[xs->count].obj = o;
