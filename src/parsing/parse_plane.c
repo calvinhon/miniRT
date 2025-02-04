@@ -28,6 +28,14 @@ bool	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	is_normalised(&plane->orientation, *i, minirt);
 	plane->material.color = parse_color(data, i, minirt);
 	set_material(&plane->material, data, i, minirt);
+	// turn of refractive
+	// turn of refractive
+	if (plane->material.refractive_index > 0.f)
+	{
+		ft_printf("Warning: Plane cannot have refractive index\n");
+		plane->material.refractive_index = 0.f;
+	}
+	//
 	plane->scale = scaling_mat(1.f, 1.f, 1.f);
 	plane->rot = rt_extract_rot_vertical(plane->orientation);
 	plane->inv_transform = mult_n_mat4d(3, &plane->rot, &plane->scale, \

@@ -92,7 +92,7 @@ int	main(int ac, char **av)
 	bonus = false;
 	if (ac != 2 && ac != 3)
 		errors(CER_AGC, ER_AGC, NULL);
-	if (ac == 3)
+	if (ac == 2)
 		bonus = true;
 	check_filename(av[1]);
 	minirt = init_minirt();
