@@ -66,6 +66,7 @@ static void update_state(t_minirt *minirt)
 		else
 		{
 			object_controls(minirt);
+			object_rotations(minirt);
 			ft_printf("Object is selected!\n");
 		}
 	}
