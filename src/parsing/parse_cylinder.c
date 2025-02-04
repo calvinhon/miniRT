@@ -28,8 +28,9 @@ bool	parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cylinder->translate = translation_mat(t.x, t.y, t.z);
 	cylinder->orientation = parse_vector(data, i);
 	is_normalised(&cylinder->orientation, *i, minirt);
-	cylinder->radius = parse_float(data, i);
+	cylinder->radius = parse_float(data, i)/2;
 	height = parse_float(data, i);
+	//
 	cylinder->specs.min_y = -height / 2;
 	cylinder->specs.max_y = height / 2;
 	cylinder->specs.closed = true;

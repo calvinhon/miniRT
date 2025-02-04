@@ -32,8 +32,8 @@ bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cone->specs.closed = true;
 	cone->material.color = parse_color(data, i, minirt);
 	set_material(&cone->material, data, i, minirt);
-	cone->scale = scaling_mat(cone->radius, cone->specs.max_y \
-		- cone->specs.min_y, cone->radius);
+	cone->scale = scaling_mat(cone->radius, (cone->specs.max_y \
+		- cone->specs.min_y) / 2.f, cone->radius);
 	cone->rot = rt_extract_rot_vertical(cone->orientation);
 	cone->inv_transform = mult_n_mat4d(3,
 			&cone->rot, &cone->scale, &cone->translate);

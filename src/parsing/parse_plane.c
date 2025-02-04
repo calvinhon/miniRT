@@ -29,7 +29,6 @@ bool	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	plane->material.color = parse_color(data, i, minirt);
 	set_material(&plane->material, data, i, minirt);
 	// turn of refractive
-	// turn of refractive
 	if (plane->material.refractive_index > 0.f)
 	{
 		ft_printf("Warning: Plane cannot have refractive index\n");
