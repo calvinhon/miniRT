@@ -13,7 +13,7 @@
 #include "minirt.h"
 #include "macros.h"
 
-static inline void	update_object_cache(t_object *object)
+void	update_object_cache(t_object *object)
 {
 	object->inv_transform = mult_n_mat4d(3, \
 		&object->rot, &object->scale, &object->translate);
@@ -29,14 +29,14 @@ static inline void	_move_sideways_check(t_minirt *minirt, bool *state_changed)
 	scale_vector(&scaled_left, &minirt->cam.left, \
 		(MOVE_SPEED + (MOVE_SPEED / 2.f)) * minirt->delta_time);
 	selected_object = minirt->selected.object;
-	if (minirt->move.a || minirt->move.left)
+	if (minirt->move.a)
 	{
 		selected_object->translate.matrix[3] += scaled_left.x;
 		selected_object->translate.matrix[7] += scaled_left.y;
 		selected_object->translate.matrix[11] += scaled_left.z;
 		*state_changed = true;
 	}
-	if (minirt->move.d || minirt->move.right)
+	if (minirt->move.d)
 	{
 		selected_object->translate.matrix[3] -= scaled_left.x;
 		selected_object->translate.matrix[7] -= scaled_left.y;
@@ -80,13 +80,13 @@ static inline void	_move_elevation_check(t_minirt *minirt, bool *state_changed)
 	t_object	*selected_object;
 
 	selected_object = minirt->selected.object;
-	if (minirt->move.space || minirt->move.up)
+	if (minirt->move.space)
 	{
 		selected_object->translate.matrix[7] += (MOVE_SPEED * \
 			minirt->delta_time);
 		*state_changed = true;
 	}
-	if (minirt->move.leftshift || minirt->move.down)
+	if (minirt->move.leftshift)
 	{
 		selected_object->translate.matrix[7] -= (MOVE_SPEED * \
 			minirt->delta_time);

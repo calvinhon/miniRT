@@ -198,6 +198,7 @@ t_color	lerp_colors(const t_color *a, const t_color *b, float t);
 t_color	fetch_pixel_color(const t_frame *frame, int x, int y);
 
 /*--- STATE ---*/
+void	update_object_cache(t_object *object);
 void	update_camera_state(t_camera *camera);
 int		update_rt(t_minirt *minirt);
 int		update_minirt(t_minirt *minirt);
@@ -207,6 +208,7 @@ int		select_shape(int button, int x, int y, void *minirt);
 
 /*--- EVENTS ---*/
 void	object_controls(t_minirt *state);
+void	object_rotations(t_minirt *minirt);
 void	camera_controls(t_minirt *state);
 void	camera_rotations(t_minirt *state);
 t_mat4d	rt_rotation_matrix_from_axis_angle(const t_vec4d *axis, float angle);
