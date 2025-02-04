@@ -20,39 +20,29 @@ void	swap_itx(t_itx *itx_a, t_itx *itx_b)
 	*itx_b = temp_itx;
 }
 
-int	obj_itx_count(t_itx_grp *xs, t_object *o, int itx_num)
-{
-	int	i;
-	int	count;
-
-	if (!itx_num)
-		return (1);
-	i = -1;
-	count = 0;
-	while (++i < itx_num)
-	{
-		if (xs->arr[i].obj == o)
-			count++;
-	}
-	return (count);
-}
-
 bool	is_container(t_list *containers, t_object *o)
 {
 	t_list	*head;
 	t_list	*tmp;
 
+	head = containers;
 	while (containers)
 	{
-		head = containers;
-		if (&((t_itx *)containers->content)->obj == &o)
+		if (&((t_object *)containers->content)->type == &o->type)
 		{
-			while (head->next && &((t_itx *)(head->next->content))->obj != &o)
+			while (head->next && &((t_object *)(head->next->content))->type != &o->type)
 				head = head->next;
-			tmp = head->next->next;
-			ft_lstdelone(head->next, NULL);
-			head->next = tmp;
-			printf("hits\n");
+			if (head->next && head->next->next)
+			{
+				tmp = head->next->next;
+				ft_lstdelone(head->next, NULL);
+				head->next = tmp;
+			}
+			else
+			{
+				ft_lstdelone(head->next, NULL);
+				head->next = NULL;
+			}
 			return (1);
 		}
 		containers = containers->next;
@@ -81,41 +71,15 @@ void	prepare_refractions(t_itx *itx, t_comps *comps, t_itx_grp *xs)
 	{
 		if (xs->arr[i].obj->material.refractive)
 		{
+			printf("i: %d\n", i);
 			if (!containers)
 				xs->arr[i].n1 = 1;
 			else
 				xs->arr[i].n1 = ((t_object *)(ft_lstlast(containers)->content))->material.refractive;
-			if (!is_container(containers, xs->arr[i].obj))
-				ft_lstadd_back(&containers, ft_lstnew(&xs->arr[i].obj));
+			if (!containers || !is_container(containers, xs->arr[i].obj))
+				ft_lstadd_back(&containers, ft_lstnew(xs->arr[i].obj));
 		}
 	}
-	printf("%d\n", ft_lstsize(containers));
+	printf("list length: %d\n", ft_lstsize(containers));
 	ft_lstclear(&containers, NULL);
-	// while (++i < xs->count - 1)
-	// {
-	// 	if (xs->arr[i].obj->material.refractive)
-	// 	{
-	// 		if (!i)
-	// 		{
-	// 			xs->arr[i].n1 = 1;
-	// 			xs->arr[i].n2 = xs->arr[i].obj->material.refractive;
-	// 		}
-	// 		else
-	// 		{
-	// 			xs->arr[i].n1 = xs->arr[i - 1].obj->material.refractive;
-	// 			if (!(obj_itx_count(xs, xs->arr[i].obj, i) % 2))
-	// 				xs->arr[i].n2 = xs->arr[i].obj->material.refractive;
-	// 			else
-	// 			{
-	// 				xs->arr[i].n1 = xs->arr[i].obj->material.refractive;
-	// 				xs->arr[i].n2 = xs->arr[i + 1].obj->material.refractive;
-	// 			}
-	// 		}
-	// 	}
-	// }
-	// if (xs->arr[i].obj->material.refractive)
-	// {
-	// 	xs->arr[i].n1 = xs->arr[i].obj->material.refractive;
-	// 	xs->arr[i].n2 = 1;
-	// }
 }

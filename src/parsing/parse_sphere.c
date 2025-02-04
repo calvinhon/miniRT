@@ -23,7 +23,7 @@ bool	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	sphere = minirt->scene.shapes + idx;
 	sphere->type = SPHERE;
 	t = parse_point(data, i);
-	sphere->trans = t;
+	// sphere->trans = t;
 	sphere->translate = translation_mat(t.x, t.y, t.z);
 	sphere->radius = parse_float(data, i) / 2.f;
 	sphere->material.color = parse_color(data, i, minirt);
