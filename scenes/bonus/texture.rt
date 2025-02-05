@@ -6,9 +6,9 @@ l      50,50,-50          1.0               0,255,255
 l      -50,50,-50          1.0               255,255,255
 
 # pl     0,0,0      0,0,-1       255,0,0    0.8 100
-pl       0,0,0      0,0,-1      255,0 ,255   M specular=0.8  sheen=100
+pl       0,0,0      0,0,-1      255,0 ,255   M specular=0.8  sheen=100 pattern= 255,255,255 24,57,43 0.8 CHECKER
 
 # The texture entity will override the color value and use an inner calculation
 # to determine the color of the pixel
 # Name Shape  ...
-sp     0,0,0            5       255,255,0    M specular=0.8  sheen=100
+sp     0,0,0            5       255,255,0    M specular=0.8  sheen=100 pattern= 255,255,255 24,57,43 0.8 CHECKER

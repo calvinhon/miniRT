@@ -19,5 +19,5 @@ sp     -30,-10,64     5         255,255,255     M specular=0.8  sheen=32 pattern
 sp     -70,0,50     30         255,255,255     M specular=0.8  sheen=132 pattern=255,0,0 0,0,255 0.5 GRADIENT
 sp     -40,40,90     40         255,255,255   M specular=0.8  sheen=32 pattern=255,215,0 113,121,126 0.2 RING
 
-pl     0,-60,0    0,1,0     255,255,255    M specular=0.8  sheen=32 pattern= 255,255,255 24,57,43 0.8 CHECKER
-pl     0,0,500    0,0,-1     255,255,255    M specular=0.8  sheen=32 pattern=125,255,26 186,184,108 0.8 STRIPED
+pl     0,-60,0    0,1,0     255,255,255    M specular=0.8  sheen=32 pattern= 255,255,255 24,57,43 0.5 CHECKER
+pl     0,0,500    0,0,-1     255,255,255    M specular=0.8  sheen=32 pattern=125,255,26 186,184,108 0.5 CHECKER
