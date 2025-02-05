@@ -14,11 +14,11 @@
 
 t_vec4d get_bump_normal_from_texture(t_frame *bump_map, float u, float v)
 {
-	char		*src;
-	int			x;
-	int			y;
-	uint32_t	color;
-	t_vec4d 	normal;
+	char *src;
+	int x;
+	int y;
+	uint32_t color;
+	t_vec4d normal;
 
 	x = (int)(u * bump_map->tex_width) % bump_map->tex_width;
 	y = (int)(v * bump_map->tex_height) % bump_map->tex_height;
@@ -32,7 +32,7 @@ t_vec4d get_bump_normal_from_texture(t_frame *bump_map, float u, float v)
 
 t_vec4d get_plane_tangent(t_vec4d *normal)
 {
-	t_vec4d	tangent;
+	t_vec4d tangent;
 
 	if (fabsf(normal->y) < 0.999f)
 		tangent = cross_values(create_vec4d(0, 1, 0), *normal);

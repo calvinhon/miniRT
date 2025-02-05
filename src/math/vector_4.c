@@ -12,15 +12,12 @@
 
 #include "minirt_math.h"
 
-void	scale_vector(t_vec4d *out, const t_vec4d *v, float factor)
+t_vec4d	scale_vector(const t_vec4d *v, float factor)
 {
-	*out = create_vec4d(v->x * factor, v->y * factor, v->z * factor);
+	return (create_vec4d(v->x * factor, v->y * factor, v->z * factor));
 }
 
 t_vec4d	negate_vector(const t_vec4d *v)
 {
-	t_vec4d	out;
-
-	scale_vector(&out, v, -1);
-	return (out);
+	return (scale_vector(v, -1));
 }

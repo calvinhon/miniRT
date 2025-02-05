@@ -28,10 +28,10 @@ void normal_at(t_itx *itx, t_comps *comps)
 		comps->normal_v = negate_vector(&comps->normal_v);
 }
 
-t_itx_grp	intersect(t_scene *s, t_ray *r)
+t_itx_grp intersect(t_scene *s, t_ray *r)
 {
-	t_itx_grp	xs;
-	int			i;
+	t_itx_grp xs;
+	int i;
 
 	i = -1;
 	xs.count = 0;

@@ -14,16 +14,16 @@
 #include "macros.h"
 #include "colors.h"
 
-void	set_camera_orient(t_camera *cam)
+void set_camera_orient(t_camera *cam)
 {
-	t_mat4d	view_m;
-	t_mat4d	translate_m;
+	t_mat4d view_m;
+	t_mat4d translate_m;
 
 	if (fabsf(cam->forward.x) < EPSILON && fabsf(cam->forward.z) < EPSILON)
 		cam->left = create_vec4d(-1.0f, 0.0f, 0.0f);
 	else
-		cam->left = cross_values(cam->forward, \
-			create_vec4d(0.0f, 1.0f, 0.0f));
+		cam->left = cross_values(cam->forward,
+								 create_vec4d(0.0f, 1.0f, 0.0f));
 	cam->left = normalize(&cam->left);
 	cam->up = cross_values(cam->left, cam->forward);
 	cam->up = normalize(&cam->up);
@@ -42,7 +42,7 @@ void	set_camera_orient(t_camera *cam)
 	cam->inv_transform = inverse_mat4d(&cam->inv_transform);
 }
 
-void	set_camera_fields(t_camera *cam)
+void set_camera_fields(t_camera *cam)
 {
 	cam->is_set = true;
 	cam->scale = create_vec4d(1.f, 1.f, 1.f);
@@ -63,7 +63,7 @@ void	set_camera_fields(t_camera *cam)
 	cam->pixel_size = (cam->half_width * 2.f) / cam->hsize;
 }
 
-void	parse_camera(t_minirt *minirt, char *data, size_t *i)
+void parse_camera(t_minirt *minirt, char *data, size_t *i)
 {
 	(*i) += 1;
 	minirt->cam.from = parse_point(data, i);

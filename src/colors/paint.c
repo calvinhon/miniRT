@@ -14,11 +14,11 @@
 #include "minirt.h"
 #include "macros.h"
 
-int	cdiff(t_color a, t_color b)
+int cdiff(t_color a, t_color b)
 {
-	int	r_diff;
-	int	g_diff;
-	int	b_diff;
+	int r_diff;
+	int g_diff;
+	int b_diff;
 
 	r_diff = fabs((a.r) - (b.r));
 	g_diff = fabs((a.g) - (b.g));

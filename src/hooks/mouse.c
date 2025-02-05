@@ -12,13 +12,13 @@
 
 #include "minirt.h"
 
-int	select_shape(int button, int x, int y, void *minirt)
+int select_shape(int button, int x, int y, void *minirt)
 {
-	const t_camera	*cam = &((t_minirt *)minirt)->cam;
-	t_scene			*s;
-	t_ray			r;
-	t_itx_grp		xs;
-	t_itx			*hit;
+	const t_camera *cam = &((t_minirt *)minirt)->cam;
+	t_scene *s;
+	t_ray r;
+	t_itx_grp xs;
+	t_itx *hit;
 
 	s = &((t_minirt *)minirt)->scene;
 	if (button == MOUSE_LMB)

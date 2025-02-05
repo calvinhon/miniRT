@@ -14,10 +14,10 @@
 #include "macros.h"
 #include "colors.h"
 
-bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
+bool parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_object	*cone;
-	t_point		t;
+	t_object *cone;
+	t_point t;
 
 	(*i) += 2;
 	cone = minirt->scene.shapes + idx;
@@ -32,11 +32,10 @@ bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cone->specs.closed = true;
 	cone->material.color = parse_color(data, i, minirt);
 	set_material(&cone->material, data, i, minirt);
-	cone->scale = scaling_mat(cone->radius, cone->specs.max_y \
-		- cone->specs.min_y, cone->radius);
+	cone->scale = scaling_mat(cone->radius, cone->specs.max_y - cone->specs.min_y, cone->radius);
 	cone->rot = rt_extract_rot_vertical(cone->orientation);
 	cone->inv_transform = mult_n_mat4d(3,
-			&cone->rot, &cone->scale, &cone->translate);
+									   &cone->rot, &cone->scale, &cone->translate);
 	cone->inv_transform = inverse_mat4d(&cone->inv_transform);
 	return (true);
 }

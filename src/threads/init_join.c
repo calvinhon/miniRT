@@ -15,12 +15,12 @@
 #include <stdio.h>
 #include <sys/time.h>
 
-extern void	*render_chunk(void *minirt);
+extern void *render_chunk(void *minirt);
 
-void	pool_start_frame(t_minirt *minirt)
+void pool_start_frame(t_minirt *minirt)
 {
-	t_core	*thread;
-	int		i;
+	t_core *thread;
+	int i;
 
 	i = -1;
 	while (++i < _RT_NUM_THREADS)
@@ -33,10 +33,10 @@ void	pool_start_frame(t_minirt *minirt)
 	}
 }
 
-void	pool_wait_for_frame(t_minirt *minirt)
+void pool_wait_for_frame(t_minirt *minirt)
 {
-	t_core	*thread;
-	int		i;
+	t_core *thread;
+	int i;
 
 	i = -1;
 	while (++i < _RT_NUM_THREADS)
@@ -52,19 +52,19 @@ void	pool_wait_for_frame(t_minirt *minirt)
 	}
 }
 
-long long	my_gettime(void)
+long long my_gettime(void)
 {
-	struct timeval	timeofday;
+	struct timeval timeofday;
 
 	if (gettimeofday(&timeofday, NULL) == -1)
 		return ((void)write(2, "Error.\n", 8), -1);
 	return ((timeofday.tv_sec * 1000) + (timeofday.tv_usec / 1000));
 }
 
-bool	ini_core(t_minirt *minirt)
+bool ini_core(t_minirt *minirt)
 {
-	t_core	*thread;
-	int		i;
+	t_core *thread;
+	int i;
 
 	minirt->cores = malloc(sizeof(t_core) * _RT_NUM_THREADS);
 	if (!minirt->cores)
@@ -85,7 +85,7 @@ bool	ini_core(t_minirt *minirt)
 	return (true);
 }
 
-bool	thread_arbiter(t_minirt *minirt)
+bool thread_arbiter(t_minirt *minirt)
 {
 	pool_start_frame(minirt);
 	pool_wait_for_frame(minirt);

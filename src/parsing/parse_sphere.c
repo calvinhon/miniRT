@@ -14,10 +14,10 @@
 #include "macros.h"
 #include "colors.h"
 
-bool	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
+bool parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_object	*sphere;
-	t_point		t;
+	t_object *sphere;
+	t_point t;
 
 	(*i) += 2;
 	sphere = minirt->scene.shapes + idx;
@@ -30,8 +30,8 @@ bool	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	set_material(&sphere->material, data, i, minirt);
 	sphere->scale = scaling_mat(sphere->radius, sphere->radius, sphere->radius);
 	sphere->rot = identity_mat();
-	sphere->inv_transform = mult_n_mat4d(3, &sphere->rot, &sphere->scale, \
-		&sphere->translate);
+	sphere->inv_transform = mult_n_mat4d(3, &sphere->rot, &sphere->scale,
+										 &sphere->translate);
 	sphere->inv_transform = inverse_mat4d(&sphere->inv_transform);
 	return (true);
 }

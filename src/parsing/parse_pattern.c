@@ -14,8 +14,8 @@
 #include "macros.h"
 #include "colors.h"
 
-static void	parse_pattern_cont1(t_pattern *pattern, char *data, size_t *i, \
-	t_minirt *minirt)
+static void parse_pattern_cont1(t_pattern *pattern, char *data, size_t *i,
+								t_minirt *minirt)
 {
 	if (!ft_strncmp(data + (*i), "CHECKER", 7))
 	{
@@ -31,11 +31,11 @@ static void	parse_pattern_cont1(t_pattern *pattern, char *data, size_t *i, \
 	}
 }
 
-static void	parse_pattern_cont(t_pattern *pattern, char *data, size_t *i, \
-	t_minirt *minirt)
+static void parse_pattern_cont(t_pattern *pattern, char *data, size_t *i,
+							   t_minirt *minirt)
 {
-	t_mat4d	rot_m;
-	t_mat4d	scale_m;
+	t_mat4d rot_m;
+	t_mat4d scale_m;
 
 	if (!ft_strncmp(data + (*i), "STRIPED", 7))
 	{
@@ -55,10 +55,10 @@ static void	parse_pattern_cont(t_pattern *pattern, char *data, size_t *i, \
 		parse_pattern_cont1(pattern, data, i, minirt);
 }
 
-bool	parse_pattern(t_material *material, char *data, \
-	size_t *i, t_minirt *minirt)
+bool parse_pattern(t_material *material, char *data,
+				   size_t *i, t_minirt *minirt)
 {
-	t_pattern	*pattern;
+	t_pattern *pattern;
 
 	pattern = ft_calloc(1, sizeof(t_pattern));
 	if (!pattern)

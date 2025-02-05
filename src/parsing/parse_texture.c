@@ -13,22 +13,22 @@
 #include "minirt.h"
 #include "macros.h"
 
-t_frame	*rt_xpm_file_to_canvas(char *filepath, void *mlx)
+t_frame *rt_xpm_file_to_canvas(char *filepath, void *mlx)
 {
-	t_frame	*retval;
+	t_frame *retval;
 
 	retval = malloc(sizeof(t_frame));
 	if (!retval)
 		return (NULL);
-	retval->ptr = mlx_xpm_file_to_image(mlx, filepath, \
-		&retval->tex_width, &retval->tex_height);
+	retval->ptr = mlx_xpm_file_to_image(mlx, filepath,
+										&retval->tex_width, &retval->tex_height);
 	if (!retval->ptr)
 	{
 		free(retval);
 		return (NULL);
 	}
-	retval->addr = mlx_get_data_addr(retval->ptr, &retval->bpp, \
-		&retval->line_length, &retval->endian);
+	retval->addr = mlx_get_data_addr(retval->ptr, &retval->bpp,
+									 &retval->line_length, &retval->endian);
 	retval->bpp_8 = retval->bpp / 8;
 	// printf("w:%d h:%d", retval->tex_width, retval->tex_height);
 	return (retval);

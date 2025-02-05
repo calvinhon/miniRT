@@ -13,9 +13,9 @@
 #include "minirt.h"
 #include "macros.h"
 
-void	errors(int err_code, char *err_ms, void *ptr)
+void errors(int err_code, char *err_ms, void *ptr)
 {
-	t_minirt	*minirt;
+	t_minirt *minirt;
 
 	minirt = (t_minirt *)ptr;
 	if (minirt)
@@ -24,7 +24,7 @@ void	errors(int err_code, char *err_ms, void *ptr)
 	exit(err_code);
 }
 
-int	destroy_minirt(t_minirt *minirt)
+int destroy_minirt(t_minirt *minirt)
 {
 	free_minirt(minirt);
 	exit(0);

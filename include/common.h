@@ -157,6 +157,14 @@ typedef struct s_ray
 	t_vec4d	direction;
 }	t_ray;
 
+typedef struct s_refract
+{
+	float	n_ratio;
+	float	cos_i;
+	float	sin2_t;
+	float	cos_t;
+}	t_refract;
+
 typedef struct s_camera
 {
 	bool	is_set;
@@ -198,7 +206,6 @@ typedef struct s_scene
 	int			num_a;
 	int			num_c;
 	int			shape_count;
-	int			light_count;
 	int			num_shapes;
 	int			num_lights;
 	t_object	*shapes;

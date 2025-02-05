@@ -15,11 +15,11 @@
 #include "colors.h"
 #include <assert.h>
 
-bool	parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
+bool parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_object	*cylinder;
-	float		height;
-	t_vec4d		t;
+	t_object *cylinder;
+	float height;
+	t_vec4d t;
 
 	(*i) += 2;
 	cylinder = minirt->scene.shapes + idx;
@@ -35,10 +35,10 @@ bool	parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cylinder->specs.closed = true;
 	cylinder->material.color = parse_color(data, i, minirt);
 	set_material(&cylinder->material, data, i, minirt);
-	cylinder->scale = scaling_mat(cylinder->radius/2, height/2, cylinder->radius/2);
+	cylinder->scale = scaling_mat(cylinder->radius / 2, height / 2, cylinder->radius / 2);
 	cylinder->rot = rt_extract_rot_vertical(cylinder->orientation);
-	cylinder->inv_transform = mult_n_mat4d(3, &cylinder->rot, \
-		&cylinder->scale, &cylinder->translate);
+	cylinder->inv_transform = mult_n_mat4d(3, &cylinder->rot,
+										   &cylinder->scale, &cylinder->translate);
 	cylinder->inv_transform = inverse_mat4d(&cylinder->inv_transform);
 	return (true);
 }

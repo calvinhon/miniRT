@@ -1,22 +1,22 @@
 #include "minirt.h"
 
-float	check_cap(t_ray *r, float t, float radius)
+float check_cap(t_ray *r, float t, float radius)
 {
-	float	x;
-	float	z;
+	float x;
+	float z;
 
 	x = r->origin.x + t * r->direction.x;
 	z = r->origin.z + t * r->direction.z;
 	return (x * x + z * z <= radius + EPSILON);
 }
 
-void	intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
+void intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
 {
-	float	t;
-	float	radius;
+	float t;
+	float radius;
 
 	if (!o->specs.closed || fabsf(r->direction.y) < EPSILON)
-		return ;
+		return;
 	if (is_cone)
 		radius = fabsf(o->specs.min_y);
 	else
@@ -37,9 +37,9 @@ void	intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
 	}
 }
 
-void	check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs)
+void check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs)
 {
-	float	y;
+	float y;
 
 	swap(t);
 	y = r->origin.y + t[0] * r->direction.y;
@@ -56,7 +56,7 @@ void	check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs)
 	}
 }
 
-void	swap(float *t)
+void swap(float *t)
 {
 	if (t[0] > t[1])
 	{

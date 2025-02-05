@@ -19,7 +19,7 @@ static void record_r(t_minirt *minirt)
 	ft_printf("Toggle refract/reflecting (ON/OFF):%d\n", minirt->scene.fr_fl);
 }
 
-int	record_keypress(int keycode, t_minirt *minirt)
+int record_keypress(int keycode, t_minirt *minirt)
 {
 	if (keycode == KEY_R)
 		return (record_r(minirt), keycode);
@@ -48,7 +48,7 @@ int	record_keypress(int keycode, t_minirt *minirt)
 	return (keycode);
 }
 
-int	record_keyrelease(int keycode, t_minirt *minirt)
+int record_keyrelease(int keycode, t_minirt *minirt)
 {
 	if (keycode == KEY_A)
 		minirt->move.a = false;

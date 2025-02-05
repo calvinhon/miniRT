@@ -6,7 +6,7 @@
 #    By: chon <chon@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 08:55:08 by chon              #+#    #+#              #
-#    Updated: 2025/02/03 16:06:57 by chon             ###   ########.fr        #
+#    Updated: 2025/02/05 09:59:01 by chon             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ SRC := main.c \
 SRC_DIR := src
 SRCS := $(addprefix $(SRC_DIR)/, $(SRC))
 
-INC := colors.h common.h keys.h macros.h miniRT_math.h miniRT.h
+INC := colors.h common.h keys.h macros.h miniRT_math.h minirt.h
 LIBFT_DIR := libs/libft
 
 INCLUDE := $(addprefix include/, $(INC))

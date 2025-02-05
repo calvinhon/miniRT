@@ -12,12 +12,12 @@
 
 #include "minirt.h"
 
-char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
+char *file_data(t_minirt *minirt, size_t *total_size, char *file)
 {
-	int		fd;
-	char	*line;
-	char	*data;
-	size_t	line_len;
+	int fd;
+	char *line;
+	char *data;
+	size_t line_len;
 
 	data = ft_calloc(calculate_required_size(file, minirt) + 1, sizeof(char));
 	fd = open(file, O_RDONLY);
@@ -27,7 +27,7 @@ char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 	{
 		line = get_next_line_err(fd, 0);
 		if (!line)
-			break ;
+			break;
 		if (!ft_strchr("\n#", line[0]))
 		{
 			line_len = ft_strlen(line);
@@ -41,35 +41,33 @@ char	*file_data(t_minirt *minirt, size_t *total_size, char *file)
 	return (close(fd), data);
 }
 
-void	allocate_light_shape(t_minirt *minirt)
+void allocate_light_shape(t_minirt *minirt)
 {
-	int	i;
+	int i;
 
-	minirt->scene.lights = (t_light *)malloc(minirt->scene.num_lights \
-		* sizeof(t_light));
+	minirt->scene.lights = (t_light *)malloc(minirt->scene.num_lights * sizeof(t_light));
 	if (!minirt->scene.lights)
 		errors(CER_MALLOC, ER_MALLOC, minirt);
-	minirt->scene.shapes = (t_object *)malloc(minirt->scene.num_shapes \
-		* sizeof(t_object));
+	minirt->scene.shapes = (t_object *)malloc(minirt->scene.num_shapes * sizeof(t_object));
 	if (!minirt->scene.shapes)
 		errors(CER_MALLOC, ER_MALLOC, minirt);
 	i = -1;
 	while (++i < minirt->scene.num_shapes)
 		minirt->scene.shapes[i].material.pattern = NULL;
-	printf("located %d lights and %d shapes\n", minirt->scene.num_lights, \
-		minirt->scene.num_shapes);
+	printf("located %d lights and %d shapes\n", minirt->scene.num_lights,
+		   minirt->scene.num_shapes);
 }
 
-void	parse(char *file, t_minirt *minirt)
+void parse(char *file, t_minirt *minirt)
 {
-	size_t	total_size;
+	size_t total_size;
 
 	printf("hits\n");
 	total_size = 0;
 	minirt->data = file_data(minirt, &total_size, file);
 	if (total_size == 0)
-		return (free(minirt->data), errors(CER_EMPTY_MAP, \
-			ER_EMPTY_MAP, minirt));
+		return (free(minirt->data), errors(CER_EMPTY_MAP,
+										   ER_EMPTY_MAP, minirt));
 	allocate_light_shape(minirt);
 	parse_data(minirt, minirt->data, total_size);
 	if (minirt->data)

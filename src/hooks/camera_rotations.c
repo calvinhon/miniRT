@@ -12,11 +12,11 @@
 
 #include "minirt.h"
 
-static inline void	_rotcam_apply_pitch_rot(t_minirt *minirt, bool left, \
-	bool *state_changed)
+static inline void _rotcam_apply_pitch_rot(t_minirt *minirt, bool left,
+										   bool *state_changed)
 {
-	const float	angle = (PITCH_SPEED + MOVE_SPEED / 10.f) * minirt->delta_time;
-	t_mat4d		rot;
+	const float angle = (PITCH_SPEED + MOVE_SPEED / 10.f) * minirt->delta_time;
+	t_mat4d rot;
 
 	if (left)
 		rot = rotate_mat_y(-angle);
@@ -28,11 +28,11 @@ static inline void	_rotcam_apply_pitch_rot(t_minirt *minirt, bool left, \
 	*state_changed = true;
 }
 
-static inline void	_rotcam_apply_yaw_rot(t_minirt *minirt, \
-	bool up, bool *state_changed)
+static inline void _rotcam_apply_yaw_rot(t_minirt *minirt,
+										 bool up, bool *state_changed)
 {
-	const float	angle = (YAW_SPEED + MOVE_SPEED / 10.f) * minirt->delta_time;
-	t_mat4d		rot;
+	const float angle = (YAW_SPEED + MOVE_SPEED / 10.f) * minirt->delta_time;
+	t_mat4d rot;
 
 	if (up)
 		rot = rt_rotation_matrix_from_axis_angle(&minirt->cam.left, angle);
@@ -44,9 +44,9 @@ static inline void	_rotcam_apply_yaw_rot(t_minirt *minirt, \
 	*state_changed = true;
 }
 
-void	camera_rotations(t_minirt *minirt)
+void camera_rotations(t_minirt *minirt)
 {
-	bool	state_changed;
+	bool state_changed;
 
 	state_changed = false;
 	if (minirt->move.left == true)

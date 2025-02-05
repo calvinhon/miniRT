@@ -12,13 +12,13 @@
 
 #include "minirt.h"
 
-t_vec4d	sphere_normal_at(t_object *o, t_point *wrld_p)
+t_vec4d sphere_normal_at(t_object *o, t_point *wrld_p)
 {
-	t_point	obj_p;
-	t_vec4d	obj_normal;
-	t_vec4d	wrld_normal;
-	t_mat4d	transposed;
-	t_point	trans;
+	t_point obj_p;
+	t_vec4d obj_normal;
+	t_vec4d wrld_normal;
+	t_mat4d transposed;
+	t_point trans;
 
 	obj_p = mult_mat4d_pt4d(&o->inv_transform, wrld_p);
 	obj_normal = subtract_points(&obj_p, &trans);
@@ -29,12 +29,12 @@ t_vec4d	sphere_normal_at(t_object *o, t_point *wrld_p)
 	return (wrld_normal);
 }
 
-void	intersect_sphere(t_ray *r, t_object *o, t_itx_grp *xs)
+void intersect_sphere(t_ray *r, t_object *o, t_itx_grp *xs)
 {
-	t_ray	trfm_r;
-	t_vec4d	o_to_ray;
-	t_vec4d	abc;
-	float	d;
+	t_ray trfm_r;
+	t_vec4d o_to_ray;
+	t_vec4d abc;
+	float d;
 
 	trfm_r = *r;
 	transform_ray(&trfm_r, &o->inv_transform);
@@ -44,7 +44,7 @@ void	intersect_sphere(t_ray *r, t_object *o, t_itx_grp *xs)
 	abc.z = dot_pointers(&o_to_ray, &o_to_ray) - 1.f;
 	d = abc.y * abc.y - 4.f * abc.x * abc.z;
 	if (d < 0)
-		return ;
+		return;
 	d = sqrtf(d);
 	abc.x *= 2.f;
 	// printf("%.2f %.2f %.2f %.2f\n", d, abc.x, abc.y, abc.z);

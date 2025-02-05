@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 12:38:59 by nth               #+#    #+#             */
-/*   Updated: 2025/01/14 18:20:36 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/05 09:59:04 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "libft.h"
 
-static bool	count_elements(t_minirt *minirt, char *line)
+static bool count_elements(t_minirt *minirt, char *line)
 {
 	while (*line == ' ')
 		line++;
@@ -21,23 +21,23 @@ static bool	count_elements(t_minirt *minirt, char *line)
 		minirt->scene.num_a++;
 	else if (*line == 'C' && *(line + 1) == ' ')
 		minirt->scene.num_c++;
-	else if (((*line == 'L' || *line == 'l') && *(line + 1) == ' ') || \
-		((*line == 'S' || *line == 's') && (*(line + 1) == 'L' \
-			|| *line == 'l') && *(line + 2) == ' '))
+	else if (((*line == 'L' || *line == 'l') && *(line + 1) == ' ') ||
+			 ((*line == 'S' || *line == 's') && (*(line + 1) == 'L' || *line == 'l') && *(line + 2) == ' '))
 		minirt->scene.num_lights++;
-	else if ((*line == 's' && *(line + 1) == 'p' && *(line + 2) == ' ') || \
-		(*line == 'p' && *(line + 1) == 'l' && *(line + 2) == ' ') || \
-		(*line == 'c' && *(line + 1) == 'y' && *(line + 2) == ' ') || \
-		(*line == 'c' && *(line + 1) == 'u' && *(line + 2) == ' ') || \
-		(*line == 'c' && *(line + 1) == 'o' && *(line + 2) == ' '))
+	else if ((*line == 's' && *(line + 1) == 'p' && *(line + 2) == ' ') ||
+			 (*line == 'p' && *(line + 1) == 'l' && *(line + 2) == ' ') ||
+			 (*line == 'c' && *(line + 1) == 'y' && *(line + 2) == ' ') ||
+			 (*line == 'c' && *(line + 1) == 'u' && *(line + 2) == ' ') ||
+			 (*line == 'c' && *(line + 1) == 'o' && *(line + 2) == ' '))
 		minirt->scene.num_shapes++;
 	else
-		return (printf("Unknown element: %c%c\n", *line, \
-			*(line + 1)), free(line), false);
+		return (printf("Unknown element: %c%c\n", *line,
+					   *(line + 1)),
+				free(line), false);
 	return (true);
 }
 
-static void	check_elements(t_minirt *minirt)
+static void check_elements(t_minirt *minirt)
 {
 	if (minirt->scene.num_c != 1)
 	{
@@ -65,21 +65,21 @@ static void	check_elements(t_minirt *minirt)
 		errors(CER_MAX_SHAPES, ER_MAX_SHAPES, minirt);
 }
 
-static size_t	check_errors(int fd, size_t total_size, t_minirt *minirt)
+static size_t check_errors(int fd, size_t total_size, t_minirt *minirt)
 {
 	close(fd);
 	if (total_size == 0)
 		return (ft_printf("file empty.\n"),
-			errors(CER_EMPTY_MAP, ER_EMPTY_MAP, minirt), 1);
+				errors(CER_EMPTY_MAP, ER_EMPTY_MAP, minirt), 1);
 	check_elements(minirt);
 	return (total_size);
 }
 
-size_t	calculate_required_size(char *file, t_minirt *minirt)
+size_t calculate_required_size(char *file, t_minirt *minirt)
 {
-	char	*line;
-	int		fd;
-	size_t	total_size;
+	char *line;
+	int fd;
+	size_t total_size;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -89,7 +89,7 @@ size_t	calculate_required_size(char *file, t_minirt *minirt)
 	{
 		line = get_next_line_err(fd, 0);
 		if (!line)
-			break ;
+			break;
 		if (!ft_strchr("\n#", line[0]))
 		{
 			total_size += ft_strlen(line);
