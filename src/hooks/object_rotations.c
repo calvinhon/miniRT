@@ -25,9 +25,7 @@ static inline void	_rotobj_apply_pitch_rot(t_minirt *minirt, bool left, \
 	else
 		rot = rotate_mat_x(angle);
 	selected_object->rot = mult_n_mat4d(2, &rot, &selected_object->rot);
-	//
-	ft_printf("rotated object x\n");
-	//selected_object->rot = rt_extract_rot_vertical(selected_object->orientation);
+	ft_printf("rotated object x-axis\n");
 	*state_changed = true;
 }
 
@@ -44,8 +42,7 @@ static inline void	_rotobj_apply_yaw_rot(t_minirt *minirt, \
 	else
 		rot = rotate_mat_z(-angle);
 	selected_object->rot = mult_n_mat4d(2, &rot, &selected_object->rot);
-		//
-	ft_printf("rotated object yaw\n");
+	ft_printf("rotated object z-axis\n");
 	*state_changed = true;
 }
 

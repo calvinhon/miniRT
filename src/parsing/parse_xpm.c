@@ -59,7 +59,6 @@ bool	parse_bump_xpm(t_material *material, char *data, \
 	size_t	len;
 	char	filename[256];
 
-	
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == '\n')
 		(*i)++;
 	len = 0;
@@ -72,7 +71,7 @@ bool	parse_bump_xpm(t_material *material, char *data, \
 	*i += len;
 	filename[len] = '\0';
 	if (!fopen(filename, "r"))
-		return (errors(CER_M_BUMP_FORMAT, ER_M_BUMP_FORMAT, minirt), 1); //
+		return (errors(CER_M_BUMP_FORMAT, ER_M_BUMP_FORMAT, minirt), 1);
 	temp = minirt->textures;
 	if (add_texture(temp, filename, material, len))
 		return (true);

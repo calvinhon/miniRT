@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-t_vec4d plane_normal_at(t_object *o, t_point *wrld_p)
+t_vec4d	plane_normal_at(t_object *o, t_point *wrld_p)
 {
 	if (o->material.bump_map)
 		return (apply_bump_map(wrld_p, o->material.bump_map, &o->orientation));

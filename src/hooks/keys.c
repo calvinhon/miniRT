@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-static void record_r(t_minirt *minirt)
+static void	record_r(t_minirt *minirt)
 {
 	minirt->changed = true;
 	minirt->scene.fr_fl ^= true;

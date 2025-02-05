@@ -29,7 +29,7 @@ bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cone->radius = parse_float(data, i) / 2.0f;
 	cone->specs.min_y = parse_float(data, i);
 	cone->specs.max_y = parse_float(data, i);
-	cone->specs.closed = true;
+	cone->specs.closed = false;
 	cone->material.color = parse_color(data, i, minirt);
 	set_material(&cone->material, data, i, minirt);
 	cone->scale = scaling_mat(cone->radius, (cone->specs.max_y \

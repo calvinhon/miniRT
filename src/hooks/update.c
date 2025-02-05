@@ -34,7 +34,7 @@ int	update_rt(t_minirt *minirt)
 	return (0);
 }
 
-static void update_stop(t_minirt *minirt)
+static void	update_stop(t_minirt *minirt)
 {
 	if (minirt->stop)
 	{
@@ -50,14 +50,14 @@ static void update_stop(t_minirt *minirt)
 	}
 }
 
-static void update_state(t_minirt *minirt)
+static void	update_state(t_minirt *minirt)
 {
 	update_stop(minirt);
 	if (minirt->move.a || minirt->move.d || minirt->move.s || minirt->move.w \
 	|| minirt->move.space || minirt->move.leftshift || minirt->move.up \
 	|| minirt->move.down || minirt->move.left || minirt->move.right)
 	{
-	if (minirt->selected.is_cam)
+		if (minirt->selected.is_cam)
 		{
 			camera_controls(minirt);
 			camera_rotations(minirt);
@@ -83,5 +83,6 @@ int	update_minirt(t_minirt *minirt)
 		minirt->start = false;
 		ft_printf("Updated RT!\n");
 	}
+	mlx_put_image_to_window(minirt->mlx, minirt->win, minirt->frame.ptr, 0, 0);
 	return (0);
 }
