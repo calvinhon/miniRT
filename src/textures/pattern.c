@@ -13,12 +13,12 @@
 #include "minirt.h"
 #include "colors.h"
 
-t_color add_noise_to_color(t_color color, float noise)
+t_color	add_noise_to_color(t_color color, float noise)
 {
 	color.r += noise;
 	color.g += noise;
 	color.b += noise;
-	return color;
+	return (color);
 }
 
 t_color	calculate_color(t_pattern *pat, t_point *pat_pt, float noise)
