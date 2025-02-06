@@ -19,8 +19,9 @@ t_color	refracted_color(t_scene *s, t_itx *itx, t_comps *c, int remaining)
 	t_ray		ray;
 	t_color		color;
 
-	if (!c->obj->material.transparency || !remaining)
+	if (!itx->obj->material.transparency || !remaining)
 		return (create_color(0, 0, 0));
+	printf("hits\n");
 	r.n_ratio = itx->n1 / itx->n2;
 	printf("%.2f %.2f\n", itx->n1, itx->n2);
 	r.cos_i = dot_pointers(&c->eye_v, &c->normal_v);
@@ -32,8 +33,8 @@ t_color	refracted_color(t_scene *s, t_itx *itx, t_comps *c, int remaining)
 		scale_vector(&c->normal_v, r.n_ratio * r.cos_i - r.cos_t), 
 		scale_vector(&c->eye_v, r.n_ratio));
 	ray = create_ray(&c->under_point, &dir);
-	printf("origin: %.2f %.2f %.2f\n", c->under_point.x, c->under_point.y, c->under_point.z);
-	printf("dir: %.2f %.2f %.2f\n", dir.x, dir.y, dir.z);
+	printf("origin: %.4f %.4f %.4f\n", c->under_point.x, c->under_point.y, c->under_point.z);
+	printf("dir: %.4f %.4f %.4f\n", dir.x, dir.y, dir.z);
 	color = color_at(s, &ray, remaining - 1);
 	printf("transparency: %.2f\n", c->obj->material.transparency);
 	return (scale_color(&color,	c->obj->material.transparency));

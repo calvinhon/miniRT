@@ -118,7 +118,10 @@ int main(int ac, char **av)
 	a.material.ambient_s = 1.0;
 	a.material.reflective = 0;
 	a.material.transparency = 0;
-	a.material.refractive = 1;
+	a.material.refractive = 0;
+	a.material.diffuse_s = 0.7;
+	a.material.specular_s = 0.3;
+	a.material.shininess = 200;
 	a.material.color = create_color(0, 255, 0);
 	a.material.pattern = NULL;
 	a.center = create_point(0, 0, 0);
@@ -155,10 +158,10 @@ int main(int ac, char **av)
 	// prepare_refractions(NULL, NULL, &xs);
 	t_itx	*itx = get_hit(&xs);
 	t_comps	comps = prepare_computations(itx, &r, &xs);
-	printf("comps t: %.2f\n", comps.t);
-	int i = -1;
-	while (++i < xs.count)
-		printf("[%d] t: %.2f n1: %.2f n2: %.2f\n", i, xs.arr[i].t, xs.arr[i].n1, xs.arr[i].n2);
+	// printf("comps t: %.2f\n", comps.t);
+	// int i = -1;
+	// while (++i < xs.count)
+	// 	printf("[%d] t: %.2f n1: %.2f n2: %.2f\n", i, xs.arr[i].t, xs.arr[i].n1, xs.arr[i].n2);
 	printf("t: %.2f r: %.2f\n", xs.arr[2].t, xs.arr[2].obj->material.refractive);
 	// printf("point: %.5f %.5f %.5f\n", comps.p.x, comps.p.y, comps.p.z);
 	// printf("under point: %.5f %.5f %.5f\n", comps.under_point.x, comps.under_point.y, comps.under_point.z);

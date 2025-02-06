@@ -41,7 +41,7 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 
 	comps.t = itx->t;
 	comps.obj = itx->obj;
-	comps.p = position(r, comps.t);
+	comps.p = position(r, itx->t);
 	comps.eye_v = negate_vector(&r->direction);
 	normal_at(itx, &comps);
 	bump = EPSILON * 10;
@@ -49,7 +49,7 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 	comps.over_point = add_v_to_p(&comps.p, &margin);
 	comps.under_point = subtract_v_from_p(&comps.p, &margin);
 	comps.reflect_v = reflect(&r->direction, &comps.normal_v);
-	if (comps.obj->material.refractive > 0.f)
+	if (itx->obj->material.refractive > 0.f)
 		prepare_refractions(xs);
 	return (comps);
 }
@@ -62,6 +62,7 @@ t_color color_at(t_scene *s, t_ray *r, int remaining)
 
 	xs = intersect(s, r);
 	hit = get_hit(&xs);
+	printf("hit object: %.2f %.2f %.2f\n", hit->obj->material.color.r, hit->obj->material.color.g, hit->obj->material.color.b);
 	if (!hit)
 		return (create_color(0, 0, 0));
 	comps = prepare_computations(hit, r, &xs);

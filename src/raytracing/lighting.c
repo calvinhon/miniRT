@@ -34,6 +34,7 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 		m->color = pattern_at(c->obj, &c->p, m->pattern);
 	c->diffuse = create_color(0, 0, 0);
 	c->specular = create_color(0, 0, 0);
+	effective_color = mult_colors(&m->color, &l->intensity);
 	c->ambient = mult_colors(&effective_color, ambiance);
 	light_v = subtract_points(&l->pos, &c->p);
 	light_v = normalize(&light_v);
@@ -88,6 +89,7 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 	t_color lighting_result;
 	t_color reflect;
 	t_color surface;
+	t_color	refract;
 	int i;
 
 	surface = create_color(0, 0, 0);
@@ -104,5 +106,7 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 	}
 	if (c->obj->material.reflective && s->fr_fl)
 		reflect = reflected_color(s, c, remaining);
-	return (add_colors(2, &surface, &reflect));
+	if (c->obj->material.refractive && s->fr_fl)
+		refract = refracted_color(s, c, remaining);
+	return (add_colors(3, &surface, &reflect, &refract));
 }
