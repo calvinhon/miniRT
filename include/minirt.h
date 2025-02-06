@@ -163,6 +163,7 @@ void	parse_camera(t_minirt *minirt, char *data, size_t *i);
 t_point	parse_point(char *data, size_t *i);
 t_vec4d	parse_vector(char *data, size_t *i);
 
+t_mat4d	rt_get_cam_inverse(const t_mat4d *view);
 void	parse_camera(t_minirt *minirt, char *data, size_t *i);
 void	parse_light(t_minirt *minirt, char *data, size_t *i);
 void	parse_spotlight(t_minirt *minirt, char *data, size_t *i);

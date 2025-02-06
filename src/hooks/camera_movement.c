@@ -28,9 +28,14 @@ void	update_camera_state(t_camera *camera)
 	camera->inv_transform.matrix[15] = 1;
 	translate_m = translation_mat(-camera->from.x, -camera->from.y, \
 		-camera->from.z);
+	camera->inv_transform = mult_n_mat4d(2, &camera->inv_transform, \
+		&translate_m);
+	camera->inv_transform = rt_get_cam_inverse(&camera->inv_transform);
+	/*
 	camera->inv_transform = mult_n_mat4d(2, &translate_m, \
 		&camera->inv_transform);
 	camera->inv_transform = inverse_mat4d(&camera->inv_transform);
+	*/
 	printf("update camera\n");
 }
 

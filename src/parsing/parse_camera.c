@@ -14,6 +14,33 @@
 #include "macros.h"
 #include "colors.h"
 
+t_mat4d	rt_get_cam_inverse(const t_mat4d *view)
+{
+	t_mat4d	ret;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < 3)
+	{
+		j = 0;
+		while (j < 3)
+		{
+			ret.matrix[i * 4 + j] = view->matrix[j * 4 + i];
+			j++;
+		}
+		ret.matrix[i * 4 + 3] = -(view->matrix[0 * 4 + i] * view->matrix[0 * 4 + 3] +
+								  view->matrix[1 * 4 + i] * view->matrix[1 * 4 + 3] +
+								  view->matrix[2 * 4 + i] * view->matrix[2 * 4 + 3]);
+		i++;
+	}
+	ret.matrix[12] = 0.0f;
+	ret.matrix[13] = 0.0f;
+	ret.matrix[14] = 0.0f;
+	ret.matrix[15] = 1.0f;
+	return (ret);
+}
+
 void	set_camera_orient(t_camera *cam)
 {
 	t_mat4d	view_m;
