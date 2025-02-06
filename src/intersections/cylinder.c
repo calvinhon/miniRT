@@ -22,10 +22,10 @@ t_vec4d	cylinder_normal_at(t_object *o, t_point *wrld_p)
 
 	obj_p = mult_mat4d_pt4d(&o->inv_transform, wrld_p);
 	dist = pow(obj_p.x, 2) + pow(obj_p.z, 2);
-	if (dist < 1 && obj_p.y >= o->specs.max_y - EPSILON)
+	if (dist < 1 && obj_p.y >= 1.0f - EPSILON) // specs.max_y
 		obj_normal = create_vec4d(0, 1, 0);
-	else if (dist < 1 && obj_p.y <= o->specs.min_y + EPSILON)
-		obj_normal = create_vec4d(0, -1, 0);
+	else if (dist < 1 && obj_p.y <= -1.0f + EPSILON)
+		obj_normal = create_vec4d(0, -1, 0); //o->specs.min_y
 	else
 		obj_normal = create_vec4d(obj_p.x, 0, obj_p.z);
 	transposed = transpose_mat4d(&o->inv_transform);

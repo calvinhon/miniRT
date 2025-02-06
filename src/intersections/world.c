@@ -44,6 +44,8 @@ void	intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
 	}
 	if (is_cone)
 		radius = fabsf(o->specs.max_y);
+	else
+		radius = 1.f;
 	if (is_cone)
 		t = (o->specs.max_y - r->origin.y) / r->direction.y;
 	else

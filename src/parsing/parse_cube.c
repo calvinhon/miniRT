@@ -29,8 +29,8 @@ bool	parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cube->specs.side_length = parse_float(data, i);
 	cube->material.color = parse_color(data, i, minirt);
 	set_material(&cube->material, data, i, minirt);
-	cube->scale = scaling_mat(cube->specs.side_length / 4.f, \
-		cube->specs.side_length / 4.f, cube->specs.side_length / 4.f);
+	cube->scale = scaling_mat(cube->specs.side_length / 2.f, \
+		cube->specs.side_length / 2.f, cube->specs.side_length / 2.f);
 	cube->rot = rt_extract_rot_vertical(cube->orientation);
 	cube->inv_transform = mult_n_mat4d(3, &cube->scale, &cube->rot, \
 		&cube->translate);
