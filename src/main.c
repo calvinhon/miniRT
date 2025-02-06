@@ -157,15 +157,16 @@ int main(int ac, char **av)
 	// // 	printf("[%d] t: %.2f\n", i, xs.arr[i].t);
 	// prepare_refractions(NULL, NULL, &xs);
 	t_itx	*itx = get_hit(&xs);
+	// printf("before comps: t: %.2f r: %.2f\n", itx->t, itx->obj->material.refractive);
 	t_comps	comps = prepare_computations(itx, &r, &xs);
+	// printf("after comps: t: %.2f r: %.2f\n", itx->t, itx->obj->material.refractive);
 	// printf("comps t: %.2f\n", comps.t);
 	// int i = -1;
 	// while (++i < xs.count)
 	// 	printf("[%d] t: %.2f n1: %.2f n2: %.2f\n", i, xs.arr[i].t, xs.arr[i].n1, xs.arr[i].n2);
-	printf("t: %.2f r: %.2f\n", xs.arr[2].t, xs.arr[2].obj->material.refractive);
 	// printf("point: %.5f %.5f %.5f\n", comps.p.x, comps.p.y, comps.p.z);
 	// printf("under point: %.5f %.5f %.5f\n", comps.under_point.x, comps.under_point.y, comps.under_point.z);
-	t_color	color = refracted_color(&s, &xs.arr[2], &comps, 5);
+	t_color	color = refracted_color(&s, &comps, 5);
 	printf("refracted color: %.5f %.5f %.5f\n", color.r, color.g, color.b);
 
 	// if (bonus)

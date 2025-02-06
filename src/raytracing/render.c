@@ -49,8 +49,13 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 	comps.over_point = add_v_to_p(&comps.p, &margin);
 	comps.under_point = subtract_v_from_p(&comps.p, &margin);
 	comps.reflect_v = reflect(&r->direction, &comps.normal_v);
+	printf("before prepare: t: %.2f r: %.2f\n", itx->t, itx->obj->material.refractive);
 	if (itx->obj->material.refractive > 0.f)
-		prepare_refractions(xs);
+		prepare_refractions(xs, &itx);
+	printf("after prepare: t: %.2f r: %.2f\n", itx->t, itx->obj->material.refractive);
+	comps.n1 = itx->n1;
+	comps.n2 = itx->n2;
+	printf("comps: n1: %.2f n2: %.2f\n", itx->n1, itx->n2);
 	return (comps);
 }
 

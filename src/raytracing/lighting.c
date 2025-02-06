@@ -94,6 +94,7 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 
 	surface = create_color(0, 0, 0);
 	reflect = surface;
+	refract = surface;
 	i = -1;
 	while (++i < s->num_lights)
 	{
