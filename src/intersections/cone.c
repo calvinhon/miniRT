@@ -30,7 +30,7 @@ t_vec4d	cone_normal_at(t_object *o, t_point *wrld_p)
 		obj_normal = create_vec4d(0, -1, 0);
 	else
 	{
-		dist = sqrt(dist);
+		dist = sqrtf(dist);
 		if (obj_p.y > 0)
 			dist *= -1;
 		obj_normal = create_vec4d(obj_p.x, dist, obj_p.z);

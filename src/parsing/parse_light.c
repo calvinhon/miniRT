@@ -43,7 +43,7 @@ void	parse_spotlight(t_minirt *minirt, char *data, size_t *i)
 		*i, minirt);
 	minirt->scene.lights[idx].ratio = parse_float(data, i);
 	minirt->scene.lights[idx].spot_angle = \
-		cos(parse_float(data, i) * ((float)M_PI / 180.f));
+		cosf(parse_float(data, i) * ((float)M_PI / 180.f));
 	in_color = parse_color(data, i, minirt);
 	minirt->scene.lights[idx].intensity = scale_color(\
 		&in_color, minirt->scene.lights[idx].ratio);

@@ -14,13 +14,33 @@
 
 void	scale_vector(t_vec4d *out, const t_vec4d *v, float factor)
 {
-	*out = create_vec4d(v->x * factor, v->y * factor, v->z * factor);
+	out->x = v->x * factor;
+	out->y = v->y * factor;
+	out->z = v->z * factor;
+	out->p = v->p * factor;
 }
 
 t_vec4d	negate_vector(const t_vec4d *v)
 {
 	t_vec4d	out;
 
-	scale_vector(&out, v, -1);
+	out.x = -v->x;
+	out.y = -v->y;
+	out.z = -v->z;
+	out.p = -v->p;
+
 	return (out);
 }
+
+//void	scale_vector(t_vec4d *out, const t_vec4d *v, float factor)
+//{
+//	*out = create_vec4d(v->x * factor, v->y * factor, v->z * factor);
+//}
+
+//t_vec4d	negate_vector(const t_vec4d *v)
+//{
+//	t_vec4d	out;
+
+//	scale_vector(&out, v, -1);
+//	return (out);
+//}

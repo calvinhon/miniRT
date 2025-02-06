@@ -27,7 +27,7 @@ void	intersect_plane(t_ray *r, t_object *o, t_itx_grp *xs)
 	trans_r = *r;
 	transform_ray(&trans_r, &o->inv_transform);
 	t = (-trans_r.origin.y + EPSILON) / trans_r.direction.y;
-	if (xs->count + 1 >= MAX_ITX || fabs(trans_r.direction.y) < EPSILON)
+	if (xs->count + 1 >= MAX_ITX || fabsf(trans_r.direction.y) < EPSILON)
 		return ;
 	xs->arr[xs->count].obj = o;
 	xs->arr[xs->count++].t = t;
