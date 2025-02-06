@@ -23,7 +23,7 @@ t_color	refracted_color(t_scene *s, t_comps *c, int remaining)
 		return (create_color(0, 0, 0));
 	// printf("hits\n");
 	r.n_ratio = c->n1 / c->n2;
-	// printf("%.2f %.2f\n", c->n1, c->n2);
+	printf("refracted color: n1: %.2f n2: %.2f\n", c->n1, c->n2);
 	r.cos_i = dot_pointers(&c->eye_v, &c->normal_v);
 	r.sin2_t = pow(r.n_ratio, 2) * (1 - pow(r.cos_i, 2));
 	if (r.sin2_t > 1)
@@ -33,8 +33,8 @@ t_color	refracted_color(t_scene *s, t_comps *c, int remaining)
 		scale_vector(&c->normal_v, r.n_ratio * r.cos_i - r.cos_t), 
 		scale_vector(&c->eye_v, r.n_ratio));
 	ray = create_ray(&c->under_point, &dir);
-	// printf("origin: %.4f %.4f %.4f\n", c->under_point.x, c->under_point.y, c->under_point.z);
-	// printf("dir: %.4f %.4f %.4f\n", dir.x, dir.y, dir.z);
+	printf("origin: %.4f %.4f %.4f\n", c->under_point.x, c->under_point.y, c->under_point.z);
+	printf("dir: %.4f %.4f %.4f\n", dir.x, dir.y, dir.z);
 	color = color_at(s, &ray, remaining - 1);
 	// printf("transparency: %.2f\n", c->obj->material.transparency);
 	return (scale_color(&color,	c->obj->material.transparency));
@@ -111,27 +111,28 @@ void	sort_xs(t_itx_grp *xs, t_itx **itx)
 void	prepare_refractions(t_itx_grp *xs, t_itx **itx)
 {
 	int		i;
-	t_list	*containers;
+	// s represents objects that are interesected and not yet exited
+	t_list	*s;
 
 	sort_xs(xs, itx);
-	containers = NULL;
+	s = NULL;
 	i = -1;
 	while (++i < xs->count)
 	{
+		xs->arr[i].n1 = 1;
+		xs->arr[i].n2 = 1;
 		if (xs->arr[i].obj->material.refractive)
 		{
-			if (!containers)
-				xs->arr[i].n1 = 1;
-			else
+			if (s)
 				xs->arr[i].n1 =
-					((t_object *)(ft_lstlast(containers)->content))->material.refractive;
-			if (!containers || !is_container(&containers, xs->arr[i].obj))
-				ft_lstadd_back(&containers, ft_lstnew(xs->arr[i].obj));
-			if (!containers)
-				xs->arr[i].n2 = 1;
-			else
+					((t_object *)(ft_lstlast(s)->content))->material.refractive;
+			if (!s || !is_container(&s, xs->arr[i].obj))
+				ft_lstadd_back(&s, ft_lstnew(xs->arr[i].obj));
+			if (s)
 				xs->arr[i].n2 =
-					((t_object *)(ft_lstlast(containers)->content))->material.refractive;
+					((t_object *)(ft_lstlast(s)->content))->material.refractive;
+			if (xs->arr[i].obj->type == PLANE && ft_lstsize(s) == 1)
+				ft_lstclear(&s, NULL);
 		}
 	}
 }

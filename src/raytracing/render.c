@@ -42,12 +42,15 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 	comps.t = itx->t;
 	comps.obj = itx->obj;
 	comps.p = position(r, itx->t);
+	// printf("point: %.2f %.2f %.2f\n", comps.p.x, comps.p.y, comps.p.z);
 	comps.eye_v = negate_vector(&r->direction);
 	normal_at(itx, &comps);
+	// printf("normal: %.2f %.2f %.2f\n", comps.normal_v.x, comps.normal_v.y, comps.normal_v.z);
 	bump = EPSILON * 10;
 	margin = scale_vector(&comps.normal_v, bump);
 	comps.over_point = add_v_to_p(&comps.p, &margin);
 	comps.under_point = subtract_v_from_p(&comps.p, &margin);
+	// printf("under point: %.2f %.2f %.2f\n", comps.under_point.x, comps.under_point.y, comps.under_point.z);
 	comps.reflect_v = reflect(&r->direction, &comps.normal_v);
 	// printf("before prepare: t: %.2f r: %.2f\n", itx->t, itx->obj->material.refractive);
 	if (itx->obj->material.refractive > 0.f)
@@ -55,7 +58,7 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 	// printf("after prepare: t: %.2f r: %.2f\n", itx->t, itx->obj->material.refractive);
 	comps.n1 = itx->n1;
 	comps.n2 = itx->n2;
-	// printf("comps: n1: %.2f n2: %.2f\n", itx->n1, itx->n2);
+	printf("comps: n1: %.2f n2: %.2f\n", itx->n1, itx->n2);
 	return (comps);
 }
 
@@ -67,12 +70,13 @@ t_color color_at(t_scene *s, t_ray *r, int remaining)
 
 	xs = intersect(s, r);
 	hit = get_hit(&xs);
-	// printf("hit object: %.2f %.2f %.2f\n", hit->obj->material.color.r, hit->obj->material.color.g, hit->obj->material.color.b);
+	printf("hit object: %.2f %.2f %.2f\n", hit->obj->material.color.r, hit->obj->material.color.g, hit->obj->material.color.b);
 	if (!hit)
 		return (create_color(0, 0, 0));
 	comps = prepare_computations(hit, r, &xs);
 	if (!remaining)
 		return (create_color(0, 0, 0));
+	printf("hit object: %.2f %.2f %.2f\n", hit->obj->material.color.r, hit->obj->material.color.g, hit->obj->material.color.b);
 	return (shade_hit(s, &comps, remaining));
 }
 

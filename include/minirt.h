@@ -235,7 +235,7 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance);
 t_color shade_hit(t_scene *s, t_comps *comps, int depth);
 bool is_shadowed(t_scene *s, t_point *p, t_light *l);
 void prepare_refractions(t_itx_grp *xs, t_itx **itx);
-t_color	refracted_color(t_scene *s, t_comps *c, int remaining);
+t_color refracted_color(t_scene *s, t_comps *c, int remaining);
 
 /*--- INTERSECTIONS ---*/
 t_itx_grp intersect(t_scene *s, t_ray *r);
