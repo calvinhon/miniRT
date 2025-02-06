@@ -47,7 +47,7 @@ SRC := main.c \
 	$(addprefix hooks/, update.c keys.c mouse.c object.c camera_movement.c camera_rotations.c \
 	object_rotations.c rodrigues.c) \
 	$(addprefix math/, matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c matrix_6.c point.c vector_1.c \
-	vector_2.c vector_3.c vector_4.c) \
+	vector_2.c vector_3.c vector_4.c matrix_7.c) \
 	$(addprefix intersections/, world.c sphere.c plane.c cylinder.c cube.c cone.c) \
 	$(addprefix textures/, bump_map.c pattern.c perlin_noise.c)
 SRC_DIR := src

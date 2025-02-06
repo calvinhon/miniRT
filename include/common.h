@@ -114,6 +114,7 @@ typedef struct s_object
 	t_mat4d		rot;
 	t_point		trans;
 	t_mat4d		translate;
+	t_vec4d		scale_v;
 	t_mat4d		scale;
 	t_vec4d		orientation;
 	t_material	material;

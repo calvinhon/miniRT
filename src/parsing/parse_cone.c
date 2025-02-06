@@ -23,6 +23,7 @@ bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cone = minirt->scene.shapes + idx;
 	cone->type = CONE;
 	t = parse_point(data, i);
+	cone->trans = t;
 	cone->translate = translation_mat(t.x, t.y, t.z);
 	cone->orientation = parse_vector(data, i);
 	is_normalised(&cone->orientation, *i, minirt);
@@ -32,11 +33,15 @@ bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cone->specs.closed = false;
 	cone->material.color = parse_color(data, i, minirt);
 	set_material(&cone->material, data, i, minirt);
+	cone->scale_v = create_vec4d(cone->radius, (cone->specs.max_y \
+		- cone->specs.min_y) / 2.f, cone->radius);
+	cone->scale_v.p = 1.f;
 	cone->scale = scaling_mat(cone->radius, (cone->specs.max_y \
 		- cone->specs.min_y) / 2.f, cone->radius);
 	cone->rot = rt_extract_rot_vertical(cone->orientation);
 	cone->inv_transform = mult_n_mat4d(3,
 			&cone->rot, &cone->scale, &cone->translate);
 	cone->inv_transform = inverse_mat4d(&cone->inv_transform);
+	cone->transposed_inverse = transpose_mat4d(&cone->inv_transform);
 	return (true);
 }

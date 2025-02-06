@@ -15,14 +15,16 @@
 
 void	update_object_cache(t_object *object)
 {
-	/*
-	object->inv_transform = get_inv_tranform_mat4s(\
-		object->rot, object->scale, object->trans);
+
+	object->inv_transform = get_inv_tranform_mat4d(\
+		object->rot, object->scale_v, object->trans);
 	object->transposed_inverse = transpose_mat4d(&object->inv_transform);
-	*/
+/*
 	object->inv_transform = mult_n_mat4d(3, \
 		&object->rot, &object->scale, &object->translate);
 	object->inv_transform = inverse_mat4d(&object->inv_transform);
+*/
+
 	printf("updated object type: %d\n", object->type);
 }
 
@@ -36,6 +38,9 @@ static inline void	_move_sideways_check(t_minirt *minirt, bool *state_changed)
 	selected_object = minirt->selected.object;
 	if (minirt->move.a)
 	{
+		selected_object->trans.x += scaled_left.x;
+		selected_object->trans.y += scaled_left.y;
+		selected_object->trans.z += scaled_left.z;
 		selected_object->translate.matrix[3] += scaled_left.x;
 		selected_object->translate.matrix[7] += scaled_left.y;
 		selected_object->translate.matrix[11] += scaled_left.z;
@@ -43,6 +48,9 @@ static inline void	_move_sideways_check(t_minirt *minirt, bool *state_changed)
 	}
 	if (minirt->move.d)
 	{
+		selected_object->trans.x -= scaled_left.x;
+		selected_object->trans.y -= scaled_left.y;
+		selected_object->trans.z -= scaled_left.z;
 		selected_object->translate.matrix[3] -= scaled_left.x;
 		selected_object->translate.matrix[7] -= scaled_left.y;
 		selected_object->translate.matrix[11] -= scaled_left.z;
@@ -66,6 +74,9 @@ static inline void	_move_longitudinally_check(t_minirt *minirt, \
 		(MOVE_SPEED + (MOVE_SPEED / 2.f)) * minirt->delta_time);
 	if (minirt->move.w)
 	{
+		selected_object->trans.x += viewport_forward.x;
+		selected_object->trans.y += viewport_forward.y;
+		selected_object->trans.z += viewport_forward.z;
 		selected_object->translate.matrix[3] += viewport_forward.x;
 		selected_object->translate.matrix[7] += viewport_forward.y;
 		selected_object->translate.matrix[11] += viewport_forward.z;
@@ -73,6 +84,9 @@ static inline void	_move_longitudinally_check(t_minirt *minirt, \
 	}
 	if (minirt->move.s)
 	{
+		selected_object->trans.x -= viewport_forward.x;
+		selected_object->trans.y -= viewport_forward.y;
+		selected_object->trans.z -= viewport_forward.z;
 		selected_object->translate.matrix[3] -= viewport_forward.x;
 		selected_object->translate.matrix[7] -= viewport_forward.y;
 		selected_object->translate.matrix[11] -= viewport_forward.z;
@@ -87,12 +101,16 @@ static inline void	_move_elevation_check(t_minirt *minirt, bool *state_changed)
 	selected_object = minirt->selected.object;
 	if (minirt->move.space)
 	{
+		selected_object->trans.z += (MOVE_SPEED * \
+			minirt->delta_time);
 		selected_object->translate.matrix[7] += (MOVE_SPEED * \
 			minirt->delta_time);
 		*state_changed = true;
 	}
 	if (minirt->move.leftshift)
 	{
+		selected_object->trans.y -= (MOVE_SPEED * \
+			minirt->delta_time);
 		selected_object->translate.matrix[7] -= (MOVE_SPEED * \
 			minirt->delta_time);
 		*state_changed = true;

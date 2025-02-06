@@ -23,17 +23,22 @@ bool	parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cube = minirt->scene.shapes + idx;
 	cube->type = CUBE;
 	t = parse_point(data, i);
+	cube->trans = t;
 	cube->translate = translation_mat(t.x, t.y, t.z);
 	cube->orientation = parse_vector(data, i);
 	is_normalised(&cube->orientation, *i, minirt);
 	cube->specs.side_length = parse_float(data, i);
 	cube->material.color = parse_color(data, i, minirt);
 	set_material(&cube->material, data, i, minirt);
+	cube->scale_v = create_vec4d(cube->specs.side_length / 2.f, \
+		cube->specs.side_length / 2.f, cube->specs.side_length / 2.f);
+	cube->scale_v.p = 1.f;
 	cube->scale = scaling_mat(cube->specs.side_length / 2.f, \
 		cube->specs.side_length / 2.f, cube->specs.side_length / 2.f);
 	cube->rot = rt_extract_rot_vertical(cube->orientation);
 	cube->inv_transform = mult_n_mat4d(3, &cube->scale, &cube->rot, \
 		&cube->translate);
 	cube->inv_transform = inverse_mat4d(&cube->inv_transform);
+	cube->transposed_inverse = transpose_mat4d(&cube->inv_transform);
 	return (true);
 }
