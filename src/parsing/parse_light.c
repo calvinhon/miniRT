@@ -20,7 +20,7 @@ void parse_light(t_minirt *minirt, char *data, size_t *i)
 	t_color in_color;
 
 	(*i) += 1;
-	idx = minirt->scene.num_lights++;
+	idx = minirt->scene.light_index++;
 	minirt->scene.lights[idx].type = POINT_LIGHT;
 	minirt->scene.lights[idx].pos = parse_point(data, i);
 	minirt->scene.lights[idx].ratio = parse_float(data, i);
@@ -35,7 +35,7 @@ void parse_spotlight(t_minirt *minirt, char *data, size_t *i)
 	t_color in_color;
 
 	(*i) += 2;
-	idx = minirt->scene.num_lights++;
+	idx = minirt->scene.light_index++;
 	minirt->scene.lights[idx].type = SPOT_LIGHT;
 	minirt->scene.lights[idx].pos = parse_point(data, i);
 	minirt->scene.lights[idx].orientation = parse_vector(data, i);

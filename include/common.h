@@ -206,6 +206,7 @@ typedef struct s_scene
 	int			num_a;
 	int			num_c;
 	int			shape_count;
+	int			light_index;
 	int			num_shapes;
 	int			num_lights;
 	t_object	*shapes;
