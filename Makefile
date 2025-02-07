@@ -43,7 +43,7 @@ SRC := main.c \
 	parse_extras.c parse_material.c parse_texture.c parse_xpm.c parse_pattern.c ft_atof.c) \
 	$(addprefix destroy/, destroy.c errors.c) \
 	$(addprefix threads/, init_join.c routines.c lerp_vertical.c lerp_horizontal.c) \
-	$(addprefix raytracing/, lighting.c rays.c render.c) \
+	$(addprefix raytracing/, lighting.c rays.c render.c refractions.c) \
 	$(addprefix hooks/, update.c keys.c mouse.c object.c camera_movement.c camera_rotations.c \
 	object_rotations.c rodrigues.c) \
 	$(addprefix math/, matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c matrix_6.c point.c vector_1.c \

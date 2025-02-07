@@ -12,17 +12,25 @@
 
 #include "minirt.h"
 
-static void	record_r(t_minirt *minirt)
+static void	record_r(t_minirt *minirt, int keycode)
 {
 	minirt->changed = true;
-	minirt->scene.fr_fl ^= true;
-	ft_printf("Toggle refract/reflecting (ON/OFF):%d\n", minirt->scene.fr_fl);
+	if (keycode == KEY_F)
+	{
+		minirt->scene.refract ^= true;
+		ft_printf("Toggle refract(ON/OFF):%d\n", minirt->scene.refract);
+	}
+	if (keycode == KEY_R)
+	{
+		minirt->scene.fr_fl ^= true;
+		ft_printf("Toggle reflecting (ON/OFF):%d\n", minirt->scene.fr_fl);
+	}
 }
 
 int	record_keypress(int keycode, t_minirt *minirt)
 {
-	if (keycode == KEY_R)
-		return (record_r(minirt), keycode);
+	if (keycode == KEY_R || keycode == KEY_F)
+		return (record_r(minirt, keycode), keycode);
 	if (keycode == KEY_ESC)
 		return (minirt->stop = true, 0);
 	if (keycode == KEY_A)

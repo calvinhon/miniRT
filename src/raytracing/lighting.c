@@ -87,6 +87,33 @@ t_color	reflected_color(t_scene *s, t_comps *c, int remaining)
 
 t_color	shade_hit(t_scene *s, t_comps *c, int remaining)
 {
+	t_shade_hit	color;
+	int			i;
+
+	color.surface = create_color(0, 0, 0);
+	color.reflect = color.surface;
+	color.refract = color.surface;
+	i = -1;
+	while (++i < s->num_lights)
+	{
+		c->shadowed = is_shadowed(s, &c->over_point, &s->lights[i]);
+		if (!i)
+			color.local_ambiance = s->ambiance;
+		else
+			color.local_ambiance = create_color(0, 0, 0);
+		color.lighting_result = lighting(&c->obj->material,
+								   &s->lights[i], c, &color.local_ambiance);
+		color.surface = add_colors(2, &color.surface, &color.lighting_result);
+	}
+	if (c->obj->material.transparency && s->refract)
+		color.surface = scale_color(&color.surface, 1 - c->obj->material.transparency);
+	if (c->obj->material.reflective && s->fr_fl)
+		color.reflect = reflected_color(s, c, remaining);
+	if (c->obj->material.refractive && s->refract)
+		color.refract = refracted_color(s, c, remaining);
+	return (add_colors(3, &color.surface, &color.reflect, &color.refract));
+
+/*
 	t_color	lighting_result;
 	t_color	reflect;
 	t_color	surface;
@@ -107,4 +134,6 @@ t_color	shade_hit(t_scene *s, t_comps *c, int remaining)
 	if (c->obj->material.reflective && s->fr_fl)
 		reflect = reflected_color(s, c, remaining);
 	return (add_colors(2, &surface, &reflect));
+*/
+
 }

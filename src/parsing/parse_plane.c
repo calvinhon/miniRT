@@ -29,10 +29,10 @@ bool	parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	is_normalised(&plane->orientation, *i, minirt);
 	plane->material.color = parse_color(data, i, minirt);
 	set_material(&plane->material, data, i, minirt);
-	//if (plane->material.refractive_index > 0.f)
+	//if (plane->material.refractive > 0.f)
 	//{
 	//	ft_printf("Warning: Plane cannot have refractive index\n");
-	//	plane->material.refractive_index = 0.f;
+	//	plane->material.refractive = 0.f;
 	//}
 	plane->scale_v = create_vec4d(1.f, 1.f, 1.f);
 	plane->scale_v.p = 1.f;

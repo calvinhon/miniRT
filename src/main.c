@@ -34,6 +34,7 @@ static t_minirt	*init_minirt(void)
 	minirt->changed = true;
 	minirt->start = true;
 	minirt->scene.fr_fl = true;
+	minirt->scene.refract = false;
 	return (minirt);
 }
 

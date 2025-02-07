@@ -88,7 +88,7 @@ typedef struct s_material
 	float		shininess;
 	float		reflective;
 	float		transparency;
-	float		refractive_index;
+	float		refractive;
 	bool		checkered;
 	t_pattern	*pattern;
 	t_frame		*bump_map;
@@ -104,6 +104,15 @@ typedef struct s_material_colors
 	t_color	specular;
 	t_color	return_color;
 }	t_material_colors;
+
+typedef struct s_shade_hit
+{
+	t_color lighting_result;
+	t_color reflect;
+	t_color surface;
+	t_color	refract;
+	t_color	local_ambiance;
+}	t_shade_hit;
 
 typedef struct s_object
 {
@@ -158,6 +167,14 @@ typedef struct s_ray
 	t_vec4d	direction;
 }	t_ray;
 
+typedef struct s_refract
+{
+	float	n_ratio;
+	float	cos_i;
+	float	sin2_t;
+	float	cos_t;
+}	t_refract;
+
 typedef struct s_camera
 {
 	bool	is_set;
@@ -195,6 +212,7 @@ typedef struct s_light
 typedef struct s_scene
 {
 	bool		fr_fl;
+	bool		refract;
 	t_color		ambiance;
 	int			num_a;
 	int			num_c;

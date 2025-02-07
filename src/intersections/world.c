@@ -78,7 +78,7 @@ void	check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone
 	}
 }
 
-//void	check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs)
+//void	(float *t, t_ray *r, t_object *o, t_itx_grp *xs)
 //{
 //	float	y;
 
