@@ -15,6 +15,79 @@
 t_mat4d	identity_mat(void)
 {
 	t_mat4d	m;
+
+	m.matrix[0] = 1.0f;
+	m.matrix[1] = 0.0f;
+	m.matrix[2] = 0.0f;
+	m.matrix[3] = 0.0f;
+	m.matrix[4] = 0.0f;
+	m.matrix[5] = 1.0f;
+	m.matrix[6] = 0.0f;
+	m.matrix[7] = 0.0f;
+	m.matrix[8] = 0.0f;
+	m.matrix[9] = 0.0f;
+	m.matrix[10] = 1.0f;
+	m.matrix[11] = 0.0f;
+	m.matrix[12] = 0.0f;
+	m.matrix[13] = 0.0f;
+	m.matrix[14] = 0.0f;
+	m.matrix[15] = 1.0f;
+
+	return (m);
+}
+
+t_mat4d	translation_mat(float x, float y, float z)
+{
+	t_mat4d	m;
+
+	m.matrix[0] = 1.0f;
+	m.matrix[1] = 0.0f;
+	m.matrix[2] = 0.0f;
+	m.matrix[3] = x;
+	m.matrix[4] = 0.0f;
+	m.matrix[5] = 1.0f;
+	m.matrix[6] = 0.0f;
+	m.matrix[7] = y;
+	m.matrix[8] = 0.0f;
+	m.matrix[9] = 0.0f;
+	m.matrix[10] = 1.0f;
+	m.matrix[11] = z;
+	m.matrix[12] = 0.0f;
+	m.matrix[13] = 0.0f;
+	m.matrix[14] = 0.0f;
+	m.matrix[15] = 1.0f;
+
+	return (m);
+}
+
+t_mat4d	scaling_mat(float x, float y, float z)
+{
+	t_mat4d	m;
+
+	m.matrix[0] = x;
+	m.matrix[1] = 0.0f;
+	m.matrix[2] = 0.0f;
+	m.matrix[3] = 0.0f;
+	m.matrix[4] = 0.0f;
+	m.matrix[5] = y;
+	m.matrix[6] = 0.0f;
+	m.matrix[7] = 0.0f;
+	m.matrix[8] = 0.0f;
+	m.matrix[9] = 0.0f;
+	m.matrix[10] = z;
+	m.matrix[11] = 0.0f;
+	m.matrix[12] = 0.0f;
+	m.matrix[13] = 0.0f;
+	m.matrix[14] = 0.0f;
+	m.matrix[15] = 1.0f;
+
+	return (m);
+}
+
+/*
+t_mat4d	identity_mat(void)
+{
+	t_mat4d	m;
 	int		i;
 	int		row;
 	int		col;
@@ -53,3 +126,4 @@ t_mat4d	scaling_mat(float x, float y, float z)
 	m.matrix[10] = z;
 	return (m);
 }
+*/

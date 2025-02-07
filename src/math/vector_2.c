@@ -14,7 +14,7 @@
 
 float	magnitude(const t_vec4d *v)
 {
-	return (sqrt(v->x * v->x + v->y * v->y + v->z * v->z));
+	return (sqrtf(v->x * v->x + v->y * v->y + v->z * v->z));
 }
 
 t_vec4d	normalize(const t_vec4d *v)
