@@ -27,11 +27,11 @@ t_color	calculate_color(t_pattern *pat, t_point *pat_pt, float noise)
 
 	color = pat->a;
 
-	if ((pat->type == STRIPED && (int)floor(pat_pt->x) % 2) || \
-		(pat->type == RING && (int)floor(sqrtf(pow(pat_pt->x, 2) + \
-		pow(pat_pt->z, 2))) % 2) || \
-		(pat->type == CHECKER && ((int)(floor(pat_pt->x) + \
-		floor(pat_pt->y) + floor(pat_pt->z)) % 2)))
+	if ((pat->type == STRIPED && (int)floorf(pat_pt->x) % 2) || \
+		(pat->type == RING && (int)floorf(sqrtf(pat_pt->x * pat_pt->x + \
+		pat_pt->z * pat_pt->z)) % 2) || \
+		(pat->type == CHECKER && ((int)(floorf(pat_pt->x) + \
+		floorf(pat_pt->y) + floorf(pat_pt->z)) % 2)))
 		color = pat->b;
 	if (pat->type == STRIPED || pat->type == RING || pat->type == CHECKER)
 		color = add_noise_to_color(color, noise);
@@ -39,7 +39,7 @@ t_color	calculate_color(t_pattern *pat, t_point *pat_pt, float noise)
 	{
 		color = subtract_colors(&pat->b, &pat->a);
 		color = scale_color(&color, (1 + noise) * (pat_pt->x - \
-		floor(pat_pt->x)));
+		floorf(pat_pt->x)));
 		color = add_colors(2, &pat->a, &color);
 	}
 	return (color);

@@ -21,7 +21,7 @@ t_vec4d	cone_normal_at(t_object *o, t_point *wrld_p)
 	float		dist;
 
 	obj_p = mult_mat4d_pt4d(&o->inv_transform, wrld_p);
-	dist = pow(obj_p.x, 2) + pow(obj_p.z, 2);
+	dist = obj_p.x * obj_p.x + obj_p.z * obj_p.z;
 	if (wrld_p->x == 0 && wrld_p->y == 0 && wrld_p->z == 0)
 		return (create_vec4d(0, 0, 0));
 	if (dist < 1 && obj_p.y >= o->specs.max_y - EPSILON)
@@ -42,13 +42,13 @@ t_vec4d	cone_normal_at(t_object *o, t_point *wrld_p)
 
 void	calc_abc(t_vec4d *abc, t_ray *r)
 {
-	abc->x = pow(r->direction.x, 2) - pow(r->direction.y, 2)
-		+ pow(r->direction.z, 2);
+	abc->x = r->direction.x * r->direction.x - r->direction.y * r->direction.y \
+		+ r->direction.z * r->direction.z;
 	abc->y = 2 * (r->origin.x * r->direction.x \
 		- r->origin.y * r->direction.y \
 		+ r->origin.z * r->direction.z);
-	abc->z = pow(r->origin.x, 2) - pow(r->origin.y, 2)
-		+ pow(r->origin.z, 2);
+	abc->z = r->origin.x * r->origin.x - r->origin.y * r->origin.y
+		+ r->origin.z * r->origin.z;
 }
 
 void	intersect_cone(t_ray *r, t_object *o, t_itx_grp *xs)

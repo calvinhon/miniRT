@@ -21,7 +21,7 @@ t_vec4d	cylinder_normal_at(t_object *o, t_point *wrld_p)
 	float	dist;
 
 	obj_p = mult_mat4d_pt4d(&o->inv_transform, wrld_p);
-	dist = pow(obj_p.x, 2) + pow(obj_p.z, 2);
+	dist = obj_p.x * obj_p.x + obj_p.z * obj_p.z;
 	if (dist < 1 && obj_p.y >= 1.0f - EPSILON) // specs.max_y
 		obj_normal = create_vec4d(0, 1, 0);
 	else if (dist < 1 && obj_p.y <= -1.0f + EPSILON)
@@ -43,12 +43,12 @@ void	intersect_cylinder(t_ray *r, t_object *o, t_itx_grp *xs)
 	trfm_r = *r;
 	transform_ray(&trfm_r, &o->inv_transform);
 	intersect_caps(&trfm_r, o, xs, 0);
-	abc.x = pow(trfm_r.direction.x, 2) + pow(trfm_r.direction.z, 2);
+	abc.x = trfm_r.direction.x * trfm_r.direction.x + trfm_r.direction.z * trfm_r.direction.z;
 	if (abc.x < EPSILON)
 		return ;
 	abc.y = 2 * (trfm_r.origin.x * trfm_r.direction.x + \
 		trfm_r.origin.z * trfm_r.direction.z);
-	abc.z = pow(trfm_r.origin.x, 2) + pow(trfm_r.origin.z, 2) - 1;
+	abc.z = trfm_r.origin.x * trfm_r.origin.x + trfm_r.origin.z * trfm_r.origin.z - 1;
 	d = abc.y * abc.y - 4 * abc.x * abc.z;
 	if (d < -EPSILON)
 		return ;
