@@ -18,7 +18,7 @@ void	update_object_cache(t_object *object)
 
 	object->inv_transform = get_inv_tranform_mat4d(\
 		object->rot, object->scale_v, object->trans);
-	object->transposed_inverse = transpose_mat4d(&object->inv_transform);
+	//object->transposed_inverse = transpose_mat4d(&object->inv_transform);
 /*
 	object->inv_transform = mult_n_mat4d(3, \
 		&object->rot, &object->scale, &object->translate);

@@ -126,7 +126,7 @@ float	cofactor_mat3d(const t_mat3d *m, int row, int col);
 /*--- OBJECT MANIPULATION ---*/
 t_mat4d	get_inv_tranform_mat4d(const t_mat4d rot, const t_vec4d s, \
 	const t_point t);
-t_mat4d	inverse_mat4d(const t_mat4d *m);
+//t_mat4d	inverse_mat4d(const t_mat4d *m);
 t_mat4d	identity_mat(void);
 t_mat4d	translation_mat(float x, float y, float z);
 t_mat4d	scaling_mat(float x, float y, float z);

@@ -39,9 +39,11 @@ bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cone->scale = scaling_mat(cone->radius, (cone->specs.max_y \
 		- cone->specs.min_y) / 2.f, cone->radius);
 	cone->rot = rt_extract_rot_vertical(cone->orientation);
-	cone->inv_transform = mult_n_mat4d(3,
-			&cone->rot, &cone->scale, &cone->translate);
-	cone->inv_transform = inverse_mat4d(&cone->inv_transform);
-	cone->transposed_inverse = transpose_mat4d(&cone->inv_transform);
+	cone->inv_transform = get_inv_tranform_mat4d(cone->rot,
+			cone->scale_v, cone->trans);
+	//cone->inv_transform = mult_n_mat4d(3,
+	//		&cone->rot, &cone->scale, &cone->translate);
+	//cone->inv_transform = inverse_mat4d(&cone->inv_transform);
+	//cone->transposed_inverse = transpose_mat4d(&cone->inv_transform);
 	return (true);
 }
