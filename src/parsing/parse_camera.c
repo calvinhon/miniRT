@@ -66,7 +66,9 @@ void	set_camera_orient(t_camera *cam)
 	view_m.matrix[10] = -cam->forward.z;
 	translate_m = translation_mat(-cam->from.x, -cam->from.y, -cam->from.z);
 	cam->inv_transform = mult_n_mat4d(2, &translate_m, &view_m);
-	cam->inv_transform = inverse_mat4d(&cam->inv_transform);
+	cam->inv_transform = rt_get_cam_inverse(&cam->inv_transform);
+	//cam->inv_transform = mult_n_mat4d(2, &translate_m, &view_m);
+	//cam->inv_transform = inverse_mat4d(&cam->inv_transform);
 }
 
 void	set_camera_fields(t_camera *cam)
