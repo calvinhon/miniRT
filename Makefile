@@ -44,9 +44,10 @@ SRC := main.c \
 	$(addprefix destroy/, destroy.c errors.c) \
 	$(addprefix threads/, init_join.c routines.c lerp_vertical.c lerp_horizontal.c) \
 	$(addprefix raytracing/, lighting.c rays.c render.c refractions.c) \
-	$(addprefix hooks/, update.c keys.c mouse.c object.c camera_movement.c camera_rotations.c rodrigues.c) \
+	$(addprefix hooks/, update.c keys.c mouse.c object.c camera_movement.c camera_rotations.c \
+	object_rotations.c rodrigues.c) \
 	$(addprefix math/, matrix_1.c matrix_2.c matrix_3.c matrix_4.c matrix_5.c matrix_6.c point.c vector_1.c \
-	vector_2.c vector_3.c vector_4.c) \
+	vector_2.c vector_3.c vector_4.c matrix_7.c) \
 	$(addprefix intersections/, world.c sphere.c plane.c cylinder.c cube.c cone.c caps_truncate.c) \
 	$(addprefix textures/, bump_map.c pattern.c perlin_noise.c)
 SRC_DIR := src
@@ -89,12 +90,12 @@ fclean:
 
 run: re $(NAME)
 	rm -rf $(OBJS)
-	@./$(NAME) ./scenes/complex.rt b
+	@./$(NAME) ./scenes/complex.rt
 
 brun:
 	$(MAKE) BONUS=1
 	rm -rf $(OBJS)
-	@./$(NAME) ./scenes/complex.rt b
+	@./$(NAME) ./scenes/complex.rt
 
 leaks: $(NAME)
 	@$(RM) $(OBJS)
@@ -103,7 +104,7 @@ leaks: $(NAME)
 bleaks: $(NAME)
 	$(MAKE) BONUS=1
 	@$(RM) $(OBJS)
-	valgrind --leak-check=full ./$(NAME) ./scenes/complex.rt b
+	valgrind --leak-check=full ./$(NAME) ./scenes/complex.rt
 
 re: fclean all
 

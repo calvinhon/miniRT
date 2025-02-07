@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-t_vec4d plane_normal_at(t_object *o, t_point *wrld_p)
+t_vec4d	plane_normal_at(t_object *o, t_point *wrld_p)
 {
 	if (o->material.bump_map)
 		return (apply_bump_map(wrld_p, o->material.bump_map, &o->orientation));
@@ -27,8 +27,8 @@ void intersect_plane(t_ray *r, t_object *o, t_itx_grp *xs)
 	trans_r = *r;
 	transform_ray(&trans_r, &o->inv_transform);
 	t = (-trans_r.origin.y + EPSILON) / trans_r.direction.y;
-	if (xs->count + 1 >= MAX_ITX || fabs(trans_r.direction.y) < EPSILON)
-		return;
+	if (xs->count + 1 >= MAX_ITX || fabsf(trans_r.direction.y) < EPSILON)
+		return ;
 	xs->arr[xs->count].obj = o;
 	xs->arr[xs->count++].t = t;
 }

@@ -17,28 +17,32 @@
 
 bool parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
-	t_object *cylinder;
-	float height;
-	t_vec4d t;
+	t_object	*cylinder;
+	float		height;
+	t_point		t;
 
 	(*i) += 2;
 	cylinder = minirt->scene.shapes + idx;
 	cylinder->type = CYLINDER;
-	t = parse_vector(data, i);
+	t = parse_point(data, i);
+	cylinder->transform = t;
 	cylinder->translate = translation_mat(t.x, t.y, t.z);
 	cylinder->orientation = parse_vector(data, i);
 	is_normalised(&cylinder->orientation, *i, minirt);
-	cylinder->radius = parse_float(data, i);
+	cylinder->radius = parse_float(data, i) / 2;
 	height = parse_float(data, i);
 	cylinder->specs.min_y = -height / 2;
 	cylinder->specs.max_y = height / 2;
 	cylinder->specs.closed = true;
 	cylinder->material.color = parse_color(data, i, minirt);
 	set_material(&cylinder->material, data, i, minirt);
-	cylinder->scale = scaling_mat(cylinder->radius / 2, height / 2, cylinder->radius / 2);
+	cylinder->scale_v = create_vec4d(cylinder->radius, height / 2, \
+		cylinder->radius);
+	cylinder->scale_v.p = 1.f;
+	cylinder->scale = scaling_mat(cylinder->radius, height / 2, \
+		cylinder->radius);
 	cylinder->rot = rt_extract_rot_vertical(cylinder->orientation);
-	cylinder->inv_transform = mult_n_mat4d(3, &cylinder->rot,
-										   &cylinder->scale, &cylinder->translate);
-	cylinder->inv_transform = inverse_mat4d(&cylinder->inv_transform);
+	cylinder->inv_transform = get_inv_tranform_mat4d(cylinder->rot,
+			cylinder->scale_v, cylinder->transform);
 	return (true);
 }

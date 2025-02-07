@@ -30,6 +30,5 @@ t_frame *rt_xpm_file_to_canvas(char *filepath, void *mlx)
 	retval->addr = mlx_get_data_addr(retval->ptr, &retval->bpp,
 									 &retval->line_length, &retval->endian);
 	retval->bpp_8 = retval->bpp / 8;
-	// printf("w:%d h:%d", retval->tex_width, retval->tex_height);
 	return (retval);
 }

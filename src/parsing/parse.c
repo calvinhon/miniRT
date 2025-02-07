@@ -57,8 +57,8 @@ void allocate_light_shape(t_minirt *minirt)
 		minirt->scene.shapes[i].material.pattern = NULL;
 		minirt->scene.shapes[i].material.bump_map = NULL;
 	}
-	printf("located %d lights and %d shapes\n", minirt->scene.num_lights,
-		   minirt->scene.num_shapes);
+	printf("located %d lights and %d shapes\n", minirt->scene.num_lights, \
+		minirt->scene.num_shapes);
 }
 
 void parse(char *file, t_minirt *minirt)

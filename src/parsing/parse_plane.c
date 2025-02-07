@@ -23,15 +23,28 @@ bool parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	plane = minirt->scene.shapes + idx;
 	plane->type = PLANE;
 	t = parse_point(data, i);
+	plane->transform = t;
 	plane->translate = translation_mat(t.x, t.y, t.z);
 	plane->orientation = parse_vector(data, i);
 	is_normalised(&plane->orientation, *i, minirt);
 	plane->material.color = parse_color(data, i, minirt);
 	set_material(&plane->material, data, i, minirt);
+	//if (plane->material.refractive_index > 0.f)
+	//{
+	//	ft_printf("Warning: Plane cannot have refractive index\n");
+	//	plane->material.refractive_index = 0.f;
+	//}
+	plane->scale_v = create_vec4d(1.f, 1.f, 1.f);
+	plane->scale_v.p = 1.f;
 	plane->scale = scaling_mat(1.f, 1.f, 1.f);
 	plane->rot = rt_extract_rot_vertical(plane->orientation);
-	plane->inv_transform = mult_n_mat4d(3, &plane->rot, &plane->scale,
-										&plane->translate);
+	plane->inv_transform = get_inv_tranform_mat4d(plane->rot, \
+		plane->scale_v, plane->transform);
+	/*
+	plane->inv_transform = mult_n_mat4d(3, &plane->rot, &plane->scale, \
+		&plane->translate);
 	plane->inv_transform = inverse_mat4d(&plane->inv_transform);
+	*/
+	//plane->transposed_inverse = transpose_mat4d(&plane->inv_transform);
 	return (plane->center.p = 1.f, true);
 }

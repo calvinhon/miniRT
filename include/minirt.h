@@ -163,9 +163,10 @@ void parse_camera(t_minirt *minirt, char *data, size_t *i);
 t_point parse_point(char *data, size_t *i);
 t_vec4d parse_vector(char *data, size_t *i);
 
-void parse_camera(t_minirt *minirt, char *data, size_t *i);
-void parse_light(t_minirt *minirt, char *data, size_t *i);
-void parse_spotlight(t_minirt *minirt, char *data, size_t *i);
+t_mat4d	rt_get_cam_inverse(const t_mat4d *view);
+void	parse_camera(t_minirt *minirt, char *data, size_t *i);
+void	parse_light(t_minirt *minirt, char *data, size_t *i);
+void	parse_spotlight(t_minirt *minirt, char *data, size_t *i);
 
 bool parse_plane(t_minirt *minirt, char *data, size_t *i, size_t idx);
 bool parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx);
@@ -198,18 +199,20 @@ t_color lerp_colors(const t_color *a, const t_color *b, float t);
 t_color fetch_pixel_color(const t_frame *frame, int x, int y);
 
 /*--- STATE ---*/
-void update_camera_state(t_camera *camera);
-int update_rt(t_minirt *minirt);
-int update_minirt(t_minirt *minirt);
-int record_keypress(int keycode, t_minirt *minirt);
-int record_keyrelease(int keycode, t_minirt *minirt);
-int select_shape(int button, int x, int y, void *minirt);
+void	update_object_cache(t_object *object);
+void	update_camera_state(t_camera *camera);
+int		update_rt(t_minirt *minirt);
+int		update_minirt(t_minirt *minirt);
+int		record_keypress(int keycode, t_minirt *minirt);
+int		record_keyrelease(int keycode, t_minirt *minirt);
+int		select_shape(int button, int x, int y, void *minirt);
 
 /*--- EVENTS ---*/
-void object_controls(t_minirt *state);
-void camera_controls(t_minirt *state);
-void camera_rotations(t_minirt *state);
-t_mat4d rt_rotation_matrix_from_axis_angle(const t_vec4d *axis, float angle);
+void	object_controls(t_minirt *state);
+void	object_rotations(t_minirt *minirt);
+void	camera_controls(t_minirt *state);
+void	camera_rotations(t_minirt *state);
+t_mat4d	rt_rotation_matrix_from_axis_angle(const t_vec4d *axis, float angle);
 
 /*--- DESTROY ---*/
 void errors(int err_code, char *err_ms, void *ptr);
@@ -248,7 +251,7 @@ void intersect_sphere(t_ray *r, t_object *sphere, t_itx_grp *xs);
 t_vec4d sphere_normal_at(t_object *o, t_point *wrld_p);
 void intersect_plane(t_ray *r, t_object *o, t_itx_grp *xs);
 t_vec4d plane_normal_at(t_object *o, t_point *wrld_p);
-void check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs);
+void	check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone);
 void intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone);
 void intersect_cylinder(t_ray *r, t_object *o, t_itx_grp *xs);
 t_vec4d cylinder_normal_at(t_object *o, t_point *wrld_p);

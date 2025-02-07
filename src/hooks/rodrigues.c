@@ -18,10 +18,10 @@ static inline t_vec4d compute_rot_row(t_vec4d k, int row, float angle)
 	const float cos_theta = cosf(angle);
 	const float one_minus_cos = 1.f - cos_theta;
 
-	if (!row)
-		return (create_vec4d(
-			cos_theta + k.x * k.x * one_minus_cos,
-			k.x * k.y * one_minus_cos - k.z * sin_theta,
+	if (row == 0)
+		return (create_vec4d(\
+			cos_theta + k.x * k.x * one_minus_cos, \
+			k.x * k.y * one_minus_cos - k.z * sin_theta, \
 			k.x * k.z * one_minus_cos + k.y * sin_theta));
 	if (row == 1)
 		return (create_vec4d(

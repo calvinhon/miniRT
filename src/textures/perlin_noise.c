@@ -98,12 +98,12 @@ float perlin_noise(float x, float y, float z)
 {
 	t_perturbed p;
 
-	p.i = (int)floor(x) & 255;
-	p.j = (int)floor(y) & 255;
-	p.k = (int)floor(z) & 255;
-	x -= floor(x);
-	y -= floor(y);
-	z -= floor(z);
+	p.i = (int)floorf(x) & 255;
+	p.j = (int)floorf(y) & 255;
+	p.k = (int)floorf(z) & 255;
+	x -= floorf(x);
+	y -= floorf(y);
+	z -= floorf(z);
 	p.u = fade(x);
 	p.v = fade(y);
 	p.w = fade(z);

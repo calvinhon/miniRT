@@ -13,25 +13,33 @@
 #include "minirt.h"
 #include "colors.h"
 
-t_color calculate_color(t_pattern *pat, t_point *pat_pt, float noise)
+t_color	add_noise_to_color(t_color color, float noise)
+{
+	color.r += noise;
+	color.g += noise;
+	color.b += noise;
+	return (color);
+}
+
+t_color	calculate_color(t_pattern *pat, t_point *pat_pt, float noise)
 {
 	t_color color;
 
 	color = pat->a;
-	if ((pat->type == STRIPED && (int)floor(pat_pt->x + noise) % 2) ||
-		(pat->type == RING && (int)floor(sqrt(pow(pat_pt->x, 2) +
-											  pow(pat_pt->z, 2)) +
-										 noise) %
-								  2) ||
-		(pat->type == CHECKER && ((int)(floor(pat_pt->x + noise) +
-										floor(pat_pt->y + noise) + floor(pat_pt->z + noise)) %
-								  2)))
+
+	if ((pat->type == STRIPED && (int)floorf(pat_pt->x) % 2) || \
+		(pat->type == RING && (int)floorf(sqrtf(pat_pt->x * pat_pt->x + \
+		pat_pt->z * pat_pt->z)) % 2) || \
+		(pat->type == CHECKER && ((int)(floorf(pat_pt->x) + \
+		floorf(pat_pt->y) + floorf(pat_pt->z)) % 2)))
 		color = pat->b;
+	if (pat->type == STRIPED || pat->type == RING || pat->type == CHECKER)
+		color = add_noise_to_color(color, noise);
 	else if (pat->type == GRADIENT)
 	{
 		color = subtract_colors(&pat->b, &pat->a);
-		color = scale_color(&color, (1 + noise) * (pat_pt->x -
-												   floor(pat_pt->x)));
+		color = scale_color(&color, (1 + noise) * (pat_pt->x - \
+		floorf(pat_pt->x)));
 		color = add_colors(2, &pat->a, &color);
 	}
 	return (color);

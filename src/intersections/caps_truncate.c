@@ -16,20 +16,28 @@ void intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
 	float radius;
 
 	if (!o->specs.closed || fabsf(r->direction.y) < EPSILON)
-		return;
+		return ;
+	//if (is_cone)
+	//	radius = fabsf(o->specs.min_y);
+	//else
+		radius = 1.f;
 	if (is_cone)
-		radius = fabsf(o->specs.min_y);
+		t = (o->specs.min_y - r->origin.y) / r->direction.y;
 	else
-		radius = 1;
-	t = (o->specs.min_y - r->origin.y) / r->direction.y;
+		t = (-1.0f - r->origin.y) / r->direction.y;
 	if (check_cap(r, t, radius))
 	{
 		xs->arr[xs->count].obj = o;
 		xs->arr[xs->count++].t = t;
 	}
+	//if (is_cone)
+	//	radius = fabsf(o->specs.max_y);
+	//else
+		radius = 1.f;
 	if (is_cone)
-		radius = fabsf(o->specs.max_y);
-	t = (o->specs.max_y - r->origin.y) / r->direction.y;
+		t = (o->specs.max_y - r->origin.y) / r->direction.y;
+	else
+		t = (1.f - r->origin.y) / r->direction.y;
 	if (check_cap(r, t, radius))
 	{
 		xs->arr[xs->count].obj = o;
@@ -37,19 +45,21 @@ void intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
 	}
 }
 
-void check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs)
+void	check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
 {
 	float y;
 
 	swap(t);
 	y = r->origin.y + t[0] * r->direction.y;
-	if (y > o->specs.min_y && y < o->specs.max_y)
+	if ((y > -1.0f && y < 1.0f && !is_cone) || \
+		(y > o->specs.min_y && y < o->specs.max_y && is_cone))
 	{
 		xs->arr[xs->count].obj = o;
 		xs->arr[xs->count++].t = t[0];
 	}
 	y = r->origin.y + t[1] * r->direction.y;
-	if (y > o->specs.min_y && y < o->specs.max_y)
+	if ((y > -1.0f && y < 1.0f && !is_cone) || \
+		(y > o->specs.min_y && y < o->specs.max_y && is_cone))
 	{
 		xs->arr[xs->count].obj = o;
 		xs->arr[xs->count++].t = t[1];
