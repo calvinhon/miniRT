@@ -115,6 +115,8 @@ t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 								   &s->lights[i], c, &color.local_ambiance);
 		color.surface = add_colors(2, &color.surface, &color.lighting_result);
 	}
+	if (c->obj->material.transparency && s->fr_fl)
+		color.surface = scale_color(&color.surface, 1 - c->obj->material.transparency);
 	if (c->obj->material.reflective && s->fr_fl)
 		color.reflect = reflected_color(s, c, remaining);
 	if (c->obj->material.refractive && s->fr_fl)

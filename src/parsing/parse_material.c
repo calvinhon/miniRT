@@ -125,7 +125,7 @@ void set_material(t_material *material, char *data, size_t *i,
 	material->shininess = 200;
 	material->reflective = 0.0;
 	material->transparency = 0.0;
-	material->refractive = 1.0;
+	material->refractive = 0.0;
 	while (data[*i] == '\t' || data[*i] == ' ' || data[*i] == ',')
 		(*i)++;
 	if (data[*i] == 'M')

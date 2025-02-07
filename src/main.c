@@ -97,7 +97,7 @@ int main(int ac, char **av)
 	check_filename(av[1]);
 	minirt = init_minirt();
 	parse(av[1], minirt);
-	printf("ambiance: %.2f %.2f %.2f\n", minirt->scene.ambiance.r, minirt->scene.ambiance.g, minirt->scene.ambiance.b);
+	
 // Refraction test
 	// (void)ac;
 	// (void)av;
