@@ -44,12 +44,5 @@ bool	parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cylinder->rot = rt_extract_rot_vertical(cylinder->orientation);
 	cylinder->inv_transform = get_inv_tranform_mat4d(cylinder->rot,
 			cylinder->scale_v, cylinder->trans);
-	/*
-		cylinder->inv_transform = mult_n_mat4d(3, &cylinder->rot, \
-		&cylinder->scale, &cylinder->translate);
-	cylinder->inv_transform = inverse_mat4d(&cylinder->inv_transform);
-	
-	*/
-	//cylinder->transposed_inverse = transpose_mat4d(&cylinder->inv_transform);
 	return (true);
 }
