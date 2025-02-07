@@ -248,7 +248,7 @@ void	intersect_sphere(t_ray *r, t_object *sphere, t_itx_grp *xs);
 t_vec4d	sphere_normal_at(t_object *o, t_point *wrld_p);
 void	intersect_plane(t_ray *r, t_object *o, t_itx_grp *xs);
 t_vec4d	plane_normal_at(t_object *o, t_point *wrld_p);
-void	check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs);
+void	check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone);
 void	intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone);
 void	intersect_cylinder(t_ray *r, t_object *o, t_itx_grp *xs);
 t_vec4d	cylinder_normal_at(t_object *o, t_point *wrld_p);

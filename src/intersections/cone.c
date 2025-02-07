@@ -77,5 +77,5 @@ void	intersect_cone(t_ray *r, t_object *o, t_itx_grp *xs)
 	abc.x *= 2.f;
 	t[0] = (-abc.y - d) / abc.x;
 	t[1] = (-abc.y + d) / abc.x;
-	check_y_values(t, &trfm_r, o, xs);
+	check_y_values(t, &trfm_r, o, xs, true);
 }
