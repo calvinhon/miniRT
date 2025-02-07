@@ -32,30 +32,30 @@ float	determinant_mat4d(const t_mat4d *m)
 		m->matrix[3] * determinant_mat3d(submatrix_mat4d(m, 0, 3)));
 }
 
-//t_mat4d	inverse_mat4d(const t_mat4d *m)
-//{
-//	float	det;
-//	t_mat4d	new_m;
-//	int		i;
-//	int		row;
-//	int		col;
+t_mat4d	inverse_mat4d(const t_mat4d *m)
+{
+	float	det;
+	t_mat4d	new_m;
+	int		i;
+	int		row;
+	int		col;
 
-//	det = determinant_mat4d(m);
-//	i = -1;
-//	if (!det)
-//		while (++i < 16)
-//			new_m.matrix[i] = NAN;
-//	else
-//	{
-//		while (++i < 16)
-//		{
-//			col = i / 4;
-//			row = i % 4;
-//			new_m.matrix[i] = determinant_mat3d(submatrix_mat4d(m, row, col));
-//			if (((row + col) % 2))
-//				new_m.matrix[i] *= -1;
-//			new_m.matrix[i] /= det;
-//		}
-//	}
-//	return (new_m);
-//}
+	det = determinant_mat4d(m);
+	i = -1;
+	if (!det)
+		while (++i < 16)
+			new_m.matrix[i] = NAN;
+	else
+	{
+		while (++i < 16)
+		{
+			col = i / 4;
+			row = i % 4;
+			new_m.matrix[i] = determinant_mat3d(submatrix_mat4d(m, row, col));
+			if (((row + col) % 2))
+				new_m.matrix[i] *= -1;
+			new_m.matrix[i] /= det;
+		}
+	}
+	return (new_m);
+}
