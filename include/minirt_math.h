@@ -18,7 +18,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-# define EPSILON 0.001f
+# define EPSILON 0.00001f
 
 typedef struct s_point
 {

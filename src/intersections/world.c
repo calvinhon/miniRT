@@ -29,9 +29,9 @@ void	intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
 
 	if (!o->specs.closed || fabsf(r->direction.y) < EPSILON)
 		return ;
-	//if (is_cone)
-	//	radius = fabsf(o->specs.min_y);
-	//else
+	if (fabsf(o->specs.min_y) < EPSILON)
+		radius = 0.f;
+	else
 		radius = 1.f;
 	if (is_cone)
 		t = (o->specs.min_y - r->origin.y) / r->direction.y;
@@ -42,9 +42,9 @@ void	intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
 		xs->arr[xs->count].obj = o;
 		xs->arr[xs->count++].t = t;
 	}
-	//if (is_cone)
-	//	radius = fabsf(o->specs.max_y);
-	//else
+	if (fabsf(o->specs.max_y) < EPSILON)
+		radius = 0.f;
+	else
 		radius = 1.f;
 	if (is_cone)
 		t = (o->specs.max_y - r->origin.y) / r->direction.y;
