@@ -35,7 +35,7 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 	c->diffuse = create_color(0, 0, 0);
 	c->specular = create_color(0, 0, 0);
 	effective_color = mult_colors(&m->color, &l->intensity);
-	printf("m_color: %.2f %.2f %.2f\n", m->color.r, m->color.g, m->color.b);
+	// printf("m_color: %.2f %.2f %.2f\n", m->color.r, m->color.g, m->color.b);
 	c->ambient = mult_colors(&effective_color, ambiance);
 	light_v = subtract_points(&l->pos, &c->p);
 	light_v = normalize(&light_v);
@@ -43,6 +43,7 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 	// printf("normal v: %.2f %.2f %.2f\n", c->normal_v.x, c->normal_v.y, c->normal_v.z);
 	light_dot_normal = dot_pointers(&light_v, &c->normal_v);
 	// printf("light dot normal: %.2f\n", light_dot_normal);
+	// printf("shadow?: %d\n", c->shadowed);
 	if (light_dot_normal >= 0 && !c->shadowed)
 	{
 		c->diffuse = scale_color(&effective_color, m->diffuse_s);
@@ -52,9 +53,9 @@ t_color lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 		if (refl_d_eye > 0)
 			c->specular = scale_color(&l->intensity, pow(refl_d_eye,m->shininess) * m->specular_s);
 	}
-	printf("ambient: %.2f %.2f %.2f\n", c->ambient.r, c->ambient.g, c->ambient.b);
-	printf("diffuse: %.2f %.2f %.2f\n", c->diffuse.r, c->diffuse.g, c->diffuse.b);
-	printf("specular: %.2f %.2f %.2f\n", c->specular.r, c->specular.g, c->specular.b);
+	// printf("ambient: %.2f %.2f %.2f\n", c->ambient.r, c->ambient.g, c->ambient.b);
+	// printf("diffuse: %.2f %.2f %.2f\n", c->diffuse.r, c->diffuse.g, c->diffuse.b);
+	// printf("specular: %.2f %.2f %.2f\n", c->specular.r, c->specular.g, c->specular.b);
 	return (add_colors(3, &c->ambient, &c->diffuse, &c->specular));
 }
 
@@ -93,34 +94,33 @@ t_color reflected_color(t_scene *s, t_comps *c, int remaining)
 
 t_color shade_hit(t_scene *s, t_comps *c, int remaining)
 {
-	t_color lighting_result;
-	t_color reflect;
-	t_color surface;
-	t_color	refract;
-	int i;
+	t_shade_hit	color;
+	int			i;
 
-	printf("shade_hit\n");
-	surface = create_color(0, 0, 0);
-	reflect = surface;
-	refract = surface;
+	// printf("shade_hit\n");
+	color.surface = create_color(0, 0, 0);
+	color.reflect = color.surface;
+	color.refract = color.surface;
 	i = -1;
 	while (++i < s->num_lights)
 	{
 		c->shadowed = is_shadowed(s, &c->over_point, &s->lights[i]);
-		if (i > 0)
-			s->ambiance = create_color(0, 0, 0);
-		printf("i: %d\n", i);
-		printf("ambiance_color: %.2f %.2f %.2f\n", s->ambiance.r, s->ambiance.g, s->ambiance.b);
-		lighting_result = lighting(&c->obj->material,
-								   &s->lights[i], c, &s->ambiance);
-		surface = add_colors(2, &surface, &lighting_result);
+		if (!i)
+			color.local_ambiance = s->ambiance;
+		else
+			color.local_ambiance = create_color(0, 0, 0);
+	// printf("ambiance_color in shade hit: %.2f %.2f %.2f\n", s->ambiance.r, s->ambiance.g, s->ambiance.b);
+		// printf("i: %d\n", i);
+		color.lighting_result = lighting(&c->obj->material,
+								   &s->lights[i], c, &color.local_ambiance);
+		color.surface = add_colors(2, &color.surface, &color.lighting_result);
 	}
 	if (c->obj->material.reflective && s->fr_fl)
-		reflect = reflected_color(s, c, remaining);
+		color.reflect = reflected_color(s, c, remaining);
 	if (c->obj->material.refractive && s->fr_fl)
-		refract = refracted_color(s, c, remaining);
-	printf("surface: %.2f %.2f %.2f\n", surface.r, surface.g, surface.b);
-	printf("reflect: %.2f %.2f %.2f\n", reflect.r, reflect.g, reflect.b);
-	printf("refract: %.2f %.2f %.2f\n", refract.r, refract.g, refract.b);
-	return (add_colors(3, &surface, &reflect, &refract));
+		color.refract = refracted_color(s, c, remaining);
+	// printf("surface: %.2f %.2f %.2f\n", color.surface.r, color.surface.g, color.surface.b);
+	// printf("reflect: %.2f %.2f %.2f\n", color.reflect.r, color.reflect.g, color.reflect.b);
+	// printf("refract: %.2f %.2f %.2f\n", color.refract.r, color.refract.g, color.refract.b);
+	return (add_colors(3, &color.surface, &color.reflect, &color.refract));
 }

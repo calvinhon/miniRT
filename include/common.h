@@ -94,16 +94,25 @@ typedef struct s_material
 	t_frame		*bump_map;
 }	t_material;
 
-typedef struct s_material_colors
+// typedef struct s_material_colors
+// {
+// 	int		light_type;
+// 	t_color	intensity;
+// 	t_color	effective_color;
+// 	t_color	ambient;
+// 	t_color	diffuse;
+// 	t_color	specular;
+// 	t_color	return_color;
+// }	t_material_colors;
+
+typedef struct s_shade_hit
 {
-	int		light_type;
-	t_color	intensity;
-	t_color	effective_color;
-	t_color	ambient;
-	t_color	diffuse;
-	t_color	specular;
-	t_color	return_color;
-}	t_material_colors;
+	t_color lighting_result;
+	t_color reflect;
+	t_color surface;
+	t_color	refract;
+	t_color	local_ambiance;
+}	t_shade_hit;
 
 typedef struct s_object
 {

@@ -58,7 +58,7 @@ t_comps prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 	// printf("after prepare: t: %.2f r: %.2f\n", itx->t, itx->obj->material.refractive);
 	comps.n1 = itx->n1;
 	comps.n2 = itx->n2;
-	printf("comps: n1: %.2f n2: %.2f\n", itx->n1, itx->n2);
+	// printf("comps: n1: %.2f n2: %.2f\n", itx->n1, itx->n2);
 	return (comps);
 }
 
@@ -70,13 +70,13 @@ t_color color_at(t_scene *s, t_ray *r, int remaining)
 
 	xs = intersect(s, r);
 	hit = get_hit(&xs);
-	printf("hit object: %.2f %.2f %.2f\n", hit->obj->material.color.r, hit->obj->material.color.g, hit->obj->material.color.b);
+	// printf("hit object: %.2f %.2f %.2f\n", hit->obj->material.color.r, hit->obj->material.color.g, hit->obj->material.color.b);
 	if (!hit)
 		return (create_color(0, 0, 0));
 	comps = prepare_computations(hit, r, &xs);
 	if (!remaining)
 		return (create_color(0, 0, 0));
-	printf("hit object: %.2f %.2f %.2f\n", hit->obj->material.color.r, hit->obj->material.color.g, hit->obj->material.color.b);
+	// printf("hit object: %.2f %.2f %.2f\n", hit->obj->material.color.r, hit->obj->material.color.g, hit->obj->material.color.b);
 	return (shade_hit(s, &comps, remaining));
 }
 
