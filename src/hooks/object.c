@@ -101,7 +101,7 @@ static inline void	_move_elevation_check(t_minirt *minirt, bool *state_changed)
 	selected_object = minirt->selected.object;
 	if (minirt->move.space)
 	{
-		selected_object->trans.z += (MOVE_SPEED * \
+		selected_object->trans.y += (MOVE_SPEED * \
 			minirt->delta_time);
 		selected_object->translate.matrix[7] += (MOVE_SPEED * \
 			minirt->delta_time);

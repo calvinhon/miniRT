@@ -4,7 +4,8 @@ L -1.5,5,-1.5 0.5 255,255,255
 L 1.5,10.5,-1.5 0.5 255,255,255
 SL 0,10,0 0,-1,0 0.4 25 255,255,255
 SL 0,2,-5 0,0,1 0.8 45 255,255,255
-pl 5,0,0 0.70716,0.70716,0.70716 255,255,255 M bump_xpm=./textures/sand.xpm
+pl 5,0,0 0.70716,0.70716,0.70716 255,255,255
+#M bump_xpm=./textures/sand.xpm
 sp 0,1.5,-1 0.6 0,255,0 M transparency=1.0,reflective=1,transparency=1.0
 sp 0.5,0.5,-0.5 0.4 255,0,0 M sheen=145.0,reflective=1,transparency=1.0
 co 0,1,-0.2 0,1,0 1 -1 0 0,255,0 M sheen=167.0,diffuse=0.6,specular=0.5,reflective=1,transparency=1.0
