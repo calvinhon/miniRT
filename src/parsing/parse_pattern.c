@@ -49,7 +49,7 @@ static void	parse_pattern_cont(t_pattern *pattern, char *data, size_t *i, \
 	{
 		*i += 4;
 		pattern->type = RING;
-		pattern->transform = scaling_mat(1.f, 1.f, 1.f);
+		pattern->transform = scaling_mat(.2f, .2f, .2f);
 	}
 	else
 		parse_pattern_cont1(pattern, data, i, minirt);
