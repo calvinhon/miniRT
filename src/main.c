@@ -33,8 +33,8 @@ static t_minirt	*init_minirt(void)
 	minirt->selected.object = NULL;
 	minirt->changed = true;
 	minirt->start = true;
-	minirt->scene.fr_fl = true;
-	minirt->scene.refract = false;
+	minirt->scene.reflect = true;
+	minirt->scene.refract = true;
 	return (minirt);
 }
 

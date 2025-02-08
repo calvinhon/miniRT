@@ -83,7 +83,7 @@ static void	compute_lighting(t_scene *s, t_comps *c, t_shade_hit *color)
 	while (++i < s->num_lights)
 	{
 		c->shadowed = is_shadowed(s, &c->over_point, &s->lights[i]);
-		if (i == 0)
+		if (!i)
 			color->local_ambiance = s->ambiance;
 		else
 			color->local_ambiance = create_color(0, 0, 0);
@@ -105,7 +105,7 @@ t_color	shade_hit(t_scene *s, t_comps *c, int remaining)
 	if (s->refract && c->obj->material.transparency)
 		color.surface = scale_color(&color.surface, \
 			1 - c->obj->material.transparency);
-	if (s->fr_fl && c->obj->material.reflective)
+	if (s->reflect && c->obj->material.reflective)
 		color.reflect = reflected_color(s, c, remaining);
 	if (s->refract && c->obj->material.refractive)
 		color.refract = refracted_color(s, c, remaining);

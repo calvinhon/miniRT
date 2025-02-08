@@ -211,7 +211,7 @@ typedef struct s_light
 
 typedef struct s_scene
 {
-	bool		fr_fl;
+	bool		reflect;
 	bool		refract;
 	t_color		ambiance;
 	int			num_a;
