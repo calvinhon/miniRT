@@ -77,21 +77,3 @@ t_mat4d	transpose_mat4d(const t_mat4d *m)
 	transposed.matrix[15] = m->matrix[15];
 	return (transposed);
 }
-/*
-
-t_vec4d	mult_mat4d_vec4d(const t_mat4d *m, const t_vec4d *v)
-{
-	t_vec4d	new_v;
-
-	new_v.x = dot_values(row(m, 0), *v);
-	new_v.y = dot_values(row(m, 1), *v);
-	new_v.z = dot_values(row(m, 2), *v);
-	new_v.p = dot_values(row(m, 3), *v);
-	return (new_v);
-}
-
-t_mat4d	transpose_mat4d(const t_mat4d *m)
-{
-	return (fill_matrix(col(m, 0), col(m, 1), col(m, 2), col(m, 3)));
-}
-*/

@@ -19,14 +19,11 @@ bool	parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
 	t_object	*cylinder;
 	float		height;
-	t_point		t;
 
 	(*i) += 2;
 	cylinder = minirt->scene.shapes + idx;
 	cylinder->type = CYLINDER;
-	t = parse_point(data, i);
-	cylinder->trans = t;
-	cylinder->translate = translation_mat(t.x, t.y, t.z);
+	cylinder->trans = parse_point(data, i);
 	cylinder->orientation = parse_vector(data, i);
 	is_normalised(&cylinder->orientation, *i, minirt);
 	cylinder->radius = parse_float(data, i) / 2;
@@ -39,8 +36,6 @@ bool	parse_cylinder(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cylinder->scale_v = create_vec4d(cylinder->radius, height / 2, \
 		cylinder->radius);
 	cylinder->scale_v.p = 1.f;
-	cylinder->scale = scaling_mat(cylinder->radius, height / 2, \
-		cylinder->radius);
 	cylinder->rot = rt_extract_rot_vertical(cylinder->orientation);
 	cylinder->inv_transform = get_inv_tranform_mat4d(cylinder->rot,
 			cylinder->scale_v, cylinder->trans);

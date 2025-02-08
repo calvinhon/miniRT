@@ -32,7 +32,6 @@ t_mat4d	identity_mat(void)
 	m.matrix[13] = 0.0f;
 	m.matrix[14] = 0.0f;
 	m.matrix[15] = 1.0f;
-
 	return (m);
 }
 
@@ -56,7 +55,6 @@ t_mat4d	translation_mat(float x, float y, float z)
 	m.matrix[13] = 0.0f;
 	m.matrix[14] = 0.0f;
 	m.matrix[15] = 1.0f;
-
 	return (m);
 }
 
@@ -80,50 +78,5 @@ t_mat4d	scaling_mat(float x, float y, float z)
 	m.matrix[13] = 0.0f;
 	m.matrix[14] = 0.0f;
 	m.matrix[15] = 1.0f;
-
 	return (m);
 }
-
-/*
-t_mat4d	identity_mat(void)
-{
-	t_mat4d	m;
-	int		i;
-	int		row;
-	int		col;
-
-	i = -1;
-	while (++i < 16)
-	{
-		row = i / 4;
-		col = i % 4;
-		if (row == col)
-			m.matrix[i] = 1;
-		else
-			m.matrix[i] = 0;
-	}
-	return (m);
-}
-
-t_mat4d	translation_mat(float x, float y, float z)
-{
-	t_mat4d	m;
-
-	m = identity_mat();
-	m.matrix[3] = x;
-	m.matrix[7] = y;
-	m.matrix[11] = z;
-	return (m);
-}
-
-t_mat4d	scaling_mat(float x, float y, float z)
-{
-	t_mat4d	m;
-
-	m = identity_mat();
-	m.matrix[0] = x;
-	m.matrix[5] = y;
-	m.matrix[10] = z;
-	return (m);
-}
-*/

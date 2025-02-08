@@ -29,9 +29,10 @@ t_mat4d	rt_get_cam_inverse(const t_mat4d *view)
 			ret.matrix[i * 4 + j] = view->matrix[j * 4 + i];
 			j++;
 		}
-		ret.matrix[i * 4 + 3] = -(view->matrix[0 * 4 + i] * view->matrix[0 * 4 + 3] +
-								  view->matrix[1 * 4 + i] * view->matrix[1 * 4 + 3] +
-								  view->matrix[2 * 4 + i] * view->matrix[2 * 4 + 3]);
+		ret.matrix[i * 4 + 3] = -(view->matrix[0 * 4 + i] \
+			* view->matrix[0 * 4 + 3] + \
+			view->matrix[1 * 4 + i] * view->matrix[1 * 4 + 3] + \
+			view->matrix[2 * 4 + i] * view->matrix[2 * 4 + 3]);
 		i++;
 	}
 	ret.matrix[12] = 0.0f;
@@ -67,8 +68,6 @@ void	set_camera_orient(t_camera *cam)
 	translate_m = translation_mat(-cam->from.x, -cam->from.y, -cam->from.z);
 	cam->inv_transform = mult_n_mat4d(2, &translate_m, &view_m);
 	cam->inv_transform = rt_get_cam_inverse(&cam->inv_transform);
-	//cam->inv_transform = mult_n_mat4d(2, &translate_m, &view_m);
-	//cam->inv_transform = inverse_mat4d(&cam->inv_transform);
 }
 
 void	set_camera_fields(t_camera *cam)

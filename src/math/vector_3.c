@@ -14,98 +14,55 @@
 
 t_vec4d	cross_pointers(const t_vec4d *v1, const t_vec4d *v2)
 {
-	t_vec4d result;
+	t_vec4d	result;
 
 	result.x = v1->y * v2->z - v1->z * v2->y;
 	result.y = v1->z * v2->x - v1->x * v2->z;
 	result.z = v1->x * v2->y - v1->y * v2->x;
 	result.p = 0.0f;
-
 	return (result);
 }
 
 t_vec4d	cross_values(t_vec4d v1, t_vec4d v2)
 {
-	t_vec4d result;
+	t_vec4d	result;
 
 	result.x = v1.y * v2.z - v1.z * v2.y;
 	result.y = v1.z * v2.x - v1.x * v2.z;
 	result.z = v1.x * v2.y - v1.y * v2.x;
 	result.p = 0.0f;
-
 	return (result);
 }
 
 t_vec4d	add_vectors(const t_vec4d *v1, const t_vec4d *v2)
 {
-	t_vec4d result;
+	t_vec4d	result;
 
 	result.x = v1->x + v2->x;
 	result.y = v1->y + v2->y;
 	result.z = v1->z + v2->z;
 	result.p = v1->p + v2->p;
-
 	return (result);
 }
 
 t_vec4d	subtract_points(t_point *p1, t_point *p2)
 {
-	t_vec4d result;
+	t_vec4d	result;
 
 	result.x = p1->x - p2->x;
 	result.y = p1->y - p2->y;
 	result.z = p1->z - p2->z;
 	result.p = 0.0f;
-
 	return (result);
 }
 
 t_vec4d	subtract_vectors(const t_vec4d *v1, const t_vec4d *v2)
 {
-	t_vec4d result;
+	t_vec4d	result;
 
 	result.x = v1->x - v2->x;
 	result.y = v1->y - v2->y;
 	result.z = v1->z - v2->z;
 	result.p = v1->p - v2->p;
-
 	return (result);
 }
-
-t_vec4d	subtract_vectors_val(const t_vec4d v1, const t_vec4d v2)
-{
-	return (create_vec4d(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z));
-}
-
-/*
-t_vec4d	cross_pointers(const t_vec4d *v1, const t_vec4d *v2)
-{
-	return (create_vec4d(\
-		v1->y * v2->z - v1->z * v2->y, \
-		v1->z * v2->x - v1->x * v2->z, \
-		v1->x * v2->y - v1->y * v2->x));
-}
-
-t_vec4d	cross_values(t_vec4d v1, t_vec4d v2)
-{
-	return (create_vec4d(\
-		v1.y * v2.z - v1.z * v2.y, \
-		v1.z * v2.x - v1.x * v2.z, \
-		v1.x * v2.y - v1.y * v2.x));
-}
-
-t_vec4d	add_vectors(const t_vec4d *v1, const t_vec4d *v2)
-{
-	return (create_vec4d(v1->x + v2->x, v1->y + v2->y, v1->z + v2->z));
-}
-
-t_vec4d	subtract_points(t_point *p1, t_point *p2)
-{
-	return (create_vec4d(p1->x - p2->x, p1->y - p2->y, p1->z - p2->z));
-}
-
-t_vec4d	subtract_vectors(const t_vec4d *v1, const t_vec4d *v2)
-{
-	return (create_vec4d(v1->x - v2->x, v1->y - v2->y, v1->z - v2->z));
-}
-*/

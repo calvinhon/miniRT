@@ -38,13 +38,5 @@ bool	parse_cube(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	cube->rot = rt_extract_rot_vertical(cube->orientation);
 	cube->inv_transform = get_inv_tranform_mat4d(cube->rot,
 			cube->scale_v, cube->trans);
-	/*
-	cube->inv_transform = mult_n_mat4d(3, &cube->scale, &cube->rot, \
-		&cube->translate);
-	cube->inv_transform = inverse_mat4d(&cube->inv_transform);
-	
-	*/
-
-	//cube->transposed_inverse = transpose_mat4d(&cube->inv_transform);
 	return (true);
 }

@@ -29,10 +29,7 @@ void	intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
 
 	if (!o->specs.closed || fabsf(r->direction.y) < EPSILON)
 		return ;
-	if (fabsf(o->specs.min_y) < EPSILON)
-		radius = 0.f;
-	else
-		radius = 1.f;
+	radius = 1.f;
 	if (is_cone)
 		t = (o->specs.min_y - r->origin.y) / r->direction.y;
 	else
@@ -42,10 +39,6 @@ void	intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
 		xs->arr[xs->count].obj = o;
 		xs->arr[xs->count++].t = t;
 	}
-	if (fabsf(o->specs.max_y) < EPSILON)
-		radius = 0.f;
-	else
-		radius = 1.f;
 	if (is_cone)
 		t = (o->specs.max_y - r->origin.y) / r->direction.y;
 	else
@@ -57,45 +50,27 @@ void	intersect_caps(t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
 	}
 }
 
-void	check_y_values(float *t, t_ray *r, t_object *o, t_itx_grp *xs, bool is_cone)
+void	check_y_values(float *t, t_ray *r, t_object *o, \
+	t_itx_grp *xs)
 {
 	float	y;
 
 	swap(t);
 	y = r->origin.y + t[0] * r->direction.y;
-	if ((y > -1.0f && y < 1.0f && !is_cone) || \
-		(y > o->specs.min_y && y < o->specs.max_y && is_cone))
+	if ((y > -1.0f && y < 1.0f && o->type != 4) || \
+		(y > o->specs.min_y && y < o->specs.max_y && o->type == 4))
 	{
 		xs->arr[xs->count].obj = o;
 		xs->arr[xs->count++].t = t[0];
 	}
 	y = r->origin.y + t[1] * r->direction.y;
-	if ((y > -1.0f && y < 1.0f && !is_cone) || \
-		(y > o->specs.min_y && y < o->specs.max_y && is_cone))
+	if ((y > -1.0f && y < 1.0f && o->type != 4) || \
+		(y > o->specs.min_y && y < o->specs.max_y && o->type == 4))
 	{
 		xs->arr[xs->count].obj = o;
 		xs->arr[xs->count++].t = t[1];
 	}
 }
-
-//void	(float *t, t_ray *r, t_object *o, t_itx_grp *xs)
-//{
-//	float	y;
-
-//	swap(t);
-//	y = r->origin.y + t[0] * r->direction.y;
-//	if (y > o->specs.min_y && y < o->specs.max_y)
-//	{
-//		xs->arr[xs->count].obj = o;
-//		xs->arr[xs->count++].t = t[0];
-//	}
-//	y = r->origin.y + t[1] * r->direction.y;
-//	if (y > o->specs.min_y && y < o->specs.max_y)
-//	{
-//		xs->arr[xs->count].obj = o;
-//		xs->arr[xs->count++].t = t[1];
-//	}
-//}
 
 void	swap(float *t)
 {

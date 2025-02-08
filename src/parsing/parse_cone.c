@@ -17,15 +17,12 @@
 bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 {
 	t_object	*cone;
-	t_point		t;
 	float		height;
 
 	(*i) += 2;
 	cone = minirt->scene.shapes + idx;
 	cone->type = CONE;
-	t = parse_point(data, i);
-	cone->trans = t;
-	cone->translate = translation_mat(t.x, t.y, t.z);
+	cone->trans = parse_point(data, i);
 	cone->orientation = parse_vector(data, i);
 	is_normalised(&cone->orientation, *i, minirt);
 	cone->radius = parse_float(data, i) / 2.0f;
@@ -43,9 +40,5 @@ bool	parse_cone(t_minirt *minirt, char *data, size_t *i, size_t idx)
 			cone->scale_v, cone->trans);
 	cone->specs.min_y = cone->specs.min_y / height;
 	cone->specs.max_y = cone->specs.max_y / height;
-	//cone->inv_transform = mult_n_mat4d(3,
-	//		&cone->rot, &cone->scale, &cone->translate);
-	//cone->inv_transform = inverse_mat4d(&cone->inv_transform);
-	//cone->transposed_inverse = transpose_mat4d(&cone->inv_transform);
 	return (true);
 }

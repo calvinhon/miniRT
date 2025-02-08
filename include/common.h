@@ -107,9 +107,9 @@ typedef struct s_material_colors
 
 typedef struct s_shade_hit
 {
-	t_color lighting_result;
-	t_color reflect;
-	t_color surface;
+	t_color	lighting_result;
+	t_color	reflect;
+	t_color	surface;
 	t_color	refract;
 	t_color	local_ambiance;
 }	t_shade_hit;

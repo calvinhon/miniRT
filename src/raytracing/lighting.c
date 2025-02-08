@@ -13,16 +13,6 @@
 #include "minirt.h"
 #include "colors.h"
 
-t_vec4d	reflect(t_vec4d *in, t_vec4d *normal)
-{
-	float	in_dot_normal;
-	t_vec4d	scaled_vec;
-
-	in_dot_normal = dot_pointers(in, normal);
-	scale_vector(&scaled_vec, normal, 2.f * in_dot_normal);
-	return (subtract_vectors(in, &scaled_vec));
-}
-
 t_color	lighting(t_material *m, t_light *l, t_comps *c, t_color *ambiance)
 {
 	t_color	effective_color;
@@ -85,55 +75,39 @@ t_color	reflected_color(t_scene *s, t_comps *c, int remaining)
 	return (scale_color(&color, c->obj->material.reflective));
 }
 
+static void	compute_lighting(t_scene *s, t_comps *c, t_shade_hit *color)
+{
+	int	i;
+
+	i = -1;
+	while (++i < s->num_lights)
+	{
+		c->shadowed = is_shadowed(s, &c->over_point, &s->lights[i]);
+		if (i == 0)
+			color->local_ambiance = s->ambiance;
+		else
+			color->local_ambiance = create_color(0, 0, 0);
+		color->lighting_result = lighting(&c->obj->material, \
+			&s->lights[i], c, &color->local_ambiance);
+		color->surface = add_colors(2, &color->surface, \
+			&color->lighting_result);
+	}
+}
+
 t_color	shade_hit(t_scene *s, t_comps *c, int remaining)
 {
 	t_shade_hit	color;
-	int			i;
 
 	color.surface = create_color(0, 0, 0);
 	color.reflect = color.surface;
 	color.refract = color.surface;
-	i = -1;
-	while (++i < s->num_lights)
-	{
-		c->shadowed = is_shadowed(s, &c->over_point, &s->lights[i]);
-		if (!i)
-			color.local_ambiance = s->ambiance;
-		else
-			color.local_ambiance = create_color(0, 0, 0);
-		color.lighting_result = lighting(&c->obj->material,
-								   &s->lights[i], c, &color.local_ambiance);
-		color.surface = add_colors(2, &color.surface, &color.lighting_result);
-	}
-	if (c->obj->material.transparency && s->refract)
-		color.surface = scale_color(&color.surface, 1 - c->obj->material.transparency);
-	if (c->obj->material.reflective && s->fr_fl)
+	compute_lighting(s, c, &color);
+	if (s->refract && c->obj->material.transparency)
+		color.surface = scale_color(&color.surface, \
+			1 - c->obj->material.transparency);
+	if (s->fr_fl && c->obj->material.reflective)
 		color.reflect = reflected_color(s, c, remaining);
-	if (c->obj->material.refractive && s->refract)
+	if (s->refract && c->obj->material.refractive)
 		color.refract = refracted_color(s, c, remaining);
 	return (add_colors(3, &color.surface, &color.reflect, &color.refract));
-
-/*
-	t_color	lighting_result;
-	t_color	reflect;
-	t_color	surface;
-	int		i;
-
-	surface = create_color(0, 0, 0);
-	reflect = surface;
-	i = -1;
-	while (++i < s->num_lights)
-	{
-		c->shadowed = is_shadowed(s, &c->over_point, &s->lights[i]);
-		if (i > 0)
-			s->ambiance = create_color(0, 0, 0);
-		lighting_result = lighting(&c->obj->material, \
-			&s->lights[i], c, &s->ambiance);
-		surface = add_colors(2, &surface, &lighting_result);
-	}
-	if (c->obj->material.reflective && s->fr_fl)
-		reflect = reflected_color(s, c, remaining);
-	return (add_colors(2, &surface, &reflect));
-*/
-
 }

@@ -28,17 +28,12 @@ bool	parse_sphere(t_minirt *minirt, char *data, size_t *i, size_t idx)
 	sphere->radius = parse_float(data, i) / 2.f;
 	sphere->material.color = parse_color(data, i, minirt);
 	set_material(&sphere->material, data, i, minirt);
-	sphere->scale_v = create_vec4d(sphere->radius, sphere->radius, sphere->radius);
+	sphere->scale_v = create_vec4d(sphere->radius, \
+		sphere->radius, sphere->radius);
 	sphere->scale_v.p = 1.f;
 	sphere->scale = scaling_mat(sphere->radius, sphere->radius, sphere->radius);
 	sphere->rot = identity_mat();
-	/*
-	sphere->inv_transform = mult_n_mat4d(3, &sphere->rot, &sphere->scale, \
-		&sphere->translate);
-	*/
-	//sphere->inv_transform = inverse_mat4d(&sphere->inv_transform);
 	sphere->inv_transform = get_inv_tranform_mat4d(sphere->rot, \
 		sphere->scale_v, sphere->trans);
-	//sphere->transposed_inverse = transpose_mat4d(&sphere->inv_transform);
 	return (true);
 }

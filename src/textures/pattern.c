@@ -26,7 +26,6 @@ t_color	calculate_color(t_pattern *pat, t_point *pat_pt, float noise)
 	t_color	color;
 
 	color = pat->a;
-
 	if ((pat->type == STRIPED && (int)floorf(pat_pt->x) % 2) || \
 		(pat->type == RING && (int)floorf(sqrtf(pat_pt->x * pat_pt->x + \
 		pat_pt->z * pat_pt->z)) % 2) || \

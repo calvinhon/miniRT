@@ -27,12 +27,12 @@ t_color	refracted_color(t_scene *s, t_comps *c, int remaining)
 	if (r.sin2_t > 1)
 		return (create_color(0, 0, 0));
 	r.cos_t = sqrt(1 - r.sin2_t);
-	dir = subtract_vectors_val(
-		scale_vector_re(&c->normal_v, r.n_ratio * r.cos_i - r.cos_t), 
+	dir = subtract_vectors_val(\
+		scale_vector_re(&c->normal_v, r.n_ratio * r.cos_i - r.cos_t), \
 		scale_vector_re(&c->eye_v, r.n_ratio));
 	ray = create_ray(&c->under_point, &dir);
 	color = color_at(s, &ray, remaining - 1);
-	return (scale_color(&color,	c->obj->material.transparency));
+	return (scale_color(&color, c->obj->material.transparency));
 }
 
 bool	is_container(t_list **containers, t_object *o)
@@ -66,6 +66,7 @@ bool	is_ordered(t_itx_grp *xs)
 
 	i = -1;
 	while (++i < xs->count - 1)
+	{
 		if (xs->arr[i].t > xs->arr[i + 1].t)
 		{
 			temp_itx = xs->arr[i];
@@ -73,6 +74,7 @@ bool	is_ordered(t_itx_grp *xs)
 			xs->arr[i + 1] = temp_itx;
 			return (0);
 		}
+	}
 	return (1);
 }
 
@@ -118,13 +120,13 @@ void	prepare_refractions(t_itx_grp *xs, t_itx **itx)
 		if (xs->arr[i].obj->material.refractive)
 		{
 			if (s)
-				xs->arr[i].n1 =
-					((t_object *)(ft_lstlast(s)->content))->material.refractive;
+				xs->arr[i].n1 = ((t_object *)(ft_lstlast(s)->content)) \
+					->material.refractive;
 			if (!s || !is_container(&s, xs->arr[i].obj))
 				ft_lstadd_back(&s, ft_lstnew(xs->arr[i].obj));
 			if (s)
-				xs->arr[i].n2 =
-					((t_object *)(ft_lstlast(s)->content))->material.refractive;
+				xs->arr[i].n2 = ((t_object *)(ft_lstlast(s)->content)) \
+					->material.refractive;
 			if (xs->arr[i].obj->type == PLANE && ft_lstsize(s) == 1)
 				ft_lstclear(&s, NULL);
 		}

@@ -33,9 +33,6 @@ static inline void	_move_sideways_check(t_minirt *minirt, bool *state_changed)
 		selected_object->trans.x += scaled_left.x;
 		selected_object->trans.y += scaled_left.y;
 		selected_object->trans.z += scaled_left.z;
-		selected_object->translate.matrix[3] += scaled_left.x;
-		selected_object->translate.matrix[7] += scaled_left.y;
-		selected_object->translate.matrix[11] += scaled_left.z;
 		*state_changed = true;
 	}
 	if (minirt->move.d)
@@ -43,9 +40,6 @@ static inline void	_move_sideways_check(t_minirt *minirt, bool *state_changed)
 		selected_object->trans.x -= scaled_left.x;
 		selected_object->trans.y -= scaled_left.y;
 		selected_object->trans.z -= scaled_left.z;
-		selected_object->translate.matrix[3] -= scaled_left.x;
-		selected_object->translate.matrix[7] -= scaled_left.y;
-		selected_object->translate.matrix[11] -= scaled_left.z;
 		*state_changed = true;
 	}
 }
@@ -69,9 +63,6 @@ static inline void	_move_longitudinally_check(t_minirt *minirt, \
 		selected_object->trans.x += viewport_forward.x;
 		selected_object->trans.y += viewport_forward.y;
 		selected_object->trans.z += viewport_forward.z;
-		selected_object->translate.matrix[3] += viewport_forward.x;
-		selected_object->translate.matrix[7] += viewport_forward.y;
-		selected_object->translate.matrix[11] += viewport_forward.z;
 		*state_changed = true;
 	}
 	if (minirt->move.s)
@@ -79,9 +70,6 @@ static inline void	_move_longitudinally_check(t_minirt *minirt, \
 		selected_object->trans.x -= viewport_forward.x;
 		selected_object->trans.y -= viewport_forward.y;
 		selected_object->trans.z -= viewport_forward.z;
-		selected_object->translate.matrix[3] -= viewport_forward.x;
-		selected_object->translate.matrix[7] -= viewport_forward.y;
-		selected_object->translate.matrix[11] -= viewport_forward.z;
 		*state_changed = true;
 	}
 }
