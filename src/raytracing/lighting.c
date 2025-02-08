@@ -102,12 +102,12 @@ t_color	shade_hit(t_scene *s, t_comps *c, int remaining)
 	color.reflect = color.surface;
 	color.refract = color.surface;
 	compute_lighting(s, c, &color);
+	if (s->fr_fl && c->obj->material.reflective)
+		color.reflect = reflected_color(s, c, remaining);	
 	if (s->refract && c->obj->material.transparency)
 		color.surface = scale_color(&color.surface, \
 			1 - c->obj->material.transparency);
-	if (s->fr_fl && c->obj->material.reflective)
-		color.reflect = reflected_color(s, c, remaining);
-	if (s->refract && c->obj->material.refractive)
+	if (s->refract && c->obj->material.refractive) \
 		color.refract = refracted_color(s, c, remaining);
 	return (add_colors(3, &color.surface, &color.reflect, &color.refract));
 }

@@ -6,13 +6,13 @@
 #    By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/29 08:55:08 by chon              #+#    #+#              #
-#    Updated: 2025/02/08 16:27:54 by honguyen         ###   ########.fr        #
+#    Updated: 2025/02/08 17:16:55 by honguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC := cc
+CC := gcc #cc
 BONUS ?= 0
-CFLAGS = -Wextra -Wall -Werror -g -fsanitize=address
+CFLAGS = -Wextra -Wall -Werror -g #-fsanitize=address
 INCLUDES = -Iinclude -I$(MLX_DIR) -Ilibs/libft
 
 OS := $(shell uname)
