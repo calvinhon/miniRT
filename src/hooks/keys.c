@@ -18,12 +18,12 @@ static void	record_r(t_minirt *minirt, int keycode)
 	if (keycode == KEY_F)
 	{
 		minirt->scene.refract ^= true;
-		ft_printf("Toggle refract(ON/OFF):%d\n", minirt->scene.refract);
+		ft_printf("Toggle refract (ON/OFF):%d\n", minirt->scene.refract);
 	}
 	if (keycode == KEY_R)
 	{
-		minirt->scene.fr_fl ^= true;
-		ft_printf("Toggle reflecting (ON/OFF):%d\n", minirt->scene.fr_fl);
+		minirt->scene.reflect ^= true;
+		ft_printf("Toggle reflect (ON/OFF):%d\n", minirt->scene.reflect);
 	}
 }
 
