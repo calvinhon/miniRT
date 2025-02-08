@@ -64,7 +64,13 @@ t_comps	prepare_computations(t_itx *itx, t_ray *r, t_itx_grp *xs)
 	scale_vector(&margin, &comps.normal_v, bump);
 	comps.over_point = add_v_to_p(&comps.p, &margin);
 	comps.reflect_v = reflect(&r->direction, &comps.normal_v);
-	(void)xs;
+	if (itx->obj->material.refractive > 0.f)
+	{
+		comps.under_point = subtract_v_from_p(&comps.p, &margin);
+		prepare_refractions(xs, &itx);
+		comps.n1 = itx->n1;
+		comps.n2 = itx->n2;
+	}
 	return (comps);
 }
 
@@ -90,7 +96,7 @@ t_color	render_pixel(t_minirt *program, int x, int y)
 	t_color	c;
 
 	r = cam_ray_to_pixel(&program->cam, x, y);
-	c = color_at(&program->scene, &r, MAX_RFLX);
+	c = color_at(&program->scene, &r, MAX_RFLX_RFRCT);
 	put_pixel(&program->frame, x, y, &c);
 	return (c);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:35:57 by chon              #+#    #+#             */
-/*   Updated: 2025/01/30 18:38:42 by chon             ###   ########.fr       */
+/*   Updated: 2025/02/08 19:42:44 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ t_vec4d	cylinder_normal_at(t_object *o, t_point *wrld_p)
 	float	dist;
 
 	obj_p = mult_mat4d_pt4d(&o->inv_transform, wrld_p);
-	dist = obj_p.x * obj_p.x + obj_p.z * obj_p.z;
-	if (dist < 1 && obj_p.y >= 1.0f - EPSILON)
+	dist = pow(obj_p.x, 2) + pow(obj_p.z, 2);
+	if (dist < 1 && obj_p.y >= o->specs.max_y - EPSILON)
 		obj_normal = create_vec4d(0, 1, 0);
-	else if (dist < 1 && obj_p.y <= -1.0f + EPSILON)
+	else if (dist < 1 && obj_p.y <= o->specs.min_y + EPSILON)
 		obj_normal = create_vec4d(0, -1, 0);
 	else
 		obj_normal = create_vec4d(obj_p.x, 0, obj_p.z);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: honguyen <honguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:53:43 by honguyen          #+#    #+#             */
-/*   Updated: 2025/01/28 09:27:06 by chon             ###   ########.fr       */
+/*   Updated: 2025/02/08 20:21:54 by honguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,11 @@
 # define LIGHTS_MAX 100
 # define SHAPES_MAX 100
 
-# define STEP_SKIP 2
+# define STEP_SKIP 1
 # define INTP_THRES 20
 
-# ifndef MAX_RFLX
-#  define MAX_RFLX 4
-# endif
-
-# ifndef SPOTLIGHT_FALLOFF
-#  define SPOTLIGHT_FALLOFF 2.0f
+# ifndef MAX_RFLX_RFRCT
+#  define MAX_RFLX_RFRCT 4
 # endif
 
 # define _RT_NUM_THREADS 8
@@ -37,8 +33,8 @@
 # define _RT_MIN_INTENSITY 0.05f
 
 # define MOVE_SPEED 0.2f
-# define PITCH_SPEED 0.1f
-# define YAW_SPEED 0.1f
+# define PITCH_SPEED 0.05f
+# define YAW_SPEED 0.05f
 
 # ifdef __MACH__
 #  undef OS_MACOS
