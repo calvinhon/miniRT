@@ -21,7 +21,7 @@ t_itx	*get_hit(t_itx_grp *xs)
 
 	i = -1;
 	itx = NULL;
-	t0 = FLT_MAX;
+	t0 = 3.402823466e+38;
 	while (++i < xs->count)
 	{
 		if (xs->arr[i].t < t0 && xs->arr[i].t > EPSILON)
