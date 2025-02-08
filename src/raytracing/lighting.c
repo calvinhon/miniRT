@@ -109,5 +109,6 @@ t_color	shade_hit(t_scene *s, t_comps *c, int remaining)
 		color.reflect = reflected_color(s, c, remaining);
 	if (s->refract && c->obj->material.refractive)
 		color.refract = refracted_color(s, c, remaining);
+	// printf("refract: %.2f %.2f %.2f\n", color.refract.r, color.refract.g, color.refract.b);
 	return (add_colors(3, &color.surface, &color.reflect, &color.refract));
 }

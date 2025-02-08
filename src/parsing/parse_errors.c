@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chon <chon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 12:38:59 by nth               #+#    #+#             */
-/*   Updated: 2025/01/14 18:20:36 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/08 16:43:47 by chon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "minirt.h"
 #include "libft.h"
 
 static bool	count_elements(t_minirt *minirt, char *line)

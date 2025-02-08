@@ -31,7 +31,9 @@ t_color	refracted_color(t_scene *s, t_comps *c, int remaining)
 		scale_vector_re(&c->normal_v, r.n_ratio * r.cos_i - r.cos_t), \
 		scale_vector_re(&c->eye_v, r.n_ratio));
 	ray = create_ray(&c->under_point, &direction);
+	// printf("direction: %.2f %.2f %.2f\n", direction.x, direction.y, direction.z);
 	color = color_at(s, &ray, remaining - 1);
+	// printf("refract: %.2f %.2f %.2f\n", color.r, color.g, color.b);
 	return (scale_color(&color, c->obj->material.transparency));
 }
 
